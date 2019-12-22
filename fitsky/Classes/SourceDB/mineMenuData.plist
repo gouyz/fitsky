@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>title</key>
+		<string>申请认证</string>
+		<key>image</key>
+		<string>app_icon_user_upgrade</string>
+		<key>controller</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>我的积分</string>
+		<key>image</key>
+		<string>app_icon_integral</string>
+		<key>controller</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>我的设置</string>
+		<key>image</key>
+		<string>app_icon_set</string>
+		<key>controller</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>帮助与关于</string>
+		<key>image</key>
+		<string>app_icon_about</string>
+		<key>controller</key>
+		<string></string>
+	</dict>
+</array>
+</plist>

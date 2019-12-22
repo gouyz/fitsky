@@ -1,0 +1,66 @@
+use_frameworks!
+platform :ios, "8.0"
+
+target 'fitsky' do
+
+pod 'SnapKit', '~> 4.2.0' ## 自动布局 https://github.com/SnapKit/SnapKit
+pod 'Alamofire', '~> 4.7.3' ## 网络请求, swift版的AFN  https://github.com/Alamofire/Alamofire
+pod 'Kingfisher', '~> 4.10.0' ## 轻量级的SDWebImage https://github.com/onevcat/Kingfisher
+
+pod 'SwiftyJSON'  ##JSON 解析类 https://github.com/SwiftyJSON/SwiftyJSON
+pod 'MJRefresh'    #快速集成下拉刷新、上拉更多 https://github.com/CoderMJLee/MJRefresh
+pod 'IQKeyboardManagerSwift' ## #解决键盘弹起遮挡 https://github.com/hackiftekhar/IQKeyboardManager
+pod 'MBProgressHUD', '~> 1.1.0' # 实现多种加载效果 https://github.com/jdg/MBProgressHUD
+
+pod 'Cosmos', '~> 19.0.3' # 星星评分 https://github.com/marketplacer/Cosmos
+
+pod 'DKImagePickerController' #图片选择器 https://github.com/zhangao0086/DKImagePickerController
+pod 'SKPhotoBrowser' #图片浏览器 https://github.com/suzuki-0000/SKPhotoBrowser
+pod 'PYSearch'  # 搜索框 https://github.com/ko1o/PYSearch
+pod 'CRBoxInputView', '~> 1.1.0' #短信验证码输入框，支持密文模式 https://github.com/CRAnimation/CRBoxInputView
+pod 'JXPagingView/Paging' #类似微博主页、简书主页等效果。多页面嵌套，既可以上下滑动，也可以左右滑动切换页面。支持HeaderView悬浮、支持下拉刷新、上拉加载更多 https://github.com/pujiaxin33/JXPagingView
+pod 'JXSegmentedView' #所有主流APP分类切换滚动视图 https://github.com/pujiaxin33/JXSegmentedView
+pod 'TTGTagCollectionView' #标签流显示控件，同时支持文字或自定义View  https://github.com/zekunyan/TTGTagCollectionView
+pod 'YBPopupMenu', '~> 1.1.2' #快速集成popupMenu https://github.com/lyb5834/YBPopupMenu
+pod 'FSCalendar'  #FSCalendar是一款开源iOS日历控件，支持横向、纵向滑动模式，全屏模式，带有子标题、事件设置等功能 https://github.com/WenchaoD/FSCalendar
+#pod 'JPush'  #极光推送
+#pod 'WechatOpenSDK' #微信SDK
+
+#pod 'JMessage' #极光IM
+
+pod 'CryptoSwift' #swift加密库, 支持md5,sha1,sha224,sha256 https://github.com/krzyzanowskim/CryptoSwift
+
+### 支持定制任何播放器SDK和控制层https://github.com/renzifeng/ZFPlayer
+pod 'FDFullscreenPopGesture'
+pod 'ZFPlayer'
+pod 'ZFPlayer/ControlView'
+pod 'ZFPlayer/AVPlayer'
+
+### 高德地图API
+#pod 'AMap3DMap-NO-IDFA'#3D地图 SDK
+#pod 'AMapLocation-NO-IDFA'#地图定位 SDK
+#pod 'AMapSearch-NO-IDFA' #地图 SDK搜索功能 无广告版本
+
+pod 'AlipaySDK-iOS' ## 支付宝SDK
+pod 'WechatOpenSDK' ## 微信SDK
+
+### 融云IM
+pod 'RongCloudIM/IMLib', '~> 2.9.25'
+pod 'RongCloudIM/IMKit', '~> 2.9.25'
+
+
+### 个推无 IFDA 版本
+pod 'GTSDK', '~> 2.4.1.0-noidfa'
+
+### 阿里云短视频 标准版
+#pod 'AliyunVideoSDKStd', '3.13.0'
+#pod 'QuCore-ThirdParty', '3.10.0'
+#pod 'AlivcConan', '1.0.1'
+#pod 'VODUpload'
+#pod 'AliyunOSSiOS'
+
+pod 'FMDB',:git => 'https://github.com/ccgus/fmdb.git',:tag => '2.7'
+pod 'JSONModel','~> 1.7.0'
+
+end
+
