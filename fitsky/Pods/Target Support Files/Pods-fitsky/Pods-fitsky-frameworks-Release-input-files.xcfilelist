@@ -1,5 +1,8 @@
 ${PODS_ROOT}/Target Support Files/Pods-fitsky/Pods-fitsky-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${PODS_ROOT}/AlivcConan/AlivcConan.framework
+${BUILT_PRODUCTS_DIR}/AliyunOSSiOS/AliyunOSSiOS.framework
+${PODS_ROOT}/AliyunVideoSDKStd/frameworks/AliyunVideoSDKPro.framework
 ${BUILT_PRODUCTS_DIR}/CRBoxInputView/CRBoxInputView.framework
 ${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework
 ${BUILT_PRODUCTS_DIR}/CropViewController/CropViewController.framework
@@ -20,6 +23,7 @@ ${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework
 ${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework
 ${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework
 ${BUILT_PRODUCTS_DIR}/PYSearch/PYSearch.framework
+${PODS_ROOT}/QuCore-ThirdParty/frameworks/alivcffmpeg.framework
 ${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
 ${BUILT_PRODUCTS_DIR}/SDWebImageFLPlugin/SDWebImageFLPlugin.framework
 ${BUILT_PRODUCTS_DIR}/SKPhotoBrowser/SKPhotoBrowser.framework

@@ -1,6 +1,18 @@
 PODS:
   - Alamofire (4.7.3)
   - AlipaySDK-iOS (15.5.9)
+  - AlivcConan (1.0.1):
+    - AlivcConan/AlivcConan (= 1.0.1)
+  - AlivcConan/AlivcConan (1.0.1)
+  - AliyunOSSiOS (2.10.7)
+  - AliyunVideoSDKStd (3.13.0)
+  - AMap3DMap-NO-IDFA (7.1.0):
+    - AMapFoundation-NO-IDFA (~> 1.5)
+  - AMapFoundation-NO-IDFA (1.6.1)
+  - AMapLocation-NO-IDFA (2.6.4):
+    - AMapFoundation-NO-IDFA (~> 1.6.1)
+  - AMapSearch-NO-IDFA (7.1.0):
+    - AMapFoundation-NO-IDFA (~> 1.4)
   - Cosmos (19.0.3)
   - CRBoxInputView (1.1.2):
     - Masonry
@@ -71,6 +83,7 @@ PODS:
   - MBProgressHUD (1.1.0)
   - MJRefresh (3.2.0)
   - PYSearch (0.9.1)
+  - QuCore-ThirdParty (3.10.0)
   - RongCloudIM/IMKit (2.9.25):
     - RongCloudIM/IMLib
   - RongCloudIM/IMLib (2.9.25)
@@ -84,6 +97,8 @@ PODS:
   - SnapKit (4.2.0)
   - SwiftyJSON (5.0.0)
   - TTGTagCollectionView (1.11.1)
+  - VODUpload (1.5.3):
+    - AliyunOSSiOS
   - WechatOpenSDK (1.8.4)
   - YBPopupMenu (1.1.2)
   - ZFPlayer (3.2.13):
@@ -97,6 +112,12 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.7.3)
   - AlipaySDK-iOS
+  - AlivcConan (= 1.0.1)
+  - AliyunOSSiOS
+  - AliyunVideoSDKStd (= 3.13.0)
+  - AMap3DMap-NO-IDFA
+  - AMapLocation-NO-IDFA
+  - AMapSearch-NO-IDFA
   - Cosmos (~> 19.0.3)
   - CRBoxInputView (~> 1.1.0)
   - CryptoSwift
@@ -113,12 +134,14 @@ DEPENDENCIES:
   - MBProgressHUD (~> 1.1.0)
   - MJRefresh
   - PYSearch
+  - QuCore-ThirdParty (= 3.10.0)
   - RongCloudIM/IMKit (~> 2.9.25)
   - RongCloudIM/IMLib (~> 2.9.25)
   - SKPhotoBrowser
   - SnapKit (~> 4.2.0)
   - SwiftyJSON
   - TTGTagCollectionView
+  - VODUpload
   - WechatOpenSDK
   - YBPopupMenu (~> 1.1.2)
   - ZFPlayer
@@ -129,6 +152,13 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlipaySDK-iOS
+    - AlivcConan
+    - AliyunOSSiOS
+    - AliyunVideoSDKStd
+    - AMap3DMap-NO-IDFA
+    - AMapFoundation-NO-IDFA
+    - AMapLocation-NO-IDFA
+    - AMapSearch-NO-IDFA
     - Cosmos
     - CRBoxInputView
     - CropViewController
@@ -149,6 +179,7 @@ SPEC REPOS:
     - MBProgressHUD
     - MJRefresh
     - PYSearch
+    - QuCore-ThirdParty
     - RongCloudIM
     - SDWebImage
     - SDWebImageFLPlugin
@@ -156,6 +187,7 @@ SPEC REPOS:
     - SnapKit
     - SwiftyJSON
     - TTGTagCollectionView
+    - VODUpload
     - WechatOpenSDK
     - YBPopupMenu
     - ZFPlayer
@@ -173,6 +205,13 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   AlipaySDK-iOS: 1c5283b30977a24acecc0114662697f7dc78f618
+  AlivcConan: b7c002bc3f27db31b003255e2af7bab464f0690a
+  AliyunOSSiOS: 602b6a4e70e62a5f0a6431c20496343141d7e66f
+  AliyunVideoSDKStd: 34947fdc64b52c9542b29eb4a90a48e8afebf83c
+  AMap3DMap-NO-IDFA: 93a9dfb7571d33156668a4428141c6aaa80edd80
+  AMapFoundation-NO-IDFA: f2e353c14d755cab33601dc298be22c29c01df99
+  AMapLocation-NO-IDFA: 9e1c2c0f5df43a77caf2f97bc599f4eea3cc6856
+  AMapSearch-NO-IDFA: 439cf79b729210a33431cfa65995b59184d0f388
   Cosmos: a6fb17284281fa12cf4c85c2efecd440a215ec44
   CRBoxInputView: d30722aae74237ee07fc8b79c6a9c22604acf8e6
   CropViewController: 10ba7af75e302f2db7eb913f8aa1156f95cfe88e
@@ -194,6 +233,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
   PYSearch: 76dee18eea3309b60921a5d6a69390a63a5dda15
+  QuCore-ThirdParty: 60a6f08864631569569fa1e2c6208a7746698923
   RongCloudIM: cd6836aa86fbf6c02f7b6b5c895ea4caa894d67f
   SDWebImage: fb387001955223213dde14bc08c8b73f371f8d8f
   SDWebImageFLPlugin: cf3f4ae49f249dd785129346fd61bbc8433a88cf
@@ -201,10 +241,11 @@ SPEC CHECKSUMS:
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   TTGTagCollectionView: 86fcbfa6a7493c9e860b01c2e693cffc8acf6de1
+  VODUpload: a76d07081e4faf9bd9e7535265901cde2cea507f
   WechatOpenSDK: 9b721089507c895d05f997408c30bb6e6f5f9b60
   YBPopupMenu: 6efb286385d95ba5f97c58b8464ec873645e8764
   ZFPlayer: b2ba40c924e1b9a7f0a670632c4235ffbe6ee055
 
-PODFILE CHECKSUM: a9f79327538752fff97d32416bd7c7d18095b5ac
+PODFILE CHECKSUM: 08e4d3d92a85b0d520655dde7817278d044fb357
 
 COCOAPODS: 1.7.5

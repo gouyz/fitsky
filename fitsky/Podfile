@@ -37,9 +37,9 @@ pod 'ZFPlayer/ControlView'
 pod 'ZFPlayer/AVPlayer'
 
 ### 高德地图API
-#pod 'AMap3DMap-NO-IDFA'#3D地图 SDK
-#pod 'AMapLocation-NO-IDFA'#地图定位 SDK
-#pod 'AMapSearch-NO-IDFA' #地图 SDK搜索功能 无广告版本
+pod 'AMap3DMap-NO-IDFA'#3D地图 SDK
+pod 'AMapLocation-NO-IDFA'#地图定位 SDK
+pod 'AMapSearch-NO-IDFA' #地图 SDK搜索功能 无广告版本
 
 pod 'AlipaySDK-iOS' ## 支付宝SDK
 pod 'WechatOpenSDK' ## 微信SDK
@@ -53,11 +53,11 @@ pod 'RongCloudIM/IMKit', '~> 2.9.25'
 pod 'GTSDK', '~> 2.4.1.0-noidfa'
 
 ### 阿里云短视频 标准版
-#pod 'AliyunVideoSDKStd', '3.13.0'
-#pod 'QuCore-ThirdParty', '3.10.0'
-#pod 'AlivcConan', '1.0.1'
-#pod 'VODUpload'
-#pod 'AliyunOSSiOS'
+pod 'AliyunVideoSDKStd', '3.13.0'
+pod 'QuCore-ThirdParty', '3.10.0'
+pod 'AlivcConan', '1.0.1'
+pod 'VODUpload'
+pod 'AliyunOSSiOS'
 
 pod 'FMDB',:git => 'https://github.com/ccgus/fmdb.git',:tag => '2.7'
 pod 'JSONModel','~> 1.7.0'
