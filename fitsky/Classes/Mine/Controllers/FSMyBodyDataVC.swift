@@ -167,22 +167,22 @@ extension FSMyBodyDataVC: UITableViewDelegate,UITableViewDataSource{
         if dataModel != nil {
             switch indexPath.row {
             case 0:
-                cell.contentLab.text = (dataModel?.height)! + " cm"
+                cell.contentLab.text = dataModel?.height_text
             case 1:
-                cell.contentLab.text = (dataModel?.weight)! + " kg"
+                cell.contentLab.text = dataModel?.weight_text
             case 2:
                 cell.rightIconView.isHidden = true
-                cell.contentLab.text = dataModel?.bmi
+                cell.contentLab.text = dataModel?.bmi_text
             case 3:
-                cell.contentLab.text = (dataModel?.bust)! + " cm"
+                cell.contentLab.text = dataModel?.bust_text
             case 4:
-                cell.contentLab.text = (dataModel?.waistline)! + " cm"
+                cell.contentLab.text = dataModel?.waistline_text
             case 5:
-                cell.contentLab.text = (dataModel?.hipline)! + " cm"
+                cell.contentLab.text = dataModel?.hipline_text
             case 6:
-                cell.contentLab.text = (dataModel?.resting_heart_rate)! + " bpm"
+                cell.contentLab.text = dataModel?.resting_heart_rate_text
             case 7:
-                cell.contentLab.text = (dataModel?.max_heart_rate)! + " bpm"
+                cell.contentLab.text = dataModel?.max_heart_rate_text
             default:
                 break
             }

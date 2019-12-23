@@ -53,6 +53,11 @@ class FSMineVC: GYZWhiteNavBaseVC {
             self.dealOperator(index: index)
         }
         
+//        requestMineInfo()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         requestMineInfo()
     }
     lazy var tableView : UITableView = {

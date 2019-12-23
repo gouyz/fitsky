@@ -202,7 +202,7 @@ extension FSSelectTopicVC: UITableViewDelegate,UITableViewDataSource{
         
         let model = dataList[indexPath.row]
         cell.nameLab.text = model.title
-        cell.desLab.text = model.dynamic_count_text! + " " + model.read_count_text!
+        cell.desLab.text = model.hot_count_text
         
         cell.selectionStyle = .none
         return cell

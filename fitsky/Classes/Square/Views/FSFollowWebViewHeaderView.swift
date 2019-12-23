@@ -86,7 +86,7 @@ class FSFollowWebViewHeaderView: UITableViewHeaderFooterView {
         
         webView.snp.makeConstraints { (make) in
             make.top.left.right.equalTo(contentView)
-            make.height.equalTo(0)
+//            make.height.equalTo(0)
             make.bottom.equalTo(imgViews.snp.top).offset(-kMargin)
         }
         imgViews.snp.makeConstraints { (make) in

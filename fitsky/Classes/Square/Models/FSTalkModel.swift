@@ -68,6 +68,10 @@ class FSTalkModel: LHSBaseModel {
     var member_count : String? = "0"
     /// 活跃度
     var activity_count : String? = "0"
+    /// 热度数
+    var hot_count : String? = "0"
+    /// 热度数 热度1.99万
+    var hot_count_text : String? = ""
     ///
     var _id : String? = ""
     /// 分类名称

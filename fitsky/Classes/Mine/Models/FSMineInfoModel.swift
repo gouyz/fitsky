@@ -58,6 +58,8 @@ class FSMineCountModel: LHSBaseModel {
     var message : String? = "0"
     /// 收藏数
     var collect : String? = "0"
+    /// 粉丝红点0不显示1显示
+    var is_news_fans : String? = "0"
     
 }
 /// 我的 打卡日历
@@ -115,4 +117,21 @@ class FSMineHealthModel: LHSBaseModel {
     var resting_heart_rate : String? = "0"
     /// 最大息率
     var max_heart_rate : String? = "0"
+    
+    /// 身高cm
+    var height_text : String? = "0"
+    /// 体重kg
+    var weight_text : String? = "0"
+    /// BMI=体重(kg)/身高^2(m)，是衡量胖瘦的标准
+    var bmi_text : String? = "0"
+    /// 胸围
+    var bust_text : String? = "0"
+    /// 腰围
+    var waistline_text : String? = "0"
+    /// 臀围
+    var hipline_text : String? = "0"
+    /// 静息心率
+    var resting_heart_rate_text : String? = "0"
+    /// 最大息率
+    var max_heart_rate_text : String? = "0"
 }

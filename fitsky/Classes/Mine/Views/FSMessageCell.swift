@@ -55,7 +55,6 @@ class FSMessageCell: UITableViewCell {
     /// 图片tag
     lazy var tagImgView : UIImageView = {
         let imgView = UIImageView()
-        imgView.cornerRadius = 18
         imgView.contentMode = .scaleAspectFill
         imgView.clipsToBounds = true
         imgView.isUserInteractionEnabled = true
