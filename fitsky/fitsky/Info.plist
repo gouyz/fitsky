@@ -117,7 +117,6 @@
 	<string>用于动态、作品等发布照片或上传照片</string>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>location</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

@@ -8038,6 +8038,23 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		007CC04287C08191F772102D8FEDF50C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EE530A8AEC6A1D0EF48D4C44EB6D1826 /* DKImagePickerController.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/DKImagePickerController";
+				IBSC_MODULE = DKImagePickerController;
+				INFOPLIST_FILE = "Target Support Files/DKImagePickerController/ResourceBundle-DKImagePickerController-DKImagePickerController-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = DKImagePickerController;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
 		07E1F28B8AD6C8F07EE6F7727E39E4E5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C37A2CD6EBB9C4725EAC9E5CAB5E5382 /* MBProgressHUD.xcconfig */;
@@ -8107,22 +8124,6 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		0D0E26C00883D8CB38B27FBB27D1B32D /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1D7A61DBFF0465F84964404F9F62FB96 /* CropViewController.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/CropViewController";
-				INFOPLIST_FILE = "Target Support Files/CropViewController/ResourceBundle-TOCropViewControllerBundle-CropViewController-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_NAME = TOCropViewControllerBundle;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
 		};
@@ -8197,6 +8198,23 @@
 			};
 			name = Debug;
 		};
+		1159AAD9EEBD72E4AA824E6C47AEF3B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EE530A8AEC6A1D0EF48D4C44EB6D1826 /* DKImagePickerController.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/DKImagePickerController";
+				IBSC_MODULE = DKImagePickerController;
+				INFOPLIST_FILE = "Target Support Files/DKImagePickerController/ResourceBundle-DKImagePickerController-DKImagePickerController-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = DKImagePickerController;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
 		13C64A66112D6BCC994336CC0DD92333 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E3ECC4C2044ED784774DCEF7CEB3F7DA /* SDWebImage.xcconfig */;
@@ -8267,12 +8285,13 @@
 			};
 			name = Debug;
 		};
-		1DA4D2DBC1A2C6675A93ED59CB53746C /* Release */ = {
+		1820F2C29B8FB183EDAC73E9AB350757 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 181C9D264983598C767C18E7BA3F9525 /* DKPhotoGallery.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/DKPhotoGallery";
+				IBSC_MODULE = DKPhotoGallery;
 				INFOPLIST_FILE = "Target Support Files/DKPhotoGallery/ResourceBundle-DKPhotoGallery-DKPhotoGallery-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = DKPhotoGallery;
@@ -8281,7 +8300,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = bundle;
 			};
-			name = Release;
+			name = Debug;
 		};
 		1FD6FAEB5F5493EC7CB98C881DD9E577 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -8858,22 +8877,6 @@
 			};
 			name = Release;
 		};
-		47DD311EF98901A54EFAD3B50B4BE3CE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 181C9D264983598C767C18E7BA3F9525 /* DKPhotoGallery.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/DKPhotoGallery";
-				INFOPLIST_FILE = "Target Support Files/DKPhotoGallery/ResourceBundle-DKPhotoGallery-DKPhotoGallery-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_NAME = DKPhotoGallery;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
 		4868CBFFA77FA7A2EBBFDBCE0245E8D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 950D3AA40B90D8584D04D17FCE7D254A /* AliyunVideoSDKStd.xcconfig */;
@@ -9018,6 +9021,23 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		4C78EE8B1B620C9EA517A762983583CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D7A61DBFF0465F84964404F9F62FB96 /* CropViewController.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/CropViewController";
+				IBSC_MODULE = CropViewController;
+				INFOPLIST_FILE = "Target Support Files/CropViewController/ResourceBundle-TOCropViewControllerBundle-CropViewController-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = TOCropViewControllerBundle;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
 		};
@@ -9303,22 +9323,6 @@
 			};
 			name = Release;
 		};
-		6D81B25E7FF056080234FF4A3DD99268 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = EE530A8AEC6A1D0EF48D4C44EB6D1826 /* DKImagePickerController.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/DKImagePickerController";
-				INFOPLIST_FILE = "Target Support Files/DKImagePickerController/ResourceBundle-DKImagePickerController-DKImagePickerController-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_NAME = DKImagePickerController;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
 		6E2226BAF771B9AEEA8FE646C18E7879 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 928085C6D7F0B6DFCB145FFB1D76679B /* SwiftyJSON.xcconfig */;
@@ -9555,22 +9559,6 @@
 			};
 			name = Release;
 		};
-		8E9E3C28D91A2D224D389303A340E4D1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = EE530A8AEC6A1D0EF48D4C44EB6D1826 /* DKImagePickerController.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/DKImagePickerController";
-				INFOPLIST_FILE = "Target Support Files/DKImagePickerController/ResourceBundle-DKImagePickerController-DKImagePickerController-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_NAME = DKImagePickerController;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
 		9427C8024A8A7CB02296BFB7489D39A8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 448FA62C328EF46AFD956F35A6D9FC23 /* IQKeyboardManagerSwift.xcconfig */;
@@ -9732,22 +9720,6 @@
 			};
 			name = Release;
 		};
-		9D9D307A3DA509542038FF64131E4A01 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1D7A61DBFF0465F84964404F9F62FB96 /* CropViewController.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/CropViewController";
-				INFOPLIST_FILE = "Target Support Files/CropViewController/ResourceBundle-TOCropViewControllerBundle-CropViewController-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_NAME = TOCropViewControllerBundle;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
 		9DBFEB24B854249276E8CF5133A1ECD6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9205A74C09E73C59617BA42A82695C7D /* FDFullscreenPopGesture.xcconfig */;
@@ -9816,6 +9788,23 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		A1698168749948F43A8079310D1C6C4B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D7A61DBFF0465F84964404F9F62FB96 /* CropViewController.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/CropViewController";
+				IBSC_MODULE = CropViewController;
+				INFOPLIST_FILE = "Target Support Files/CropViewController/ResourceBundle-TOCropViewControllerBundle-CropViewController-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = TOCropViewControllerBundle;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
 		};
@@ -10080,6 +10069,23 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		B9B846F18B83270F3C45FE97008DB681 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 181C9D264983598C767C18E7BA3F9525 /* DKPhotoGallery.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/DKPhotoGallery";
+				IBSC_MODULE = DKPhotoGallery;
+				INFOPLIST_FILE = "Target Support Files/DKPhotoGallery/ResourceBundle-DKPhotoGallery-DKPhotoGallery-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = DKPhotoGallery;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
 		};
@@ -10917,8 +10923,8 @@
 		13DEE028357EB363A6DFAFEC1C7D5575 /* Build configuration list for PBXNativeTarget "CropViewController-TOCropViewControllerBundle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9D9D307A3DA509542038FF64131E4A01 /* Debug */,
-				0D0E26C00883D8CB38B27FBB27D1B32D /* Release */,
+				A1698168749948F43A8079310D1C6C4B /* Debug */,
+				4C78EE8B1B620C9EA517A762983583CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -10998,8 +11004,8 @@
 		45AC51B2E0DE425BE4A71110500A19C5 /* Build configuration list for PBXNativeTarget "DKPhotoGallery-DKPhotoGallery" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				47DD311EF98901A54EFAD3B50B4BE3CE /* Debug */,
-				1DA4D2DBC1A2C6675A93ED59CB53746C /* Release */,
+				1820F2C29B8FB183EDAC73E9AB350757 /* Debug */,
+				B9B846F18B83270F3C45FE97008DB681 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -11223,8 +11229,8 @@
 		C32B80CBFB8C60F8FB90C5F59337BB4C /* Build configuration list for PBXNativeTarget "DKImagePickerController-DKImagePickerController" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8E9E3C28D91A2D224D389303A340E4D1 /* Debug */,
-				6D81B25E7FF056080234FF4A3DD99268 /* Release */,
+				007CC04287C08191F772102D8FEDF50C /* Debug */,
+				1159AAD9EEBD72E4AA824E6C47AEF3B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

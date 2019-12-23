@@ -2785,7 +2785,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Changzhou Tricolor Feather Sports Culture Media Co., Ltd. (NBLB797Y9B)";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = NBLB797Y9B;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2815,7 +2815,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Changzhou Tricolor Feather Sports Culture Media Co., Ltd. (NBLB797Y9B)";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = NBLB797Y9B;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

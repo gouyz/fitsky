@@ -136,6 +136,7 @@ class FSLoginVC: GYZBaseVC {
         lab.font = k13Font
         lab.textAlignment = .center
         lab.text = "第三方登录"
+        lab.isHidden = true
         
         return lab
     }()
@@ -148,6 +149,7 @@ class FSLoginVC: GYZBaseVC {
         btn.tag = 101
         
         btn.addTarget(self, action: #selector(clickedThirdLoginBtn(sender:)), for: .touchUpInside)
+        btn.isHidden = true
         
         return btn
     }()
@@ -159,6 +161,7 @@ class FSLoginVC: GYZBaseVC {
         btn.tag = 102
         
         btn.addTarget(self, action: #selector(clickedThirdLoginBtn(sender:)), for: .touchUpInside)
+        btn.isHidden = true
         
         return btn
     }()

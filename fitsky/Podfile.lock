@@ -149,7 +149,7 @@ DEPENDENCIES:
   - ZFPlayer/ControlView
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - AlipaySDK-iOS
     - AlivcConan
@@ -248,4 +248,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 08e4d3d92a85b0d520655dde7817278d044fb357
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.4
