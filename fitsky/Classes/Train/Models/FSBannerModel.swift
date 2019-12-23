@@ -18,7 +18,7 @@ class FSBannerModel: LHSBaseModel {
     /// 类型（1-作品 2-活动 3-场馆 4-服务课程 5-课程 6-器械 7-饮食 8-外链）
     var type : String? = ""
     /// 内容ID（对应type类型跳转到对应模块详情页）
-    var content_id : String? = ""
+    var content_id : String? = "0"
     /// 标题
     var title : String? = ""
     /// 索引图

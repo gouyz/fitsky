@@ -382,6 +382,12 @@ class FSTrainListVC: GYZWhiteNavBaseVC {
         let model = bannerList[index]
         /// 类型（1-作品 2-活动 3-场馆 4-服务课程 5-课程 6-器械 7-饮食 8-外链）
         let type: String = model.type!
+        
+        if type != "8" {
+            if  model.content_id == "0" {
+                return
+            }
+        }
         switch type {
         case "1":
             goWorksDetailVC(id: model.content_id!)
