@@ -13,8 +13,8 @@ import MBProgressHUD
 
 /// 网络请求基地址
 #if DEBUG
-//let BaseRequestURL = "http://api.app.fitsky.net/v2.0.0/"
-let BaseRequestURL = "http://api.fitsky.lijiayin.com/v2.0.0/"
+let BaseRequestURL = "http://api.app.fitsky.net/v2.0.0/"
+//let BaseRequestURL = "http://api.fitsky.lijiayin.com/v2.0.0/"
 #else
 let BaseRequestURL = "http://api.app.fitsky.net/v2.0.0/"
 #endif

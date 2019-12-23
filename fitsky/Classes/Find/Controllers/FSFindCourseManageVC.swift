@@ -9,9 +9,10 @@
 import UIKit
 import JXSegmentedView
 import MBProgressHUD
+import PYSearch
 
 class FSFindCourseManageVC: GYZWhiteNavBaseVC {
-    
+    let searchHistoryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] + "PYSearchhistoriesFind.plist" // the path of search record cached
     var segmentedViewDataSource: JXSegmentedTitleDataSource!
     
     var categoryList:[FSFindCourseCategoryModel] = [FSFindCourseCategoryModel]()
@@ -22,6 +23,7 @@ class FSFindCourseManageVC: GYZWhiteNavBaseVC {
         
         self.view.backgroundColor = kWhiteColor
         self.navigationItem.title = "课程主题"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "app_icon_seach")?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(onClickRightBtn))
         
         self.view.addSubview(segmentedView)
         self.view.addSubview(listContainerView)
@@ -63,6 +65,30 @@ class FSFindCourseManageVC: GYZWhiteNavBaseVC {
         
         return segView
     }()
+    /// 搜索
+    @objc func onClickRightBtn(){
+        let searchVC: PYSearchViewController = PYSearchViewController.init(hotSearches: [], searchBarPlaceholder: "搜索资讯、课程、菜谱、器材") { (searchViewController, searchBar, searchText) in
+            
+            let searchVC = FSFindSearchVC()
+            searchVC.searchContent = searchText!
+            searchViewController?.navigationController?.pushViewController(searchVC, animated: true)
+        }
+        
+        let searchNav = GYZBaseNavigationVC(rootViewController:searchVC)
+        //
+        searchVC.cancelButton.setTitleColor(kHeightGaryFontColor, for: .normal)
+        
+        /// 搜索框背景色
+        if #available(iOS 13.0, *){
+            searchVC.searchBar.searchTextField.backgroundColor = kGrayBackGroundColor
+        }else{
+            searchVC.searchBarBackgroundColor = kGrayBackGroundColor
+        }
+        //显示输入光标
+        searchVC.searchBar.tintColor = kHeightGaryFontColor
+        searchVC.searchHistoriesCachePath = searchHistoryPath
+        self.present(searchNav, animated: true, completion: nil)
+    }
     ///获取分类数据
     func requestCategoryList(){
         if !GYZTool.checkNetWork() {

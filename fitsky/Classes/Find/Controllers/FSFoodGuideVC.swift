@@ -8,11 +8,13 @@
 
 import UIKit
 import MBProgressHUD
+import PYSearch
 
 private let foodGuideHeader = "foodGuideHeader"
 private let foodGuideCell = "foodGuideCell"
 
 class FSFoodGuideVC: GYZWhiteNavBaseVC {
+    let searchHistoryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] + "PYSearchhistoriesFind.plist" // the path of search record cached
     
     var dataList: [FSFoodGuideModel] = [FSFoodGuideModel]()
 
@@ -21,6 +23,7 @@ class FSFoodGuideVC: GYZWhiteNavBaseVC {
 
         self.navigationItem.title = "饮食指南"
         self.view.backgroundColor = kWhiteColor
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "app_icon_seach")?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(onClickRightBtn))
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
@@ -46,6 +49,30 @@ class FSFoodGuideVC: GYZWhiteNavBaseVC {
         
         return table
     }()
+    /// 搜索
+    @objc func onClickRightBtn(){
+        let searchVC: PYSearchViewController = PYSearchViewController.init(hotSearches: [], searchBarPlaceholder: "搜索资讯、课程、菜谱、器材") { (searchViewController, searchBar, searchText) in
+            
+            let searchVC = FSFindSearchVC()
+            searchVC.searchContent = searchText!
+            searchViewController?.navigationController?.pushViewController(searchVC, animated: true)
+        }
+        
+        let searchNav = GYZBaseNavigationVC(rootViewController:searchVC)
+        //
+        searchVC.cancelButton.setTitleColor(kHeightGaryFontColor, for: .normal)
+        
+        /// 搜索框背景色
+        if #available(iOS 13.0, *){
+            searchVC.searchBar.searchTextField.backgroundColor = kGrayBackGroundColor
+        }else{
+            searchVC.searchBarBackgroundColor = kGrayBackGroundColor
+        }
+        //显示输入光标
+        searchVC.searchBar.tintColor = kHeightGaryFontColor
+        searchVC.searchHistoriesCachePath = searchHistoryPath
+        self.present(searchNav, animated: true, completion: nil)
+    }
     
     ///获取饮食指南数据
     func requestFoodGuidesList(){

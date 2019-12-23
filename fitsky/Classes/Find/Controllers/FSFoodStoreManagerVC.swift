@@ -9,8 +9,11 @@
 import UIKit
 import JXSegmentedView
 import MBProgressHUD
+import PYSearch
 
 class FSFoodStoreManagerVC: GYZWhiteNavBaseVC {
+    
+    let searchHistoryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] + "PYSearchhistoriesFind.plist" // the path of search record cached
     
     var segmentedViewDataSource: JXSegmentedTitleDataSource!
     var categoryList:[FSCookBookCategoryModel] = [FSCookBookCategoryModel]()
@@ -20,6 +23,7 @@ class FSFoodStoreManagerVC: GYZWhiteNavBaseVC {
         super.viewDidLoad()
         
         self.navigationItem.title = "食材库"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "app_icon_seach")?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(onClickRightBtn))
         
         self.view.addSubview(segmentedView)
         self.view.addSubview(listContainerView)
@@ -111,6 +115,30 @@ class FSFoodStoreManagerVC: GYZWhiteNavBaseVC {
             listContainerView.defaultSelectedIndex = 0
             listContainerView.reloadData()
         }
+    }
+    /// 搜索
+    @objc func onClickRightBtn(){
+        let searchVC: PYSearchViewController = PYSearchViewController.init(hotSearches: [], searchBarPlaceholder: "搜索资讯、课程、菜谱、器材") { (searchViewController, searchBar, searchText) in
+            
+            let searchVC = FSFindSearchVC()
+            searchVC.searchContent = searchText!
+            searchViewController?.navigationController?.pushViewController(searchVC, animated: true)
+        }
+        
+        let searchNav = GYZBaseNavigationVC(rootViewController:searchVC)
+        //
+        searchVC.cancelButton.setTitleColor(kHeightGaryFontColor, for: .normal)
+        
+        /// 搜索框背景色
+        if #available(iOS 13.0, *){
+            searchVC.searchBar.searchTextField.backgroundColor = kGrayBackGroundColor
+        }else{
+            searchVC.searchBarBackgroundColor = kGrayBackGroundColor
+        }
+        //显示输入光标
+        searchVC.searchBar.tintColor = kHeightGaryFontColor
+        searchVC.searchHistoriesCachePath = searchHistoryPath
+        self.present(searchNav, animated: true, completion: nil)
     }
 }
 extension FSFoodStoreManagerVC: JXSegmentedListContainerViewDataSource {

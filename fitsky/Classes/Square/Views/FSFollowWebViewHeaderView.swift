@@ -86,6 +86,7 @@ class FSFollowWebViewHeaderView: UITableViewHeaderFooterView {
         
         webView.snp.makeConstraints { (make) in
             make.top.left.right.equalTo(contentView)
+            make.height.equalTo(0)
             make.bottom.equalTo(imgViews.snp.top).offset(-kMargin)
         }
         imgViews.snp.makeConstraints { (make) in
@@ -151,6 +152,12 @@ extension FSFollowWebViewHeaderView : WKNavigationDelegate{
         }
         //获取网页的高度
         webView.evaluateJavaScript("document.body.scrollHeight") {[unowned self] (result, error) in
+            
+            GYZLog((result as! CGFloat))
+//            self.webView.snp.updateConstraints { (make) in
+//                make.height.equalTo((result as! CGFloat))
+//            }
+            GYZLog(webView.scrollView.contentSize.height)
             if self.resultHeightBlock != nil {
                 self.resultHeightBlock!((result as! CGFloat) + imgHeight + kMargin * 2)
             }
