@@ -15,10 +15,16 @@ class FSTrainVenueCell: UITableViewCell {
     var dataModel : FSTrainVenueModel?{
         didSet{
             if let model = dataModel {
-                
                 venueImgView.kf.setImage(with: URL.init(string: model.thumb_store_logo!), placeholder: UIImage.init(named: "icon_bg_ads_default"))
+                if model.status == "1" {
+                    vipImgView.isHidden = false
+                    timeLab.isHidden = false
+                    timeLab.text = "营业时间：\(model.business_stime!)-\(model.business_etime!)"
+                }else{/// 未认证 隐藏
+                    vipImgView.isHidden = true
+                    timeLab.isHidden = true
+                }
                 nameLab.text = model.store_name
-                timeLab.text = "营业时间：\(model.business_stime!)-\(model.business_etime!)"
                 numLab.text = model.hot_text
                 distanceLab.text = model.distance_text
                 

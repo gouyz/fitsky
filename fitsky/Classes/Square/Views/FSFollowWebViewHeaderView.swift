@@ -29,8 +29,14 @@ class FSFollowWebViewHeaderView: UITableViewHeaderFooterView {
                     if model.materialUrlList.count == 1 {
                         let imgItem = model.materialList[0]
                         let imgSize = GYZTool.getThumbSize(url: imgItem.material!, thumbUrl: imgItem.thumb!)
-                        imgViews.imgHight = (kScreenWidth - kMargin * 2) * imgSize.height / imgSize.width
-                        imgViews.imgWidth = kScreenWidth - kMargin * 2
+                        var width = imgSize.width
+                        var h = imgSize.height
+                        if width > (kScreenWidth - kMargin * 2) {
+                            width = (kScreenWidth - kMargin * 2)
+                            h = imgSize.height * (kScreenWidth - kMargin * 2) / imgSize.width
+                        }
+                        imgViews.imgHight = h
+                        imgViews.imgWidth = width
                         imgViews.perRowItemCount = 1
                     }else if model.materialUrlList.count == 2 || model.materialUrlList.count == 4 {
                         imgViews.imgHight = kPhotosImgHeight2
@@ -101,7 +107,7 @@ class FSFollowWebViewHeaderView: UITableViewHeaderFooterView {
     lazy var webView: WKWebView = {
         let webView = WKWebView()
         ///设置透明背景
-        webView.backgroundColor = UIColor.red
+        webView.backgroundColor = UIColor.clear
         //! 解决iOS9.2以上黑边问题
         webView.isOpaque = false
         webView.navigationDelegate = self
@@ -138,7 +144,13 @@ extension FSFollowWebViewHeaderView : WKNavigationDelegate{
             if dataModel?.materialUrlList.count == 1 {
                 let imgItem = dataModel?.materialList[0]
                 let imgSize = GYZTool.getThumbSize(url: imgItem!.material!, thumbUrl: imgItem!.thumb!)
+                
                 imgHeight = imgSize.height
+                if imgSize.width > (kScreenWidth - kMargin * 2) {
+                    width = (kScreenWidth - kMargin * 2)
+                    imgHeight = imgSize.height * (kScreenWidth - kMargin * 2) / imgSize.width
+                }
+            
                 rowCount = 1
             }else if dataModel?.materialUrlList.count == 2 || dataModel?.materialUrlList.count == 4 {
                 imgHeight = kPhotosImgHeight2

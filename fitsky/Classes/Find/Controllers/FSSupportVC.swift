@@ -229,8 +229,9 @@ class FSSupportVC: GYZWhiteNavBaseVC {
     }
     // 部位强化
     func goFindBodyStrong(){
-        let vc = FSFindBodyStrongVC()
-        self.naviController?.pushViewController(vc, animated: true)
+        MBProgressHUD.showAutoDismissHUD(message: "暂未开放，敬请期待")
+//        let vc = FSFindBodyStrongVC()
+//        self.naviController?.pushViewController(vc, animated: true)
     }
     
     // 饮食指南

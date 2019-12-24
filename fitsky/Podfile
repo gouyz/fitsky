@@ -58,6 +58,8 @@ pod 'QuCore-ThirdParty', '3.10.0'
 pod 'AlivcConan', '1.0.1'
 pod 'VODUpload'
 pod 'AliyunOSSiOS'
+### 阿里云播放器
+pod 'AliPlayerSDK_iOS'
 
 pod 'FMDB',:git => 'https://github.com/ccgus/fmdb.git',:tag => '2.7'
 pod 'JSONModel','~> 1.7.0'

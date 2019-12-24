@@ -55,14 +55,22 @@ class FSHotDynamicCell: UITableViewCell {
                     if !infoModel.video!.isEmpty {
                         videoImgView.isHidden = false
                         let imgSize = GYZTool.getThumbSize(url: infoModel.video_material_url!, thumbUrl: infoModel.video_thumb_url!)
+                        var width = imgSize.width
+                        var h = imgSize.height
+                        if width > (kScreenWidth - kMargin * 2) {
+                            width = (kScreenWidth - kMargin * 2)
+                            h = imgSize.height * (kScreenWidth - kMargin * 2) / imgSize.width
+                        }
                         videoImgView.snp.updateConstraints { (make) in
-                            if imgSize.width >= imgSize.height{
-                                make.height.equalTo(kScreenWidth * imgSize.height / imgSize.width)
-                                make.width.equalTo(kScreenWidth - kMargin * 2)
-                            }else{
-                                make.height.equalTo(imgSize.height)
-                                make.width.equalTo(imgSize.width)
-                            }
+//                            if imgSize.width >= imgSize.height{
+//                                make.height.equalTo(kScreenWidth * imgSize.height / imgSize.width)
+//                                make.width.equalTo(kScreenWidth - kMargin * 2)
+//                            }else{
+//                                make.height.equalTo(imgSize.height)
+//                                make.width.equalTo(imgSize.width)
+//                            }
+                            make.height.equalTo(h)
+                            make.width.equalTo(width)
                         }
                         addressLab.snp.remakeConstraints { (make) in
                             make.left.equalTo(addressImgView.snp.right).offset(3)
@@ -91,8 +99,14 @@ class FSHotDynamicCell: UITableViewCell {
                     if model.materialUrlList.count == 1 {
                         let imgItem = model.materialList[0]
                         let imgSize = GYZTool.getThumbSize(url: imgItem.material!, thumbUrl: imgItem.thumb!)
-                        imgViews.imgHight = (kScreenWidth - kMargin * 2) * imgSize.height / imgSize.width
-                        imgViews.imgWidth = kScreenWidth - kMargin * 2
+                        var width = imgSize.width
+                        var h = imgSize.height
+                        if width > (kScreenWidth - kMargin * 2) {
+                            width = (kScreenWidth - kMargin * 2)
+                            h = imgSize.height * (kScreenWidth - kMargin * 2) / imgSize.width
+                        }
+                        imgViews.imgHight = h
+                        imgViews.imgWidth = width
                         imgViews.perRowItemCount = 1
                     }else if model.materialUrlList.count == 2 || model.materialUrlList.count == 4 {
                         imgViews.imgHight = kPhotosImgHeight2

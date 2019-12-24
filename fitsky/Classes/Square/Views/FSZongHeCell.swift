@@ -56,13 +56,21 @@ class FSZongHeCell: UITableViewCell {
                     imgViews.isHidden = false
                     playImgView.isHidden = false
                     let imgSize = GYZTool.getThumbSize(url: model.video_material_url!, thumbUrl: model.video_thumb_url!)
-                    if imgSize.width >= imgSize.height {
-                        imgViews.imgHight = imgSize.height * kScreenWidth / imgSize.width
-                        imgViews.imgWidth = kScreenWidth - kMargin * 2
-                    }else{
-                        imgViews.imgHight = imgSize.height
-                        imgViews.imgWidth = imgSize.width
+                    var width = imgSize.width
+                    var h = imgSize.height
+                    if width > (kScreenWidth - kMargin * 2) {
+                        width = (kScreenWidth - kMargin * 2)
+                        h = imgSize.height * (kScreenWidth - kMargin * 2) / imgSize.width
                     }
+                    imgViews.imgHight = h
+                    imgViews.imgWidth = width
+//                    if imgSize.width >= imgSize.height {
+//                        imgViews.imgHight = imgSize.height * kScreenWidth / imgSize.width
+//                        imgViews.imgWidth = kScreenWidth - kMargin * 2
+//                    }else{
+//                        imgViews.imgHight = imgSize.height
+//                        imgViews.imgWidth = imgSize.width
+//                    }
                     imgViews.perRowItemCount = 1
                     imgViews.selectImgUrls = [model.video_thumb_url!]
                     let rowIndex = ceil(CGFloat.init((imgViews.selectImgUrls?.count)!) / CGFloat.init(imgViews.perRowItemCount))//向上取整
@@ -80,8 +88,14 @@ class FSZongHeCell: UITableViewCell {
                     if model.materialUrlList.count == 1 {
                         let imgItem = model.materialList[0]
                         let imgSize = GYZTool.getThumbSize(url: imgItem.material!, thumbUrl: imgItem.thumb!)
-                        imgViews.imgHight = imgSize.height
-                        imgViews.imgWidth = imgSize.width
+                        var width = imgSize.width
+                        var h = imgSize.height
+                        if width > (kScreenWidth - kMargin * 2) {
+                            width = (kScreenWidth - kMargin * 2)
+                            h = imgSize.height * (kScreenWidth - kMargin * 2) / imgSize.width
+                        }
+                        imgViews.imgHight = h
+                        imgViews.imgWidth = width
                         imgViews.perRowItemCount = 1
                     }else if model.materialUrlList.count == 2 || model.materialUrlList.count == 4 {
                         imgViews.imgHight = kPhotosImgHeight2
