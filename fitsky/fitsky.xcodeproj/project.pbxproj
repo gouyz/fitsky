@@ -172,6 +172,8 @@
 		0A428C5122DEADA300C7D78B /* FSRegisterCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A428C5022DEADA300C7D78B /* FSRegisterCodeVC.swift */; };
 		0A428C5322DEF1AD00C7D78B /* FSSexInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A428C5222DEF1AD00C7D78B /* FSSexInfoVC.swift */; };
 		0A428C5522DF07A200C7D78B /* FSBindPhoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A428C5422DF07A200C7D78B /* FSBindPhoneVC.swift */; };
+		0A42B80C23B1A30600BD7739 /* FSMyCourseDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A42B80B23B1A30600BD7739 /* FSMyCourseDetailVC.swift */; };
+		0A42B80E23B1B51300BD7739 /* FSMyCourseDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A42B80D23B1B51300BD7739 /* FSMyCourseDetailModel.swift */; };
 		0A434B6D236FB35E005B2BD4 /* FSMyFavouriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A434B6C236FB35E005B2BD4 /* FSMyFavouriteVC.swift */; };
 		0A43647523A8A593008D7C47 /* AlivcRecordFocusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A43647423A8A592008D7C47 /* AlivcRecordFocusView.m */; };
 		0A45735A2359623D007B74EE /* FSMySupportDataVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4573592359623D007B74EE /* FSMySupportDataVC.swift */; };
@@ -637,6 +639,8 @@
 		0A428C5022DEADA300C7D78B /* FSRegisterCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSRegisterCodeVC.swift; sourceTree = "<group>"; };
 		0A428C5222DEF1AD00C7D78B /* FSSexInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSexInfoVC.swift; sourceTree = "<group>"; };
 		0A428C5422DF07A200C7D78B /* FSBindPhoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSBindPhoneVC.swift; sourceTree = "<group>"; };
+		0A42B80B23B1A30600BD7739 /* FSMyCourseDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMyCourseDetailVC.swift; sourceTree = "<group>"; };
+		0A42B80D23B1B51300BD7739 /* FSMyCourseDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMyCourseDetailModel.swift; sourceTree = "<group>"; };
 		0A434B6C236FB35E005B2BD4 /* FSMyFavouriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMyFavouriteVC.swift; sourceTree = "<group>"; };
 		0A43647323A8A592008D7C47 /* AlivcRecordFocusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlivcRecordFocusView.h; sourceTree = "<group>"; };
 		0A43647423A8A592008D7C47 /* AlivcRecordFocusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlivcRecordFocusView.m; sourceTree = "<group>"; };
@@ -1639,6 +1643,7 @@
 				0A0FC89323956F49009327A1 /* FSMessageHomeModel.swift */,
 				0A4DBDF62396951A00B3ACF3 /* FSMsgZanModel.swift */,
 				0A4DBDFE2396C27400B3ACF3 /* FSMsgNoticeModel.swift */,
+				0A42B80D23B1B51300BD7739 /* FSMyCourseDetailModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1700,6 +1705,7 @@
 				0A4DBE022396C81F00B3ACF3 /* FSSubscriptionVC.swift */,
 				0A4DBE082396D22900B3ACF3 /* FSSubscriptionDetailVC.swift */,
 				0A26A009239D6BCD00319C0B /* FSMyCourseSearchVC.swift */,
+				0A42B80B23B1A30600BD7739 /* FSMyCourseDetailVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2228,6 +2234,7 @@
 				0A47C13122D4858E00207CED /* SegmentStyle.swift in Sources */,
 				0A47C13022D4858E00207CED /* GYZSheetCell.swift in Sources */,
 				0A47C13922D4858E00207CED /* SYRingProgressView.m in Sources */,
+				0A42B80C23B1A30600BD7739 /* FSMyCourseDetailVC.swift in Sources */,
 				0A676A8E2362081700FA7542 /* FSCustomCooperateAlertView.swift in Sources */,
 				0A7189A82319132100C7536C /* FSReplyModel.swift in Sources */,
 				0A5109E5236679C8003369AC /* FSMyActivityVC.swift in Sources */,
@@ -2585,6 +2592,7 @@
 				0A3DD8C6230BE03300FAF2A5 /* FSSearchTalkCell.swift in Sources */,
 				0A3DD8C0230BDB5B00FAF2A5 /* FSSearchUserVC.swift in Sources */,
 				0A0FFE0B22DF591B009BC09E /* FSPwdLoginVC.swift in Sources */,
+				0A42B80E23B1B51300BD7739 /* FSMyCourseDetailModel.swift in Sources */,
 				0A2CAFDC23A545AB009E418B /* AliyunPathManager.m in Sources */,
 				0A1FC5ED231EB5470094B250 /* FSSelectSeePowerVC.swift in Sources */,
 				0A4D40532356A6E10040F505 /* FSFindCourseDetailDesCell.swift in Sources */,

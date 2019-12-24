@@ -140,9 +140,10 @@ class FSVenueHomeVC: GYZWhiteNavBaseVC {
       
             userHeaderView.nameBtn.setTitle((userModel?.storeData?.store_name)!, for: .normal)
             userHeaderView.numLab.text = "关注 \((userModel?.formData?.follow)!) | 粉丝 \((userModel?.formData?.fans)!)"
-            userHeaderView.confirmLab.text = "认证：\((userModel?.formData?.type_text)!)"
+            userHeaderView.confirmLab.text = userModel?.formData?.type_text
             
-            
+            userHeaderView.birthdayDesLab.text = "规模"
+            userHeaderView.addressDesLab.text = "地址"
             userHeaderView.birthdayLab.text = userModel?.storeData?.area_text
             userHeaderView.addressLab.text = userModel?.storeData?.address
 //                (userModel?.storeData?.province)! + (userModel?.storeData?.city)! + (userModel?.storeData?.county)! + (userModel?.storeData?.address)!
@@ -235,6 +236,7 @@ extension FSVenueHomeVC: JXPagingViewDelegate {
             let teacherVC = FSVenueTeacherVC()
             teacherVC.naviController = self.navigationController
             teacherVC.userId = self.userId
+            teacherVC.status = self.userModel?.formData?.status ?? ""
             return teacherVC
         }
     }

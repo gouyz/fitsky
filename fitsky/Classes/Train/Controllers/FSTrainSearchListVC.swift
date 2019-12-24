@@ -415,9 +415,12 @@ extension FSTrainSearchListVC: UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isVenue {
-            let vc = FSVenueHomeVC()
-            vc.userId = dataVenueList[indexPath.row].id!
-            navigationController?.pushViewController(vc, animated: true)
+            if dataVenueList[indexPath.row].status == "1" {//认证场馆进详情页
+                let vc = FSVenueHomeVC()
+                vc.userId = dataVenueList[indexPath.row].id!
+                navigationController?.pushViewController(vc, animated: true)
+            }
+            
         }else{
             let vc = FSServiceGoodsDetailVC()
             vc.goodsId = dataCourseList[indexPath.row].id!

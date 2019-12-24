@@ -332,6 +332,12 @@ class FSSquareFollowDetailVC: GYZWhiteNavBaseVC {
             userImgView.kf.setImage(with: URL.init(string: (model.formData?.avatar)!), placeholder: UIImage.init(named: "app_img_avatar_def"))
             nameLab.text = model.formData?.nick_name
             
+            if model.formData?.friend_type == "0" && model.formData?.open_type == "2"{// 未关注且好友圈可见
+                isShowAllInfo = false
+            }else{
+                isShowAllInfo = true
+            }
+            
             dealBottomView()
             
         }
@@ -742,7 +748,6 @@ extension FSSquareFollowDetailVC: UITableViewDelegate,UITableViewDataSource{
                 if dataModel?.formData?.friend_type == "0" && dataModel?.formData?.open_type == "2"{// 未关注且好友圈可见
                     return 1
                 }else{
-                    isShowAllInfo = true
                     return 0
                 }
             }else if section == 1 {

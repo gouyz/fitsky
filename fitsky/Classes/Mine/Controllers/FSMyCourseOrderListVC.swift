@@ -245,6 +245,16 @@ class FSMyCourseOrderListVC: GYZWhiteNavBaseVC {
         vc.orderSn = dataList[sender.tag].order_sn!
         self.naviController?.pushViewController(vc, animated: true)
     }
+    
+    // 课程详情
+    @objc func onClickedCourseDetail(sender:UITapGestureRecognizer){
+        let vc = FSMyCourseDetailVC()
+        vc.goodsId = dataList[(sender.view?.tag)!].order_id!
+        vc.resultBlock = {[unowned self] () in
+            self.requestOrderById(index: (sender.view?.tag)!)
+        }
+        self.naviController?.pushViewController(vc, animated: true)
+    }
 }
 extension FSMyCourseOrderListVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -269,6 +279,9 @@ extension FSMyCourseOrderListVC: UITableViewDelegate,UITableViewDataSource{
         cell.feedBackBtn.addTarget(self, action: #selector(onClickedfeedBackOrder(sender:)), for: .touchUpInside)
         cell.payBtn.tag = indexPath.row
         cell.payBtn.addTarget(self, action: #selector(onClickedPayOrder(sender:)), for: .touchUpInside)
+        
+        cell.courseImgView.tag = indexPath.row
+        cell.courseImgView.addOnClickListener(target: self, action: #selector(onClickedCourseDetail(sender:)))
         
         cell.selectionStyle = .none
         return cell

@@ -17,6 +17,7 @@ class FSVenueTeacherVC: GYZWhiteNavBaseVC {
     /// 最后一页
     var lastPage: Int = 1
     var userId: String = ""
+    var status: String = ""
     var dataList: [FSCoachModel] = [FSCoachModel]()
     weak var naviController: UINavigationController?
     var listViewDidScrollCallback: ((UIScrollView) -> ())?
@@ -28,7 +29,12 @@ class FSVenueTeacherVC: GYZWhiteNavBaseVC {
         tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(0)
         }
-        requestCoachList()
+        if status == "1" {//已认证
+            requestCoachList()
+        }else{
+            ///显示空页面
+            showEmptyView(content:"该场馆还未申请认证，此功能未可使用哦~")
+        }
     }
     lazy var tableView : UITableView = {
         let table = UITableView(frame: CGRect.zero, style: .grouped)
@@ -116,7 +122,7 @@ class FSVenueTeacherVC: GYZWhiteNavBaseVC {
                     weakSelf?.hiddenEmptyView()
                 }else{
                     ///显示空页面
-                    weakSelf?.showEmptyView(content:"该场馆还未申请认证，此功能未可使用哦~")
+                    weakSelf?.showEmptyView(content:"暂无教练信息")
                 }
                 
             }else{

@@ -527,7 +527,9 @@ extension FSTrainListVC: UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isVenue {
-            goVenueHomeVC(id: dataVenueList[indexPath.row].id!)
+            if dataVenueList[indexPath.row].status == "1" {//认证场馆进详情页
+                goVenueHomeVC(id: dataVenueList[indexPath.row].id!)
+            }
         }else{
             goServiceCourseDetailVC(id: dataCourseList[indexPath.row].id!)
         }

@@ -19,6 +19,7 @@ class FSVenueServiceVC: GYZWhiteNavBaseVC {
     /// 最后一页
     var lastPage: Int = 1
     var userId: String = ""
+    var status: String = ""
     ///
     var categoryId: String = ""
     /// 上一次选中的 tag index
@@ -58,9 +59,15 @@ class FSVenueServiceVC: GYZWhiteNavBaseVC {
             }
             categoryTagsView.reload()
             
+            status = userInfo.formData?.status ?? ""
         }
         
-        requestServiceList()
+        if status == "1" {//已认证
+            requestServiceList()
+        }else{
+            ///显示空页面
+            showEmptyView(content:"该场馆还未申请认证，此功能未可使用哦~")
+        }
     }
 
     /// 所有分类

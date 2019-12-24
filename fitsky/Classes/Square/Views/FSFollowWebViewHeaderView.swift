@@ -86,13 +86,14 @@ class FSFollowWebViewHeaderView: UITableViewHeaderFooterView {
         
         webView.snp.makeConstraints { (make) in
             make.top.left.right.equalTo(contentView)
-//            make.height.equalTo(0)
-            make.bottom.equalTo(imgViews.snp.top).offset(-kMargin)
+            make.height.equalTo(0)
+//            make.bottom.equalTo(imgViews.snp.top).offset(-kMargin)
         }
         imgViews.snp.makeConstraints { (make) in
             make.bottom.equalTo(-kMargin)
             make.left.equalTo(kMargin)
             make.right.equalTo(-kMargin)
+            make.top.equalTo(webView.snp.bottom).offset(kMargin)
             make.height.equalTo(0)
         }
     }
@@ -100,7 +101,7 @@ class FSFollowWebViewHeaderView: UITableViewHeaderFooterView {
     lazy var webView: WKWebView = {
         let webView = WKWebView()
         ///设置透明背景
-        webView.backgroundColor = UIColor.clear
+        webView.backgroundColor = UIColor.red
         //! 解决iOS9.2以上黑边问题
         webView.isOpaque = false
         webView.navigationDelegate = self
@@ -154,10 +155,10 @@ extension FSFollowWebViewHeaderView : WKNavigationDelegate{
         webView.evaluateJavaScript("document.body.scrollHeight") {[unowned self] (result, error) in
             
             GYZLog((result as! CGFloat))
-//            self.webView.snp.updateConstraints { (make) in
-//                make.height.equalTo((result as! CGFloat))
-//            }
-            GYZLog(webView.scrollView.contentSize.height)
+            self.webView.snp.updateConstraints { (make) in
+                make.height.equalTo((result as! CGFloat))
+            }
+            GYZLog(self.webView.frame.size.height)
             if self.resultHeightBlock != nil {
                 self.resultHeightBlock!((result as! CGFloat) + imgHeight + kMargin * 2)
             }
