@@ -149,9 +149,10 @@ DEPENDENCIES:
   - ZFPlayer/ControlView
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlipaySDK-iOS
+    - AlivcConan
     - AliyunOSSiOS
     - AliyunVideoSDKStd
     - AMap3DMap-NO-IDFA
@@ -178,6 +179,7 @@ SPEC REPOS:
     - MBProgressHUD
     - MJRefresh
     - PYSearch
+    - QuCore-ThirdParty
     - RongCloudIM
     - SDWebImage
     - SDWebImageFLPlugin
@@ -189,9 +191,6 @@ SPEC REPOS:
     - WechatOpenSDK
     - YBPopupMenu
     - ZFPlayer
-  trunk:
-    - AlivcConan
-    - QuCore-ThirdParty
 
 EXTERNAL SOURCES:
   FMDB:
@@ -249,4 +248,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 4cc1305178013072a470a079d23d2617d0cf1324
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.7.5
