@@ -246,6 +246,13 @@ class FSFindCourseDetailVC: GYZWhiteNavBaseVC {
             GYZLog(error)
         })
     }
+    
+    /// 发现课程详情
+    func goFindCourseDetailVC(id: String){
+        let vc = FSFindCourseDetailVC()
+        vc.courseId = id
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 extension FSFindCourseDetailVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -320,7 +327,9 @@ extension FSFindCourseDetailVC: UITableViewDelegate,UITableViewDataSource{
         return UIView()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if indexPath.section == 3 {// 推荐课程
+            goFindCourseDetailVC(id: (self.dataModel?.recommendList[indexPath.row].id)!)
+        }
     }
     ///MARK : UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

@@ -152,7 +152,6 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - AlipaySDK-iOS
-    - AlivcConan
     - AliyunOSSiOS
     - AliyunVideoSDKStd
     - AMap3DMap-NO-IDFA
@@ -179,7 +178,6 @@ SPEC REPOS:
     - MBProgressHUD
     - MJRefresh
     - PYSearch
-    - QuCore-ThirdParty
     - RongCloudIM
     - SDWebImage
     - SDWebImageFLPlugin
@@ -191,6 +189,9 @@ SPEC REPOS:
     - WechatOpenSDK
     - YBPopupMenu
     - ZFPlayer
+  trunk:
+    - AlivcConan
+    - QuCore-ThirdParty
 
 EXTERNAL SOURCES:
   FMDB:
@@ -246,6 +247,6 @@ SPEC CHECKSUMS:
   YBPopupMenu: 6efb286385d95ba5f97c58b8464ec873645e8764
   ZFPlayer: b2ba40c924e1b9a7f0a670632c4235ffbe6ee055
 
-PODFILE CHECKSUM: 08e4d3d92a85b0d520655dde7817278d044fb357
+PODFILE CHECKSUM: 4cc1305178013072a470a079d23d2617d0cf1324
 
 COCOAPODS: 1.8.4
