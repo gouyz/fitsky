@@ -188,6 +188,19 @@ class FSSquareHotVC: GYZWhiteNavBaseVC {
         }
         self.naviController?.pushViewController(vc, animated: true)
     }
+    /// 视频动态详情
+    func goVideoDynamicDetail(dynamicId: String){
+        let vc = FSDynamicVideoDetailVC()
+        vc.dynamicId = dynamicId
+        vc.resultBlock = {[unowned self] (isRefresh,dynamicId) in
+            
+            if isRefresh {
+                self.isRefresh = false
+                self.requestDynamicById(dynamicId: dynamicId)
+            }
+        }
+        self.naviController?.pushViewController(vc, animated: true)
+    }
     
     ///单个动态
     func requestDynamicById(dynamicId: String){
@@ -280,8 +293,10 @@ extension FSSquareHotVC: UICollectionViewDataSource,UICollectionViewDelegate,CHT
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let model = dataList[indexPath.row]
         let type = model.type
-        if type == "1" || type == "2" || type == "3" {//动态
+        if type == "1" || type == "2" {//动态
             goImgDynamicDetail(dynamicId: model.id!)
+        }else if type == "3"{
+            goVideoDynamicDetail(dynamicId: model.id!)
         }else if type == "4" || type == "5" || type == "6" {//作品
             goWorksDetailVC(id: model.id!)
         }

@@ -176,6 +176,9 @@
 		0A42B80E23B1B51300BD7739 /* FSMyCourseDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A42B80D23B1B51300BD7739 /* FSMyCourseDetailModel.swift */; };
 		0A434B6D236FB35E005B2BD4 /* FSMyFavouriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A434B6C236FB35E005B2BD4 /* FSMyFavouriteVC.swift */; };
 		0A43647523A8A593008D7C47 /* AlivcRecordFocusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A43647423A8A592008D7C47 /* AlivcRecordFocusView.m */; };
+		0A45082C23B4410D00D7C687 /* FSDynamicVideoDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A45082B23B4410D00D7C687 /* FSDynamicVideoDetailVC.swift */; };
+		0A45082E23B44F1900D7C687 /* FSDynamicVideoDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A45082D23B44F1900D7C687 /* FSDynamicVideoDetailCell.swift */; };
+		0A45083123B4564300D7C687 /* ZFDouYinControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A45083023B4564200D7C687 /* ZFDouYinControlView.m */; };
 		0A45735A2359623D007B74EE /* FSMySupportDataVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4573592359623D007B74EE /* FSMySupportDataVC.swift */; };
 		0A45735C23596604007B74EE /* FSMySupportDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A45735B23596604007B74EE /* FSMySupportDataCell.swift */; };
 		0A45735E23599D93007B74EE /* FSMyBodyDataVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A45735D23599D93007B74EE /* FSMyBodyDataVC.swift */; };
@@ -644,6 +647,10 @@
 		0A434B6C236FB35E005B2BD4 /* FSMyFavouriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMyFavouriteVC.swift; sourceTree = "<group>"; };
 		0A43647323A8A592008D7C47 /* AlivcRecordFocusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlivcRecordFocusView.h; sourceTree = "<group>"; };
 		0A43647423A8A592008D7C47 /* AlivcRecordFocusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlivcRecordFocusView.m; sourceTree = "<group>"; };
+		0A45082B23B4410D00D7C687 /* FSDynamicVideoDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSDynamicVideoDetailVC.swift; sourceTree = "<group>"; };
+		0A45082D23B44F1900D7C687 /* FSDynamicVideoDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSDynamicVideoDetailCell.swift; sourceTree = "<group>"; };
+		0A45082F23B4564200D7C687 /* ZFDouYinControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFDouYinControlView.h; sourceTree = "<group>"; };
+		0A45083023B4564200D7C687 /* ZFDouYinControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFDouYinControlView.m; sourceTree = "<group>"; };
 		0A4573592359623D007B74EE /* FSMySupportDataVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMySupportDataVC.swift; sourceTree = "<group>"; };
 		0A45735B23596604007B74EE /* FSMySupportDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMySupportDataCell.swift; sourceTree = "<group>"; };
 		0A45735D23599D93007B74EE /* FSMyBodyDataVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMyBodyDataVC.swift; sourceTree = "<group>"; };
@@ -1577,6 +1584,7 @@
 				0A1FC5F0231EC41B0094B250 /* FSSquareTopicVC.swift */,
 				0A2B56B8231FA2220063C011 /* FSSquareNearVC.swift */,
 				0A1E73BE231FFF70009BF848 /* FSSquareFollowDetailVC.swift */,
+				0A45082B23B4410D00D7C687 /* FSDynamicVideoDetailVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1584,6 +1592,8 @@
 		0A536DAE23078BFA009B569C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0A45082F23B4564200D7C687 /* ZFDouYinControlView.h */,
+				0A45083023B4564200D7C687 /* ZFDouYinControlView.m */,
 				0A8EEB88230A424600181844 /* FSSquareHotCell.swift */,
 				0A3DD8BD230B8DC500FAF2A5 /* FSZongHeCell.swift */,
 				0A3DD8C1230BDBD700FAF2A5 /* FSSearchUserCell.swift */,
@@ -1610,6 +1620,7 @@
 				0A18603323AFB373006ABEC7 /* FSPersonHomeHeaderView.swift */,
 				0A18603523AFB40A006ABEC7 /* FSPersonHomeListHeaderView.swift */,
 				0A18603723AFBDB4006ABEC7 /* FSPersonHomeAblumHeaderView.swift */,
+				0A45082D23B44F1900D7C687 /* FSDynamicVideoDetailCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2344,6 +2355,7 @@
 				0A45735C23596604007B74EE /* FSMySupportDataCell.swift in Sources */,
 				0A47C12922D4858E00207CED /* ZPageControl.swift in Sources */,
 				0A24D5D0238D7604002866C6 /* FSCookBookModel.swift in Sources */,
+				0A45083123B4564300D7C687 /* ZFDouYinControlView.m in Sources */,
 				0A4DBE092396D22900B3ACF3 /* FSSubscriptionDetailVC.swift in Sources */,
 				0A63ADE5235E12770006013F /* FSUploadWorkVC.swift in Sources */,
 				0A62920E239F77E900E35AA9 /* FSVersionModel.swift in Sources */,
@@ -2389,6 +2401,7 @@
 				0A60962323138E6E00C06896 /* FSComplainVC.swift in Sources */,
 				0A47C11022D4858E00207CED /* GYZString+Extension.swift in Sources */,
 				0A54BFC9238EDE29008C47CF /* FSQiCaiDetailModel.swift in Sources */,
+				0A45082E23B44F1900D7C687 /* FSDynamicVideoDetailCell.swift in Sources */,
 				0A222A84234CE7C1000A32D5 /* FSMineFuncCell.swift in Sources */,
 				0A2151F723ABD75E008A6936 /* AliAssetImageGenerator.m in Sources */,
 				0A56F9C5231507600022EDAA /* FSPersonHomeWorksVC.swift in Sources */,
@@ -2443,6 +2456,7 @@
 				0A676A8A2361FDEB00FA7542 /* FSHelpVSAboutVC.swift in Sources */,
 				0A8683472354179F0057E094 /* FSFoodStoreDetailDesCell.swift in Sources */,
 				0A47C13722D4858E00207CED /* SYLineProgressView.m in Sources */,
+				0A45082C23B4410D00D7C687 /* FSDynamicVideoDetailVC.swift in Sources */,
 				0A4CD8AE23AA14E400EE1421 /* AliyunEffectPasterGroup.m in Sources */,
 				0A40660B23351C43005AA830 /* FSOrderModel.swift in Sources */,
 				0A3D81D123516AD0000BF536 /* DOPDropDownMenu.m in Sources */,

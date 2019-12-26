@@ -19,6 +19,7 @@
 /// 快速集成popupMenu
 #import "YBPopupMenu.h"
 /// 视频播放器
+#import "ZFDouYinControlView.h"
 //#import "ZFIJKPlayerManager.h"
 
 /// 高德地图
