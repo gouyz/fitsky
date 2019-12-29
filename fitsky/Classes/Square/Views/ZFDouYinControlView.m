@@ -53,7 +53,7 @@
     self.playBtn.center = self.center;
     
     min_x = 0;
-    min_y = min_view_h - 50;
+    min_y = min_view_h - 60;
     min_w = min_view_w;
     min_h = 1;
     self.sliderView.frame = CGRectMake(min_x, min_y, min_w, min_h);

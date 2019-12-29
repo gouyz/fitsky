@@ -20,31 +20,31 @@ class FSDynamicVideoDetailVC: GYZWhiteNavBaseVC {
     
     var dynamicId: String = ""
     var dataModel: FSDynamicDetailModel?
-    /// 区分评论或回复，true评论，false回复
-    var isReplyOrConment: Bool = true
-    /// 要回复的评论索引
-    var conmentIndex: Int = -1
-    
-    var wkHeight: CGFloat = 1
-    /// 显示全部内容
-    var isShowAllInfo: Bool = false
+    /// 是否展开
+    var isShowTotal: Bool = false
     
     var player:ZFPlayerController?
     
     override func viewDidLoad() {
-        isWhiteBack = true
         super.viewDidLoad()
         
         navBarBgAlpha = 0
         automaticallyAdjustsScrollViewInsets = false
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "app_icon_more_white")?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(clickedRightBtn))
+        self.navigationItem.leftBarButtonItem = nil
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_back_white")?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(clickedBackBtn))
         
+        view.addSubview(sendConmentView)
+        sendConmentView.isHidden = true
+        sendConmentView.snp.makeConstraints { (make) in
+            make.bottom.left.right.equalTo(view)
+            make.height.equalTo(kBottomTabbarHeight)
+        }
         view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
-//            make.edges.equalTo(0)
-//            make.bottom.equalTo(-kTabBarHeight)
-            make.bottom.left.right.equalTo(view)
+            make.bottom.equalTo(view)
+            make.left.right.equalTo(view)
             if #available(iOS 11.0, *) {
                 make.top.equalTo(-kTitleAndStateHeight)
             }else{
@@ -55,18 +55,7 @@ class FSDynamicVideoDetailVC: GYZWhiteNavBaseVC {
         // 监听键盘隐藏通知
         NotificationCenter.default.addObserver(self,selector: #selector(keyboardWillHide(notification:)),name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        //        bottomView.onClickedOperatorBlock = {[weak self] (index) in
-        //
-        //            if index == 101 { // 评论
-        //                self?.isReplyOrConment = true
-        //                self?.showConment()
-        //            }else if index == 103 { // 点赞
-        //                self?.requestZan(id: (self?.dynamicId)!, type: (self?.dataModel?.formData!.more_type)!)
-        //            }else if index == 102 { // 收藏
-        //                self?.requestFavourite()
-        //            }
-        //        }
-        //        sendConmentView.sendBtn.addTarget(self, action: #selector(onClickedSend), for: .touchUpInside)
+        sendConmentView.sendBtn.addTarget(self, action: #selector(onClickedSend), for: .touchUpInside)
         
         showVideo()
         requestDynamicDetail()
@@ -106,8 +95,6 @@ class FSDynamicVideoDetailVC: GYZWhiteNavBaseVC {
         
         return table
     }()
-    /// 底部评论view
-    lazy var bottomView: FSConmentBottomView = FSConmentBottomView()
     /// 发送评论view
     lazy var sendConmentView: FSConmentSendView = FSConmentSendView()
     
@@ -191,24 +178,15 @@ class FSDynamicVideoDetailVC: GYZWhiteNavBaseVC {
     }
     // 键盘隐藏
     @objc func keyboardWillHide(notification: Notification) {
-        bottomView.isHidden = false
         sendConmentView.isHidden = true
         self.tableView.snp.updateConstraints { (make) in
-            make.bottom.equalTo(-kTabBarHeight)
+            make.bottom.equalTo(view)
         }
         //        sendConmentView.contentTxtView.resignFirstResponder()
     }
     // 移除通知
     deinit {
         NotificationCenter.default.removeObserver(self)
-    }
-    /// 设置返回键
-    func setBackBtnImage(imgName: String,rightImg: String){
-        self.navigationItem.leftBarButtonItem = nil
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: imgName)?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(clickedBackBtn))
-        
-        self.navigationItem.rightBarButtonItem = nil
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: rightImg)?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(clickedRightBtn))
     }
     ///动态/作品详情
     func requestDynamicDetail(){
@@ -249,79 +227,11 @@ class FSDynamicVideoDetailVC: GYZWhiteNavBaseVC {
                 
                 playTheIndex(index: 0)
             }
-            //
-            //            userHeaderView.bgImgView.kf.setImage(with: URL.init(string: (model.formData?.material)!), placeholder: UIImage.init(named: "icon_bg_ads_default"))
-            //            if model.formData?.type == "6" {// 作品视频
-            //                userHeaderView.playBtn.isHidden = false
-            //            }else{
-            //                userHeaderView.playBtn.isHidden = true
-            //            }
-            //            userHeaderView.userImgView.kf.setImage(with: URL.init(string: (model.formData?.avatar)!), placeholder: UIImage.init(named: "app_img_avatar_def"))
-            //            userHeaderView.nameLab.text = model.formData?.nick_name
-            //            userHeaderView.dateLab.text = model.formData?.display_create_time
-            //
-            //            dealFollow()
-            //            userHeaderView.numLab.text = "\((model.countModel?.read_count)!)次浏览"
-            //            userHeaderView.titleLab.text = model.formData?.content
-            //
-            //            /// 会员类型（1-普通 2-达人 3-场馆）
-            //            userHeaderView.vipImgView.isHidden = false
-            //            vipImgView.isHidden = false
-            //            if model.formData?.member_type == "2"{
-            //                userHeaderView.vipImgView.image = UIImage.init(named: "app_icon_daren")
-            //                vipImgView.image = UIImage.init(named: "app_icon_daren")
-            //            }else if model.formData?.member_type == "3"{
-            //                userHeaderView.vipImgView.image = UIImage.init(named: "app_icon_approve_venue")
-            //                vipImgView.image = UIImage.init(named: "app_icon_approve_venue")
-            //            }else{
-            //                vipImgView.isHidden = true
-            //            }
-            //            userImgView.kf.setImage(with: URL.init(string: (model.formData?.avatar)!), placeholder: UIImage.init(named: "app_img_avatar_def"))
-            //            nameLab.text = model.formData?.nick_name
-            //
-            //            if model.formData?.friend_type == "0" && model.formData?.open_type == "2"{// 未关注且好友圈可见
-            //                isShowAllInfo = false
-            //            }else{
-            //                isShowAllInfo = true
-            //            }
-            //
-            //            dealBottomView()
-            //
-        }
-    }
-    func dealFollow(){
-        //        if let model = dataModel {
-        //
-        //            /// 好友关系（0-未关注 1-已关注 2-相互关注 3-自己）
-        //            if model.formData?.friend_type == "0"{
-        //                userHeaderView.followLab.isHidden = false
-        //                userHeaderView.followLab.text = "关注"
-        //                userHeaderView.followLab.backgroundColor = kOrangeFontColor
-        //            }else if model.formData?.friend_type == "1" || model.formData?.friend_type == "2"{
-        //                userHeaderView.followLab.isHidden = false
-        //                userHeaderView.followLab.text = "取消关注"
-        //                userHeaderView.followLab.backgroundColor = kHeightGaryFontColor
-        //            }else{
-        //                userHeaderView.followLab.isHidden = true
-        //            }
-        //        }
-    }
-    func dealBottomView(){
-        if dataModel?.moreModel?.is_like == "1"{
-            bottomView.zanImgView.isHighlighted = true
-        }else {
-            bottomView.zanImgView.isHighlighted = false
-        }
-        if dataModel?.moreModel?.is_collect == "1"{
-            bottomView.favouriteImgView.isHighlighted = true
-        }else {
-            bottomView.favouriteImgView.isHighlighted = false
         }
     }
     
     /// 显示评论或回复
     func showConment(){
-        self.bottomView.isHidden = true
         self.sendConmentView.isHidden = false
         self.tableView.snp.updateConstraints({ (make) in
             make.bottom.equalTo(-kBottomTabbarHeight)
@@ -336,11 +246,7 @@ class FSDynamicVideoDetailVC: GYZWhiteNavBaseVC {
             return
         }
         sendConmentView.contentTxtView.resignFirstResponder()
-        if isReplyOrConment {//发送评论
-            requestSendConment()
-        }else{//回复
-            requestSendReply()
-        }
+        requestSendConment()
     }
     
     ///发送评论
@@ -368,54 +274,7 @@ class FSDynamicVideoDetailVC: GYZWhiteNavBaseVC {
             GYZLog(error)
         })
     }
-    ///发送回复
-    func requestSendReply(){
-        if !GYZTool.checkNetWork() {
-            return
-        }
-        
-        weak var weakSelf = self
-        createHUD(message: "加载中...")
-        
-        GYZNetWork.requestNetwork("Comment/Reply/add", parameters: ["comment_id":(dataModel?.conmentList[conmentIndex].id)!,"content":sendConmentView.contentTxtView.text!],  success: { (response) in
-            
-            weakSelf?.hud?.hide(animated: true)
-            GYZLog(response)
-            MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
-            if response["result"].intValue == kQuestSuccessTag{//请求成功
-                weakSelf?.sendConmentView.contentTxtView.text = ""
-                weakSelf?.dealReplyData()
-            }
-            
-        }, failture: { (error) in
-            weakSelf?.hud?.hide(animated: true)
-            GYZLog(error)
-        })
-    }
-    /// 回复后处理
-    func dealReplyData(){
-        let count: Int = Int((dataModel?.conmentList[conmentIndex].reply_count)!)! + 1
-        dataModel?.conmentList[conmentIndex].reply_count = "\(count)"
-        tableView.reloadData()
-    }
     
-    // 全部评论
-    @objc func onClickedAllConment(){
-        let vc = FSAllConmentVC()
-        vc.contentId = dynamicId
-        vc.type = (dataModel?.formData?.more_type)!
-        vc.isLike = (dataModel?.moreModel?.is_like)!
-        vc.resultBlock = {[weak self] (isRefresh) in
-            if isRefresh {
-                self?.requestDynamicDetail()
-            }
-        }
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    // 关注
-    @objc func onClickedFollow(){
-        requestFollow()
-    }
     ///关注（取消关注）
     func requestFollow(){
         if !GYZTool.checkNetWork() {
@@ -433,13 +292,7 @@ class FSDynamicVideoDetailVC: GYZWhiteNavBaseVC {
                 weakSelf?.isModify = true
                 let data = response["data"]
                 /// 状态（0-取消 1-关注）
-                if data["statue"].stringValue == "0"{
-                    weakSelf?.isShowAllInfo = false
-                }else{
-                    weakSelf?.isShowAllInfo = true
-                }
                 weakSelf?.dataModel?.formData?.friend_type = data["statue"].stringValue
-                weakSelf?.dealFollow()
                 weakSelf?.tableView.reloadData()
             }
             
@@ -511,24 +364,6 @@ class FSDynamicVideoDetailVC: GYZWhiteNavBaseVC {
             }
         }
     }
-    // 查看全部回复
-    @objc func onClickedAllReply(sender:UITapGestureRecognizer){
-        let tag = sender.view?.tag
-        let vc = FSAllReplyMsgVC()
-        vc.conmentId = (dataModel?.conmentList[tag!].id)!
-        vc.resultBlock = {[weak self] (isRefresh) in
-            if isRefresh {
-                self?.requestDynamicDetail()
-            }
-        }
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    // 评论点赞
-    @objc func onClickedZan(sender:UIButton){
-        let tag = sender.tag
-        conmentIndex = tag
-        requestZan(id: (dataModel?.conmentList[tag].id)!, type: "9")
-    }
     ///点赞（取消点赞）
     func requestZan(id: String,type: String){
         if !GYZTool.checkNetWork() {
@@ -545,15 +380,9 @@ class FSDynamicVideoDetailVC: GYZWhiteNavBaseVC {
             MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
             if response["result"].intValue == kQuestSuccessTag{//请求成功
                 let data = response["data"]
-                if type == "9"{
-                    weakSelf?.dataModel?.conmentList[(weakSelf?.conmentIndex)!].like_count = data["count"].stringValue
-                    weakSelf?.dataModel?.conmentList[(weakSelf?.conmentIndex)!].moreModel?.is_like = data["status"].stringValue
-                }else{
-                    weakSelf?.isModify = true
-                    weakSelf?.dataModel?.moreModel?.is_like = data["status"].stringValue
-                    weakSelf?.dataModel?.countModel?.like_count = data["count"].stringValue
-                    weakSelf?.dealBottomView()
-                }
+                weakSelf?.isModify = true
+                weakSelf?.dataModel?.moreModel?.is_like = data["status"].stringValue
+                weakSelf?.dataModel?.countModel?.like_count = data["count"].stringValue
                 weakSelf?.tableView.reloadData()
             }
             
@@ -580,32 +409,13 @@ class FSDynamicVideoDetailVC: GYZWhiteNavBaseVC {
                 weakSelf?.isModify = true
                 let data = response["data"]
                 weakSelf?.dataModel?.moreModel?.is_collect = data["status"].stringValue
-                weakSelf?.dealBottomView()
+                weakSelf?.tableView.reloadData()
             }
             
         }, failture: { (error) in
             weakSelf?.hud?.hide(animated: true)
             GYZLog(error)
         })
-    }
-    // 回复/举报
-    @objc func onClickedShowConment(sender:UIButton){
-        let tag = sender.tag
-        self.conmentIndex = tag
-        
-        let actionSheet = GYZActionSheet.init(title: "", style: .Default, itemTitles: ["回复","举报"])
-        actionSheet.cancleTextColor = kWhiteColor
-        actionSheet.cancleTextFont = k15Font
-        actionSheet.itemTextColor = kGaryFontColor
-        actionSheet.itemTextFont = k15Font
-        actionSheet.didSelectIndex = {[weak self] (index,title) in
-            if index == 0 {//回复
-                self?.isReplyOrConment = false
-                self?.showConment()
-            }else if index == 1{//评论举报
-                self?.goComplainVC(type: "9", contentId: (self?.dataModel?.conmentList[tag].id)!)
-            }
-        }
     }
     /// 评论投诉
     func goComplainVC(type: String,contentId: String){
@@ -671,7 +481,57 @@ class FSDynamicVideoDetailVC: GYZWhiteNavBaseVC {
             GYZLog(error)
         })
     }
+    /// 收起、点赞、评论等操作
+    func operatorMethod(index: Int){
+        switch index {
+        case 101:// 用户主页
+            goPersonHome()
+        case 102:// 关注
+            requestFollow()
+        case 103:// 收起
+            isShowTotal = false
+            tableView.reloadData()
+        case 104:// 收藏
+            requestFavourite()
+        case 105:// 评论列表
+            goAllConment()
+        case 106:// 点赞
+            requestZan(id: dynamicId, type: (dataModel?.formData!.more_type)!)
+        case 107:// 弹出评论
+            showConment()
+        default:
+            break
+        }
+    }
     
+    // 用户主页
+    func goPersonHome(){
+        if let model = dataModel {
+            if model.formData?.member_type == "3"{ /// 场馆
+                let vc = FSVenueHomeVC()
+                vc.userId = (dataModel?.formData?.member_id)!
+                navigationController?.pushViewController(vc, animated: true)
+            }else{
+                let vc = FSPersonHomeVC()
+                vc.userId = (dataModel?.formData?.member_id)!
+                vc.userType = (dataModel?.formData?.member_type)!
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+    }
+    /// 评论列表
+    func goAllConment(){
+        let vc = FSAllConmentVC()
+        vc.contentId = dynamicId
+        vc.type = (dataModel?.formData?.more_type)!
+        vc.isLike = (dataModel?.moreModel?.is_like)!
+        vc.resultBlock = {[weak self] (isRefresh) in
+            if isRefresh {
+                self?.requestDynamicDetail()
+            }
+        }
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 extension FSDynamicVideoDetailVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -687,13 +547,61 @@ extension FSDynamicVideoDetailVC: UITableViewDelegate,UITableViewDataSource{
         
         let cell = tableView.dequeueReusableCell(withIdentifier: dynamicVideoDetailCell) as! FSDynamicVideoDetailCell
         cell.dataModel = dataModel
-        //
-        //        cell.replyLab.tag = indexPath.row
-        //        cell.replyLab.addOnClickListener(target: self, action: #selector(onClickedAllReply(sender:)))
-        //        cell.conmentBtn.tag = indexPath.row
-        //        cell.conmentBtn.addTarget(self, action: #selector(onClickedShowConment(sender:)), for: .touchUpInside)
-        //        cell.zanBtn.tag = indexPath.row
-        //        cell.zanBtn.addTarget(self, action: #selector(onClickedZan(sender:)), for: .touchUpInside)
+        
+        cell.shouqiLab.isHidden = !isShowTotal
+        
+        if let infoModel = dataModel?.formData {
+            if infoModel.topic_id != "0" {
+                var content: String = infoModel.content!
+                if infoModel.content?.count > 50 && !isShowTotal {
+                    content = content.subString(start: 0, length: 50) + "...展开"
+                    let attStr = NSMutableAttributedString.init(string: content)
+                    attStr.addAttribute(NSAttributedString.Key.font, value: k13Font, range: NSMakeRange(0, content.count))
+                    
+                    attStr.addAttribute(NSAttributedString.Key.foregroundColor, value: kOrangeFontColor, range: NSMakeRange(content.count - 2, 2))
+                    attStr.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 14), range: NSMakeRange(content.count - 2, 2))
+                    
+                    cell.contentLab.attributedText = attStr
+                    cell.contentLab.yb_addAttributeTapAction(with: ["展开"], delegate: self)
+                }else{
+                    content += " \(infoModel.topic_id_text!)"
+                    let attStr = NSMutableAttributedString.init(string: content)
+                    attStr.addAttribute(NSAttributedString.Key.font, value: k13Font, range: NSMakeRange(0, content.count))
+                    
+                    attStr.addAttribute(NSAttributedString.Key.foregroundColor, value: kOrangeFontColor, range: NSMakeRange(content.count - infoModel.topic_id_text!.count,infoModel.topic_id_text!.count))
+                    attStr.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 14), range: NSMakeRange(content.count - infoModel.topic_id_text!.count ,infoModel.topic_id_text!.count))
+                    
+                    cell.contentLab.attributedText = attStr
+                    cell.contentLab.yb_addAttributeTapAction(with: [infoModel.topic_id_text!], delegate: self)
+                }
+                
+            }else{
+                var content: String = infoModel.content!
+                if infoModel.content?.count > 50  && !isShowTotal{
+                    content = content.subString(start: 0, length: 50) + "...展开"
+                    let attStr = NSMutableAttributedString.init(string: content)
+                    attStr.addAttribute(NSAttributedString.Key.font, value: k13Font, range: NSMakeRange(0, content.count))
+                    
+                    attStr.addAttribute(NSAttributedString.Key.foregroundColor, value: kOrangeFontColor, range: NSMakeRange(content.count - 2, 2))
+                    attStr.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 14), range: NSMakeRange(content.count - 2, 2))
+                    
+                    cell.contentLab.attributedText = attStr
+                    cell.contentLab.yb_addAttributeTapAction(with: ["展开"], delegate: self)
+                    
+                }else{
+                    content += ""
+                    let attStr = NSMutableAttributedString.init(string: content)
+                    attStr.addAttribute(NSAttributedString.Key.font, value: k13Font, range: NSMakeRange(0, content.count))
+                    
+                    cell.contentLab.attributedText = attStr
+                }
+                
+            }
+        }
+        
+        cell.onClickedOperatorBlock = {[unowned self] (index) in
+            self.operatorMethod(index: index)
+        }
         
         cell.selectionStyle = .none
         return cell
@@ -750,5 +658,25 @@ extension FSDynamicVideoDetailVC{
     }
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         scrollView.zf_scrollViewWillBeginDragging()
+    }
+}
+extension FSDynamicVideoDetailVC: YBAttributeTapActionDelegate{
+    func yb_tapAttribute(in label: UILabel!, string: String!, range: NSRange, index: Int) {
+        
+        if string == "展开" {
+            self.isShowTotal = true
+            self.tableView.reloadData()
+        }else{
+            goTopicDetailVC()
+        }
+        
+        
+    }
+    
+    /// 话题详情
+    func goTopicDetailVC(){
+        let vc = FSTopicDetailVC()
+        vc.topicId = (dataModel?.formData?.topic_id)!
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

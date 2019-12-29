@@ -648,6 +648,18 @@ class FSTopicDetailVC: GYZWhiteNavBaseVC {
         }
         navigationController?.pushViewController(vc, animated: true)
     }
+    /// 视频动态详情
+    func goVideoDynamicDetail(dynamicId: String){
+        let vc = FSDynamicVideoDetailVC()
+        vc.dynamicId = dynamicId
+        vc.resultBlock = {[unowned self] (isRefresh,dyId) in
+            
+            if isRefresh {
+                self.requestDynamicById(dynamicId: dyId)
+            }
+        }
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
     ///单个动态
     func requestDynamicById(dynamicId: String){
@@ -735,8 +747,10 @@ class FSTopicDetailVC: GYZWhiteNavBaseVC {
     func goDetailVC(index:Int){
         let model = dataList[index]
         let type = model.type
-        if type == "1" || type == "2" || type == "3" {//动态
+        if type == "1" || type == "2" {//动态
             goDynamicDetailVC(id: model.id!)
+        }else if type == "3"{
+            goVideoDynamicDetail(dynamicId: model.id!)
         }else if type == "4" || type == "5" || type == "6" {//作品
             goWorksDetailVC(id: model.id!)
         }

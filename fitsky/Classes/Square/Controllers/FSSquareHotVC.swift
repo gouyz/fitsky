@@ -192,11 +192,11 @@ class FSSquareHotVC: GYZWhiteNavBaseVC {
     func goVideoDynamicDetail(dynamicId: String){
         let vc = FSDynamicVideoDetailVC()
         vc.dynamicId = dynamicId
-        vc.resultBlock = {[unowned self] (isRefresh,dynamicId) in
+        vc.resultBlock = {[unowned self] (isRefresh,dyId) in
             
             if isRefresh {
                 self.isRefresh = false
-                self.requestDynamicById(dynamicId: dynamicId)
+                self.requestDynamicById(dynamicId: dyId)
             }
         }
         self.naviController?.pushViewController(vc, animated: true)

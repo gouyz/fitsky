@@ -484,6 +484,18 @@ class FSSquareNearVC: GYZWhiteNavBaseVC {
         }
         self.naviController?.pushViewController(vc, animated: true)
     }
+    /// 视频动态详情
+    func goVideoDynamicDetail(dynamicId: String){
+        let vc = FSDynamicVideoDetailVC()
+        vc.dynamicId = dynamicId
+        vc.resultBlock = {[unowned self] (isRefresh,dyId) in
+            
+            if isRefresh {
+                self.requestDynamicById(dynamicId: dyId)
+            }
+        }
+        self.naviController?.pushViewController(vc, animated: true)
+    }
     ///单个动态
     func requestDynamicById(dynamicId: String){
         if !GYZTool.checkNetWork() {
@@ -561,6 +573,17 @@ class FSSquareNearVC: GYZWhiteNavBaseVC {
             self.naviController?.pushViewController(vc, animated: true)
         }
     }
+    func goDetailVC(index:Int){
+        let model = dataList[index]
+        let type = model.type
+        if type == "1" || type == "2" {//动态
+            goDynamicDetailVC(id: model.id!)
+        }else if type == "3"{
+            goVideoDynamicDetail(dynamicId: model.id!)
+        }else if type == "4" || type == "5" || type == "6" {//作品
+            goWorksDetailVC(id: model.id!)
+        }
+    }
 }
 extension FSSquareNearVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -589,7 +612,11 @@ extension FSSquareNearVC: UITableViewDelegate,UITableViewDataSource{
         cell.zanBtn.tag = indexPath.row
         cell.zanBtn.addTarget(self, action: #selector(onClickedZan(sender:)), for: .touchUpInside)
         cell.imgViews.onClickedImgDetailsBlock = {[unowned self](index,urls) in
-            self.goBigPhotos(index: index, urls: self.dataList[indexPath.row].materialOrgionUrlList)
+            if self.dataList[indexPath.row].video!.isEmpty {
+                self.goBigPhotos(index: index, urls: self.dataList[indexPath.row].materialOrgionUrlList)
+            }else{
+                self.goDetailVC(index: indexPath.row)
+            }
         }
         
         cell.userImgView.tag = indexPath.row
@@ -621,13 +648,7 @@ extension FSSquareNearVC: UITableViewDelegate,UITableViewDataSource{
         return UIView()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = dataList[indexPath.row]
-        let type = model.type
-        if type == "1" || type == "2" || type == "3" {//动态
-            goDynamicDetailVC(id: model.id!)
-        }else if type == "4" || type == "5" || type == "6" {//作品
-            goWorksDetailVC(id: model.id!)
-        }
+        goDetailVC(index: indexPath.row)
     }
     ///MARK : UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

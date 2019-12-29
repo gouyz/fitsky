@@ -11,103 +11,105 @@ import ZFPlayer
 
 class FSDynamicVideoDetailCell: UITableViewCell {
     
+    /// 点击操作
+    var onClickedOperatorBlock: ((_ index: Int) -> Void)?
+    
     /// 填充数据
-        var dataModel : FSDynamicDetailModel?{
-            didSet{
-                if let model = dataModel {
+    var dataModel : FSDynamicDetailModel?{
+        didSet{
+            if let model = dataModel {
+                
+                if let infoModel = model.formData{
+                    userImgView.kf.setImage(with: URL.init(string: infoModel.avatar!), placeholder: UIImage.init(named: "app_img_avatar_def"))
+                    // 会员类型（1-普通 2-达人 3-场馆）
+                    vipImgView.isHidden = false
+                    if infoModel.member_type == "2"{
+                        vipImgView.image = UIImage.init(named: "app_icon_daren")
+                    }else if infoModel.member_type == "3"{
+                        vipImgView.image = UIImage.init(named: "app_icon_approve_venue")
+                    }else{
+                        vipImgView.isHidden = true
+                    }
+                    nameLab.text = infoModel.nick_name
+                    dateLab.text = infoModel.display_create_time
                     
-                    if let infoModel = model.formData{
-                        userImgView.kf.setImage(with: URL.init(string: infoModel.avatar!), placeholder: UIImage.init(named: "app_img_avatar_def"))
-                        // 会员类型（1-普通 2-达人 3-场馆）
-                        vipImgView.isHidden = false
-                        if infoModel.member_type == "2"{
-                            vipImgView.image = UIImage.init(named: "app_icon_daren")
-                        }else if infoModel.member_type == "3"{
-                            vipImgView.image = UIImage.init(named: "app_icon_approve_venue")
-                        }else{
-                            vipImgView.isHidden = true
-                        }
-                        nameLab.text = infoModel.nick_name
-                        dateLab.text = infoModel.display_create_time
-                        contentLab.text = infoModel.content
-                        
-                        /// 好友关系（0-未关注 1-已关注 2-相互关注 3-自己）
-                        if infoModel.friend_type == "0"{
-                            followLab.isHidden = false
-                            followLab.text = "关注"
-                            followLab.backgroundColor = kOrangeFontColor
-                        }else if infoModel.friend_type == "1" || infoModel.friend_type == "2"{
-                            followLab.isHidden = false
-                            followLab.text = "取消关注"
-                            followLab.backgroundColor = kHeightGaryFontColor
-                        }else{
-                            followLab.isHidden = true
-                        }
-                        addressLab.text = infoModel.position
-                        if infoModel.position!.isEmpty{
-                            addressImgView.isHidden = true
-                        }else{
-                            addressImgView.isHidden = false
-                        }
-                        
-                        var zanCount: String = (model.countModel?.like_count)!
-                        if zanCount.isEmpty || zanCount == "0"{
-                            zanCount = ""
-                        }
-                        var conmentCount: String = (model.countModel?.comment_count)!
-                        if conmentCount.isEmpty || conmentCount == "0"{
-                            conmentCount = ""
-                        }
-                        var collectCount: String = (model.countModel?.collect_count)!
-                        if collectCount.isEmpty || collectCount == "0"{
-                            collectCount = ""
-                        }
-                        
-                        if model.moreModel?.is_like == "1"{// 已点赞
-                            zanBtn.set(image: UIImage.init(named: "icon_zan_selected"), title: zanCount, titlePosition: .right, additionalSpacing: 5, state: .normal)
-                            zanBtn.setTitleColor(kOrangeFontColor, for: .normal)
-                        }else{
-                            zanBtn.set(image: UIImage.init(named: "icon_zan"), title: zanCount, titlePosition: .right, additionalSpacing: 5, state: .normal)
-                            zanBtn.setTitleColor(kHeightGaryFontColor, for: .normal)
-                        }
-                        if model.moreModel?.is_collect == "1"{// 已收藏
-                            favouriteBtn.set(image: UIImage.init(named: "app_icon_favourite_selected"), title: collectCount, titlePosition: .right, additionalSpacing: 5, state: .normal)
-                            favouriteBtn.setTitleColor(kOrangeFontColor, for: .normal)
-                        }else{
-                            favouriteBtn.set(image: UIImage.init(named: "app_icon_favourite"), title: collectCount, titlePosition: .right, additionalSpacing: 5, state: .normal)
-                            favouriteBtn.setTitleColor(kHeightGaryFontColor, for: .normal)
-                        }
-                        if model.moreModel?.is_comment == "1"{// 已评论
-                            conmentBtn.set(image: UIImage.init(named: "app_icon_comment_selected"), title: conmentCount, titlePosition: .right, additionalSpacing: 5, state: .normal)
-                            conmentBtn.setTitleColor(kOrangeFontColor, for: .normal)
-                        }else{
-                            conmentBtn.set(image: UIImage.init(named: "app_icon_comment_no"), title: conmentCount, titlePosition: .right, additionalSpacing: 5, state: .normal)
-                            conmentBtn.setTitleColor(kHeightGaryFontColor, for: .normal)
-                        }
-                        
-                        if !infoModel.video!.isEmpty {
-                            
-                            let imgSize = GYZTool.getThumbSize(url: infoModel.video_material_url!, thumbUrl: infoModel.video_thumb_url!)
-                            if imgSize.width >= imgSize.height {
-                                coverImageView.contentMode = .scaleAspectFit
-                                coverImageView.clipsToBounds = false
-                            }else{
-                                coverImageView.contentMode = .scaleAspectFill
-                                coverImageView.clipsToBounds = true
-                            }
-                            
-                            coverImageView.kf.setImage(with: URL.init(string: infoModel.video_thumb_url!), placeholder: UIImage.init(named: "icon_bg_square_default"))
-                        }
+                    /// 好友关系（0-未关注 1-已关注 2-相互关注 3-自己）
+                    if infoModel.friend_type == "0"{
+                        followLab.isHidden = false
+                        followLab.text = "关注"
+                        followLab.backgroundColor = kOrangeFontColor
+                    }else if infoModel.friend_type == "1" || infoModel.friend_type == "2"{
+                        followLab.isHidden = false
+                        followLab.text = "取消关注"
+                        followLab.backgroundColor = kHeightGaryFontColor
+                    }else{
+                        followLab.isHidden = true
+                    }
+                    addressLab.text = infoModel.position
+                    if infoModel.position!.isEmpty{
+                        addressImgView.isHidden = true
+                    }else{
+                        addressImgView.isHidden = false
                     }
                     
+                    var zanCount: String = (model.countModel?.like_count)!
+                    if zanCount.isEmpty || zanCount == "0"{
+                        zanCount = ""
+                    }
+                    var conmentCount: String = (model.countModel?.comment_count)!
+                    if conmentCount.isEmpty || conmentCount == "0"{
+                        conmentCount = ""
+                    }
+                    var collectCount: String = (model.countModel?.collect_count)!
+                    if collectCount.isEmpty || collectCount == "0"{
+                        collectCount = ""
+                    }
+                    
+                    if model.moreModel?.is_like == "1"{// 已点赞
+                        zanBtn.set(image: UIImage.init(named: "icon_zan_selected"), title: zanCount, titlePosition: .right, additionalSpacing: 5, state: .normal)
+                        zanBtn.setTitleColor(kOrangeFontColor, for: .normal)
+                    }else{
+                        zanBtn.set(image: UIImage.init(named: "app_icon_d_video_like"), title: zanCount, titlePosition: .right, additionalSpacing: 5, state: .normal)
+                        zanBtn.setTitleColor(kWhiteColor, for: .normal)
+                    }
+                    if model.moreModel?.is_collect == "1"{// 已收藏
+                        favouriteBtn.set(image: UIImage.init(named: "app_icon_favourite_selected"), title: collectCount, titlePosition: .right, additionalSpacing: 5, state: .normal)
+                        favouriteBtn.setTitleColor(kOrangeFontColor, for: .normal)
+                    }else{
+                        favouriteBtn.set(image: UIImage.init(named: "app_icon_d_video_collect"), title: collectCount, titlePosition: .right, additionalSpacing: 5, state: .normal)
+                        favouriteBtn.setTitleColor(kWhiteColor, for: .normal)
+                    }
+                    if model.moreModel?.is_comment == "1"{// 已评论
+                        conmentBtn.set(image: UIImage.init(named: "app_icon_comment_selected"), title: conmentCount, titlePosition: .right, additionalSpacing: 5, state: .normal)
+                        conmentBtn.setTitleColor(kOrangeFontColor, for: .normal)
+                    }else{
+                        conmentBtn.set(image: UIImage.init(named: "app_icon_d_video_comment"), title: conmentCount, titlePosition: .right, additionalSpacing: 5, state: .normal)
+                        conmentBtn.setTitleColor(kWhiteColor, for: .normal)
+                    }
+                    
+                    if !infoModel.video!.isEmpty {
+                        
+                        let imgSize = GYZTool.getThumbSize(url: infoModel.video_material_url!, thumbUrl: infoModel.video_thumb_url!)
+                        if imgSize.width >= imgSize.height {
+                            coverImageView.contentMode = .scaleAspectFit
+                            coverImageView.clipsToBounds = false
+                        }else{
+                            coverImageView.contentMode = .scaleAspectFill
+                            coverImageView.clipsToBounds = true
+                        }
+                        
+                        coverImageView.kf.setImage(with: URL.init(string: infoModel.video_thumb_url!), placeholder: UIImage.init(named: "icon_bg_square_default"))
+                    }
                 }
+                
             }
         }
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-//        contentView.backgroundColor = kWhiteColor
+        //        contentView.backgroundColor = kWhiteColor
         setupUI()
     }
     
@@ -143,7 +145,11 @@ class FSDynamicVideoDetailCell: UITableViewCell {
         bgView.snp.makeConstraints { (make) in
             make.left.equalTo(kMargin)
             make.right.equalTo(favouriteBtn.snp.left).offset(-15)
-            make.bottom.equalTo(-kMargin)
+            if kStateHeight > 20.0{
+                make.bottom.equalTo(-20)
+            }else{
+                make.bottom.equalTo(-kMargin)
+            }
             make.height.equalTo(30)
         }
         desLab.snp.makeConstraints { (make) in
@@ -174,7 +180,7 @@ class FSDynamicVideoDetailCell: UITableViewCell {
         addressLab.snp.makeConstraints { (make) in
             make.left.equalTo(addressImgView.snp.right).offset(3)
             make.right.equalTo(shouqiLab.snp.left).offset(-kMargin)
-            make.bottom.equalTo(bgView.snp.top).offset(-20)
+            make.bottom.equalTo(bgView.snp.top).offset(-30)
             make.height.equalTo(20)
         }
         shouqiLab.snp.makeConstraints { (make) in
@@ -229,6 +235,8 @@ class FSDynamicVideoDetailCell: UITableViewCell {
         let imgView = UIImageView()
         imgView.backgroundColor = kGrayBackGroundColor
         imgView.cornerRadius = 20
+        imgView.tag = 101
+        imgView.addOnClickListener(target: self, action: #selector(onClickedOperator(sender:)))
         
         return imgView
     }()
@@ -261,6 +269,8 @@ class FSDynamicVideoDetailCell: UITableViewCell {
         lab.cornerRadius = 12
         lab.backgroundColor = kOrangeFontColor
         lab.text = "关注"
+        lab.tag = 102
+        lab.addOnClickListener(target: self, action: #selector(onClickedOperator(sender:)))
         
         return lab
     }()
@@ -292,6 +302,8 @@ class FSDynamicVideoDetailCell: UITableViewCell {
         lab.font = k12Font
         lab.textAlignment = .right
         lab.text = "收起"
+        lab.tag = 103
+        lab.addOnClickListener(target: self, action: #selector(onClickedOperator(sender:)))
         
         return lab
     }()
@@ -300,6 +312,8 @@ class FSDynamicVideoDetailCell: UITableViewCell {
         let view = UIView()
         view.backgroundColor = kWhiteColor
         view.cornerRadius = 15
+        view.tag = 107
+        view.addOnClickListener(target: self, action: #selector(onClickedOperator(sender:)))
         
         return view
     }()
@@ -317,6 +331,8 @@ class FSDynamicVideoDetailCell: UITableViewCell {
         let btn = UIButton.init(type: .custom)
         btn.titleLabel?.font = k12Font
         btn.setTitleColor(kWhiteColor, for: .normal)
+        btn.tag = 104
+        btn.addTarget(self, action: #selector(onClickedBtn(sender:)), for: .touchUpInside)
         return btn
     }()
     /// 评论
@@ -324,6 +340,8 @@ class FSDynamicVideoDetailCell: UITableViewCell {
         let btn = UIButton.init(type: .custom)
         btn.titleLabel?.font = k12Font
         btn.setTitleColor(kWhiteColor, for: .normal)
+        btn.tag = 105
+        btn.addTarget(self, action: #selector(onClickedBtn(sender:)), for: .touchUpInside)
         return btn
     }()
     /// 点赞
@@ -331,6 +349,22 @@ class FSDynamicVideoDetailCell: UITableViewCell {
         let btn = UIButton.init(type: .custom)
         btn.titleLabel?.font = k12Font
         btn.setTitleColor(kWhiteColor, for: .normal)
+        btn.tag = 106
+        btn.addTarget(self, action: #selector(onClickedBtn(sender:)), for: .touchUpInside)
         return btn
     }()
+    /// 操作
+    @objc func onClickedOperator(sender:UITapGestureRecognizer){
+        goOperator(index: (sender.view?.tag)!)
+    }
+    /// 操作
+    @objc func onClickedBtn(sender:UIButton){
+        goOperator(index: sender.tag)
+    }
+    
+    func goOperator(index: Int){
+        if onClickedOperatorBlock != nil {
+            onClickedOperatorBlock!(index)
+        }
+    }
 }
