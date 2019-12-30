@@ -18,7 +18,7 @@ class FSCameraBottomView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = kBlackColor
+        self.backgroundColor = UIColor.clear
         setupUI()
     }
     required init?(coder aDecoder: NSCoder) {

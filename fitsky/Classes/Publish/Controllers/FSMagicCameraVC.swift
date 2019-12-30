@@ -18,7 +18,7 @@ class FSMagicCameraVC: GYZBaseVC {
     //本地记录的视频录制时长
     var recorderDuration: CGFloat = 0
     //初始输出分辨率，此值切换画幅的时候用到
-    var outputSize: CGSize = CGSize.init(width: 480, height: 480*16.0/9)
+    var outputSize: CGSize = CGSize.init(width: kScreenWidth, height: kScreenWidth)
     //陀螺仪
     var motionManager: CMMotionManager?
     var queue: OperationQueue = OperationQueue.init()
@@ -390,6 +390,10 @@ class FSMagicCameraVC: GYZBaseVC {
             break
         }
         changeSizeBtn.setImage(UIImage.init(named: sizeImgName), for: .normal)
+        self.changePreviewSize()
+    }
+    
+    func changePreviewSize(){
         self.recorder.reStartPreview(withVideoSize: quVideo.fixedSize())
         UIView.animate(withDuration: 0.3, animations: {
             self.recorder.preview.frame = self.previewFrame()
@@ -483,6 +487,15 @@ class FSMagicCameraVC: GYZBaseVC {
         bottomView.startImgView.image = UIImage.init(named: (isTakePhoto ? "app_icon_take_photo_btn_white" : "app_icon_take_video_btn_no"))
         bottomView.photoDotView.isHidden = !isTakePhoto
         bottomView.videoDotView.isHidden = isTakePhoto
+        progressView.isHidden = isTakePhoto
+        if isTakePhoto {
+            quVideo.outputSize = CGSize.init(width: outputSize.width, height: outputSize.width)
+            changeSizeBtn.setImage(UIImage.init(named: "app_icon_take_photo_size_1_1"), for: .normal)
+        }else{
+            quVideo.outputSize = CGSize.init(width: outputSize.width, height: outputSize.width * 16.0 / 9.0)
+            changeSizeBtn.setImage(UIImage.init(named: "app_icon_camera_9_16"), for: .normal)
+        }
+        self.changePreviewSize()
     }
     //更新UI状态
     func updateViewsStatus(){
