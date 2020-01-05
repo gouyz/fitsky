@@ -72,7 +72,12 @@ class FSPublishDynamicVC: GYZWhiteNavBaseVC {
         contentTxtView.text = placeHolder
         
         addPhotosView.onClickedImgDetailsBlock  = {[unowned self] (index) in
-            self.goBigPhotos(index: index)
+            
+            if self.isVideo {
+                self.showPlayVideo()
+            }else{
+               self.goBigPhotos(index: index)
+            }
         }
         
         if let model = topicModel {
@@ -603,6 +608,7 @@ extension FSPublishDynamicVC : UIImagePickerControllerDelegate,UINavigationContr
         addPhotosView.snp.updateConstraints({ (make) in
             make.height.equalTo(height)
         })
+        addPhotosView.isVideo = self.isVideo
         addPhotosView.selectImgs = selectCameraImgs
     }
 }
@@ -648,6 +654,12 @@ extension FSPublishDynamicVC : UITextViewDelegate,LHSAddPhotoViewDelegate
         //        browser.delegate = self
         
         present(browser, animated: true, completion: nil)
+    }
+    // 视频预览
+    func showPlayVideo(){
+        let isLand: Bool = imgHeight < imgWidth
+        let vc = FSVenueVideoView.init(isLand: isLand, url: videoOutPutUrl, img: selectCameraImgs[0])
+        vc.show()
     }
     
     ///MARK UITextViewDelegate

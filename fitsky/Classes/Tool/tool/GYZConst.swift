@@ -300,7 +300,7 @@ let kDynamicSelfSharedCards = [
     kSharedCards,[
         [
             "title": "删除",
-            "icon": "app_icon_share_jubao",
+            "icon": "app_icon_share_delete",
             "handler": kDeleteShared
         ]
     ]

@@ -61,7 +61,7 @@ class FSPublishWorkVC: GYZWhiteNavBaseVC {
         let rightBtn = UIButton(type: .custom)
         rightBtn.setTitle("发表", for: .normal)
         rightBtn.titleLabel?.font = k15Font
-        rightBtn.setTitleColor(kHeightGaryFontColor, for: .normal)
+        rightBtn.setTitleColor(kBlueFontColor, for: .normal)
         rightBtn.frame = CGRect.init(x: 0, y: 0, width: kTitleHeight, height: kTitleHeight)
         rightBtn.addTarget(self, action: #selector(onClickRightBtn), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: rightBtn)

@@ -39,7 +39,33 @@ class FSVenueVideoView: UIView {
         
         setData()
     }
-    
+    convenience init(isLand: Bool,url: URL,img:UIImage){
+        let rect = CGRect(x: 0, y: 0, width: kScreenWidth, height: kScreenHeight)
+        self.init(frame: rect)
+        
+        self.backgroundColor = UIColor.clear
+        
+        backgroundView.frame = rect
+        backgroundView.backgroundColor = kBlackColor
+        addSubview(backgroundView)
+        backgroundView.addOnClickListener(target: self, action: #selector(onCancleTap))
+        
+        
+        setupUI()
+        /// 超出部分裁剪
+        containerView.clipsToBounds = true
+        showVideo()
+        
+        
+        containerView.image = img
+        
+        self.player?.assetURL = url
+        if !isLand {
+            self.controlView.showTitle("", cover: img, fullScreenMode: .portrait)
+        }else{
+            self.controlView.showTitle("", cover: img, fullScreenMode: .landscape)
+        }
+    }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -207,7 +233,12 @@ class FSVenueVideoView: UIView {
             
             if !(model.storeData?.video)!.isEmpty{
                 self.player?.assetURL = URL.init(string: (model.storeData?.video)!)!
-                self.controlView.showTitle("", coverURLString: (model.storeData?.video_thumb_url)!, fullScreenMode: .landscape)
+                let imgSize = GYZTool.getThumbSize(url: (model.storeData?.video_material_url)!, thumbUrl: (model.storeData?.video_thumb_url)!)
+                if imgSize.height > imgSize.width {
+                    self.controlView.showTitle("", coverURLString: model.storeData?.video_thumb_url, fullScreenMode: .portrait)
+                }else{
+                    self.controlView.showTitle("", coverURLString: model.storeData?.video_thumb_url, fullScreenMode: .landscape)
+                }
             }
         }
     }

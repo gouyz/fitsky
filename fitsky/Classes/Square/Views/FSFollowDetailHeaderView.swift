@@ -89,6 +89,7 @@ class FSFollowDetailHeaderView: UIView {
     lazy var bgView: UIView = {
         let view = UIView()
         view.backgroundColor = kWhiteColor
+        view.isUserInteractionEnabled = true
         
         return view
     }()

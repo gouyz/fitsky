@@ -48,7 +48,9 @@ class FSPersonHomeVC: GYZWhiteNavBaseVC {
         userHeaderView.rightBtn.addTarget(self, action: #selector(onClickedRight), for: .touchUpInside)
         navBarView.leftBtn.addTarget(self, action: #selector(onClickedLeft), for: .touchUpInside)
         navBarView.rightBtn.addTarget(self, action: #selector(onClickedRight), for: .touchUpInside)
-        userHeaderView.numLab.addOnClickListener(target: self, action: #selector(onClickedFollowAndFenSi))
+        userHeaderView.numDesLab.addOnClickListener(target: self, action: #selector(onClickedFollowAndFenSi))
+        userHeaderView.followNumLab.addOnClickListener(target: self, action: #selector(onClickedFollowAndFenSi))
+        userHeaderView.fenSiNumLab.addOnClickListener(target: self, action: #selector(onClickedFollowAndFenSi))
         
         
         requestUserInfo()
@@ -161,7 +163,8 @@ class FSPersonHomeVC: GYZWhiteNavBaseVC {
             userHeaderView.userImgView.kf.setImage(with: URL.init(string: (userModel?.formData?.avatar)!), placeholder: UIImage.init(named: "app_img_avatar_def"))
             navBarView.userImgView.kf.setImage(with: URL.init(string: (userModel?.formData?.avatar)!), placeholder: UIImage.init(named: "app_img_avatar_def"))
             userHeaderView.nameBtn.set(image: UIImage.init(named: sexName), title: (userModel?.formData?.nick_name)!, titlePosition: .left, additionalSpacing: 5, state: .normal)
-            userHeaderView.numLab.text = "关注 \((userModel?.formData?.follow)!) | 粉丝 \((userModel?.formData?.fans)!)"
+            userHeaderView.followNumLab.text = "关注 \((userModel?.formData?.follow)!)"
+            userHeaderView.fenSiNumLab.text = "粉丝 \((userModel?.formData?.fans)!)"
             userHeaderView.confirmLab.text = "认证：\((userModel?.formData?.type_text)!)"
             
             

@@ -38,11 +38,13 @@ class FSDynamicVideoDetailCell: UITableViewCell {
                         followLab.isHidden = false
                         followLab.text = "关注"
                         followLab.backgroundColor = kOrangeFontColor
-                    }else if infoModel.friend_type == "1" || infoModel.friend_type == "2"{
-                        followLab.isHidden = false
-                        followLab.text = "取消关注"
-                        followLab.backgroundColor = kHeightGaryFontColor
-                    }else{
+                    }
+//                    else if infoModel.friend_type == "1" || infoModel.friend_type == "2"{
+//                        followLab.isHidden = false
+//                        followLab.text = "取消关注"
+//                        followLab.backgroundColor = kHeightGaryFontColor
+//                    }
+                    else{
                         followLab.isHidden = true
                     }
                     addressLab.text = infoModel.position

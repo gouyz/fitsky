@@ -18,7 +18,7 @@ class FSMagicCameraVC: GYZBaseVC {
     //本地记录的视频录制时长
     var recorderDuration: CGFloat = 0
     //初始输出分辨率，此值切换画幅的时候用到
-    var outputSize: CGSize = CGSize.init(width: kScreenWidth, height: kScreenWidth)
+    var outputSize: CGSize = CGSize.init(width: kScreenWidth, height: kScreenWidth * 4.0 / 3.0)
     //陀螺仪
     var motionManager: CMMotionManager?
     var queue: OperationQueue = OperationQueue.init()
@@ -125,7 +125,7 @@ class FSMagicCameraVC: GYZBaseVC {
         self.view.addSubview(lightBtn)
         self.view.addSubview(filterBtn)
         self.view.addSubview(beautyBtn)
-        self.view.addSubview(pasterBtn)
+//        self.view.addSubview(pasterBtn)
         
         self.view.addSubview(bottomView)
         
@@ -157,10 +157,10 @@ class FSMagicCameraVC: GYZBaseVC {
             make.right.size.equalTo(filterBtn)
             make.top.equalTo(filterBtn.snp.bottom)
         }
-        pasterBtn.snp.makeConstraints { (make) in
-            make.right.size.equalTo(filterBtn)
-            make.top.equalTo(beautyBtn.snp.bottom)
-        }
+//        pasterBtn.snp.makeConstraints { (make) in
+//            make.right.size.equalTo(filterBtn)
+//            make.top.equalTo(beautyBtn.snp.bottom)
+//        }
         
         bottomView.snp.makeConstraints { (make) in
             make.left.bottom.right.equalTo(self.view)
@@ -170,7 +170,7 @@ class FSMagicCameraVC: GYZBaseVC {
         lightBtn.set(image: UIImage.init(named: "app_icon_camera_light_no"), title: "闪光灯", titlePosition: .bottom, additionalSpacing: 10, state: .normal)
         filterBtn.set(image: UIImage.init(named: "app_icon_camera_filter"), title: "滤镜", titlePosition: .bottom, additionalSpacing: 10, state: .normal)
         beautyBtn.set(image: UIImage.init(named: "app_icon_camera_beauty"), title: "美颜", titlePosition: .bottom, additionalSpacing: 10, state: .normal)
-        pasterBtn.set(image: UIImage.init(named: "app_icon_camera_paster"), title: "贴纸", titlePosition: .bottom, additionalSpacing: 10, state: .normal)
+//        pasterBtn.set(image: UIImage.init(named: "app_icon_camera_paster"), title: "贴纸", titlePosition: .bottom, additionalSpacing: 10, state: .normal)
     }
     /// 进度条
     lazy var progressView: QUProgressView = {
@@ -283,15 +283,15 @@ class FSMagicCameraVC: GYZBaseVC {
         return btn
     }()
     /// 贴纸
-    lazy var pasterBtn : UIButton = {
-        let btn = UIButton.init(type: .custom)
-        btn.setTitleColor(kWhiteColor, for: .normal)
-        btn.titleLabel?.font = k13Font
-        btn.tag = 107
-        btn.addTarget(self, action: #selector(onClickedOperator(sender:)), for: .touchUpInside)
-        
-        return btn
-    }()
+//    lazy var pasterBtn : UIButton = {
+//        let btn = UIButton.init(type: .custom)
+//        btn.setTitleColor(kWhiteColor, for: .normal)
+//        btn.titleLabel?.font = k13Font
+//        btn.tag = 107
+//        btn.addTarget(self, action: #selector(onClickedOperator(sender:)), for: .touchUpInside)
+//
+//        return btn
+//    }()
     
     /// 操作
     @objc func onClickedOperator(sender:UIButton){
@@ -489,8 +489,8 @@ class FSMagicCameraVC: GYZBaseVC {
         bottomView.videoDotView.isHidden = isTakePhoto
         progressView.isHidden = isTakePhoto
         if isTakePhoto {
-            quVideo.outputSize = CGSize.init(width: outputSize.width, height: outputSize.width)
-            changeSizeBtn.setImage(UIImage.init(named: "app_icon_take_photo_size_1_1"), for: .normal)
+            quVideo.outputSize = CGSize.init(width: outputSize.width, height: outputSize.width * 4.0 / 3.0)
+            changeSizeBtn.setImage(UIImage.init(named: "app_icon_take_photo_size_3_4"), for: .normal)
         }else{
             quVideo.outputSize = CGSize.init(width: outputSize.width, height: outputSize.width * 16.0 / 9.0)
             changeSizeBtn.setImage(UIImage.init(named: "app_icon_camera_9_16"), for: .normal)

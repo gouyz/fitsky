@@ -69,7 +69,7 @@ class FSPersonHomeListCell: UITableViewCell {
                     playImgView.snp.remakeConstraints { (make) in
                         make.centerX.equalTo(imgViews.imgWidth * 0.5 + kMargin)
                         make.centerY.equalTo(imgViews)
-                        make.size.equalTo(CGSize.init(width: 34, height: 34))
+                        make.size.equalTo(CGSize.init(width: 48, height: 48))
                     }
                 }else if model.materialUrlList.count > 0{
                     imgViews.isHidden = false
@@ -237,7 +237,7 @@ class FSPersonHomeListCell: UITableViewCell {
         }
         playImgView.snp.makeConstraints { (make) in
             make.center.equalTo(imgViews)
-            make.size.equalTo(CGSize.init(width: 34, height: 34))
+            make.size.equalTo(CGSize.init(width: 48, height: 48))
         }
         addressImgView.snp.makeConstraints { (make) in
             make.left.equalTo(contentLab)

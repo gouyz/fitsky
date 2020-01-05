@@ -28,7 +28,9 @@ class FSPersonHomeHeaderView: UIView {
         firstPageView.addSubview(userImgView)
         firstPageView.addSubview(vipImgView)
         firstPageView.addSubview(nameBtn)
-        firstPageView.addSubview(numLab)
+        firstPageView.addSubview(followNumLab)
+        firstPageView.addSubview(numDesLab)
+        firstPageView.addSubview(fenSiNumLab)
         firstPageView.addSubview(confirmLab)
         firstPageView.addSubview(rightImgView)
         
@@ -92,15 +94,26 @@ class FSPersonHomeHeaderView: UIView {
             make.top.equalTo(userImgView.snp.bottom)
             make.height.equalTo(30)
         }
-        numLab.snp.makeConstraints { (make) in
-            make.left.right.equalTo(nameBtn)
+        followNumLab.snp.makeConstraints { (make) in
+            make.left.equalTo(nameBtn)
             make.top.equalTo(nameBtn.snp.bottom)
+            make.right.equalTo(numDesLab.snp.left)
             make.height.equalTo(20)
+        }
+        numDesLab.snp.makeConstraints { (make) in
+            make.centerX.equalTo(nameBtn)
+            make.top.height.equalTo(followNumLab)
+            make.width.equalTo(20)
+        }
+        fenSiNumLab.snp.makeConstraints { (make) in
+            make.right.equalTo(nameBtn)
+            make.left.equalTo(numDesLab.snp.right)
+            make.top.height.equalTo(followNumLab)
         }
         confirmLab.snp.makeConstraints { (make) in
             make.left.right.equalTo(nameBtn)
-            make.top.equalTo(numLab.snp.bottom)
-            make.height.equalTo(numLab)
+            make.top.equalTo(followNumLab.snp.bottom)
+            make.height.equalTo(followNumLab)
         }
         
         secondPageView.snp.makeConstraints { (make) in
@@ -190,13 +203,32 @@ class FSPersonHomeHeaderView: UIView {
         btn.setTitleColor(kGaryFontColor, for: .normal)
         return btn
     }()
+    ///关注数量
+    lazy var followNumLab: UILabel = {
+        let lab = UILabel()
+        lab.font = UIFont.boldSystemFont(ofSize: 14)
+        lab.textColor = kGaryFontColor
+        lab.textAlignment = .right
+        lab.text = "关注 100"
+        
+        return lab
+    }()
     ///数量
-    lazy var numLab: UILabel = {
+    lazy var numDesLab: UILabel = {
         let lab = UILabel()
         lab.font = UIFont.boldSystemFont(ofSize: 14)
         lab.textColor = kGaryFontColor
         lab.textAlignment = .center
-        lab.text = "关注 100 | 粉丝 1500"
+        lab.text = "|"
+        
+        return lab
+    }()
+    ///粉丝数量
+    lazy var fenSiNumLab: UILabel = {
+        let lab = UILabel()
+        lab.font = UIFont.boldSystemFont(ofSize: 14)
+        lab.textColor = kGaryFontColor
+        lab.text = "粉丝 1500"
         
         return lab
     }()

@@ -42,7 +42,9 @@ class FSVenueHomeVC: GYZWhiteNavBaseVC {
         userHeaderView.rightBtn.addTarget(self, action: #selector(onClickedRight), for: .touchUpInside)
         navBarView.leftBtn.addTarget(self, action: #selector(onClickedLeft), for: .touchUpInside)
         navBarView.rightBtn.addTarget(self, action: #selector(onClickedRight), for: .touchUpInside)
-        userHeaderView.numLab.addOnClickListener(target: self, action: #selector(onClickedFollowAndFenSi))
+        userHeaderView.numDesLab.addOnClickListener(target: self, action: #selector(onClickedFollowAndFenSi))
+        userHeaderView.followNumLab.addOnClickListener(target: self, action: #selector(onClickedFollowAndFenSi))
+        userHeaderView.fenSiNumLab.addOnClickListener(target: self, action: #selector(onClickedFollowAndFenSi))
         userHeaderView.userImgView.addOnClickListener(target: self, action: #selector(onClickedPlayVideo))
         
         requestUserInfo()
@@ -139,7 +141,8 @@ class FSVenueHomeVC: GYZWhiteNavBaseVC {
             navBarView.nameLab.text = userModel?.storeData?.store_name
       
             userHeaderView.nameBtn.setTitle((userModel?.storeData?.store_name)!, for: .normal)
-            userHeaderView.numLab.text = "关注 \((userModel?.formData?.follow)!) | 粉丝 \((userModel?.formData?.fans)!)"
+            userHeaderView.followNumLab.text = "关注 \((userModel?.formData?.follow)!)"
+            userHeaderView.fenSiNumLab.text = "粉丝 \((userModel?.formData?.fans)!)"
             userHeaderView.confirmLab.text = userModel?.formData?.type_text
             
             userHeaderView.birthdayDesLab.text = "规模"

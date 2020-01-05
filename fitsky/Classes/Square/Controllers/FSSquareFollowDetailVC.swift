@@ -93,6 +93,7 @@ class FSSquareFollowDetailVC: GYZWhiteNavBaseVC {
         tableView.tableHeaderView = userHeaderView
         userHeaderView.followLab.addOnClickListener(target: self, action: #selector(onClickedFollow))
         userHeaderView.playBtn.addTarget(self, action: #selector(onClickedPlay), for: .touchUpInside)
+        userHeaderView.userImgView.addOnClickListener(target: self, action: #selector(onClickedPersonHome))
         
         // 监听键盘隐藏通知
         NotificationCenter.default.addObserver(self,selector: #selector(keyboardWillHide(notification:)),name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -350,11 +351,13 @@ class FSSquareFollowDetailVC: GYZWhiteNavBaseVC {
                 userHeaderView.followLab.isHidden = false
                 userHeaderView.followLab.text = "关注"
                 userHeaderView.followLab.backgroundColor = kOrangeFontColor
-            }else if model.formData?.friend_type == "1" || model.formData?.friend_type == "2"{
-                userHeaderView.followLab.isHidden = false
-                userHeaderView.followLab.text = "取消关注"
-                userHeaderView.followLab.backgroundColor = kHeightGaryFontColor
-            }else{
+            }
+//            else if model.formData?.friend_type == "1" || model.formData?.friend_type == "2"{
+//                userHeaderView.followLab.isHidden = false
+//                userHeaderView.followLab.text = "取消关注"
+//                userHeaderView.followLab.backgroundColor = kHeightGaryFontColor
+//            }
+            else{
                 userHeaderView.followLab.isHidden = true
             }
         }
@@ -736,6 +739,21 @@ class FSSquareFollowDetailVC: GYZWhiteNavBaseVC {
         //        browser.delegate = self
         
         present(browser, animated: true, completion: nil)
+    }
+    // 用户主页
+    @objc func onClickedPersonHome(){
+        if let model = dataModel {
+            if model.formData?.member_type == "3"{ /// 场馆
+                let vc = FSVenueHomeVC()
+                vc.userId = (dataModel?.formData?.member_id)!
+                navigationController?.pushViewController(vc, animated: true)
+            }else{
+                let vc = FSPersonHomeVC()
+                vc.userId = (dataModel?.formData?.member_id)!
+                vc.userType = (dataModel?.formData?.member_type)!
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
 }
 extension FSSquareFollowDetailVC: UITableViewDelegate,UITableViewDataSource{

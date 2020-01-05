@@ -22,6 +22,8 @@ class LHSAddPhotoView: UIView {
     
     /// 点击查看大图
     var onClickedImgDetailsBlock: ((_ index: Int) -> Void)?
+    /// 是否视频
+    var isVideo: Bool = false
     
     ///本地图片
     var selectImgs: [UIImage]?{
@@ -59,6 +61,17 @@ class LHSAddPhotoView: UIView {
                         make.right.equalTo(-5)
                         make.size.equalTo(CGSize.init(width: 16, height: 16))
                     })
+                    if isVideo {
+                        //播放按钮的实现
+                        let playImg: UIImageView = UIImageView.init(image: UIImage.init(named: "app_square_play"))
+                        playImg.tag = 200 + index
+                        imgView.addSubview(playImg)
+                        
+                        playImg.snp.makeConstraints({ (make) in
+                            make.center.equalTo(imgView)
+                            make.size.equalTo(CGSize.init(width: 20, height: 20))
+                        })
+                    }
                     delImg.addOnClickListener(target: self, action: #selector(deleteImgOnClick(sender:)))
                 }
                 

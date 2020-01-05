@@ -86,7 +86,7 @@ class FSSquareNearVC: GYZWhiteNavBaseVC {
         
         return table
     }()
-    lazy var headerView: FSSquareNearHeaderView = FSSquareNearHeaderView.init(frame: CGRect.init(x: 0, y: 0, width: kScreenWidth, height: (kScreenWidth - 120) * 0.38 + 114))
+    lazy var headerView: FSSquareNearHeaderView = FSSquareNearHeaderView.init(frame: CGRect.init(x: 0, y: 0, width: kScreenWidth, height: (kScreenWidth - 120)*300/750*1.2 + 64))
     
     ///获取广场 附近活动数据
     func requestNearActivityList(){

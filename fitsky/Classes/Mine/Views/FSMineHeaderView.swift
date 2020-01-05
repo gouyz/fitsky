@@ -422,7 +422,7 @@ extension FSMineHeaderView: FSCalendarDataSource, FSCalendarDelegate{
                 }
             }
             if index != -1 {
-                return model.punchList[index].is_punch == "1" ? 2 : 0
+                return model.punchList[index].is_punch == "1" ? 1 : 0
             }
         }
         return 0

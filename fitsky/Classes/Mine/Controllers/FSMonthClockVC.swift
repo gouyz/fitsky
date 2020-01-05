@@ -126,7 +126,7 @@ extension FSMonthClockVC: FSCalendarDataSource, FSCalendarDelegate{
             }
         }
         if index != -1 {
-            return dateList[index].is_punch == "1" ? 2 : 0
+            return dateList[index].is_punch == "1" ? 1 : 0
         }
         return 0
     }

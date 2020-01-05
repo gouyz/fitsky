@@ -23,7 +23,7 @@ class FSVenueUpdateVC: GYZWhiteNavBaseVC {
         
         ruleLab.yb_addAttributeTapAction(with: ["《升级须知》"]) {[unowned self] (label, string, range, index) in
             if index == 0{//《升级须知》
-                self.goWebVC(method: "News/Home/userAgreement")
+                self.goWebVC(method: "News/Home/storeUpgrade")
             }
         }
     }

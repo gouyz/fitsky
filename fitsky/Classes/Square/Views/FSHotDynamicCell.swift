@@ -38,11 +38,13 @@ class FSHotDynamicCell: UITableViewCell {
                         followLab.isHidden = false
                         followLab.text = "关注"
                         followLab.backgroundColor = kOrangeFontColor
-                    }else if infoModel.friend_type == "1" || infoModel.friend_type == "2"{
-                        followLab.isHidden = false
-                        followLab.text = "取消关注"
-                        followLab.backgroundColor = kHeightGaryFontColor
-                    }else{
+                    }
+//                    else if infoModel.friend_type == "1" || infoModel.friend_type == "2"{
+//                        followLab.isHidden = false
+//                        followLab.text = "取消关注"
+//                        followLab.backgroundColor = kHeightGaryFontColor
+//                    }
+                    else{
                         followLab.isHidden = true
                     }
                     addressLab.text = infoModel.position
@@ -240,7 +242,7 @@ class FSHotDynamicCell: UITableViewCell {
     lazy var nameLab : UILabel = {
         let lab = UILabel()
         lab.textColor = kGaryFontColor
-        lab.font = k15Font
+        lab.font = UIFont.boldSystemFont(ofSize: 15)
         lab.text = "Alison"
         
         return lab
@@ -269,8 +271,8 @@ class FSHotDynamicCell: UITableViewCell {
     /// 内容
     lazy var contentLab : UILabel = {
         let lab = UILabel()
-        lab.textColor = kBlackFontColor
-        lab.font = k13Font
+        lab.textColor = kGaryFontColor
+        lab.font = k15Font
         lab.numberOfLines = 0
         lab.text = "5个瑜伽动作，每天十几分钟，告别大粗腿，以前…5个瑜伽动作，每天十几分钟，告别大粗腿，以前…5个瑜伽动作，每天十几分钟，告别大粗腿。"
         

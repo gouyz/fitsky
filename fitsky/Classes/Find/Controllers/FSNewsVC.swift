@@ -272,6 +272,22 @@ class FSNewsVC: GYZWhiteNavBaseVC {
         vc.url = url
         self.naviController?.pushViewController(vc, animated: true)
     }
+    /// 用户主页
+    @objc func onClickUserImg(sender: UITapGestureRecognizer){
+        let tag = sender.view?.tag
+        let model = dataList[tag!]
+        /// 会员类型（1-普通 2-达人 3-场馆）
+        if model.member_type == "3" {
+            let vc = FSVenueHomeVC()
+            vc.userId = model.member_id!
+            self.naviController?.pushViewController(vc, animated: true)
+        }else{
+            let vc = FSPersonHomeVC()
+            vc.userId = model.member_id!
+            vc.userType = model.member_type!
+            self.naviController?.pushViewController(vc, animated: true)
+        }
+    }
 }
 extension FSNewsVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -286,6 +302,9 @@ extension FSNewsVC: UITableViewDelegate,UITableViewDataSource{
         
         let cell = tableView.dequeueReusableCell(withIdentifier: newsListCell) as! FSNewsListCell
         cell.dataModel = dataList[indexPath.row]
+        
+        cell.userHeaderImgView.tag = indexPath.row
+        cell.userHeaderImgView.addOnClickListener(target: self, action: #selector(onClickUserImg(sender:)))
         
         cell.selectionStyle = .none
         return cell

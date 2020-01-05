@@ -238,7 +238,7 @@ class FSFindQiCaiDetailVC: GYZWhiteNavBaseVC {
             return
         }
         
-        GYZNetWork.requestNetwork("Course/Course/setInstrumentMember", parameters: ["id":qiCaiId],  success: { (response) in
+        GYZNetWork.requestNetwork("Course/Instrument/setInstrumentMember", parameters: ["id":qiCaiId],  success: { (response) in
             
             GYZLog(response)
             if response["result"].intValue == kQuestSuccessTag{//请求成功

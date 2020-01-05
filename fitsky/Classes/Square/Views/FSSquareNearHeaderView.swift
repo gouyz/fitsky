@@ -29,9 +29,9 @@ class FSSquareNearHeaderView: UIView {
         self.addSubview(categoryTagsView)
         
         adsImgView.snp.makeConstraints { (make) in
-            make.left.right.top.equalTo(self)
-//            make.top.equalTo(kMargin)
-            make.height.equalTo((kScreenWidth - 120) * 0.38 + 60)
+            make.left.right.equalTo(self)
+            make.top.equalTo(kMargin)
+            make.height.equalTo((kScreenWidth - 120)*300/750*1.2)
         }
         categoryTagsView.snp.makeConstraints { (make) in
             make.left.right.equalTo(self)
@@ -43,13 +43,14 @@ class FSSquareNearHeaderView: UIView {
     lazy var adsImgView: ZCycleView = {
         let adsView = ZCycleView()
         adsView.placeholderImage = UIImage.init(named: "icon_bg_ads_default")
-        adsView.itemSize = CGSize(width: width-120, height: (width-120) * 0.38)
+        adsView.itemSize = CGSize(width: kScreenWidth - 120, height: (kScreenWidth - 120)*300/750)
         adsView.itemSpacing = 40
         adsView.itemZoomScale = 1.2
-        adsView.itemCornerRadius = 8
-        adsView.pageControlHeight = 20
+        adsView.itemCornerRadius = 6
         adsView.pageControlIndictirColor = kGrayLineColor
         adsView.pageControlCurrentIndictirColor = kOrangeFontColor
+        
+        adsView.cornerRadius = 10
         
         return adsView
     }()

@@ -19,13 +19,7 @@ class FSActivityDetailVC: GYZWhiteNavBaseVC {
 
         self.navigationItem.title = "活动详情"
         self.view.backgroundColor = kWhiteColor
-//        let rightBtn = UIButton(type: .custom)
-//        rightBtn.setTitle("分享", for: .normal)
-//        rightBtn.titleLabel?.font = k15Font
-//        rightBtn.setTitleColor(kHeightGaryFontColor, for: .normal)
-//        rightBtn.frame = CGRect.init(x: 0, y: 0, width: kTitleHeight, height: kTitleHeight)
-//        rightBtn.addTarget(self, action: #selector(onClickRightBtn), for: .touchUpInside)
-//        navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: rightBtn)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "app_icon_more_gray")?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(clickedRightBtn))
         
         setUpUI()
         requestActivityInfo()
@@ -285,7 +279,7 @@ class FSActivityDetailVC: GYZWhiteNavBaseVC {
             nameLab.text = model.formData?.name
             timeLab1.text = (model.formData?.display_apply_stime)! + "—" + (model.formData?.display_apply_etime)!
             timeLab2.text = (model.formData?.display_activity_stime)! + "—" + (model.formData?.display_activity_etime)!
-            timeLab3.text = "\((model.formData?.apply_count)!)人参与"
+            timeLab3.text = "\((model.countModel?.apply_count)!)人参与"
             /// lab加载富文本
             let desStr = try? NSAttributedString.init(data: (model.formData?.content)!.data(using: String.Encoding.unicode)!, options: [.documentType : NSAttributedString.DocumentType.html], documentAttributes: nil)
             contentLab.attributedText = desStr
@@ -333,5 +327,48 @@ class FSActivityDetailVC: GYZWhiteNavBaseVC {
             weakSelf?.hud?.hide(animated: true)
             GYZLog(error)
         })
+    }
+    /// 更多
+    @objc func clickedRightBtn(){
+        if dataModel != nil {
+            let mmShareSheet = MMShareSheet.init(title: "分享至", cards: [kSharedCards], duration: nil, cancelBtn: kSharedCancleBtn)
+            mmShareSheet.callBack = { [weak self](handler) ->() in
+                
+                if handler != "cancel" {// 取消
+                    if handler == kWXFriendShared || handler == kWXMomentShared{/// 微信分享
+                        self?.weChatShared(tag: handler)
+                    }else if handler == kQQFriendShared {// QQ
+                        self?.qqShared(tag: handler)
+                    }
+                }
+            }
+            mmShareSheet.present()
+        }
+    }
+    /// 微信分享
+    func weChatShared(tag: String){
+        //发送给好友还是朋友圈（默认好友）
+        var scene = WXSceneSession
+        if tag == kWXMomentShared {//朋友圈
+            scene = WXSceneTimeline
+        }
+        
+        WXApiManager.shared.sendLinkURL((dataModel?.sharedModel?.link)!, title: (dataModel?.sharedModel?.title)!, description: (dataModel?.sharedModel?.desc)!, thumbImage: (dataModel?.sharedModel?.img_url)!.getImageFromURL()!, scene: scene,sender: self)
+    }
+    /// qq 分享
+    func qqShared(tag: String){
+        
+        if !GYZTencentShare.shared.isQQInstall() {
+            GYZAlertViewTools.alertViewTools.showAlert(title: "温馨提示", message: "QQ未安装", cancleTitle: nil, viewController: self, buttonTitles: "确定")
+            return
+        }
+        //发送给好友还是QQ空间（默认好友）
+        let scene: GYZTencentFlag = .QQ
+        //        if tag == kQZoneShared {//QQ空间
+        //            scene = .QZone
+        //        }
+        GYZTencentShare.shared.shareNews(URL.init(string: (dataModel?.sharedModel?.link)!)!, preUrl: URL.init(string: (dataModel?.sharedModel?.img_url)!), preImage: nil, title: (dataModel?.sharedModel?.title)!, description: (dataModel?.sharedModel?.desc)!, flag: scene) { (success, description) in
+            
+        }
     }
 }
