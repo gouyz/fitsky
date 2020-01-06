@@ -457,64 +457,22 @@ extension FSLoginVC: ASAuthorizationControllerDelegate,ASAuthorizationController
             
             let fullName = appleIDCredential.fullName
             
-            let email = appleIDCredential.email
+//            let email = appleIDCredential.email
             
-            // 存储userIdkeychain.
+            var name:String = ""
+            if fullName != nil {
+                name = (fullName?.familyName)! + (fullName?.givenName)!
+            }
             
-            self.requestThirdLogin(openId: userIdentifier, openType: "5", accessToken: nil, qqInfo: nil,appleNickName: (fullName?.givenName)!)
-//            do {// 保存到钥匙串
-//
-//                try KeychainItem(service: "com.example.apple-samplecode.juice", account: "userIdentifier").saveItem(userIdentifier)
-//
-//            } catch {
-//
-//                print("Unable to save userIdentifier to keychain.")
-//
-//            }
-//
-//            // 登录成功后隐藏登录页，并在结果页填充数据
-//
-//            if let viewController = self.presentingViewController as? ResultViewController {
-//
-//                DispatchQueue.main.async {
-//
-//                    viewController.userIdentifierLabel.text = userIdentifier
-//
-//                    if let givenName = fullName?.givenName {
-//
-//                        viewController.givenNameLabel.text = givenName
-//
-//                    }
-//
-//                    if let familyName = fullName?.familyName {
-//
-//                        viewController.familyNameLabel.text = familyName
-//
-//                    }
-//
-//                    if let email = email {
-//
-//                        viewController.emailLabel.text = email
-//
-//                    }
-//
-//                    self.dismiss(animated: true, completion: nil)
-//
-//                }
-//
-//            }
+            self.requestThirdLogin(openId: userIdentifier, openType: "5", accessToken: nil, qqInfo: nil,appleNickName: name)
             
-        }
-            
-            /// 密码凭证有效
-            
-        else if let passwordCredential = authorization.credential as? ASPasswordCredential {
+        }else if let passwordCredential = authorization.credential as? ASPasswordCredential {/// 密码凭证有效
             
             // 用已有的钥匙串登录
             
             let username = passwordCredential.user
             
-            let password = passwordCredential.password
+//            let password = passwordCredential.password
             self.requestThirdLogin(openId: username, openType: "5", accessToken: nil, qqInfo: nil,appleNickName: "")
             
         }
