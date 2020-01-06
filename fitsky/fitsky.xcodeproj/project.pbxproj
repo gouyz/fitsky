@@ -907,6 +907,8 @@
 		0A9C68F423AB64C4008D320D /* FSPasterImgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSPasterImgView.swift; sourceTree = "<group>"; };
 		0AA3EA2D234F1FB800653AA3 /* FSTrainListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTrainListVC.swift; sourceTree = "<group>"; };
 		0AA3EA2F234F209C00653AA3 /* FSTrainHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTrainHeaderView.swift; sourceTree = "<group>"; };
+		0ABDCB4023C2CE4E0041C36B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		0ABDCB4123C2CE4F0041C36B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		0AC5C575230EDC2E005AB87B /* FSConmentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSConmentHeaderView.swift; sourceTree = "<group>"; };
 		0AC5C577230EDFBC005AB87B /* FSMoreConmentFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMoreConmentFooterView.swift; sourceTree = "<group>"; };
 		0AC5C579230EE1C6005AB87B /* FSConmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSConmentCell.swift; sourceTree = "<group>"; };
@@ -2101,6 +2103,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 0A47C02222D4783800207CED;
 			productRefGroup = 0A47C02C22D4783800207CED /* Products */;
@@ -2667,6 +2670,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				0A47C03322D4783800207CED /* Base */,
+				0ABDCB4023C2CE4E0041C36B /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -2675,6 +2679,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				0A47C03822D4783A00207CED /* Base */,
+				0ABDCB4123C2CE4F0041C36B /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -2686,6 +2691,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -2749,6 +2755,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

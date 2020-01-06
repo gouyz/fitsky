@@ -8,12 +8,13 @@
 
 import UIKit
 import MBProgressHUD
+import AuthenticationServices
 
 class FSLoginVC: GYZBaseVC {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navBarBgAlpha = 0
         self.view.backgroundColor = kBlueBackgroundColor
         
@@ -47,7 +48,11 @@ class FSLoginVC: GYZBaseVC {
         view.addSubview(thirdDesLab)
         view.addSubview(qqBtn)
         view.addSubview(wechatBtn)
-//        view.addSubview(sinaBtn)
+        
+        if #available(iOS 13.0, *){
+            view.addSubview(appleBtn)
+        }
+        //        view.addSubview(sinaBtn)
         
         logoImgView.snp.makeConstraints { (make) in
             make.centerX.equalTo(view)
@@ -80,10 +85,10 @@ class FSLoginVC: GYZBaseVC {
             make.centerX.equalTo(view)
             make.bottom.size.equalTo(qqBtn)
         }
-//        sinaBtn.snp.makeConstraints { (make) in
-//            make.right.equalTo(codeBtn)
-//            make.bottom.size.equalTo(qqBtn)
-//        }
+        //        sinaBtn.snp.makeConstraints { (make) in
+        //            make.right.equalTo(codeBtn)
+        //            make.bottom.size.equalTo(qqBtn)
+        //        }
         thirdDesLab.snp.makeConstraints { (make) in
             make.left.right.height.equalTo(desLab)
             make.bottom.equalTo(qqBtn.snp.top).offset(-kMargin)
@@ -140,6 +145,16 @@ class FSLoginVC: GYZBaseVC {
         
         return lab
     }()
+    /// 苹果登录
+    @available(iOS 13.0, *)
+    lazy var appleBtn: ASAuthorizationAppleIDButton = {
+        let btn = ASAuthorizationAppleIDButton.init(authorizationButtonType: ASAuthorizationAppleIDButton.ButtonType.signIn, authorizationButtonStyle: ASAuthorizationAppleIDButton.Style.white)
+        btn.frame = CGRect.init(x: kScreenWidth - 160, y: kScreenHeight - 100, width: 130, height: 30)
+        btn.tag = 104
+        btn.addTarget(self, action: #selector(clickedThirdLoginBtn(sender:)), for: .touchUpInside)
+        
+        return btn
+    }()
     
     /// qq登录
     lazy var qqBtn : UIButton = {
@@ -149,7 +164,7 @@ class FSLoginVC: GYZBaseVC {
         btn.tag = 101
         
         btn.addTarget(self, action: #selector(clickedThirdLoginBtn(sender:)), for: .touchUpInside)
-        btn.isHidden = true
+        //        btn.isHidden = true
         
         return btn
     }()
@@ -161,7 +176,7 @@ class FSLoginVC: GYZBaseVC {
         btn.tag = 102
         
         btn.addTarget(self, action: #selector(clickedThirdLoginBtn(sender:)), for: .touchUpInside)
-        btn.isHidden = true
+        //        btn.isHidden = true
         
         return btn
     }()
@@ -205,8 +220,11 @@ class FSLoginVC: GYZBaseVC {
             qqLogin()
         }else if tag == 102 {/// 微信登录
             weChatLogin()
+        }else if tag == 104 {/// apple登录
+            if #available(iOS 13.0, *) {
+                handleAuthAppleIDButtonPress()
+            }
         }else{
-            
         }
     }
     /// 微信登录
@@ -222,7 +240,7 @@ class FSLoginVC: GYZBaseVC {
         GYZTencentShare.shared.login({[unowned self] (info) in
             GYZLog(info)
             self.requestThirdLogin(openId: info["uid"]! as! String, openType: "3", accessToken: nil, qqInfo: info)
-//            self.goBindVC()
+            //            self.goBindVC()
         }) { (error) in
             MBProgressHUD.showAutoDismissHUD(message: error)
         }
@@ -354,7 +372,7 @@ class FSLoginVC: GYZBaseVC {
             
             weakSelf?.hud?.hide(animated: true)
             GYZLog(response)
-//            MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+            //            MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
             if response["result"].intValue == kQuestSuccessTag{//请求成功
                 let data = response["data"]
                 userDefaults.set(true, forKey: kIsLoginTagKey)//是否登录标识
@@ -399,5 +417,167 @@ class FSLoginVC: GYZBaseVC {
             
             GYZLog(error)
         })
+    }
+}
+
+
+@available(iOS 13.0, *)
+extension FSLoginVC: ASAuthorizationControllerDelegate,ASAuthorizationControllerPresentationContextProviding{
+    
+    /// 按下按钮->处理苹果ID认证
+    func handleAuthAppleIDButtonPress(){
+        //基于用户的Apple ID授权用户，生成用户授权请求的一种机制
+        // 创建请求
+        let request = ASAuthorizationAppleIDProvider.init().createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        
+        let authController = ASAuthorizationController(authorizationRequests: [request])
+        
+        authController.delegate = self
+        
+        authController.presentationContextProvider = self
+        
+        authController.performRequests()//启动授权
+    }
+    /// ASAuthorizationControllerPresentationContextProviding用于返回弹出请求框的window，一般返回当前视图window即可
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+    
+    
+    /// 授权成功
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        /// 苹果ID凭证有效
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            
+            let userIdentifier = appleIDCredential.user
+            
+            let fullName = appleIDCredential.fullName
+            
+            let email = appleIDCredential.email
+            
+            // 存储userIdkeychain.
+            
+//            do {// 保存到钥匙串
+//
+//                try KeychainItem(service: "com.example.apple-samplecode.juice", account: "userIdentifier").saveItem(userIdentifier)
+//
+//            } catch {
+//
+//                print("Unable to save userIdentifier to keychain.")
+//
+//            }
+//
+//            // 登录成功后隐藏登录页，并在结果页填充数据
+//
+//            if let viewController = self.presentingViewController as? ResultViewController {
+//
+//                DispatchQueue.main.async {
+//
+//                    viewController.userIdentifierLabel.text = userIdentifier
+//
+//                    if let givenName = fullName?.givenName {
+//
+//                        viewController.givenNameLabel.text = givenName
+//
+//                    }
+//
+//                    if let familyName = fullName?.familyName {
+//
+//                        viewController.familyNameLabel.text = familyName
+//
+//                    }
+//
+//                    if let email = email {
+//
+//                        viewController.emailLabel.text = email
+//
+//                    }
+//
+//                    self.dismiss(animated: true, completion: nil)
+//
+//                }
+//
+//            }
+            
+        }
+            
+            /// 密码凭证有效
+            
+        else if let passwordCredential = authorization.credential as? ASPasswordCredential {
+            
+            // 用已有的钥匙串登录
+            
+            let username = passwordCredential.user
+            
+            let password = passwordCredential.password
+            
+            // 显示密码凭证提示
+            
+            DispatchQueue.main.async {
+                
+                let message = "The app has received your selected credential from the keychain. \n\n Username: \(username)\n Password: \(password)"
+                
+                let alertController = UIAlertController(title: "Keychain Credential Received",
+                                                        
+                                                        message: message,
+                                                        
+                                                        preferredStyle: .alert)
+                
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+                
+                self.present(alertController, animated: true, completion: nil)
+                
+            }
+            
+        }
+        
+    }
+    /// 授权失败
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        // Handle error.
+        
+        var errorMsg = "未知"
+        
+        switch (error) {///
+            
+        case ASAuthorizationError.canceled:
+            
+            errorMsg = "用户取消了授权请求"
+            
+            break
+            
+        case ASAuthorizationError.failed:
+            
+            errorMsg = "授权请求失败"
+            
+            break
+            
+        case ASAuthorizationError.invalidResponse:
+            
+            errorMsg = "授权请求响应无效"
+            
+            break
+            
+        case ASAuthorizationError.notHandled:
+            
+            errorMsg = "未能处理授权请求"
+            
+            break
+            
+        case ASAuthorizationError.unknown:
+            
+            errorMsg = "授权请求失败，原因未知"
+            
+            break
+            
+        default:
+            
+            break
+            
+        }
+        
+        MBProgressHUD.showAutoDismissHUD(message: errorMsg)
     }
 }
