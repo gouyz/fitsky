@@ -359,7 +359,7 @@ class FSLoginVC: GYZBaseVC {
     }
     
     ///第三方登录
-    func requestThirdLogin(openId:String,openType:String, accessToken: String? = nil ,qqInfo:[String:Any]? = nil){
+    func requestThirdLogin(openId:String,openType:String, accessToken: String? = nil ,qqInfo:[String:Any]? = nil,appleNickName:String = ""){
         phoneInputView.textFiled.resignFirstResponder()
         if !GYZTool.checkNetWork() {
             return
@@ -393,6 +393,8 @@ class FSLoginVC: GYZBaseVC {
                         sex  = "0"
                     }
                     weakSelf?.goBindVC(openId: openId, openType: openType, name: qqInfo!["nickName"] as! String, header: qqInfo!["advatarStr"] as! String, sex: sex)
+                }else if openType == "5" {// apple
+                    weakSelf?.goBindVC(openId: openId, openType: openType, name: appleNickName, header: "", sex: "2")
                 }
             }
             
@@ -459,6 +461,7 @@ extension FSLoginVC: ASAuthorizationControllerDelegate,ASAuthorizationController
             
             // 存储userIdkeychain.
             
+            self.requestThirdLogin(openId: userIdentifier, openType: "5", accessToken: nil, qqInfo: nil,appleNickName: (fullName?.givenName)!)
 //            do {// 保存到钥匙串
 //
 //                try KeychainItem(service: "com.example.apple-samplecode.juice", account: "userIdentifier").saveItem(userIdentifier)
@@ -512,24 +515,7 @@ extension FSLoginVC: ASAuthorizationControllerDelegate,ASAuthorizationController
             let username = passwordCredential.user
             
             let password = passwordCredential.password
-            
-            // 显示密码凭证提示
-            
-            DispatchQueue.main.async {
-                
-                let message = "The app has received your selected credential from the keychain. \n\n Username: \(username)\n Password: \(password)"
-                
-                let alertController = UIAlertController(title: "Keychain Credential Received",
-                                                        
-                                                        message: message,
-                                                        
-                                                        preferredStyle: .alert)
-                
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
-                
-                self.present(alertController, animated: true, completion: nil)
-                
-            }
+            self.requestThirdLogin(openId: username, openType: "5", accessToken: nil, qqInfo: nil,appleNickName: "")
             
         }
         
