@@ -142,7 +142,8 @@ extension WXApiManager {
     private func checkWXInstallAndSupport() -> Bool {
         if !WXApi.isWXAppInstalled() {
             ///这里的弹窗是我写的扩展方法
-            GYZAlertViewTools.alertViewTools.showAlert(title: "温馨提示", message: "微信未安装", cancleTitle: nil, viewController: sender, buttonTitles: "确定")
+            MBProgressHUD.showAutoDismissHUD(message: "微信未安装")
+//            GYZAlertViewTools.alertViewTools.showAlert(title: "温馨提示", message: "微信未安装", cancleTitle: nil, viewController: sender, buttonTitles: "确定")
             return false
         }
         if !WXApi.isWXAppSupport() {

@@ -79,11 +79,16 @@ class FSLoginVC: GYZBaseVC {
         qqBtn.snp.makeConstraints { (make) in
             make.left.equalTo(codeBtn)
             make.bottom.equalTo(-60)
-            make.size.equalTo(CGSize.init(width: kTitleHeight, height: kTitleHeight))
+            make.width.equalTo(wechatBtn)
+            make.height.equalTo(kTitleHeight)
+//            make.size.equalTo(CGSize.init(width: kTitleHeight, height: kTitleHeight))
         }
         wechatBtn.snp.makeConstraints { (make) in
-            make.centerX.equalTo(view)
-            make.bottom.size.equalTo(qqBtn)
+            make.left.equalTo(qqBtn.snp.right).offset(20)
+            make.bottom.width.height.equalTo(qqBtn)
+            make.right.equalTo(codeBtn.snp.right).offset(-150)
+//            make.centerX.equalTo(view)
+//            make.bottom.size.equalTo(qqBtn)
         }
         //        sinaBtn.snp.makeConstraints { (make) in
         //            make.right.equalTo(codeBtn)
@@ -141,7 +146,7 @@ class FSLoginVC: GYZBaseVC {
         lab.font = k13Font
         lab.textAlignment = .center
         lab.text = "第三方登录"
-        lab.isHidden = true
+//        lab.isHidden = true
         
         return lab
     }()
@@ -237,6 +242,10 @@ class FSLoginVC: GYZBaseVC {
     }
     /// qq登录
     func qqLogin(){
+        if !GYZTencentShare.shared.isQQInstall() {
+            MBProgressHUD.showAutoDismissHUD(message: "QQ未安装")
+            return
+        }
         GYZTencentShare.shared.login({[unowned self] (info) in
             GYZLog(info)
             self.requestThirdLogin(openId: info["uid"]! as! String, openType: "3", accessToken: nil, qqInfo: info)
@@ -459,10 +468,10 @@ extension FSLoginVC: ASAuthorizationControllerDelegate,ASAuthorizationController
             
 //            let email = appleIDCredential.email
             
-            var name:String = ""
-            if fullName != nil {
-                name = (fullName?.familyName)! + (fullName?.givenName)!
-            }
+            let name:String = (fullName?.familyName ?? "") + (fullName?.givenName ?? "")
+//            if let fullName = appleIDCredential.fullName {
+//                name = (fullName.familyName ?? "") + (fullName.givenName ?? "")
+//            }
             
             self.requestThirdLogin(openId: userIdentifier, openType: "5", accessToken: nil, qqInfo: nil,appleNickName: name)
             
