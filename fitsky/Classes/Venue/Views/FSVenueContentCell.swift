@@ -16,7 +16,7 @@ class FSVenueContentCell: UITableViewCell {
             if let model = dataModel {
                 
                 /// lab加载富文本
-                let desStr = try? NSAttributedString.init(data: model.content!.data(using: String.Encoding.unicode)!, options: [.documentType : NSAttributedString.DocumentType.html], documentAttributes: nil)
+                let desStr = try? NSAttributedString.init(data: model.content!.dealLabelFuTextImgSize().data(using: String.Encoding.unicode)!, options: [.documentType : NSAttributedString.DocumentType.html], documentAttributes: nil)
                 contentLab.attributedText = desStr
             }
         }

@@ -380,7 +380,7 @@ extension String {
         return .init(width: max(mattrSize.width, 15), height: max(mattrSize.height, 15))
     }
     
-    /// 处理富文本图片大小
+    /// 处理富文本图片大小webview
     func dealFuTextImgSize()->String{
         if self.isEmpty {
             return ""
@@ -392,6 +392,15 @@ extension String {
         "</head>"
         
         return "<html>" + head + "<body>" + self + "</body></html>"
+    }
+    
+    /// UIlabel处理富文本图片自适应
+    func dealLabelFuTextImgSize()->String{
+        if self.isEmpty {
+            return ""
+        }
+        
+        return "<head><style>img{width:\(kScreenWidth) !important;height:auto}</style></head>" + self
     }
     
     // base64编码

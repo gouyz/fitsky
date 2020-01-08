@@ -72,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // 收到推送消息实现的方法
             self.perform(#selector(receivePush), with: remote, afterDelay: 1.0);
         }
-        
+        requestVersion()
         sleep(2)
         return true
     }
@@ -449,10 +449,13 @@ extension AppDelegate{
                 guard let data = response["data"].dictionaryObject else { return }
                 
                 let versionModel = FSVersionModel.init(dict: data)
-                if versionModel.is_must == "1" {
-                    weakSelf?.updateNeedVersion(version: versionModel.title!, content: versionModel.des!)
-                }else if versionModel.is_update == "1" {
-                    weakSelf?.updateVersion(version: versionModel.title!, content: versionModel.des!)
+                
+                if GYZUpdateVersionTool.getCurrVersion() < versionModel.version {
+                    if versionModel.is_must == "1" {
+                        weakSelf?.updateNeedVersion(version: versionModel.title!, content: versionModel.des!)
+                    }else if versionModel.is_update == "1" {
+                        weakSelf?.updateVersion(version: versionModel.title!, content: versionModel.des!)
+                    }
                 }
             }
             

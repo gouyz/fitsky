@@ -112,6 +112,7 @@ class FSActivityDetailVC: GYZWhiteNavBaseVC {
         contentLab.snp.makeConstraints { (make) in
             make.left.right.equalTo(topImgView)
             make.top.equalTo(timeLab3.snp.bottom).offset(kMargin)
+//            make.height.equalTo(0)
             // 这个很重要，viewContainer中的最后一个控件一定要约束到bottom，并且要小于等于viewContainer的bottom
             // 否则的话，上面的控件会被强制拉伸变形
             // 最后的-10是边距，这个可以随意设置
@@ -280,8 +281,9 @@ class FSActivityDetailVC: GYZWhiteNavBaseVC {
             timeLab1.text = (model.formData?.display_apply_stime)! + "—" + (model.formData?.display_apply_etime)!
             timeLab2.text = (model.formData?.display_activity_stime)! + "—" + (model.formData?.display_activity_etime)!
             timeLab3.text = "\((model.countModel?.apply_count)!)人参与"
-            /// lab加载富文本
-            let desStr = try? NSAttributedString.init(data: (model.formData?.content)!.data(using: String.Encoding.unicode)!, options: [.documentType : NSAttributedString.DocumentType.html], documentAttributes: nil)
+            let content: String =  (model.formData?.content)!.dealLabelFuTextImgSize()
+//            /// lab加载富文本
+            let desStr = try? NSAttributedString.init(data: content.data(using: String.Encoding.unicode)!, options: [.documentType : NSAttributedString.DocumentType.html], documentAttributes: nil)
             contentLab.attributedText = desStr
             
             applyBtn.setTitle(model.formData?.apply_btn_text, for: .normal)
