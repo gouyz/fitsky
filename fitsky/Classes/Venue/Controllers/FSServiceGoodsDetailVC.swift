@@ -224,12 +224,17 @@ class FSServiceGoodsDetailVC: GYZWhiteNavBaseVC {
     }
     /// 加入学习
     func goSelectCoachVC(){
-        let vc = FSBuyGoodsVC()
-        vc.goodsId = self.goodsId
-        if dataModel != nil {
-            vc.kefuPhone = (dataModel?.formData?.tel)!
+        
+        if let model = dataModel {
+            if model.formData?.is_may_buy == "1" {
+                let vc = FSBuyGoodsVC()
+                vc.goodsId = self.goodsId
+                vc.kefuPhone = (dataModel?.formData?.tel)!
+                navigationController?.pushViewController(vc, animated: true)
+            }else{
+                MBProgressHUD.showAutoDismissHUD(message: (model.formData?.is_may_buy_msg)!)
+            }
         }
-        navigationController?.pushViewController(vc, animated: true)
     }
 }
 extension FSServiceGoodsDetailVC: UITableViewDelegate,UITableViewDataSource{

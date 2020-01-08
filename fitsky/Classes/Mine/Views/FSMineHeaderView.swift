@@ -294,6 +294,9 @@ class FSMineHeaderView: UIView {
         let view = FSLabAndLabBtnView()
         view.desLab.text = "消息"
         view.contentLab.text = "100"
+        view.desLab.badgeView.style = .normal
+        view.desLab.badgeView.size = CGSize.init(width: 3, height: 3)
+        view.desLab.showBadge(animated: false)
         view.tag = 103
         view.addOnClickListener(target: self, action: #selector(onClickedOperator(sender:)))
         

@@ -38,6 +38,17 @@ class FSVenueMineHeaderView: UIView {
                 msgView.contentLab.text = model.countData?.message
                 favouriteView.contentLab.text = model.countData?.collect
                 
+                if model.countData?.is_news_fans == "1" {
+                    fenSiView.desLab.showBadge(animated: false)
+                }else{
+                    fenSiView.desLab.clearBadge(animated: false)
+                }
+                if Int.init((model.countData?.message)!) > 0 {
+                    msgView.desLab.showBadge(animated: false)
+                }else{
+                    msgView.desLab.clearBadge(animated: false)
+                }
+                
             }
         }
     }
@@ -255,7 +266,7 @@ class FSVenueMineHeaderView: UIView {
         view.desLab.text = "粉丝"
         view.contentLab.text = "1200"
         view.desLab.badgeView.style = .normal
-        view.desLab.badgeView.size = CGSize.init(width: 4, height: 4)
+        view.desLab.badgeView.size = CGSize.init(width: 3, height: 3)
         view.desLab.showBadge(animated: false)
         //        view.desLab.clearBadge(animated: false)
         view.tag = 102
@@ -274,6 +285,9 @@ class FSVenueMineHeaderView: UIView {
         let view = FSLabAndLabBtnView()
         view.desLab.text = "消息"
         view.contentLab.text = "100"
+        view.desLab.badgeView.style = .normal
+        view.desLab.badgeView.size = CGSize.init(width: 3, height: 3)
+        view.desLab.showBadge(animated: false)
         view.tag = 103
         view.addOnClickListener(target: self, action: #selector(onClickedOperator(sender:)))
         

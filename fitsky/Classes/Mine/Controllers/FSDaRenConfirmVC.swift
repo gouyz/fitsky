@@ -11,10 +11,10 @@ import MBProgressHUD
 
 class FSDaRenConfirmVC: GYZWhiteNavBaseVC {
     
-    var daRenTypeList:[FSCompainCategoryModel] = [FSCompainCategoryModel]()
+//    var daRenTypeList:[FSCompainCategoryModel] = [FSCompainCategoryModel]()
     /// 达人类型id
-    var selectTypeId: String = ""
-    var typeNameArr:[String] = [String]()
+//    var selectTypeId: String = ""
+//    var typeNameArr:[String] = [String]()
     /// 选择身份证正面
     var selectCardPhotoImg: UIImage?
     /// 选择身份证正面url
@@ -47,44 +47,44 @@ class FSDaRenConfirmVC: GYZWhiteNavBaseVC {
         
         setUpUI()
         
-        requestDarenTypeData()
+//        requestDarenTypeData()
     }
     ///达人认证类型
-    func requestDarenTypeData(){
-        if !GYZTool.checkNetWork() {
-            return
-        }
-        
-        weak var weakSelf = self
-        createHUD(message: "加载中...")
-        
-        GYZNetWork.requestNetwork("Member/Apply/darenApplyInit", parameters: nil,  success: { (response) in
-            
-            weakSelf?.hud?.hide(animated: true)
-            GYZLog(response)
-            
-            if response["result"].intValue == kQuestSuccessTag{//请求成功
-                guard let data = response["data"]["daren_type"].array else { return }
-                for item in data{
-                    guard let itemInfo = item.dictionaryObject else { return }
-                    let model = FSCompainCategoryModel.init(dict: itemInfo)
-                    
-                    weakSelf?.typeNameArr.append(model.name!)
-                    weakSelf?.daRenTypeList.append(model)
-                }
-                if weakSelf?.daRenTypeList.count > 0 {
-                    weakSelf?.confirmView.textFiled.text = weakSelf?.typeNameArr[0]
-                    weakSelf?.selectTypeId = (weakSelf?.daRenTypeList[0].id)!
-                }
-            }else{
-                MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
-            }
-            
-        }, failture: { (error) in
-            weakSelf?.hud?.hide(animated: true)
-            GYZLog(error)
-        })
-    }
+//    func requestDarenTypeData(){
+//        if !GYZTool.checkNetWork() {
+//            return
+//        }
+//
+//        weak var weakSelf = self
+//        createHUD(message: "加载中...")
+//
+//        GYZNetWork.requestNetwork("Member/Apply/darenApplyInit", parameters: nil,  success: { (response) in
+//
+//            weakSelf?.hud?.hide(animated: true)
+//            GYZLog(response)
+//
+//            if response["result"].intValue == kQuestSuccessTag{//请求成功
+//                guard let data = response["data"]["daren_type"].array else { return }
+//                for item in data{
+//                    guard let itemInfo = item.dictionaryObject else { return }
+//                    let model = FSCompainCategoryModel.init(dict: itemInfo)
+//
+//                    weakSelf?.typeNameArr.append(model.name!)
+//                    weakSelf?.daRenTypeList.append(model)
+//                }
+//                if weakSelf?.daRenTypeList.count > 0 {
+////                    weakSelf?.confirmView.textFiled.text = weakSelf?.typeNameArr[0]
+////                    weakSelf?.selectTypeId = (weakSelf?.daRenTypeList[0].id)!
+//                }
+//            }else{
+//                MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+//            }
+//
+//        }, failture: { (error) in
+//            weakSelf?.hud?.hide(animated: true)
+//            GYZLog(error)
+//        })
+//    }
     func setUpUI(){
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -391,9 +391,6 @@ class FSDaRenConfirmVC: GYZWhiteNavBaseVC {
         nView.desLab.textColor = kHeightGaryFontColor
         nView.textFiled.textColor = kGaryFontColor
         nView.textFiled.font = k13Font
-        nView.textFiled.isEnabled = false
-        
-        nView.addOnClickListener(target: self, action: #selector(onClickedSelectDaRenType))
         
         return nView
     }()
@@ -429,10 +426,6 @@ class FSDaRenConfirmVC: GYZWhiteNavBaseVC {
             MBProgressHUD.showAutoDismissHUD(message: "请上传资质证明")
             return
         }
-        if selectTypeId.isEmpty{
-            MBProgressHUD.showAutoDismissHUD(message: "请选择认证达人类型")
-            return
-        }
         
         requestConfirmDaRen()
     }
@@ -446,7 +439,7 @@ class FSDaRenConfirmVC: GYZWhiteNavBaseVC {
         weak var weakSelf = self
         createHUD(message: "加载中...")
         
-        GYZNetWork.requestNetwork("Member/Apply/darenApplySubmit", parameters: ["real_name":nameView.textFiled.text!,"identity_card_id":cardNumView.textFiled.text!,"identity_card_front":selectCardPhotoImgUrl,"identity_card_backend":selectCardPhotoFanImgUrl,"identity_card_half":selectShouCardPhotoImgUrl,"qualification_certificate":selectZiZhiPhotoImgUrl,"tel":phoneView.textFiled.text ?? "","daren_type":selectTypeId],  success: { (response) in
+        GYZNetWork.requestNetwork("Member/Apply/darenApplySubmit", parameters: ["real_name":nameView.textFiled.text!,"identity_card_id":cardNumView.textFiled.text!,"identity_card_front":selectCardPhotoImgUrl,"identity_card_backend":selectCardPhotoFanImgUrl,"identity_card_half":selectShouCardPhotoImgUrl,"qualification_certificate":selectZiZhiPhotoImgUrl,"tel":phoneView.textFiled.text ?? "","daren_type":confirmView.textFiled.text ?? ""],  success: { (response) in
             
             weakSelf?.hud?.hide(animated: true)
             GYZLog(response)
@@ -463,16 +456,16 @@ class FSDaRenConfirmVC: GYZWhiteNavBaseVC {
     }
     
     /// 选择认证方式
-    @objc func onClickedSelectDaRenType(){
-        if typeNameArr.count == 0 {
-            return
-        }
-        UsefulPickerView.showSingleColPicker("选择达人类型", data: typeNameArr, defaultSelectedIndex: 0) {[unowned self] (index, value) in
-            
-            self.confirmView.textFiled.text = self.daRenTypeList[index].name
-            self.selectTypeId = self.daRenTypeList[index].id!
-        }
-    }
+//    @objc func onClickedSelectDaRenType(){
+//        if typeNameArr.count == 0 {
+//            return
+//        }
+//        UsefulPickerView.showSingleColPicker("选择达人类型", data: typeNameArr, defaultSelectedIndex: 0) {[unowned self] (index, value) in
+//
+//            self.confirmView.textFiled.text = self.daRenTypeList[index].name
+//            self.selectTypeId = self.daRenTypeList[index].id!
+//        }
+//    }
     
     @objc func onClickedSelectPhoto(sender:UITapGestureRecognizer){
         let tag = sender.view?.tag

@@ -87,4 +87,8 @@ class FSVenueServiceModel: LHSBaseModel {
     var store_name : String? = ""
     ///
     var store_id_text : String? = ""
+    /// 是否可以购买（0-否 1-是）
+    var is_may_buy : String? = ""
+    /// 不可以购买原因（当is_may_buy == 0 时 toast提示用户）
+    var is_may_buy_msg : String? = ""
 }

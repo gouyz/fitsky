@@ -48,6 +48,11 @@ class FSMineVenueVC: GYZWhiteNavBaseVC {
             self.dealOperator(index: index)
         }
         
+//        requestMineInfo()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         requestMineInfo()
     }
     lazy var tableView : UITableView = {
@@ -184,9 +189,8 @@ class FSMineVenueVC: GYZWhiteNavBaseVC {
     /// 个人主页
     func goMyHome(){
         if mineInfoModel != nil {
-            let vc = FSPersonHomeVC()
+            let vc = FSVenueHomeVC()
             vc.userId = (mineInfoModel?.infoData?.id)!
-            vc.userType = (mineInfoModel?.infoData?.type)!
             navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -301,7 +305,9 @@ extension FSMineVenueVC: UITableViewDelegate,UITableViewDataSource{
                 navAlpha = 1
             }
             navBarBgAlpha = navAlpha
-            self.navigationItem.title = "悦动健身馆"
+            if mineInfoModel != nil {
+                self.navigationItem.title = mineInfoModel?.infoData?.nick_name
+            }
         }else{
             navBarBgAlpha = 0
             self.navigationItem.title = ""
