@@ -387,7 +387,7 @@ class FSDaRenConfirmVC: GYZWhiteNavBaseVC {
         return view
     }()
     lazy var confirmView: GYZLabAndFieldView = {
-        let nView = GYZLabAndFieldView.init(desName: "您的认证", placeHolder: "例：瑜伽达人")
+        let nView = GYZLabAndFieldView.init(desName: "您的认证", placeHolder: "例：瑜伽老师")
         nView.desLab.textColor = kHeightGaryFontColor
         nView.textFiled.textColor = kGaryFontColor
         nView.textFiled.font = k13Font
