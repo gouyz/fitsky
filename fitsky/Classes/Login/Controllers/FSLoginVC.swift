@@ -37,7 +37,7 @@ class FSLoginVC: GYZBaseVC {
         rightBtn.sizeToFit()
         
         setUpUI()
-        
+        showThirdLogin()
     }
     func setUpUI(){
         
@@ -77,7 +77,11 @@ class FSLoginVC: GYZBaseVC {
         }
         
         qqBtn.snp.makeConstraints { (make) in
-            make.left.equalTo(codeBtn)
+            if #available(iOS 13.0, *){
+                make.left.equalTo(codeBtn).offset(150)
+            }else{
+                make.left.equalTo(codeBtn)
+            }
             make.bottom.equalTo(-60)
             make.width.equalTo(wechatBtn)
             make.height.equalTo(kTitleHeight)
@@ -86,7 +90,7 @@ class FSLoginVC: GYZBaseVC {
         wechatBtn.snp.makeConstraints { (make) in
             make.left.equalTo(qqBtn.snp.right).offset(20)
             make.bottom.width.height.equalTo(qqBtn)
-            make.right.equalTo(codeBtn.snp.right).offset(-150)
+            make.right.equalTo(codeBtn)
 //            make.centerX.equalTo(view)
 //            make.bottom.size.equalTo(qqBtn)
         }
@@ -154,7 +158,7 @@ class FSLoginVC: GYZBaseVC {
     @available(iOS 13.0, *)
     lazy var appleBtn: ASAuthorizationAppleIDButton = {
         let btn = ASAuthorizationAppleIDButton.init(authorizationButtonType: ASAuthorizationAppleIDButton.ButtonType.signIn, authorizationButtonStyle: ASAuthorizationAppleIDButton.Style.white)
-        btn.frame = CGRect.init(x: kScreenWidth - 160, y: kScreenHeight - 100, width: 130, height: 30)
+        btn.frame = CGRect.init(x: 30, y: kScreenHeight - 100, width: 130, height: 30)
         btn.tag = 104
         btn.addTarget(self, action: #selector(clickedThirdLoginBtn(sender:)), for: .touchUpInside)
         
@@ -217,7 +221,15 @@ class FSLoginVC: GYZBaseVC {
         
         requestCode()
     }
-    
+    /// 是否显示第三方登录
+    func showThirdLogin(){
+        if !WXApi.isWXAppInstalled() {
+            wechatBtn.isHidden = true
+        }
+        if !GYZTencentShare.shared.isQQInstall() {
+            qqBtn.isHidden = true
+        }
+    }
     /// 第三方登录
     @objc func clickedThirdLoginBtn(sender: UIButton){
         let tag = sender.tag
@@ -242,10 +254,7 @@ class FSLoginVC: GYZBaseVC {
     }
     /// qq登录
     func qqLogin(){
-        if !GYZTencentShare.shared.isQQInstall() {
-            MBProgressHUD.showAutoDismissHUD(message: "QQ未安装")
-            return
-        }
+        
         GYZTencentShare.shared.login({[unowned self] (info) in
             GYZLog(info)
             self.requestThirdLogin(openId: info["uid"]! as! String, openType: "3", accessToken: nil, qqInfo: info)

@@ -20,6 +20,16 @@ class FSAllReplyCell: UITableViewCell {
                 dateLab.text = model.display_create_time
                 contentLab.text = model.content
                 
+                /// 会员类型（1-普通 2-达人 3-场馆）
+                vipImgView.isHidden = false
+                if model.from_member_type == "2"{
+                    vipImgView.image = UIImage.init(named: "app_icon_daren")
+                }else if model.from_member_type == "3"{
+                    vipImgView.image = UIImage.init(named: "app_icon_approve_venue")
+                }else{
+                    vipImgView.isHidden = true
+                }
+                
                 var zanCount: String = model.like_count!
                 if zanCount.isEmpty || zanCount == "0"{
                     zanCount = ""
