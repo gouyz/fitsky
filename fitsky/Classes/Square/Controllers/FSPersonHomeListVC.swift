@@ -12,7 +12,7 @@ import MBProgressHUD
 import SKPhotoBrowser
 
 private let personHomeListCell = "personHomeListCell"
-private let personHomeListHeader = "personHomeListHeader"
+//private let personHomeListHeader = "personHomeListHeader"
 
 class FSPersonHomeListVC: GYZWhiteNavBaseVC {
     
@@ -48,7 +48,7 @@ class FSPersonHomeListVC: GYZWhiteNavBaseVC {
         table.rowHeight = UITableView.automaticDimension
         
         table.register(FSPersonHomeListCell.classForCoder(), forCellReuseIdentifier: personHomeListCell)
-        table.register(FSPersonHomeListHeaderView.classForCoder(), forHeaderFooterViewReuseIdentifier: personHomeListHeader)
+//        table.register(FSPersonHomeListHeaderView.classForCoder(), forHeaderFooterViewReuseIdentifier: personHomeListHeader)
         
         weak var weakSelf = self
         ///添加下拉刷新
@@ -518,11 +518,12 @@ extension FSPersonHomeListVC: UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: personHomeListHeader) as! FSPersonHomeListHeaderView
-        
-        headerView.dataModel = userModel
-        
-        return headerView
+//        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: personHomeListHeader) as! FSPersonHomeListHeaderView
+//
+//        headerView.dataModel = userModel
+//
+//        return headerView
+        return UIView()
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
@@ -534,7 +535,8 @@ extension FSPersonHomeListVC: UITableViewDelegate,UITableViewDataSource{
     }
     ///MARK : UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
+//        return 60
+        return 0.00001
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.00001
