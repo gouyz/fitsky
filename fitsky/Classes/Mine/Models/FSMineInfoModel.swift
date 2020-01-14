@@ -66,9 +66,11 @@ class FSMineCountModel: LHSBaseModel {
 @objcMembers
 class FSMinePunchModel: LHSBaseModel {
     /// 日期2019-09-11
-    var date : String? = "0"
+    var date : String? = ""
     /// 周几
-    var week : String? = "0"
+    var week : String? = ""
+    /// 日期
+    var day : String? = ""
     /// 是否打卡
     var is_punch : String? = "0"
     

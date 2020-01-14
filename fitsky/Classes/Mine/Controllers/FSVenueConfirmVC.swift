@@ -109,7 +109,6 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         contentView.addSubview(lineView)
         contentView.addSubview(roomInLineDesLab)
         contentView.addSubview(roomLinePhotoView)
-        contentView.addSubview(desLab2)
         contentView.addSubview(lineView1)
         contentView.addSubview(addressView)
         contentView.addSubview(mapTagView)
@@ -123,6 +122,8 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         contentView.addSubview(lineView4)
         contentView.addSubview(nameView)
         contentView.addSubview(lineView5)
+        contentView.addSubview(cardNoView)
+        contentView.addSubview(lineView9)
         contentView.addSubview(shouCardDesLab)
         contentView.addSubview(shouCardPhotoView)
         contentView.addSubview(desLab4)
@@ -151,12 +152,12 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
             make.left.equalTo(kMargin)
             make.height.equalTo(30)
             make.top.equalTo(kMargin)
-            make.width.equalTo(120)
+            make.width.equalTo(130)
         }
         roomPhotoView.snp.makeConstraints { (make) in
             make.left.equalTo(roomDesLab.snp.right).offset(kMargin)
             make.top.equalTo(roomDesLab)
-            make.size.equalTo(CGSize.init(width: 100, height: 100))
+            make.size.equalTo(CGSize.init(width: 80, height: 80))
         }
         desLab1.snp.makeConstraints { (make) in
             make.right.equalTo(-kMargin)
@@ -187,13 +188,9 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
             make.top.equalTo(roomInLineDesLab)
             make.size.equalTo(roomPhotoView)
         }
-        desLab2.snp.makeConstraints { (make) in
-            make.left.right.height.equalTo(desLab1)
-            make.top.equalTo(roomLinePhotoView.snp.bottom)
-        }
         lineView1.snp.makeConstraints { (make) in
             make.left.right.height.equalTo(lineView)
-            make.top.equalTo(desLab2.snp.bottom).offset(kMargin)
+            make.top.equalTo(roomLinePhotoView.snp.bottom).offset(kMargin)
         }
         addressView.snp.makeConstraints { (make) in
             make.left.height.equalTo(roomNameView)
@@ -248,10 +245,17 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
             make.left.right.height.equalTo(lineView)
             make.top.equalTo(nameView.snp.bottom)
         }
-        
+        cardNoView.snp.makeConstraints { (make) in
+            make.left.right.height.equalTo(roomNameView)
+            make.top.equalTo(lineView5.snp.bottom)
+        }
+        lineView9.snp.makeConstraints { (make) in
+            make.left.right.height.equalTo(lineView)
+            make.top.equalTo(cardNoView.snp.bottom)
+        }
         shouCardDesLab.snp.makeConstraints { (make) in
             make.left.height.width.equalTo(roomDesLab)
-            make.top.equalTo(lineView5.snp.bottom).offset(kMargin)
+            make.top.equalTo(lineView9.snp.bottom).offset(kMargin)
         }
         shouCardPhotoView.snp.makeConstraints { (make) in
             make.left.equalTo(shouCardDesLab.snp.right).offset(kMargin)
@@ -277,7 +281,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         }
         cardFanPhotoView.snp.makeConstraints { (make) in
             make.size.top.equalTo(cardPhotoView)
-            make.left.equalTo(cardPhotoView.snp.right).offset(15)
+            make.left.equalTo(cardPhotoView.snp.right).offset(kMargin)
         }
         lineView7.snp.makeConstraints { (make) in
             make.left.right.height.equalTo(lineView)
@@ -306,7 +310,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
     /// 门店照
     lazy var roomDesLab : UILabel = {
         let lab = UILabel()
-        lab.font = k15Font
+        lab.font = k13Font
         lab.textColor = kHeightGaryFontColor
         let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 门店照")
         strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kRedFontColor, range: NSMakeRange(0, 1))
@@ -329,7 +333,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
     ///
     lazy var desLab1 : UILabel = {
         let lab = UILabel()
-        lab.font = k13Font
+        lab.font = k12Font
         lab.textColor = kHeightGaryFontColor
         lab.text = "需拍全，包含完整的店牌"
         
@@ -347,6 +351,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         nView.desLab.textColor = kHeightGaryFontColor
         nView.textFiled.textColor = kGaryFontColor
         nView.textFiled.font = k13Font
+        nView.desLab.font = k13Font
         
         return nView
     }()
@@ -359,7 +364,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
     /// 店内照
     lazy var roomInLineDesLab : UILabel = {
         let lab = UILabel()
-        lab.font = k15Font
+        lab.font = k13Font
         lab.textColor = kHeightGaryFontColor
         let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 店内照")
         strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kRedFontColor, range: NSMakeRange(0, 1))
@@ -379,15 +384,6 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         
         return imgView
     }()
-    ///
-    lazy var desLab2 : UILabel = {
-        let lab = UILabel()
-        lab.font = k13Font
-        lab.textColor = kHeightGaryFontColor
-        lab.text = "需与门店照牌面一致"
-        
-        return lab
-    }()
     lazy var lineView1: UIView = {
         let view = UIView()
         view.backgroundColor = kBackgroundColor
@@ -400,6 +396,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         nView.textFiled.textColor = kGaryFontColor
 //        nView.textFiled.isEnabled = false
         nView.textFiled.font = k13Font
+        nView.desLab.font = k13Font
         let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 门店地址")
         strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kRedFontColor, range: NSMakeRange(0, 1))
         nView.desLab.attributedText = strAttr
@@ -428,6 +425,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         nView.textFiled.text = "健身"
         nView.textFiled.font = k13Font
         nView.textFiled.isEnabled = false
+        nView.desLab.font = k13Font
         
         nView.addOnClickListener(target: self, action: #selector(onClickedSelectDaRenType))
         
@@ -444,7 +442,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
     /// 营业执照
     lazy var yyzzDesLab : UILabel = {
         let lab = UILabel()
-        lab.font = k15Font
+        lab.font = k13Font
         lab.textColor = kHeightGaryFontColor
         let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 营业执照")
         strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kRedFontColor, range: NSMakeRange(0, 1))
@@ -467,7 +465,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
     ///
     lazy var desLab3 : UILabel = {
         let lab = UILabel()
-        lab.font = k13Font
+        lab.font = k12Font
         lab.textColor = kHeightGaryFontColor
         lab.text = "需提供清晰的照片"
         
@@ -480,11 +478,12 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         return view
     }()
     lazy var nameView: GYZLabAndFieldView = {
-        let nView = GYZLabAndFieldView.init(desName: "", placeHolder: "需与营业执照姓名一致")
+        let nView = GYZLabAndFieldView.init(desName: "", placeHolder: "运营者姓名")
         nView.desLab.textColor = kHeightGaryFontColor
         nView.textFiled.textColor = kGaryFontColor
         nView.textFiled.font = k13Font
-        let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 法人姓名")
+        nView.desLab.font = k13Font
+        let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 运营者姓名")
         strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kRedFontColor, range: NSMakeRange(0, 1))
         nView.desLab.attributedText = strAttr
         
@@ -496,12 +495,30 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         
         return view
     }()
+    lazy var cardNoView: GYZLabAndFieldView = {
+        let nView = GYZLabAndFieldView.init(desName: "", placeHolder: "运营者身份证号")
+        nView.desLab.textColor = kHeightGaryFontColor
+        nView.textFiled.textColor = kGaryFontColor
+        nView.textFiled.font = k13Font
+        nView.desLab.font = k13Font
+        let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 运营者身份证号")
+        strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kRedFontColor, range: NSMakeRange(0, 1))
+        nView.desLab.attributedText = strAttr
+        
+        return nView
+    }()
+    lazy var lineView9: UIView = {
+        let view = UIView()
+        view.backgroundColor = kBackgroundColor
+        
+        return view
+    }()
     ///
     lazy var cardDesLab : UILabel = {
         let lab = UILabel()
-        lab.font = k15Font
+        lab.font = k13Font
         lab.textColor = kHeightGaryFontColor
-        let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 身份证正反照")
+        let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 运营者身份证正反照")
         strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kRedFontColor, range: NSMakeRange(0, 1))
         lab.attributedText = strAttr
         
@@ -540,9 +557,9 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
     /// 手持身份证
     lazy var shouCardDesLab : UILabel = {
         let lab = UILabel()
-        lab.font = k15Font
+        lab.font = k13Font
         lab.textColor = kHeightGaryFontColor
-        let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 手持身份证")
+        let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 运营者手持身份证")
         strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kRedFontColor, range: NSMakeRange(0, 1))
         lab.attributedText = strAttr
         
@@ -563,7 +580,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
     /// 需提供清晰的照片
     lazy var desLab4 : UILabel = {
         let lab = UILabel()
-        lab.font = k13Font
+        lab.font = k12Font
         lab.textColor = kHeightGaryFontColor
         lab.text = "需提供清晰的照片"
         
@@ -580,6 +597,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         nView.desLab.textColor = kHeightGaryFontColor
         nView.textFiled.textColor = kGaryFontColor
         nView.textFiled.font = k13Font
+        nView.desLab.font = k13Font
         
         return nView
     }()
@@ -608,7 +626,11 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
             return
         }
         if (nameView.textFiled.text?.isEmpty)!{
-            MBProgressHUD.showAutoDismissHUD(message: "请输入法人姓名")
+            MBProgressHUD.showAutoDismissHUD(message: "请输入运营者姓名")
+            return
+        }
+        if (cardNoView.textFiled.text?.isEmpty)!{
+            MBProgressHUD.showAutoDismissHUD(message: "请输入运营者身份证号")
             return
         }
         if selectCardPhotoImgUrl.isEmpty{
@@ -660,7 +682,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         weak var weakSelf = self
         createHUD(message: "加载中...")
         
-        GYZNetWork.requestNetwork("Member/Apply/storeApplySubmit", parameters: ["store_name":roomNameView.textFiled.text!,"store_logo":selectRoomPhotoImgUrl,"store_inside":selectRoomLinePhotoImgUrl,"identity_card_front":selectCardPhotoImgUrl,"identity_card_backend":selectCardPhotoFanImgUrl,"identity_card_half":selectShouCardPhotoImgUrl,"business_license":selectyyzzPhotoImgUrl,"address":addressView.textFiled.text!,"lng":(currAddress?.location.longitude)!,"lat":(currAddress?.location.latitude)!,"tel":phoneView.textFiled.text ?? "","store_type":selectTypeId,"legal_person": nameView.textFiled.text!],  success: { (response) in
+        GYZNetWork.requestNetwork("Member/Apply/storeApplySubmit", parameters: ["store_name":roomNameView.textFiled.text!,"store_logo":selectRoomPhotoImgUrl,"store_inside":selectRoomLinePhotoImgUrl,"identity_card_front":selectCardPhotoImgUrl,"identity_card_backend":selectCardPhotoFanImgUrl,"identity_card_half":selectShouCardPhotoImgUrl,"business_license":selectyyzzPhotoImgUrl,"address":addressView.textFiled.text!,"lng":(currAddress?.location.longitude)!,"lat":(currAddress?.location.latitude)!,"tel":phoneView.textFiled.text ?? "","store_type":selectTypeId,"operate_real_name": nameView.textFiled.text!,"operate_identity_card_number": cardNoView.textFiled.text!],  success: { (response) in
             
             weakSelf?.hud?.hide(animated: true)
             GYZLog(response)

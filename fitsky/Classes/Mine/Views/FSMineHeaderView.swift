@@ -54,7 +54,96 @@ class FSMineHeaderView: UIView {
                     msgView.desLab.clearBadge(animated: false)
                 }
                 
-                calendarView.reloadData()
+                if model.punchList.count == 7 {
+                    if model.punchList[0].week == "今日" {
+                        sunDayView.titleLab.textColor = kBlackFontColor
+                        sunDayView.dateLab.textColor = kBlackFontColor
+                        sunDayView.titleLab.font = UIFont.boldSystemFont(ofSize: 12)
+                        sunDayView.dateLab.font = UIFont.boldSystemFont(ofSize: 12)
+                    }else{
+                        sunDayView.titleLab.textColor = kGaryFontColor
+                        sunDayView.dateLab.textColor = kGaryFontColor
+                        sunDayView.titleLab.font = k12Font
+                        sunDayView.dateLab.font = k12Font
+                    }
+                    sunDayView.titleLab.text = model.punchList[0].week
+                    sunDayView.dateLab.text = model.punchList[0].day
+                    sunDayView.lineView.isHidden = model.punchList[0].is_punch != "1"
+                    
+                    if model.punchList[1].week == "今日" {
+                        
+                        oneDayView.titleLab.font = UIFont.boldSystemFont(ofSize: 12)
+                        oneDayView.dateLab.font = UIFont.boldSystemFont(ofSize: 12)
+                    }else{
+                        oneDayView.titleLab.font = k12Font
+                        oneDayView.dateLab.font = k12Font
+                    }
+                    oneDayView.titleLab.text = model.punchList[1].week
+                    oneDayView.dateLab.text = model.punchList[1].day
+                    oneDayView.lineView.isHidden = model.punchList[1].is_punch != "1"
+                    
+                    if model.punchList[2].week == "今日" {
+                        twoDayView.titleLab.font = UIFont.boldSystemFont(ofSize: 12)
+                        twoDayView.dateLab.font = UIFont.boldSystemFont(ofSize: 12)
+                    }else{
+                        twoDayView.titleLab.font = k12Font
+                        twoDayView.dateLab.font = k12Font
+                    }
+                    
+                    twoDayView.titleLab.text = model.punchList[2].week
+                    twoDayView.dateLab.text = model.punchList[2].day
+                    twoDayView.lineView.isHidden = model.punchList[2].is_punch != "1"
+                    
+                    if model.punchList[3].week == "今日" {
+                        threeDayView.titleLab.font = UIFont.boldSystemFont(ofSize: 12)
+                        threeDayView.dateLab.font = UIFont.boldSystemFont(ofSize: 12)
+                    }else{
+                        threeDayView.titleLab.font = k12Font
+                        threeDayView.dateLab.font = k12Font
+                    }
+                    threeDayView.titleLab.text = model.punchList[3].week
+                    threeDayView.dateLab.text = model.punchList[3].day
+                    threeDayView.lineView.isHidden = model.punchList[3].is_punch != "1"
+                    
+                    if model.punchList[4].week == "今日" {
+                        fourDayView.titleLab.font = UIFont.boldSystemFont(ofSize: 12)
+                        fourDayView.dateLab.font = UIFont.boldSystemFont(ofSize: 12)
+                    }else{
+                        fourDayView.titleLab.font = k12Font
+                        fourDayView.dateLab.font = k12Font
+                    }
+                    fourDayView.titleLab.text = model.punchList[4].week
+                    fourDayView.dateLab.text = model.punchList[4].day
+                    fourDayView.lineView.isHidden = model.punchList[4].is_punch != "1"
+                    
+                    if model.punchList[5].week == "今日" {
+                        fiveDayView.titleLab.font = UIFont.boldSystemFont(ofSize: 12)
+                        fiveDayView.dateLab.font = UIFont.boldSystemFont(ofSize: 12)
+                    }else{
+                        fiveDayView.titleLab.font = k12Font
+                        fiveDayView.dateLab.font = k12Font
+                    }
+                    fiveDayView.titleLab.text = model.punchList[5].week
+                    fiveDayView.dateLab.text = model.punchList[5].day
+                    fiveDayView.lineView.isHidden = model.punchList[5].is_punch != "1"
+                    
+                    if model.punchList[6].week == "今日" {
+                        sixDayView.titleLab.textColor = kBlackFontColor
+                        sixDayView.dateLab.textColor = kBlackFontColor
+                        sixDayView.titleLab.font = UIFont.boldSystemFont(ofSize: 12)
+                        sixDayView.dateLab.font = UIFont.boldSystemFont(ofSize: 12)
+                    }else{
+                        sixDayView.titleLab.textColor = kGaryFontColor
+                        sixDayView.dateLab.textColor = kGaryFontColor
+                        sixDayView.titleLab.font = k12Font
+                        sixDayView.dateLab.font = k12Font
+                    }
+                    sixDayView.titleLab.text = model.punchList[6].week
+                    sixDayView.dateLab.text = model.punchList[6].day
+                    sixDayView.lineView.isHidden = model.punchList[6].is_punch != "1"
+                    
+                }
+//                calendarView.reloadData()
             }
         }
     }
@@ -88,7 +177,14 @@ class FSMineHeaderView: UIView {
         followBgView.addSubview(lineView2)
         followBgView.addSubview(favouriteView)
         
-        addSubview(calendarView)
+        addSubview(calendarBgView)
+        calendarBgView.addSubview(sunDayView)
+        calendarBgView.addSubview(oneDayView)
+        calendarBgView.addSubview(twoDayView)
+        calendarBgView.addSubview(threeDayView)
+        calendarBgView.addSubview(fourDayView)
+        calendarBgView.addSubview(fiveDayView)
+        calendarBgView.addSubview(sixDayView)
         
         addSubview(funcBgView)
         funcBgView.addSubview(courseView)
@@ -168,15 +264,51 @@ class FSMineHeaderView: UIView {
             make.right.equalTo(followBgView)
         }
         
-        calendarView.snp.makeConstraints { (make) in
+        calendarBgView.snp.makeConstraints { (make) in
             make.left.right.equalTo(followBgView)
             make.top.equalTo(followBgView.snp.bottom).offset(kMargin)
-            make.height.equalTo(300)
+            make.height.equalTo(60)
+        }
+        
+        sunDayView.snp.makeConstraints { (make) in
+            make.left.top.bottom.equalTo(calendarBgView)
+            make.width.equalTo(oneDayView)
+        }
+        oneDayView.snp.makeConstraints { (make) in
+            make.left.equalTo(sunDayView.snp.right)
+            make.top.bottom.equalTo(sunDayView)
+            make.width.equalTo(twoDayView)
+        }
+        twoDayView.snp.makeConstraints { (make) in
+            make.left.equalTo(oneDayView.snp.right)
+            make.top.bottom.equalTo(sunDayView)
+            make.width.equalTo(threeDayView)
+        }
+        threeDayView.snp.makeConstraints { (make) in
+            make.left.equalTo(twoDayView.snp.right)
+            make.top.bottom.equalTo(sunDayView)
+            make.width.equalTo(fourDayView)
+        }
+        fourDayView.snp.makeConstraints { (make) in
+            make.left.equalTo(threeDayView.snp.right)
+            make.top.bottom.equalTo(sunDayView)
+            make.width.equalTo(fiveDayView)
+        }
+        fiveDayView.snp.makeConstraints { (make) in
+            make.left.equalTo(fourDayView.snp.right)
+            make.top.bottom.equalTo(sunDayView)
+            make.width.equalTo(sixDayView)
+        }
+        sixDayView.snp.makeConstraints { (make) in
+            make.left.equalTo(fiveDayView.snp.right)
+            make.top.bottom.equalTo(sunDayView)
+            make.width.equalTo(sunDayView)
+            make.right.equalTo(calendarBgView)
         }
         
         funcBgView.snp.makeConstraints { (make) in
             make.left.right.equalTo(followBgView)
-            make.top.equalTo(calendarView.snp.bottom).offset(kMargin)
+            make.top.equalTo(calendarBgView.snp.bottom).offset(kMargin)
             make.height.equalTo(80)
         }
         courseView.snp.makeConstraints { (make) in
@@ -320,33 +452,56 @@ class FSMineHeaderView: UIView {
         return view
     }()
     
-    lazy var calendarView: FSCalendar = {
+//    lazy var calendarView: FSCalendar = {
+//
+//        let calendar = FSCalendar()
+//        calendar.backgroundColor = kWhiteColor
+//        calendar.select(Date())
+//        calendar.delegate = self
+//        calendar.dataSource = self
+//        calendar.headerHeight = 0
+//        calendar.scope = .week
+//        calendar.scrollEnabled = false
+//        calendar.swipeToChooseGesture.isEnabled = false
+//        calendar.allowsSelection = false
+//
+//        calendar.appearance.weekdayTextColor = kBlackFontColor
+//        calendar.appearance.titleDefaultColor = kBlackFontColor
+//        calendar.appearance.titleSelectionColor = kBlackFontColor
+//        calendar.appearance.selectionColor = kWhiteColor
+//        calendar.appearance.todaySelectionColor = kWhiteColor
+//        calendar.appearance.todayColor = kBlackFontColor
+//        calendar.appearance.eventDefaultColor = UIColor.UIColorFromRGB(valueRGB: 0xfdc631)
+//        calendar.appearance.eventSelectionColor = UIColor.UIColorFromRGB(valueRGB: 0xfdc631)
+//
+//        calendar.tag = 105
+//        calendar.addOnClickListener(target: self, action: #selector(onClickedOperator(sender:)))
+//
+//        return calendar
+//    }()
+    /// 日历背景
+    lazy var calendarBgView: UIView = {
+        let view = UIView()
+        view.backgroundColor = kWhiteColor
+        view.tag = 105
+        view.addOnClickListener(target: self, action: #selector(onClickedOperator(sender:)))
         
-        let calendar = FSCalendar()
-        calendar.backgroundColor = kWhiteColor
-        calendar.select(Date())
-        calendar.delegate = self
-        calendar.dataSource = self
-        calendar.headerHeight = 0
-        calendar.scope = .week
-        calendar.scrollEnabled = false
-        calendar.swipeToChooseGesture.isEnabled = false
-        calendar.allowsSelection = false
-        
-        calendar.appearance.weekdayTextColor = kBlackFontColor
-        calendar.appearance.titleDefaultColor = kBlackFontColor
-        calendar.appearance.titleSelectionColor = kBlackFontColor
-        calendar.appearance.selectionColor = kWhiteColor
-        calendar.appearance.todaySelectionColor = kWhiteColor
-        calendar.appearance.todayColor = kBlackFontColor
-        calendar.appearance.eventDefaultColor = UIColor.UIColorFromRGB(valueRGB: 0xfdc631)
-        calendar.appearance.eventSelectionColor = UIColor.UIColorFromRGB(valueRGB: 0xfdc631)
-        
-        calendar.tag = 105
-        calendar.addOnClickListener(target: self, action: #selector(onClickedOperator(sender:)))
-        
-        return calendar
+        return view
     }()
+    // 日
+    lazy var sunDayView: FSRiLiItemView = FSRiLiItemView()
+    // 一
+    lazy var oneDayView: FSRiLiItemView = FSRiLiItemView()
+    // 二
+    lazy var twoDayView: FSRiLiItemView = FSRiLiItemView()
+    // 三
+    lazy var threeDayView: FSRiLiItemView = FSRiLiItemView()
+    // 四
+    lazy var fourDayView: FSRiLiItemView = FSRiLiItemView()
+    // 五
+    lazy var fiveDayView: FSRiLiItemView = FSRiLiItemView()
+    // 六
+    lazy var sixDayView: FSRiLiItemView = FSRiLiItemView()
     
     lazy var funcBgView: UIView = {
         let view = UIView()
@@ -403,31 +558,31 @@ class FSMineHeaderView: UIView {
     }
 }
 
-extension FSMineHeaderView: FSCalendarDataSource, FSCalendarDelegate{
-        func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
-            return self.gregorian.isDateInToday(date) ? "今日" : nil
-        }
-    func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
-        
-        calendarView.snp.updateConstraints { (make) in
-            make.height.equalTo(bounds.height)
-        }
-    }
-    
-    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        
-        if let model = dataModel {
-            var index: Int = -1
-            for (tag,item) in model.punchList.enumerated() {
-                if date.dateToStringWithFormat(format: "yyyy-MM-dd") == item.date {
-                    index = tag
-                    break
-                }
-            }
-            if index != -1 {
-                return model.punchList[index].is_punch == "1" ? 1 : 0
-            }
-        }
-        return 0
-    }
-}
+//extension FSMineHeaderView: FSCalendarDataSource, FSCalendarDelegate{
+//        func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
+//            return self.gregorian.isDateInToday(date) ? "今日" : nil
+//        }
+//    func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
+//
+//        calendarView.snp.updateConstraints { (make) in
+//            make.height.equalTo(bounds.height)
+//        }
+//    }
+//
+//    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+//
+//        if let model = dataModel {
+//            var index: Int = -1
+//            for (tag,item) in model.punchList.enumerated() {
+//                if date.dateToStringWithFormat(format: "yyyy-MM-dd") == item.date {
+//                    index = tag
+//                    break
+//                }
+//            }
+//            if index != -1 {
+//                return model.punchList[index].is_punch == "1" ? 1 : 0
+//            }
+//        }
+//        return 0
+//    }
+//}
