@@ -43,6 +43,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
     var selectyyzzPhotoImg: UIImage?
     /// 选择手持身份证
     var selectyyzzPhotoImgUrl: String = ""
+    let ruleContent: String = "阅读并确定《场馆认证须知》"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +59,11 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: rightBtn)
         
         setUpUI()
+        ruleLab.yb_addAttributeTapAction(with: ["《场馆认证须知》"]) {[unowned self] (label, string, range, index) in
+            if index == 0{//《场馆认证须知》
+                self.goWebVC(method: "News/Home/storeCertificationInstructions")
+            }
+        }
         
         requestVenueTypeData()
     }
@@ -134,6 +140,9 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         contentView.addSubview(lineView7)
         contentView.addSubview(phoneView)
         contentView.addSubview(lineView8)
+        
+        contentView.addSubview(checkImgView)
+        contentView.addSubview(ruleLab)
         
         
         scrollView.snp.makeConstraints { (make) in
@@ -295,6 +304,17 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         lineView8.snp.makeConstraints { (make) in
             make.left.right.height.equalTo(lineView)
             make.top.equalTo(phoneView.snp.bottom)
+        }
+        checkImgView.snp.makeConstraints { (make) in
+            make.left.equalTo(kMargin)
+            make.centerY.equalTo(ruleLab)
+            make.size.equalTo(CGSize.init(width: 16, height: 16))
+        }
+        ruleLab.snp.makeConstraints { (make) in
+            make.left.equalTo(checkImgView.snp.right).offset(kMargin)
+            make.top.equalTo(lineView8.snp.bottom).offset(15)
+            make.right.equalTo(-20)
+            make.height.equalTo(30)
             // 这个很重要，viewContainer中的最后一个控件一定要约束到bottom，并且要小于等于viewContainer的bottom
             // 否则的话，上面的控件会被强制拉伸变形
             // 最后的-10是边距，这个可以随意设置
@@ -607,8 +627,43 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         
         return view
     }()
+    lazy var checkImgView: UIImageView = {
+        let imgView = UIImageView.init(image: UIImage.init(named: "app_icon_radio_no"))
+        imgView.highlightedImage = UIImage.init(named: "app_icon_radio_yes")
+        imgView.addOnClickListener(target: self, action: #selector(clickedCheckRule))
+        
+        return imgView
+    }()
+    lazy var ruleLab: UILabel = {
+        let lab = UILabel()
+        let attStr = NSMutableAttributedString.init(string: ruleContent)
+        attStr.addAttribute(NSAttributedString.Key.font, value: k15Font, range: NSMakeRange(0, ruleContent.count))
+       attStr.addAttribute(NSAttributedString.Key.foregroundColor, value: kBlueFontColor, range: NSMakeRange(0, ruleContent.count))
+        attStr.addAttribute(NSAttributedString.Key.foregroundColor, value: kBlackFontColor, range: NSMakeRange(0, 5))
+        
+        lab.attributedText = attStr
+        /// 点击效果，关闭
+        lab.enabledTapEffect = false
+        lab.numberOfLines = 0
+        
+        return lab
+    }()
+    /// 同意协议按钮
+    @objc func clickedCheckRule(){
+        checkImgView.isHighlighted = !checkImgView.isHighlighted
+    }
+    /// webView
+    func goWebVC(method: String){
+        let vc = JSMWebViewVC()
+        vc.method = method
+        navigationController?.pushViewController(vc, animated: true)
+    }
     /// 提交
     @objc func onClickRightBtn(){
+        if !checkImgView.isHighlighted {
+            MBProgressHUD.showAutoDismissHUD(message: "请先同意场馆认证须知")
+            return
+        }
         if (roomNameView.textFiled.text?.isEmpty)!{
             MBProgressHUD.showAutoDismissHUD(message: "请输入门店名称")
             return
