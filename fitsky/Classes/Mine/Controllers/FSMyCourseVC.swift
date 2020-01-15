@@ -11,7 +11,7 @@ import JXSegmentedView
 import PYSearch
 
 class FSMyCourseVC: GYZWhiteNavBaseVC {
-    let searchHistoryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] + "PYSearchhistoriesMyCourse.plist" // the path of search record cached
+    let searchHistoryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] + "/PYSearchhistoriesMyCourse.plist" // the path of search record cached
     var segmentedViewDataSource: JXSegmentedTitleDataSource!
     let titles = ["课程订单", "课程收藏"]
     

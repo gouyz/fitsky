@@ -251,7 +251,7 @@ class FSSupportVC: GYZWhiteNavBaseVC {
     }
     // 器材
     func goQiCaiVC(type: String){
-        let vc = FSFindQiCaiVC()
+        let vc = FSFindQiCaiCategoryVC()
         vc.type = type
         self.naviController?.pushViewController(vc, animated: true)
     }

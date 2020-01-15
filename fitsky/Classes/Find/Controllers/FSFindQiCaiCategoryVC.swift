@@ -1,46 +1,30 @@
 //
-//  FSFindQiCaiVC.swift
+//  FSFindQiCaiCategoryVC.swift
 //  fitsky
-//  固定器械、自由器械
-//  Created by gouyz on 2019/10/13.
-//  Copyright © 2019 gyz. All rights reserved.
+//  器材分类
+//  Created by gouyz on 2020/1/15.
+//  Copyright © 2020 gyz. All rights reserved.
 //
 
 import UIKit
 import MBProgressHUD
-import JXSegmentedView
-import PYSearch
 
-private let findQiCaiCell = "findQiCaiCell"
+private let findQiCaiCategoryCell = "findQiCaiCategoryCell"
 
-class FSFindQiCaiVC: GYZWhiteNavBaseVC {
-    
-    let searchHistoryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] + "/PYSearchhistoriesFindQiCai.plist" // the path of search record cached
-    
-    weak var naviController: UINavigationController?
-    /// 搜索 内容
-    var searchContent: String = ""
-    var isSearch: Bool = false
+class FSFindQiCaiCategoryVC: GYZWhiteNavBaseVC {
     
     /// 1固定器械、2自由器械
     var type: String = "1"
-    /// 分类id
-    var categoryId: String = ""
-    /// 分类名称
-    var categoryName: String = ""
     
-    var dataList:[FSFindCourseModel] = [FSFindCourseModel]()
+    var dataList:[FSFindQiCaiCategoryModel] = [FSFindQiCaiCategoryModel]()
     var currPage : Int = 1
     /// 最后一页
     var lastPage: Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        if !isSearch {
-            self.navigationItem.title = categoryName //(type == "1" ? "固定器械": "自由器械")
-        }
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "app_icon_seach")?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(onClickRightBtn))
+        
+        self.navigationItem.title = (type == "1" ? "固定器械": "自由器械")
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
@@ -57,7 +41,7 @@ class FSFindQiCaiVC: GYZWhiteNavBaseVC {
         table.separatorStyle = .none
         table.backgroundColor = kBackgroundColor
         
-        table.register(FSFindQiCaiCell.classForCoder(), forCellReuseIdentifier: findQiCaiCell)
+        table.register(FSFindQiCaiCell.classForCoder(), forCellReuseIdentifier: findQiCaiCategoryCell)
         
         weak var weakSelf = self
         ///添加下拉刷新
@@ -81,21 +65,12 @@ class FSFindQiCaiVC: GYZWhiteNavBaseVC {
         weak var weakSelf = self
         showLoadingView()
         
-        var method: String = "Course/Instrument/index"
-//        var method: String = "Course/Instrument/fixed"
-//        if type == "2" {
-//            method = "Course/Instrument/free"
-//        }
-        var paramDic:[String:Any] = ["p":currPage]
-        if isSearch {
-            paramDic["keyword"] = searchContent
-            method = "Course/Instrument/search"
-            
-        }else{
-            paramDic["category_id"] = categoryId
+        var method: String = "Course/Instrument/fixedCategory"
+        if type == "2" {
+            method = "Course/Instrument/freeCategory"
         }
         
-        GYZNetWork.requestNetwork(method,parameters: paramDic,  success: { (response) in
+        GYZNetWork.requestNetwork(method,parameters: ["p":currPage],  success: { (response) in
             
             weakSelf?.closeRefresh()
             weakSelf?.hiddenLoadingView()
@@ -108,7 +83,7 @@ class FSFindQiCaiVC: GYZWhiteNavBaseVC {
                 guard let data = response["data"]["list"].array else { return }
                 for item in data{
                     guard let itemInfo = item.dictionaryObject else { return }
-                    let model = FSFindCourseModel.init(dict: itemInfo)
+                    let model = FSFindQiCaiCategoryModel.init(dict: itemInfo)
                     
                     weakSelf?.dataList.append(model)
                 }
@@ -117,7 +92,7 @@ class FSFindQiCaiVC: GYZWhiteNavBaseVC {
                     weakSelf?.hiddenEmptyView()
                 }else{
                     ///显示空页面
-                    weakSelf?.showEmptyView(content:"暂无器材信息")
+                    weakSelf?.showEmptyView(content:"暂无器材分类信息")
                 }
                 
             }else{
@@ -170,44 +145,17 @@ class FSFindQiCaiVC: GYZWhiteNavBaseVC {
             GYZTool.endLoadMore(scorllView: tableView)
         }
     }
-    /// 器材详情
-    func goDetailVC(index: Int){
-        let vc = FSFindQiCaiDetailVC()
-        vc.qiCaiId = dataList[index].id!
-        if isSearch {
-            self.naviController?.pushViewController(vc, animated: true)
-        }else{
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-    }
-    
-    /// 搜索
-    @objc func onClickRightBtn(){
-        let searchVC: PYSearchViewController = PYSearchViewController.init(hotSearches: [], searchBarPlaceholder: "搜索资讯、课程、菜谱、器材") { (searchViewController, searchBar, searchText) in
-            
-            let searchVC = FSFindSearchVC()
-            searchVC.searchContent = searchText!
-            searchViewController?.navigationController?.pushViewController(searchVC, animated: true)
-        }
-        
-        let searchNav = GYZBaseNavigationVC(rootViewController:searchVC)
-        //
-        searchVC.cancelButton.setTitleColor(kHeightGaryFontColor, for: .normal)
-        
-        /// 搜索框背景色
-        if #available(iOS 13.0, *){
-            searchVC.searchBar.searchTextField.backgroundColor = kGrayBackGroundColor
-        }else{
-            searchVC.searchBarBackgroundColor = kGrayBackGroundColor
-        }
-        //显示输入光标
-        searchVC.searchBar.tintColor = kHeightGaryFontColor
-        searchVC.searchHistoriesCachePath = searchHistoryPath
-        self.present(searchNav, animated: true, completion: nil)
+    // 器材
+    func goQiCaiVC(catId:String,name: String){
+        let vc = FSFindQiCaiVC()
+        vc.type = type
+        vc.categoryId = catId
+        vc.categoryName = name
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
-extension FSFindQiCaiVC: UITableViewDelegate,UITableViewDataSource{
+extension FSFindQiCaiCategoryVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -218,9 +166,9 @@ extension FSFindQiCaiVC: UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: findQiCaiCell) as! FSFindQiCaiCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: findQiCaiCategoryCell) as! FSFindQiCaiCell
         
-        cell.dataModel = dataList[indexPath.row]
+        cell.dataCategoryModel = dataList[indexPath.row]
         
         cell.selectionStyle = .none
         return cell
@@ -233,7 +181,8 @@ extension FSFindQiCaiVC: UITableViewDelegate,UITableViewDataSource{
         return UIView()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        goDetailVC(index: indexPath.row)
+        let model = dataList[indexPath.row]
+        goQiCaiVC(catId:model.id!,name: model.name!)
     }
     ///MARK : UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -245,14 +194,5 @@ extension FSFindQiCaiVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         
         return 0.00001
-    }
-}
-/// 搜索时用到
-extension FSFindQiCaiVC: JXSegmentedListContainerViewListDelegate {
-    func listView() -> UIView {
-        return self.view
-    }
-    func listDidAppear() {
-        
     }
 }

@@ -14,7 +14,7 @@ private let foodGuideHeader = "foodGuideHeader"
 private let foodGuideCell = "foodGuideCell"
 
 class FSFoodGuideVC: GYZWhiteNavBaseVC {
-    let searchHistoryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] + "PYSearchhistoriesFind.plist" // the path of search record cached
+    let searchHistoryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] + "/PYSearchhistoriesFindGuide.plist" // the path of search record cached
     
     var dataList: [FSFoodGuideModel] = [FSFoodGuideModel]()
 

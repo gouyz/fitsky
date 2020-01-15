@@ -23,6 +23,19 @@ class FSFindQiCaiCell: UITableViewCell {
         }
     }
     
+    /// 器材分类填充数据
+    var dataCategoryModel : FSFindQiCaiCategoryModel?{
+        didSet{
+            if let model = dataCategoryModel {
+                
+                bgImgView.kf.setImage(with: URL.init(string: model.thumb!), placeholder: UIImage.init(named: "icon_bg_ads_default"))
+                nameLab.text = model.name
+                desLab.text = model.desContent
+                numLab.isHidden = true
+            }
+        }
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         

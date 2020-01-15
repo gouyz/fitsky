@@ -258,6 +258,9 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
             make.left.right.height.equalTo(roomNameView)
             make.top.equalTo(lineView5.snp.bottom)
         }
+        cardNoView.desLab.snp.updateConstraints { (make) in
+            make.width.equalTo(120)
+        }
         lineView9.snp.makeConstraints { (make) in
             make.left.right.height.equalTo(lineView)
             make.top.equalTo(cardNoView.snp.bottom)

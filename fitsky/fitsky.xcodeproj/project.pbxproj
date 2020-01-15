@@ -42,6 +42,8 @@
 		0A1E73C123200592009BF848 /* FSFollowDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1E73C023200592009BF848 /* FSFollowDetailHeaderView.swift */; };
 		0A1E73C323200B80009BF848 /* FSFollowWebViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1E73C223200B80009BF848 /* FSFollowWebViewHeaderView.swift */; };
 		0A1E73C523200FA6009BF848 /* FSFollowSeePowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1E73C423200FA6009BF848 /* FSFollowSeePowerCell.swift */; };
+		0A1EE64F23CF61E900A0ECDB /* FSFindQiCaiCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1EE64E23CF61E900A0ECDB /* FSFindQiCaiCategoryVC.swift */; };
+		0A1EE65123CF696600A0ECDB /* FSFindQiCaiCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1EE65023CF696600A0ECDB /* FSFindQiCaiCategoryModel.swift */; };
 		0A1F2E0923157C620063BFB5 /* FSFollowAndFenSiVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1F2E0823157C620063BFB5 /* FSFollowAndFenSiVC.swift */; };
 		0A1F2E0B23157F120063BFB5 /* FSFollowAndFenSiListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1F2E0A23157F120063BFB5 /* FSFollowAndFenSiListVC.swift */; };
 		0A1FC5ED231EB5470094B250 /* FSSelectSeePowerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1FC5EC231EB5470094B250 /* FSSelectSeePowerVC.swift */; };
@@ -506,6 +508,8 @@
 		0A1E73C023200592009BF848 /* FSFollowDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFollowDetailHeaderView.swift; sourceTree = "<group>"; };
 		0A1E73C223200B80009BF848 /* FSFollowWebViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFollowWebViewHeaderView.swift; sourceTree = "<group>"; };
 		0A1E73C423200FA6009BF848 /* FSFollowSeePowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFollowSeePowerCell.swift; sourceTree = "<group>"; };
+		0A1EE64E23CF61E900A0ECDB /* FSFindQiCaiCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFindQiCaiCategoryVC.swift; sourceTree = "<group>"; };
+		0A1EE65023CF696600A0ECDB /* FSFindQiCaiCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFindQiCaiCategoryModel.swift; sourceTree = "<group>"; };
 		0A1F2E0823157C620063BFB5 /* FSFollowAndFenSiVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFollowAndFenSiVC.swift; sourceTree = "<group>"; };
 		0A1F2E0A23157F120063BFB5 /* FSFollowAndFenSiListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFollowAndFenSiListVC.swift; sourceTree = "<group>"; };
 		0A1FC5EC231EB5470094B250 /* FSSelectSeePowerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSelectSeePowerVC.swift; sourceTree = "<group>"; };
@@ -1786,6 +1790,7 @@
 				0A54BFC6238ECD44008C47CF /* FSFoodDetailModel.swift */,
 				0A54BFC8238EDE29008C47CF /* FSQiCaiDetailModel.swift */,
 				0A3F32B723901D990005FFD9 /* FSFindSearchZongHeModel.swift */,
+				0A1EE65023CF696600A0ECDB /* FSFindQiCaiCategoryModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1815,6 +1820,7 @@
 				0A4CD9A72355982D00995BE0 /* FSFindQiCaiDetailVC.swift */,
 				0A2DE079235611C500DE24A5 /* FSFindCourseDetailVC.swift */,
 				0A4D40562356EDE20040F505 /* FSFoodMenuDetailVC.swift */,
+				0A1EE64E23CF61E900A0ECDB /* FSFindQiCaiCategoryVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2314,6 +2320,7 @@
 				0A4ECE89236822B200A230F2 /* FSVenueConfirmVC.swift in Sources */,
 				0AF823DE2322530A00582D8D /* FSTopicDetailVC.swift in Sources */,
 				0A67F66C23165E7E00B47F0D /* FSSquareHotModel.swift in Sources */,
+				0A1EE64F23CF61E900A0ECDB /* FSFindQiCaiCategoryVC.swift in Sources */,
 				0A26A00A239D6BCD00319C0B /* FSMyCourseSearchVC.swift in Sources */,
 				0A208189237AFA4B00761F81 /* FSConfirmConditionModel.swift in Sources */,
 				0A47C12A22D4858E00207CED /* MMShareSheet.swift in Sources */,
@@ -2589,6 +2596,7 @@
 				0A4C7D612358585B0082C926 /* FSModifyEmailVC.swift in Sources */,
 				0A4C5D9E2334C60B0060FCC3 /* FSPayOrderResultVC.swift in Sources */,
 				0A47C13E22D4858E00207CED /* GYZLunarFormatter.swift in Sources */,
+				0A1EE65123CF696600A0ECDB /* FSFindQiCaiCategoryModel.swift in Sources */,
 				0A13EACA23545869007F41EC /* FSSearchCourseVC.swift in Sources */,
 				0A54D437231D0793000ADB6B /* FSCustomGroupDetailImageCell.swift in Sources */,
 				0A536DC023078D49009B569C /* FSFindVC.swift in Sources */,
@@ -2822,7 +2830,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = NBLB797Y9B;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2834,7 +2842,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = net.fitsky.mobile;
 				PRODUCT_NAME = Fitsky;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2853,7 +2861,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = NBLB797Y9B;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2865,7 +2873,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = net.fitsky.mobile;
 				PRODUCT_NAME = Fitsky;
 				PROVISIONING_PROFILE_SPECIFIER = "";

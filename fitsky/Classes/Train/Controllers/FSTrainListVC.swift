@@ -19,7 +19,7 @@ private let trainListEmptyFooter = "trainListEmptyFooter"
 
 private let trainCustomPopupMenuCell = "trainCustomPopupMenuCell"
 
-private let searchHistoryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] + "PYSearchhistoriesTrain.plist" // the path of search record cached
+private let searchHistoryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] + "/PYSearchhistoriesTrain.plist" // the path of search record cached
 
 class FSTrainListVC: GYZWhiteNavBaseVC {
     

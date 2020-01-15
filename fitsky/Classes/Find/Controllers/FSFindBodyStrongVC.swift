@@ -12,7 +12,7 @@ import MBProgressHUD
 import PYSearch
 
 class FSFindBodyStrongVC: GYZWhiteNavBaseVC {
-    let searchHistoryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] + "PYSearchhistoriesFind.plist" // the path of search record cached
+    let searchHistoryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] + "/PYSearchhistoriesFindBodyStrong.plist" // the path of search record cached
     var segmentedViewDataSource: JXSegmentedTitleDataSource!
     /// 分类
     var catrgoryList: [FSCompainCategoryModel] = [FSCompainCategoryModel]()

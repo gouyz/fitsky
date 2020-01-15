@@ -12,7 +12,7 @@ import JXPagingView
 import PYSearch
 
 class FSFindVC: GYZWhiteNavBaseVC {
-    let searchHistoryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] + "PYSearchhistoriesFind.plist" // the path of search record cached
+    let searchHistoryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] + "/PYSearchhistoriesFind.plist" // the path of search record cached
     
     var segmentedViewDataSource: JXSegmentedTitleDataSource!
     let JXTableHeaderViewHeight: Int = Int(kTitleAndStateHeight)

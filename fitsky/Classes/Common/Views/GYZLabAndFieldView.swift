@@ -35,7 +35,7 @@ class GYZLabAndFieldView: UIView {
         desLab.snp.makeConstraints { (make) in
             make.left.equalTo(kMargin)
             make.top.bottom.equalTo(self)
-            make.width.equalTo(120)
+            make.width.equalTo(100)
         }
         
         textFiled.snp.makeConstraints { (make) in
