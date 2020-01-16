@@ -159,9 +159,9 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         }
         roomDesLab.snp.makeConstraints { (make) in
             make.left.equalTo(kMargin)
-            make.height.equalTo(30)
+            make.height.equalTo(kTitleHeight)
             make.top.equalTo(kMargin)
-            make.width.equalTo(120)
+            make.width.equalTo(100)
         }
         roomPhotoView.snp.makeConstraints { (make) in
             make.left.equalTo(roomDesLab.snp.right).offset(kMargin)
@@ -258,9 +258,6 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
             make.left.right.height.equalTo(roomNameView)
             make.top.equalTo(lineView5.snp.bottom)
         }
-        cardNoView.desLab.snp.updateConstraints { (make) in
-            make.width.equalTo(120)
-        }
         lineView9.snp.makeConstraints { (make) in
             make.left.right.height.equalTo(lineView)
             make.top.equalTo(cardNoView.snp.bottom)
@@ -333,7 +330,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
     /// 门店照
     lazy var roomDesLab : UILabel = {
         let lab = UILabel()
-        lab.font = k13Font
+        lab.font = k15Font
         lab.textColor = kHeightGaryFontColor
         let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 门店照")
         strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kRedFontColor, range: NSMakeRange(0, 1))
@@ -356,7 +353,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
     ///
     lazy var desLab1 : UILabel = {
         let lab = UILabel()
-        lab.font = k12Font
+        lab.font = k13Font
         lab.textColor = kHeightGaryFontColor
         lab.text = "需拍全，包含完整的店牌"
         
@@ -373,8 +370,6 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         let nView = GYZLabAndFieldView.init(desName: "门店名称", placeHolder: "需与门店照牌面一致，若为品牌分店请注明")
         nView.desLab.textColor = kHeightGaryFontColor
         nView.textFiled.textColor = kGaryFontColor
-        nView.textFiled.font = k13Font
-        nView.desLab.font = k13Font
         
         return nView
     }()
@@ -387,7 +382,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
     /// 店内照
     lazy var roomInLineDesLab : UILabel = {
         let lab = UILabel()
-        lab.font = k13Font
+        lab.font = k15Font
         lab.textColor = kHeightGaryFontColor
         let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 店内照")
         strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kRedFontColor, range: NSMakeRange(0, 1))
@@ -418,8 +413,6 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         nView.desLab.textColor = kHeightGaryFontColor
         nView.textFiled.textColor = kGaryFontColor
 //        nView.textFiled.isEnabled = false
-        nView.textFiled.font = k13Font
-        nView.desLab.font = k13Font
         let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 门店地址")
         strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kRedFontColor, range: NSMakeRange(0, 1))
         nView.desLab.attributedText = strAttr
@@ -445,10 +438,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         let nView = GYZLabAndFieldView.init(desName: "经营范围", placeHolder: "请选择经营范围")
         nView.desLab.textColor = kHeightGaryFontColor
         nView.textFiled.textColor = kBlueFontColor
-        nView.textFiled.text = "健身"
-        nView.textFiled.font = k13Font
         nView.textFiled.isEnabled = false
-        nView.desLab.font = k13Font
         
         nView.addOnClickListener(target: self, action: #selector(onClickedSelectDaRenType))
         
@@ -465,7 +455,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
     /// 营业执照
     lazy var yyzzDesLab : UILabel = {
         let lab = UILabel()
-        lab.font = k13Font
+        lab.font = k15Font
         lab.textColor = kHeightGaryFontColor
         let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 营业执照")
         strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kRedFontColor, range: NSMakeRange(0, 1))
@@ -488,7 +478,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
     ///
     lazy var desLab3 : UILabel = {
         let lab = UILabel()
-        lab.font = k12Font
+        lab.font = k13Font
         lab.textColor = kHeightGaryFontColor
         lab.text = "需提供清晰的照片"
         
@@ -504,8 +494,6 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         let nView = GYZLabAndFieldView.init(desName: "", placeHolder: "运营者姓名")
         nView.desLab.textColor = kHeightGaryFontColor
         nView.textFiled.textColor = kGaryFontColor
-        nView.textFiled.font = k13Font
-        nView.desLab.font = k13Font
         let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 运营者姓名")
         strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kRedFontColor, range: NSMakeRange(0, 1))
         nView.desLab.attributedText = strAttr
@@ -521,11 +509,11 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
     lazy var cardNoView: GYZLabAndFieldView = {
         let nView = GYZLabAndFieldView.init(desName: "", placeHolder: "运营者身份证号")
         nView.desLab.textColor = kHeightGaryFontColor
+        nView.desLab.numberOfLines = 0
         nView.textFiled.textColor = kGaryFontColor
-        nView.textFiled.font = k13Font
-        nView.desLab.font = k13Font
-        let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 运营者身份证号")
+        let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 运营者身份**证号")
         strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kRedFontColor, range: NSMakeRange(0, 1))
+        strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kWhiteColor, range: NSMakeRange(7, 2))
         nView.desLab.attributedText = strAttr
         
         return nView
@@ -539,12 +527,12 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
     ///
     lazy var cardDesLab : UILabel = {
         let lab = UILabel()
-        lab.font = k13Font
+        lab.font = k15Font
         lab.textColor = kHeightGaryFontColor
         lab.numberOfLines = 0
-        lab.lineBreakMode = .byClipping
-        let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 运营者身份证正反照")
+        let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 运营者身份**证正反照")
         strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kRedFontColor, range: NSMakeRange(0, 1))
+        strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kWhiteColor, range: NSMakeRange(7, 2))
         lab.attributedText = strAttr
         
         return lab
@@ -582,12 +570,12 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
     /// 手持身份证
     lazy var shouCardDesLab : UILabel = {
         let lab = UILabel()
-        lab.font = k13Font
+        lab.font = k15Font
         lab.textColor = kHeightGaryFontColor
         lab.numberOfLines = 0
-        lab.lineBreakMode = .byClipping
-        let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 运营者手持身份证")
+        let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 运营者手持**身份证")
         strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kRedFontColor, range: NSMakeRange(0, 1))
+        strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kWhiteColor, range: NSMakeRange(7, 2))
         lab.attributedText = strAttr
         
         return lab
@@ -607,7 +595,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
     /// 需提供清晰的照片
     lazy var desLab4 : UILabel = {
         let lab = UILabel()
-        lab.font = k12Font
+        lab.font = k13Font
         lab.textColor = kHeightGaryFontColor
         lab.text = "需提供清晰的照片"
         
@@ -623,8 +611,6 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         let nView = GYZLabAndFieldView.init(desName: "联系方式", placeHolder: "输入联系电话，方便我们更好联系你")
         nView.desLab.textColor = kHeightGaryFontColor
         nView.textFiled.textColor = kGaryFontColor
-        nView.textFiled.font = k13Font
-        nView.desLab.font = k13Font
         
         return nView
     }()

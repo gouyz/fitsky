@@ -92,6 +92,48 @@ class FSMySettingVC: GYZWhiteNavBaseVC {
         let vc = FSAccountSafeVC()
         navigationController?.pushViewController(vc, animated: true)
     }
+    func goClearCache(){
+        weak var weakSelf = self
+        GYZAlertViewTools.alertViewTools.showAlert(title: nil, message: "确定要清理缓存吗?", cancleTitle: "取消", viewController: self, buttonTitles: "确定") { (tag) in
+            
+            if tag != cancelIndex{
+                weakSelf?.createHUD(message: "清理中...")
+                weakSelf?.startSMSWithDuration(duration: 2)
+            }
+        }
+    }
+    
+    /// 倒计时
+    ///
+    /// - Parameter duration: 倒计时时间
+    func startSMSWithDuration(duration:Int){
+        var times = duration
+        
+        let timer:DispatchSourceTimer = DispatchSource.makeTimerSource(flags: [], queue:DispatchQueue.global())
+        
+        timer.setEventHandler {
+            if times > 0{
+                DispatchQueue.main.async(execute: {
+                    times -= 1
+                })
+            } else{
+                DispatchQueue.main.async(execute: {
+                    self.hud?.hide(animated: true)
+                    MBProgressHUD.showAutoDismissHUD(message: "清理成功")
+                    
+                    timer.cancel()
+                })
+            }
+        }
+        
+        // timer.scheduleOneshot(deadline: .now())
+        timer.schedule(deadline: .now(), repeating: .seconds(1), leeway: .milliseconds(100))
+        
+        timer.resume()
+        
+        // 在调用DispatchSourceTimer时, 无论设置timer.scheduleOneshot, 还是timer.scheduleRepeating代码 不调用cancel(), 系统会自动调用
+        // 另外需要设置全局变量引用, 否则不会调用事件
+    }
     /// 退出
     @objc func onClickLoginOutBtn(){
         requestLoginOut()
@@ -163,6 +205,9 @@ extension FSMySettingVC: UITableViewDelegate,UITableViewDataSource{
             goPrivacyVC()
         }else if indexPath.row == 4 {// 修改认证
             goModifyConfirmVC()
+        }
+        else if indexPath.row == 3 {// 清理缓存
+            goClearCache()
         }
     }
     ///MARK : UITableViewDelegate

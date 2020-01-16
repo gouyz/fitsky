@@ -165,7 +165,7 @@ class FSPersonHomeVC: GYZWhiteNavBaseVC {
             userHeaderView.nameBtn.set(image: UIImage.init(named: sexName), title: (userModel?.formData?.nick_name)!, titlePosition: .left, additionalSpacing: 5, state: .normal)
             userHeaderView.followNumLab.text = "关注 \((userModel?.formData?.follow)!)"
             userHeaderView.fenSiNumLab.text = "粉丝 \((userModel?.formData?.fans)!)"
-            userHeaderView.confirmLab.text = "认证：\((userModel?.formData?.type_text)!)"
+            userHeaderView.confirmLab.text = userModel?.formData?.type_text
             
             
             userHeaderView.birthdayLab.text = userModel?.formData?.birthday

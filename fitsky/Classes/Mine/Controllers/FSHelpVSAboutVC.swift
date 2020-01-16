@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import StoreKit
 
 private let helpVSAboutCell = "helpVSAboutCell"
 
@@ -124,6 +125,22 @@ class FSHelpVSAboutVC: GYZWhiteNavBaseVC {
             GYZLog(error)
         })
     }
+    func lg_iTunesScoreComment() {
+        if #available(iOS 10.3 , *) {
+            SKStoreReviewController.requestReview()
+        } else {
+            let openStr:String = "itms-apps://itunes.apple.com/app/id\(APPID)?action=write-review"
+            if UIApplication.shared.canOpenURL(URL(string: openStr)!) {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(URL(string: openStr)!, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.canOpenURL(URL(string: openStr)!)
+                }
+            } else {
+                GYZUpdateVersionTool.goAppStore()
+            }
+        }
+    }
 }
 extension FSHelpVSAboutVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -155,7 +172,7 @@ extension FSHelpVSAboutVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0://去App Store评分
-            break
+            lg_iTunesScoreComment()
         case 1://合作洽谈
             showCooperateAlert()
         case 2:/// 反馈
