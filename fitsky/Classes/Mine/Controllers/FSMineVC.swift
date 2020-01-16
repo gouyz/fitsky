@@ -78,7 +78,7 @@ class FSMineVC: GYZWhiteNavBaseVC {
         return table
     }()
     
-    lazy var headerView: FSMineHeaderView = FSMineHeaderView.init(frame: CGRect.init(x: 0, y: 0, width: kScreenWidth, height: 310 + kMargin * 4))
+    lazy var headerView: FSMineHeaderView = FSMineHeaderView.init(frame: CGRect.init(x: 0, y: 0, width: kScreenWidth, height: 290 + kMargin * 4))
     
     
     //我的

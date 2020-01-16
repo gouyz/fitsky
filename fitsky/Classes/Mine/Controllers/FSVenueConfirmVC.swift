@@ -161,7 +161,7 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
             make.left.equalTo(kMargin)
             make.height.equalTo(30)
             make.top.equalTo(kMargin)
-            make.width.equalTo(130)
+            make.width.equalTo(120)
         }
         roomPhotoView.snp.makeConstraints { (make) in
             make.left.equalTo(roomDesLab.snp.right).offset(kMargin)
@@ -541,6 +541,8 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         let lab = UILabel()
         lab.font = k13Font
         lab.textColor = kHeightGaryFontColor
+        lab.numberOfLines = 0
+        lab.lineBreakMode = .byClipping
         let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 运营者身份证正反照")
         strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kRedFontColor, range: NSMakeRange(0, 1))
         lab.attributedText = strAttr
@@ -582,6 +584,8 @@ class FSVenueConfirmVC: GYZWhiteNavBaseVC {
         let lab = UILabel()
         lab.font = k13Font
         lab.textColor = kHeightGaryFontColor
+        lab.numberOfLines = 0
+        lab.lineBreakMode = .byClipping
         let strAttr : NSMutableAttributedString = NSMutableAttributedString(string: "* 运营者手持身份证")
         strAttr.addAttribute(NSAttributedString.Key.foregroundColor, value: kRedFontColor, range: NSMakeRange(0, 1))
         lab.attributedText = strAttr
