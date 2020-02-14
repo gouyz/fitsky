@@ -12,6 +12,8 @@ class FSEditPhotoVC: GYZWhiteNavBaseVC {
     
     var numOfPages: Int = 4
     var currPage: Int = 0
+    //初始输出分辨率，此值切换画幅的时候用到
+    var outputSize: CGSize = CGSize.init(width: 720, height: 1280)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +21,11 @@ class FSEditPhotoVC: GYZWhiteNavBaseVC {
         self.view.backgroundColor = kBlackColor
         ///放到最底层
         self.view.insertSubview(scrollView, at: 0)
+        
+    }
+    
+    func addSubviews(){
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
