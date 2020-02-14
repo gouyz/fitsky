@@ -14,19 +14,34 @@ class FSEditPhotoVC: GYZWhiteNavBaseVC {
     var currPage: Int = 0
     //初始输出分辨率，此值切换画幅的时候用到
     var outputSize: CGSize = CGSize.init(width: 720, height: 1280)
+    /// 视频配置参数
+    var quVideo: AliyunMediaConfig = AliyunMediaConfig.default()
+    /// 多个资源的本地存放文件夹路径 - 从相册选择界面进入传这个值
+    var taskPath: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.backgroundColor = kBlackColor
+        outputSize = quVideo.fixedSize()
+        quVideo.outputSize = outputSize
+        quVideo.videoQuality = .medium
+        quVideo.encodeMode = .hardH264
+        //初始化动图资源
+        AliyunEffectPrestoreManager.init().insertInitialData()
         ///放到最底层
-        self.view.insertSubview(scrollView, at: 0)
+//        self.view.insertSubview(scrollView, at: 0)
         
+        addSubviews()
     }
     
     func addSubviews(){
+        let factor: CGFloat = outputSize.height / outputSize.width
+        movieView.frame = CGRect.init(x: 0, y: kTitleAndStateHeight, width: kScreenWidth, height: kScreenWidth * factor)
         
+        self.view.addSubview(movieView)
     }
+    var movieView: UIView = UIView()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
