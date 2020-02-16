@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DKImagePickerController
 
 class FSEditPhotoVC: GYZWhiteNavBaseVC {
     
@@ -18,6 +19,13 @@ class FSEditPhotoVC: GYZWhiteNavBaseVC {
     var quVideo: AliyunMediaConfig = AliyunMediaConfig.default()
     /// 多个资源的本地存放文件夹路径 - 从相册选择界面进入传这个值
     var taskPath: String = ""
+    var editor: AliyunEditor?
+    var player: AliyunIPlayer?
+    var exporter: AliyunIExporter?
+    var clipConstructor: AliyunIClipConstructor?
+    var importor: AliyunImporter?
+    /// 选择的图片
+    var selectImgs: [DKAsset] = [DKAsset]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,8 +39,10 @@ class FSEditPhotoVC: GYZWhiteNavBaseVC {
         AliyunEffectPrestoreManager.init().insertInitialData()
         ///放到最底层
 //        self.view.insertSubview(scrollView, at: 0)
+        setImgData()
         
         addSubviews()
+//        initSDKAbout()
     }
     
     func addSubviews(){
@@ -41,17 +51,66 @@ class FSEditPhotoVC: GYZWhiteNavBaseVC {
         
         self.view.addSubview(movieView)
     }
+    func initSDKAbout(path: String){
+        editor = AliyunEditor.init(path: path, preview: movieView)
+//        editor?.delegate = self
+        
+        player = editor?.getPlayer()
+        exporter = editor?.getExporter()
+        clipConstructor = editor?.getClipConstructor()
+        
+        editor?.startEdit()
+        if !(player?.isPlaying())! {
+            player?.play()
+        }
+    }
+    func setImgData(){
+//        var count:Int = 0
+        //视频存储路径
+        let videoSavePath: String = AliyunPathManager.compositionRootDir() + AliyunPathManager.randomString() + ".mp4"
+        importor = AliyunImporter.init(path: videoSavePath, outputSize: outputSize)
+        for item in selectImgs{
+            item.originalAsset?.requestContentEditingInput(with: nil, completionHandler: {[unowned self] (contentEditingInput, info) in
+                self.taskPath = contentEditingInput!.fullSizeImageURL!.absoluteString
+                GYZLog(self.taskPath)
+                
+                let clip: AliyunClip = AliyunClip.init(imagePath: self.taskPath, duration: 3, animDuration: 0)
+                self.importor?.addMediaClip(clip)
+                let param: AliyunVideoParam = AliyunVideoParam.default()
+                param.codecType = .hardware
+                
+                self.importor?.setVideoParam(param)
+                self.importor?.generateProjectConfigure()
+                self.initSDKAbout(path: videoSavePath)
+            })
+//            item.fetchFullScreenImage {[unowned self] (image, info) in
+//
+//                self.selectCameraImgs.append(image!)
+//                count += 1
+//                if count == self.selectImgs.count{
+//                    self.selectImgCount = self.selectCameraImgs.count
+//                    self.resetAddImgView()
+//                }
+//            }
+        }
+    }
     var movieView: UIView = UIView()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+//        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+//        editor?.startEdit()
+//        if !(player?.isPlaying())! {
+//            player?.play()
+//        }
     }
+    
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
+//        self.navigationController?.setNavigationBarHidden(false, animated: false)
         
     }
     

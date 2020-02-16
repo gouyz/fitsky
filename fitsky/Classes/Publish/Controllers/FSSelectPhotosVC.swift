@@ -141,9 +141,12 @@ class FSSelectPhotosVC: GYZWhiteNavBaseVC {
                 vc.selectImgs = self.pickerController.selectedAssets
                 navigationController?.pushViewController(vc, animated: true)
             }else{
-                let vc = FSPublishDynamicVC()
+//                let vc = FSPublishDynamicVC()
+//                vc.selectImgs = self.pickerController.selectedAssets
+//                vc.isVideo = isVideo
+//                navigationController?.pushViewController(vc, animated: true)
+                let vc = FSEditPhotoVC()
                 vc.selectImgs = self.pickerController.selectedAssets
-                vc.isVideo = isVideo
                 navigationController?.pushViewController(vc, animated: true)
             }
             

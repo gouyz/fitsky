@@ -63,7 +63,6 @@ class FSPublishDynamicVC: GYZWhiteNavBaseVC {
         
         setUpUI()
         if isRecord {
-            GYZLog(videoOutPutUrl)
             setCaramRecord()
         }else{
             setImgData()
