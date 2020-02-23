@@ -78,6 +78,7 @@ class FSEditPhotoVC: GYZWhiteNavBaseVC {
                 self.importor?.addMediaClip(clip)
                 let param: AliyunVideoParam = AliyunVideoParam.default()
                 param.codecType = .hardware
+                param.scaleMode = .fill
                 
                 self.importor?.setVideoParam(param)
                 self.importor?.generateProjectConfigure()

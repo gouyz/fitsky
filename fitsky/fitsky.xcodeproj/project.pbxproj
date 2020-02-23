@@ -319,6 +319,8 @@
 		0A4D40592356EF8F0040F505 /* FSFoodMenuDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4D40582356EF8F0040F505 /* FSFoodMenuDetailHeaderView.swift */; };
 		0A4D405B23570E280040F505 /* FSFoodMenuDetailDesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4D405A23570E280040F505 /* FSFoodMenuDetailDesCell.swift */; };
 		0A4D405D235715250040F505 /* FSFoodMenuDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4D405C235715250040F505 /* FSFoodMenuDetailCell.swift */; };
+		0A4DB3032402C23500F3058A /* FSFindCircleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4DB3022402C23500F3058A /* FSFindCircleVC.swift */; };
+		0A4DB3052402DBBA00F3058A /* FSFindCircleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4DB3042402DBBA00F3058A /* FSFindCircleCell.swift */; };
 		0A4DBDF72396951A00B3ACF3 /* FSMsgZanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4DBDF62396951A00B3ACF3 /* FSMsgZanModel.swift */; };
 		0A4DBDF92396AD6D00B3ACF3 /* FSMsgConmentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4DBDF82396AD6D00B3ACF3 /* FSMsgConmentVC.swift */; };
 		0A4DBDFB2396AEAC00B3ACF3 /* FSMsgConmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4DBDFA2396AEAC00B3ACF3 /* FSMsgConmentCell.swift */; };
@@ -818,6 +820,8 @@
 		0A4D40582356EF8F0040F505 /* FSFoodMenuDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFoodMenuDetailHeaderView.swift; sourceTree = "<group>"; };
 		0A4D405A23570E280040F505 /* FSFoodMenuDetailDesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFoodMenuDetailDesCell.swift; sourceTree = "<group>"; };
 		0A4D405C235715250040F505 /* FSFoodMenuDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFoodMenuDetailCell.swift; sourceTree = "<group>"; };
+		0A4DB3022402C23500F3058A /* FSFindCircleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFindCircleVC.swift; sourceTree = "<group>"; };
+		0A4DB3042402DBBA00F3058A /* FSFindCircleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFindCircleCell.swift; sourceTree = "<group>"; };
 		0A4DBDF62396951A00B3ACF3 /* FSMsgZanModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMsgZanModel.swift; sourceTree = "<group>"; };
 		0A4DBDF82396AD6D00B3ACF3 /* FSMsgConmentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMsgConmentVC.swift; sourceTree = "<group>"; };
 		0A4DBDFA2396AEAC00B3ACF3 /* FSMsgConmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMsgConmentCell.swift; sourceTree = "<group>"; };
@@ -1198,6 +1202,7 @@
 		0A47C05C22D4858D00207CED /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				0A4DB2FE2402BE8200F3058A /* IMCircle */,
 				0A1AFE95232547200044E45F /* Venue */,
 				0AF823CF2322530900582D8D /* Topic */,
 				0A54D42E231D05FA000ADB6B /* Publish */,
@@ -1542,6 +1547,39 @@
 				0A4CD89E23A9FFFC00EE1421 /* AliyunDBHelper.m */,
 			);
 			path = DB;
+			sourceTree = "<group>";
+		};
+		0A4DB2FE2402BE8200F3058A /* IMCircle */ = {
+			isa = PBXGroup;
+			children = (
+				0A4DB2FF2402BE8200F3058A /* Models */,
+				0A4DB3002402BE8200F3058A /* Controllers */,
+				0A4DB3012402BE8200F3058A /* Views */,
+			);
+			path = IMCircle;
+			sourceTree = "<group>";
+		};
+		0A4DB2FF2402BE8200F3058A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0A4DB3002402BE8200F3058A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0A4DB3022402C23500F3058A /* FSFindCircleVC.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0A4DB3012402BE8200F3058A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0A4DB3042402DBBA00F3058A /* FSFindCircleCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		0A536DAB23078BFA009B569C /* Square */ = {
@@ -2274,6 +2312,7 @@
 				0A47C0F322D4858E00207CED /* GYZMyProfileCell.swift in Sources */,
 				0A676A8C2361FF4500FA7542 /* FSAboutHeaderView.swift in Sources */,
 				0A0A026A22E74205008BC4BB /* FSHotCityCell.swift in Sources */,
+				0A4DB3032402C23500F3058A /* FSFindCircleVC.swift in Sources */,
 				0A47C11222D4858E00207CED /* GYZUIViewControl+Empty.swift in Sources */,
 				0AC5C578230EDFBC005AB87B /* FSMoreConmentFooterView.swift in Sources */,
 				0A31B6A02386FF3D004AF0A1 /* FSTrainVenueModel.swift in Sources */,
@@ -2379,6 +2418,7 @@
 				0A47C12F22D4858E00207CED /* GYZActionSheet.swift in Sources */,
 				0A4ABBAD23A9521D001F888A /* FSFilterTypeCell.swift in Sources */,
 				0A4D40592356EF8F0040F505 /* FSFoodMenuDetailHeaderView.swift in Sources */,
+				0A4DB3052402DBBA00F3058A /* FSFindCircleCell.swift in Sources */,
 				0A2DE07C23561F1700DE24A5 /* FSFindCourseDetailInfoCell.swift in Sources */,
 				0A4CD8B423AA22C900EE1421 /* AliyunIConfig.m in Sources */,
 				0A732040235F5E4E009CD650 /* FSPingBiListCell.swift in Sources */,

@@ -12,6 +12,8 @@ import MBProgressHUD
 private let messageCell = "messageCell"
 private let messageChatCell = "messageChatCell"
 
+private let msgCustomPopupMenuCell = "msgCustomPopupMenuCell"
+
 class FSMessageVC: GYZWhiteNavBaseVC {
     
     let titleArr:[String] = ["点赞","评论","收藏","通知"]
@@ -19,11 +21,13 @@ class FSMessageVC: GYZWhiteNavBaseVC {
     let iconHightNameArr:[String] = ["app_icon_like_message_have","app_icon_comment_message_have","app_icon_collect_message_have","app_icon_message_official_have"]
     
     var dataModel: FSMessageHomeModel?
+    var rightManagerTitles: [String] = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.titleView = clearBtn
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: rightBtn)
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
@@ -39,6 +43,15 @@ class FSMessageVC: GYZWhiteNavBaseVC {
         btn.setTitleColor(kGaryFontColor, for: .normal)
         btn.set(image: UIImage.init(named: "app_btn_clear_message"), title: "消息", titlePosition: .left, additionalSpacing: kMargin, state: .normal)
         btn.addTarget(self, action: #selector(onClickedClearMsg), for: .touchUpInside)
+        return btn
+    }()
+    ///
+    lazy var rightBtn : UIButton = {
+        let btn = UIButton.init(type: .custom)
+        btn.setImage(UIImage.init(named: "app_btn_topic_gray"), for: .normal)
+        btn.frame = CGRect.init(x: 0, y: 0, width: kTitleHeight, height: kTitleHeight)
+        btn.addTarget(self, action: #selector(onClickRightBtn), for: .touchUpInside)
+        
         return btn
     }()
     lazy var tableView : UITableView = {
@@ -79,7 +92,7 @@ class FSMessageVC: GYZWhiteNavBaseVC {
             
             weakSelf?.hud?.hide(animated: true)
             GYZLog(response)
-        
+            
             if response["result"].intValue == kQuestSuccessTag{//请求成功
                 let data = response["data"]
                 weakSelf?.dataModel?.collect = data["collect"].stringValue
@@ -111,12 +124,12 @@ class FSMessageVC: GYZWhiteNavBaseVC {
             
             weakSelf?.hud?.hide(animated: true)
             GYZLog(response)
-        
+            
             if response["result"].intValue == kQuestSuccessTag{//请求成功
                 guard let data = response["data"].dictionaryObject else { return }
                 weakSelf?.dataModel = FSMessageHomeModel.init(dict: data)
                 weakSelf?.tableView.reloadData()
-            
+                
             }else{
                 MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
             }
@@ -132,7 +145,19 @@ class FSMessageVC: GYZWhiteNavBaseVC {
         vc.type = type
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
+    /// 右侧按钮
+    @objc func onClickRightBtn(){
+        rightManagerTitles.removeAll()
+        rightManagerTitles.append("发现社圈")
+        rightManagerTitles.append("创立社圈")
+        rightManagerTitles.append("扫一扫")
+        YBPopupMenu.showRely(on: rightBtn, titles: rightManagerTitles, icons: nil, menuWidth: 170) { [weak self](popupMenu) in
+            popupMenu?.delegate = self
+            popupMenu?.isShadowShowing = false
+            popupMenu?.textColor = kGaryFontColor
+            popupMenu?.tableView.register(GYZLabelCenterCell.classForCoder(), forCellReuseIdentifier: msgCustomPopupMenuCell)
+        }
+    }
 }
 extension FSMessageVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -271,6 +296,23 @@ extension FSMessageVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         
         return 0.00001
+    }
+    
+}
+extension FSMessageVC: YBPopupMenuDelegate{
+    func ybPopupMenu(_ ybPopupMenu: YBPopupMenu!, didSelectedAt index: Int) {
+        
+        
+    }
+    func ybPopupMenu(_ ybPopupMenu: YBPopupMenu!, cellForRowAt index: Int) -> UITableViewCell! {
+        
+        let cell = ybPopupMenu.tableView.dequeueReusableCell(withIdentifier: msgCustomPopupMenuCell) as! GYZLabelCenterCell
+        
+        cell.nameLab.text = rightManagerTitles[index]
+        cell.nameLab.textColor = kGaryFontColor
+        
+        cell.selectionStyle = .none
+        return cell
     }
     
 }

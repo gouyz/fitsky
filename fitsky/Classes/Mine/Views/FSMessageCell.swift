@@ -77,7 +77,6 @@ class FSMessageCell: UITableViewCell {
         lab.font = k12Font
         lab.cornerRadius = 8
         lab.textAlignment = .center
-        lab.text = "300"
         
         return lab
     }()
