@@ -10,18 +10,26 @@ import UIKit
 import MBProgressHUD
 
 private let findCircleCell = "findCircleCell"
+private let findCircleHeader = "findCircleHeader"
 
 class FSFindCircleVC: GYZWhiteNavBaseVC {
     
     /// 搜索 内容
     var searchContent: String = ""
+    var isSearch: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.title = "发现社圈"
         
-        navigationItem.titleView = searchBar
+        self.view.addSubview(searchBar)
+        searchBar.snp.makeConstraints { (make) in
+            make.left.equalTo(kMargin)
+            make.right.equalTo(-kMargin)
+            make.top.equalTo(kTitleAndStateHeight + kMargin)
+            make.height.equalTo(kTitleHeight)
+        }
         /// 解决iOS11中UISearchBar高度变大
         if #available(iOS 11.0, *) {
             searchBar.heightAnchor.constraint(equalToConstant: kTitleHeight).isActive = true
@@ -29,7 +37,8 @@ class FSFindCircleVC: GYZWhiteNavBaseVC {
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
-            make.edges.equalTo(0)
+            make.top.equalTo(searchBar.snp.bottom).offset(kMargin)
+            make.left.right.bottom.equalTo(self.view)
         }
         
     }
@@ -40,7 +49,8 @@ class FSFindCircleVC: GYZWhiteNavBaseVC {
         table.separatorStyle = .none
         table.backgroundColor = kWhiteColor
         
-        table.register(FSSelectTopicCell.classForCoder(), forCellReuseIdentifier: findCircleCell)
+        table.register(FSFindCircleCell.classForCoder(), forCellReuseIdentifier: findCircleCell)
+        table.register(LHSGeneralHeaderView.classForCoder(), forHeaderFooterViewReuseIdentifier: findCircleHeader)
         
         //            weak var weakSelf = self
         //            ///添加下拉刷新
@@ -62,6 +72,7 @@ class FSFindCircleVC: GYZWhiteNavBaseVC {
         search.delegate = self
         //显示输入光标
         search.tintColor = kHeightGaryFontColor
+        search.backgroundImage = UIImage.init()
         /// 搜索框背景色
         if #available(iOS 13.0, *){
             search.searchTextField.backgroundColor = kGrayBackGroundColor
@@ -164,6 +175,8 @@ extension FSFindCircleVC: UISearchBarDelegate {
         
         searchBar.resignFirstResponder()
         self.searchContent = searchBar.text ?? ""
+        self.isSearch = true
+        self.tableView.reloadData()
         
     }
     
@@ -180,16 +193,24 @@ extension FSFindCircleVC: UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: findCircleCell) as! FSSelectTopicCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: findCircleCell) as! FSFindCircleCell
         
         
         cell.selectionStyle = .none
         return cell
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if isSearch {
+            return UIView()
+        }
         
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: findCircleHeader) as! LHSGeneralHeaderView
         
-        return UIView()
+        headerView.nameLab.textColor = kOrangeFontColor
+        headerView.nameLab.font = UIFont.boldSystemFont(ofSize: 14.0)
+        headerView.nameLab.text = "猜你喜欢"
+        
+        return headerView
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
@@ -200,9 +221,12 @@ extension FSFindCircleVC: UITableViewDelegate,UITableViewDataSource{
     }
     ///MARK : UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 60
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if !isSearch {
+            return 30
+        }
         return 0.00001
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

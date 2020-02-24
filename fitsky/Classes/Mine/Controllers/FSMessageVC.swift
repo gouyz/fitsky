@@ -158,6 +158,11 @@ class FSMessageVC: GYZWhiteNavBaseVC {
             popupMenu?.tableView.register(GYZLabelCenterCell.classForCoder(), forCellReuseIdentifier: msgCustomPopupMenuCell)
         }
     }
+    /// 发现社圈
+    func goFindCircleVC(){
+        let vc = FSFindCircleVC()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 extension FSMessageVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -301,7 +306,9 @@ extension FSMessageVC: UITableViewDelegate,UITableViewDataSource{
 }
 extension FSMessageVC: YBPopupMenuDelegate{
     func ybPopupMenu(_ ybPopupMenu: YBPopupMenu!, didSelectedAt index: Int) {
-        
+        if index == 0 { /// 发现社圈
+            goFindCircleVC()
+        }
         
     }
     func ybPopupMenu(_ ybPopupMenu: YBPopupMenu!, cellForRowAt index: Int) -> UITableViewCell! {
