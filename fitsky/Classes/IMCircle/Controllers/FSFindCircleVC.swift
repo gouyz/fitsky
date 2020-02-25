@@ -22,6 +22,7 @@ class FSFindCircleVC: GYZWhiteNavBaseVC {
         super.viewDidLoad()
         
         self.navigationItem.title = "发现社圈"
+        self.view.backgroundColor = kWhiteColor
         
         self.view.addSubview(searchBar)
         searchBar.snp.makeConstraints { (make) in
