@@ -84,9 +84,6 @@ PODS:
   - MJRefresh (3.2.0)
   - PYSearch (0.9.1)
   - QuCore-ThirdParty (3.10.0)
-  - RongCloudIM/IMKit (2.9.25):
-    - RongCloudIM/IMLib
-  - RongCloudIM/IMLib (2.9.25)
   - SDWebImage (5.1.0):
     - SDWebImage/Core (= 5.1.0)
   - SDWebImage/Core (5.1.0)
@@ -135,8 +132,6 @@ DEPENDENCIES:
   - MJRefresh
   - PYSearch
   - QuCore-ThirdParty (= 3.10.0)
-  - RongCloudIM/IMKit (~> 2.9.25)
-  - RongCloudIM/IMLib (~> 2.9.25)
   - SKPhotoBrowser
   - SnapKit (~> 4.2.0)
   - SwiftyJSON
@@ -180,7 +175,6 @@ SPEC REPOS:
     - MJRefresh
     - PYSearch
     - QuCore-ThirdParty
-    - RongCloudIM
     - SDWebImage
     - SDWebImageFLPlugin
     - SKPhotoBrowser
@@ -234,7 +228,6 @@ SPEC CHECKSUMS:
   MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
   PYSearch: 76dee18eea3309b60921a5d6a69390a63a5dda15
   QuCore-ThirdParty: 60a6f08864631569569fa1e2c6208a7746698923
-  RongCloudIM: cd6836aa86fbf6c02f7b6b5c895ea4caa894d67f
   SDWebImage: fb387001955223213dde14bc08c8b73f371f8d8f
   SDWebImageFLPlugin: cf3f4ae49f249dd785129346fd61bbc8433a88cf
   SKPhotoBrowser: 343de95d89dc7913763c5dda243cc6e606e4a168
@@ -246,6 +239,6 @@ SPEC CHECKSUMS:
   YBPopupMenu: 6efb286385d95ba5f97c58b8464ec873645e8764
   ZFPlayer: b2ba40c924e1b9a7f0a670632c4235ffbe6ee055
 
-PODFILE CHECKSUM: 4cc1305178013072a470a079d23d2617d0cf1324
+PODFILE CHECKSUM: 7718cb7400ca7b65b587ba264c3739683cac17b6
 
 COCOAPODS: 1.7.5

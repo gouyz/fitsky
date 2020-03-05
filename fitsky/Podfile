@@ -44,10 +44,6 @@ pod 'AMapSearch-NO-IDFA' #地图 SDK搜索功能 无广告版本
 pod 'AlipaySDK-iOS' ## 支付宝SDK
 pod 'WechatOpenSDK' ## 微信SDK
 
-### 融云IM
-pod 'RongCloudIM/IMLib', '~> 2.9.25'
-pod 'RongCloudIM/IMKit', '~> 2.9.25'
-
 
 ### 个推无 IFDA 版本
 pod 'GTSDK', '~> 2.4.1.0-noidfa'
@@ -65,7 +61,7 @@ pod 'FMDB',:git => 'https://github.com/ccgus/fmdb.git',:tag => '2.7'
 pod 'JSONModel','~> 1.7.0'
 
 #融云 SDK
-pod 'RongCloudIM', '~> 2.10.4'
+#pod 'RongCloudIM', '~> 2.10.4'
 
 end
 
