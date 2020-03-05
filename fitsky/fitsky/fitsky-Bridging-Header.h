@@ -50,7 +50,7 @@
 //#endif
 
 ///  融云IM
-#import <RongIMKit/RongIMKit.h>
+//#import <RongIMKit/RongIMKit.h>
 ///  阿里云短视频
 #import <AliyunVideoSDKPro/AliyunVideoSDKPro.h>
 #import "AliyunPathManager.h"

@@ -178,7 +178,8 @@ class FSMineVC: GYZWhiteNavBaseVC {
         case 107://活动
             goMyActivity()
         case 108://社圈
-            MBProgressHUD.showAutoDismissHUD(message: "社圈功能暂未开放，敬请期待")
+            goMyIMCircle()
+//            MBProgressHUD.showAutoDismissHUD(message: "社圈功能暂未开放，敬请期待")
         case 109://设备
             MBProgressHUD.showAutoDismissHUD(message: "此功能暂未开放，敬请期待")
         case 110://个人主页
@@ -216,6 +217,11 @@ class FSMineVC: GYZWhiteNavBaseVC {
     /// 活动
     func goMyActivity(){
         let vc = FSMyActivityVC()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    /// 社圈
+    func goMyIMCircle(){
+        let vc = FSIMCircleVC()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     /// 月打卡记录

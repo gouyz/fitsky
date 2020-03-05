@@ -169,6 +169,11 @@ class FSFindCircleVC: GYZWhiteNavBaseVC {
 //            GYZTool.endLoadMore(scorllView: tableView)
 //        }
 //    }
+    /// 申请社圈
+    func goApplyCircle(){
+        let vc = FSJoinIMCircleVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 extension FSFindCircleVC: UISearchBarDelegate {
     ///mark - UISearchBarDelegate
@@ -218,7 +223,7 @@ extension FSFindCircleVC: UITableViewDelegate,UITableViewDataSource{
         return UIView()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        goApplyCircle()
     }
     ///MARK : UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -48,7 +48,7 @@ class FSMessageVC: GYZWhiteNavBaseVC {
     ///
     lazy var rightBtn : UIButton = {
         let btn = UIButton.init(type: .custom)
-        btn.setImage(UIImage.init(named: "app_btn_topic_gray"), for: .normal)
+        btn.setImage(UIImage.init(named: "app_btn_circle"), for: .normal)
         btn.frame = CGRect.init(x: 0, y: 0, width: kTitleHeight, height: kTitleHeight)
         btn.addTarget(self, action: #selector(onClickRightBtn), for: .touchUpInside)
         
@@ -161,6 +161,11 @@ class FSMessageVC: GYZWhiteNavBaseVC {
     /// 发现社圈
     func goFindCircleVC(){
         let vc = FSFindCircleVC()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    /// 创建社圈
+    func goCreateCircleVC(){
+        let vc = FSCreateIMCircleVC()
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -308,6 +313,8 @@ extension FSMessageVC: YBPopupMenuDelegate{
     func ybPopupMenu(_ ybPopupMenu: YBPopupMenu!, didSelectedAt index: Int) {
         if index == 0 { /// 发现社圈
             goFindCircleVC()
+        }else if index == 1 { /// 创建社圈
+            goCreateCircleVC()
         }
         
     }
