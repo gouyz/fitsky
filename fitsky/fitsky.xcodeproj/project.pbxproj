@@ -293,6 +293,9 @@
 		0A4866DF236BC8B500BEAB9F /* FSMyVenueCoachVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4866DE236BC8B500BEAB9F /* FSMyVenueCoachVC.swift */; };
 		0A4866E1236BCB0900BEAB9F /* FSMyVenueCoachCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4866E0236BCB0900BEAB9F /* FSMyVenueCoachCell.swift */; };
 		0A4866E3236BCD9C00BEAB9F /* FSMyCoachEditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4866E2236BCD9C00BEAB9F /* FSMyCoachEditProfileVC.swift */; };
+		0A49A05824121E050027453C /* FSIMCircleMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A49A05724121E050027453C /* FSIMCircleMemberCell.swift */; };
+		0A49A05A2412399B0027453C /* FSIMCircleMemberIconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A49A0592412399B0027453C /* FSIMCircleMemberIconCell.swift */; };
+		0A49A05C24123AC90027453C /* FSIMCircleMemberRightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A49A05B24123AC90027453C /* FSIMCircleMemberRightCell.swift */; };
 		0A4ABBAB23A92E00001F888A /* FSBeautyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4ABBAA23A92E00001F888A /* FSBeautyView.swift */; };
 		0A4ABBAD23A9521D001F888A /* FSFilterTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4ABBAC23A9521D001F888A /* FSFilterTypeCell.swift */; };
 		0A4AEC192335C2E300DF03E9 /* FSActivityDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AEC182335C2E300DF03E9 /* FSActivityDetailVC.swift */; };
@@ -790,6 +793,9 @@
 		0A4866DE236BC8B500BEAB9F /* FSMyVenueCoachVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMyVenueCoachVC.swift; sourceTree = "<group>"; };
 		0A4866E0236BCB0900BEAB9F /* FSMyVenueCoachCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMyVenueCoachCell.swift; sourceTree = "<group>"; };
 		0A4866E2236BCD9C00BEAB9F /* FSMyCoachEditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMyCoachEditProfileVC.swift; sourceTree = "<group>"; };
+		0A49A05724121E050027453C /* FSIMCircleMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleMemberCell.swift; sourceTree = "<group>"; };
+		0A49A0592412399B0027453C /* FSIMCircleMemberIconCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleMemberIconCell.swift; sourceTree = "<group>"; };
+		0A49A05B24123AC90027453C /* FSIMCircleMemberRightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleMemberRightCell.swift; sourceTree = "<group>"; };
 		0A4ABBAA23A92E00001F888A /* FSBeautyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSBeautyView.swift; sourceTree = "<group>"; };
 		0A4ABBAC23A9521D001F888A /* FSFilterTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFilterTypeCell.swift; sourceTree = "<group>"; };
 		0A4AEC182335C2E300DF03E9 /* FSActivityDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSActivityDetailVC.swift; sourceTree = "<group>"; };
@@ -1593,6 +1599,9 @@
 			children = (
 				0A4DB3042402DBBA00F3058A /* FSFindCircleCell.swift */,
 				0A27A51A240E9DC00064CDB4 /* FSIMCircleCell.swift */,
+				0A49A05724121E050027453C /* FSIMCircleMemberCell.swift */,
+				0A49A0592412399B0027453C /* FSIMCircleMemberIconCell.swift */,
+				0A49A05B24123AC90027453C /* FSIMCircleMemberRightCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2450,6 +2459,7 @@
 				0A47C11122D4858E00207CED /* GYZUIColor+Extension.swift in Sources */,
 				0A732044235F680A009CD650 /* FSModifyConfirmVC.swift in Sources */,
 				0A868349235446D00057E094 /* FSFindSearchVC.swift in Sources */,
+				0A49A05C24123AC90027453C /* FSIMCircleMemberRightCell.swift in Sources */,
 				0A21A24A2360AE22008F7647 /* FSChangePhoneSecondVC.swift in Sources */,
 				0A47C0EE22D4858E00207CED /* GYZLabAndFieldView.swift in Sources */,
 				0A54D433231D0623000ADB6B /* FSSelectPhotosVC.swift in Sources */,
@@ -2552,6 +2562,7 @@
 				0A0FC88E23955800009327A1 /* FSMessageCell.swift in Sources */,
 				0A52AA79236ABC5900F69B9B /* FSMyVenueProfileVC.swift in Sources */,
 				0A7339422365E3D9001A56D7 /* FSMyCoinChangeVC.swift in Sources */,
+				0A49A05824121E050027453C /* FSIMCircleMemberCell.swift in Sources */,
 				0A4C7D5D23583D6A0082C926 /* FSModifyNickNameVC.swift in Sources */,
 				0A340EA42337CDF700153B08 /* FSCoachDetailView.swift in Sources */,
 				0A54BFC7238ECD44008C47CF /* FSFoodDetailModel.swift in Sources */,
@@ -2641,6 +2652,7 @@
 				0A3DD8BC230B8C4100FAF2A5 /* FSSearchZongHeVC.swift in Sources */,
 				0A47C10922D4858E00207CED /* GYZLoginInputView.swift in Sources */,
 				0AC5C57C230EE871005AB87B /* FSConmentBottomView.swift in Sources */,
+				0A49A05A2412399B0027453C /* FSIMCircleMemberIconCell.swift in Sources */,
 				0A0FFE1122DF6615009BC09E /* FSResetPwdVC.swift in Sources */,
 				0A47C11422D4858E00207CED /* GYZUIViewController+Loading.swift in Sources */,
 				0A47C0E622D4858E00207CED /* LHSAddPhotoView.swift in Sources */,
