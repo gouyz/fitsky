@@ -9,9 +9,13 @@
 import UIKit
 
 private let IMCircleMangerMemberIconCell = "IMCircleMangerMemberIconCell"
-private let IMCircleHeader = "IMCircleHeader"
+private let IMCircleMangerCell = "IMCircleMangerCell"
+private let IMCircleMangerSwitchCell = "IMCircleMangerSwitchCell"
+private let IMCircleMangerOperatorCell = "IMCircleMangerOperatorCell"
 
 class FSIMCircleMangerDetailVC: GYZWhiteNavBaseVC {
+    
+    var managerTitles:[String] = ["管理社圈","圈内昵称","*ID账号","*二维码","公告","简介","置顶消息","消息免打扰","查找聊天内容","地址","清空聊天内容","删除并退出"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,16 +37,10 @@ class FSIMCircleMangerDetailVC: GYZWhiteNavBaseVC {
         table.backgroundColor = kWhiteColor
         
         table.register(FSIMCircleMemberCell.classForCoder(), forCellReuseIdentifier: IMCircleMangerMemberIconCell)
+        table.register(GYZCommonArrowCell.classForCoder(), forCellReuseIdentifier: IMCircleMangerCell)
+        table.register(GYZCommonSwitchCell.classForCoder(), forCellReuseIdentifier: IMCircleMangerSwitchCell)
+        table.register(GYZLabelCenterCell.classForCoder(), forCellReuseIdentifier: IMCircleMangerOperatorCell)
         
-        //            weak var weakSelf = self
-        //            ///添加下拉刷新
-        //            GYZTool.addPullRefresh(scorllView: table, pullRefreshCallBack: {
-        //                weakSelf?.refresh()
-        //            })
-        //            ///添加上拉加载更多
-        //            GYZTool.addLoadMore(scorllView: table, loadMoreCallBack: {
-        //                weakSelf?.loadMore()
-        //            })
         
         return table
     }()
@@ -99,38 +97,29 @@ class FSIMCircleMangerDetailVC: GYZWhiteNavBaseVC {
     //
     //        })
     //    }
-    //    // MARK: - 上拉加载更多/下拉刷新
-    //    /// 下拉刷新
-    //    func refresh(){
-    //        if currPage == lastPage {
-    //            GYZTool.resetNoMoreData(scorllView: tableView)
-    //        }
-    //        currPage = 1
-    //        requestTalkSearchList()
-    //    }
-    //
-    //    /// 上拉加载更多
-    //    func loadMore(){
-    //        if currPage == lastPage {
-    //            GYZTool.noMoreData(scorllView: tableView)
-    //            return
-    //        }
-    //        currPage += 1
-    //        requestTalkSearchList()
-    //    }
-    //
-    //    /// 关闭上拉/下拉刷新
-    //    func closeRefresh(){
-    //        if tableView.mj_header.isRefreshing{//下拉刷新
-    //            dataList.removeAll()
-    //            GYZTool.endRefresh(scorllView: tableView)
-    //        }else if tableView.mj_footer.isRefreshing{//上拉加载更多
-    //            GYZTool.endLoadMore(scorllView: tableView)
-    //        }
-    //    }
-    /// 申请社圈
-    func goApplyCircle(){
-        let vc = FSJoinIMCircleVC()
+    /// 全部成员
+    func goAllMembers(){
+        let vc = FSIMCircleAllMemberVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    /// 管理社圈
+    func goManageCircle(){
+        let vc = FSManageIMCircleVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    /// 简介
+    func goEditIntroduction(){
+        let vc = FSEditIntroductionVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    /// 昵称
+    func goEditNickName(){
+        let vc = FSEditIMCircleNameVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    /// 公告
+    func goNoticeVC(){
+        let vc = FSIMCircleNoticeVC()
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -140,16 +129,48 @@ extension FSIMCircleMangerDetailVC: UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 1
+        return managerTitles.count + 1
         //            return dataList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: IMCircleMangerMemberIconCell) as! FSIMCircleMemberCell
-        
-        cell.selectionStyle = .none
-        return cell
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: IMCircleMangerMemberIconCell) as! FSIMCircleMemberCell
+            
+            cell.didSelectItemBlock = {[unowned self](index) in
+                self.goAllMembers()
+            }
+            
+            cell.selectionStyle = .none
+            return cell
+        }else if indexPath.row == 7 || indexPath.row == 8 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: IMCircleMangerSwitchCell) as! GYZCommonSwitchCell
+            
+            cell.nameLab.text = managerTitles[indexPath.row - 1]
+            
+            cell.selectionStyle = .none
+            return cell
+        }else if indexPath.row == 11 || indexPath.row == 12 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: IMCircleMangerOperatorCell) as! GYZLabelCenterCell
+            cell.nameLab.text = managerTitles[indexPath.row - 1]
+            
+            cell.selectionStyle = .none
+            return cell
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: IMCircleMangerCell) as! GYZCommonArrowCell
+            
+            cell.nameLab.text = managerTitles[indexPath.row - 1]
+            
+            if indexPath.row == 3 || indexPath.row == 10 {
+                cell.rightIconView.isHidden = true
+            }else{
+                cell.rightIconView.isHidden = false
+            }
+            
+            cell.selectionStyle = .none
+            return cell
+        }
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
@@ -160,10 +181,21 @@ extension FSIMCircleMangerDetailVC: UITableViewDelegate,UITableViewDataSource{
         return UIView()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        goApplyCircle()
+        if indexPath.row == 1 { //管理社圈
+            goManageCircle()
+        }else if indexPath.row == 2 { //昵称
+            goEditNickName()
+        }else if indexPath.row == 5 { //公告
+            goNoticeVC()
+        }else if indexPath.row == 6 { //简介
+            goEditIntroduction()
+        }
     }
     ///MARK : UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row > 0 {
+            return 50
+        }
         return 130
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

@@ -182,6 +182,11 @@
 		0A42B80E23B1B51300BD7739 /* FSMyCourseDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A42B80D23B1B51300BD7739 /* FSMyCourseDetailModel.swift */; };
 		0A434B6D236FB35E005B2BD4 /* FSMyFavouriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A434B6C236FB35E005B2BD4 /* FSMyFavouriteVC.swift */; };
 		0A43647523A8A593008D7C47 /* AlivcRecordFocusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A43647423A8A592008D7C47 /* AlivcRecordFocusView.m */; };
+		0A43BF982413CC24008067F4 /* FSIMCircleAllMemberVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A43BF972413CC24008067F4 /* FSIMCircleAllMemberVC.swift */; };
+		0A43BF9A2413EC94008067F4 /* FSIMCircleAllMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A43BF992413EC94008067F4 /* FSIMCircleAllMemberCell.swift */; };
+		0A43BF9C2413F69F008067F4 /* FSManageIMCircleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A43BF9B2413F69F008067F4 /* FSManageIMCircleVC.swift */; };
+		0A43BF9E2413FAC8008067F4 /* FSModifyDaiHaoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A43BF9D2413FAC8008067F4 /* FSModifyDaiHaoVC.swift */; };
+		0A43BFA02414015E008067F4 /* FSTransferManageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A43BF9F2414015E008067F4 /* FSTransferManageVC.swift */; };
 		0A43C35423BED58D0004CCE3 /* FSEditPhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A43C35323BED58D0004CCE3 /* FSEditPhotoVC.swift */; };
 		0A45082C23B4410D00D7C687 /* FSDynamicVideoDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A45082B23B4410D00D7C687 /* FSDynamicVideoDetailVC.swift */; };
 		0A45082E23B44F1900D7C687 /* FSDynamicVideoDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A45082D23B44F1900D7C687 /* FSDynamicVideoDetailCell.swift */; };
@@ -197,6 +202,14 @@
 		0A46585F232F7FA200345B7C /* FSNearActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A46585E232F7FA200345B7C /* FSNearActivityModel.swift */; };
 		0A46922F234F5E8C0007ACDE /* FSTrainVenueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A46922E234F5E8C0007ACDE /* FSTrainVenueCell.swift */; };
 		0A469231234F88700007ACDE /* FSTrainCourseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A469230234F88700007ACDE /* FSTrainCourseCell.swift */; };
+		0A46F3F72414BD8500165B8E /* FSTransferManageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A46F3F62414BD8500165B8E /* FSTransferManageCell.swift */; };
+		0A46F3F92414C10500165B8E /* FSApplyJoinIMCircleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A46F3F82414C10500165B8E /* FSApplyJoinIMCircleVC.swift */; };
+		0A46F3FB2414C1A700165B8E /* FSApplyJoinIMCircleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A46F3FA2414C1A700165B8E /* FSApplyJoinIMCircleCell.swift */; };
+		0A46F3FD2414CA3C00165B8E /* FSEditIntroductionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A46F3FC2414CA3C00165B8E /* FSEditIntroductionVC.swift */; };
+		0A46F3FF2414CB8800165B8E /* FSEditIMCircleNameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A46F3FE2414CB8800165B8E /* FSEditIMCircleNameVC.swift */; };
+		0A46F4012414CDED00165B8E /* FSIMCircleNoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A46F4002414CDED00165B8E /* FSIMCircleNoticeVC.swift */; };
+		0A46F4032414D1C500165B8E /* FSIMCircleNoticeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A46F4022414D1C500165B8E /* FSIMCircleNoticeCell.swift */; };
+		0A46F4052414D8B000165B8E /* FSPublishNoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A46F4042414D8B000165B8E /* FSPublishNoticeVC.swift */; };
 		0A47C02F22D4783800207CED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A47C02E22D4783800207CED /* AppDelegate.swift */; };
 		0A47C03122D4783800207CED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A47C03022D4783800207CED /* ViewController.swift */; };
 		0A47C03422D4783800207CED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A47C03222D4783800207CED /* Main.storyboard */; };
@@ -667,6 +680,11 @@
 		0A434B6C236FB35E005B2BD4 /* FSMyFavouriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMyFavouriteVC.swift; sourceTree = "<group>"; };
 		0A43647323A8A592008D7C47 /* AlivcRecordFocusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlivcRecordFocusView.h; sourceTree = "<group>"; };
 		0A43647423A8A592008D7C47 /* AlivcRecordFocusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlivcRecordFocusView.m; sourceTree = "<group>"; };
+		0A43BF972413CC24008067F4 /* FSIMCircleAllMemberVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleAllMemberVC.swift; sourceTree = "<group>"; };
+		0A43BF992413EC94008067F4 /* FSIMCircleAllMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleAllMemberCell.swift; sourceTree = "<group>"; };
+		0A43BF9B2413F69F008067F4 /* FSManageIMCircleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSManageIMCircleVC.swift; sourceTree = "<group>"; };
+		0A43BF9D2413FAC8008067F4 /* FSModifyDaiHaoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSModifyDaiHaoVC.swift; sourceTree = "<group>"; };
+		0A43BF9F2414015E008067F4 /* FSTransferManageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTransferManageVC.swift; sourceTree = "<group>"; };
 		0A43C35323BED58D0004CCE3 /* FSEditPhotoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSEditPhotoVC.swift; sourceTree = "<group>"; };
 		0A45082B23B4410D00D7C687 /* FSDynamicVideoDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSDynamicVideoDetailVC.swift; sourceTree = "<group>"; };
 		0A45082D23B44F1900D7C687 /* FSDynamicVideoDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSDynamicVideoDetailCell.swift; sourceTree = "<group>"; };
@@ -683,6 +701,14 @@
 		0A46585E232F7FA200345B7C /* FSNearActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSNearActivityModel.swift; sourceTree = "<group>"; };
 		0A46922E234F5E8C0007ACDE /* FSTrainVenueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTrainVenueCell.swift; sourceTree = "<group>"; };
 		0A469230234F88700007ACDE /* FSTrainCourseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTrainCourseCell.swift; sourceTree = "<group>"; };
+		0A46F3F62414BD8500165B8E /* FSTransferManageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTransferManageCell.swift; sourceTree = "<group>"; };
+		0A46F3F82414C10500165B8E /* FSApplyJoinIMCircleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSApplyJoinIMCircleVC.swift; sourceTree = "<group>"; };
+		0A46F3FA2414C1A700165B8E /* FSApplyJoinIMCircleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSApplyJoinIMCircleCell.swift; sourceTree = "<group>"; };
+		0A46F3FC2414CA3C00165B8E /* FSEditIntroductionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSEditIntroductionVC.swift; sourceTree = "<group>"; };
+		0A46F3FE2414CB8800165B8E /* FSEditIMCircleNameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSEditIMCircleNameVC.swift; sourceTree = "<group>"; };
+		0A46F4002414CDED00165B8E /* FSIMCircleNoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleNoticeVC.swift; sourceTree = "<group>"; };
+		0A46F4022414D1C500165B8E /* FSIMCircleNoticeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleNoticeCell.swift; sourceTree = "<group>"; };
+		0A46F4042414D8B000165B8E /* FSPublishNoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSPublishNoticeVC.swift; sourceTree = "<group>"; };
 		0A47C02B22D4783800207CED /* Fitsky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fitsky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A47C02E22D4783800207CED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A47C03022D4783800207CED /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -1590,6 +1616,15 @@
 				0A82FAE4240C0F1800430C90 /* FSJoinIMCircleVC.swift */,
 				0A27A518240E9C910064CDB4 /* FSIMCircleVC.swift */,
 				0A231B38241000EA006EE6CC /* FSIMCircleMangerDetailVC.swift */,
+				0A43BF972413CC24008067F4 /* FSIMCircleAllMemberVC.swift */,
+				0A43BF9B2413F69F008067F4 /* FSManageIMCircleVC.swift */,
+				0A43BF9D2413FAC8008067F4 /* FSModifyDaiHaoVC.swift */,
+				0A43BF9F2414015E008067F4 /* FSTransferManageVC.swift */,
+				0A46F3F82414C10500165B8E /* FSApplyJoinIMCircleVC.swift */,
+				0A46F3FC2414CA3C00165B8E /* FSEditIntroductionVC.swift */,
+				0A46F3FE2414CB8800165B8E /* FSEditIMCircleNameVC.swift */,
+				0A46F4002414CDED00165B8E /* FSIMCircleNoticeVC.swift */,
+				0A46F4042414D8B000165B8E /* FSPublishNoticeVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1602,6 +1637,10 @@
 				0A49A05724121E050027453C /* FSIMCircleMemberCell.swift */,
 				0A49A0592412399B0027453C /* FSIMCircleMemberIconCell.swift */,
 				0A49A05B24123AC90027453C /* FSIMCircleMemberRightCell.swift */,
+				0A43BF992413EC94008067F4 /* FSIMCircleAllMemberCell.swift */,
+				0A46F3F62414BD8500165B8E /* FSTransferManageCell.swift */,
+				0A46F3FA2414C1A700165B8E /* FSApplyJoinIMCircleCell.swift */,
+				0A46F4022414D1C500165B8E /* FSIMCircleNoticeCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2309,6 +2348,7 @@
 				0A9C68F523AB64C4008D320D /* FSPasterImgView.swift in Sources */,
 				0A13EACE23546027007F41EC /* FSFindSearchZongHeVC.swift in Sources */,
 				0A21A24C2360B062008F7647 /* FSSettingPwdVC.swift in Sources */,
+				0A46F4012414CDED00165B8E /* FSIMCircleNoticeVC.swift in Sources */,
 				0A47C0E322D4858E00207CED /* LHSBaseModel.swift in Sources */,
 				0A8F67CD23505E3D00EC0DF1 /* FSNewsAdsHeaderView.swift in Sources */,
 				0A47C0F922D4858E00207CED /* GYZSearchBtnView.swift in Sources */,
@@ -2388,6 +2428,7 @@
 				0A208189237AFA4B00761F81 /* FSConfirmConditionModel.swift in Sources */,
 				0A47C12A22D4858E00207CED /* MMShareSheet.swift in Sources */,
 				0A5B4CC7235EA6C700660561 /* FSWorkCollectionVC.swift in Sources */,
+				0A46F4052414D8B000165B8E /* FSPublishNoticeVC.swift in Sources */,
 				0A48022C234C79B300ED7F13 /* FSLabAndLabBtnView.swift in Sources */,
 				0A47C0FF22D4858E00207CED /* LHSUserInfoModel.swift in Sources */,
 				0A3CFD1F2330721600A141E4 /* FSCoachModel.swift in Sources */,
@@ -2410,6 +2451,7 @@
 				0A47C12222D4858E00207CED /* ToolBarView.swift in Sources */,
 				0A20C50B236B39E6003C71CF /* FSMyVenueServerVC.swift in Sources */,
 				0A46585B232F694100345B7C /* FSSelectTopicVC.swift in Sources */,
+				0A46F3F92414C10500165B8E /* FSApplyJoinIMCircleVC.swift in Sources */,
 				0A4CD9AC2355C4DB00995BE0 /* FSFindQiCaiDetailDesHeaderView.swift in Sources */,
 				0A4ECE852367C50200A230F2 /* FSDaRenConfirmVC.swift in Sources */,
 				0A1FC5EF231EB8540094B250 /* FSSelectSeePowerCell.swift in Sources */,
@@ -2453,6 +2495,7 @@
 				0A197BE723328EE3006D6F71 /* FSBuyGoodsVC.swift in Sources */,
 				0A47C0EA22D4858E00207CED /* GYZCustomWaitAlert.swift in Sources */,
 				0A2B56B9231FA2220063C011 /* FSSquareNearVC.swift in Sources */,
+				0A43BF982413CC24008067F4 /* FSIMCircleAllMemberVC.swift in Sources */,
 				0A20C50D236B3CCB003C71CF /* FSMyVenueServerCell.swift in Sources */,
 				0A3D81D823518163000BF536 /* FSFindSupportCourseCell.swift in Sources */,
 				0A4DBDFD2396C1CB00B3ACF3 /* FSMsgNoticeVC.swift in Sources */,
@@ -2496,16 +2539,19 @@
 				0A47C12822D4858E00207CED /* ZCycleLayout.swift in Sources */,
 				0A6096252313CBA100C06896 /* FSComplainCell.swift in Sources */,
 				0A24D5D2238D8225002866C6 /* FSCookBookDetailModel.swift in Sources */,
+				0A43BF9E2413FAC8008067F4 /* FSModifyDaiHaoVC.swift in Sources */,
 				0A56F9CB23152BDC0022EDAA /* FSPersonHomeWorksCell.swift in Sources */,
 				0A197BE5233267DB006D6F71 /* FSGoodsDetailHeaderView.swift in Sources */,
 				0A4866DD236BC01B00BEAB9F /* FSMyTradeOrderCell.swift in Sources */,
 				0A47C0FE22D4858E00207CED /* GYZBaseVC.swift in Sources */,
 				0A47C10E22D4858E00207CED /* GYZUIImage+Extension.swift in Sources */,
+				0A43BF9C2413F69F008067F4 /* FSManageIMCircleVC.swift in Sources */,
 				0A2F65242326B2BC00B5DC16 /* FSTopicActiveModel.swift in Sources */,
 				0A47C0F422D4858E00207CED /* LHSSelectPayMethodView.swift in Sources */,
 				0A47C12422D4858E00207CED /* UsefulPickerView.swift in Sources */,
 				0A408861231DFAD000D61B1F /* GYZIconLabArrowView.swift in Sources */,
 				0A4866DB236BBED100BEAB9F /* FSTradeOrderVC.swift in Sources */,
+				0A43BF9A2413EC94008067F4 /* FSIMCircleAllMemberCell.swift in Sources */,
 				0A21A2482360A476008F7647 /* FSChangePhoneFirstVC.swift in Sources */,
 				0A47C0EB22D4858E00207CED /* GYZPhotoView.swift in Sources */,
 				0A536DBC23078C94009B569C /* FSSquareVC.swift in Sources */,
@@ -2544,6 +2590,7 @@
 				0A40660B23351C43005AA830 /* FSOrderModel.swift in Sources */,
 				0A3D81D123516AD0000BF536 /* DOPDropDownMenu.m in Sources */,
 				0A208187237AF51E00761F81 /* FSApplyInitModel.swift in Sources */,
+				0A46F3FB2414C1A700165B8E /* FSApplyJoinIMCircleCell.swift in Sources */,
 				0A47C0EF22D4858E00207CED /* BPChatBottomView.swift in Sources */,
 				0A7339462365FB85001A56D7 /* FSCoinRuleVC.swift in Sources */,
 				0A73203E235F5D7E009CD650 /* FSPingBiListVC.swift in Sources */,
@@ -2575,6 +2622,7 @@
 				0A13EAD22354718F007F41EC /* FSFindZongHeWorksCell.swift in Sources */,
 				0A34E9D12381BF6100C64805 /* FSOrderFeedBackVC.swift in Sources */,
 				0A8F67D323506E7B00EC0DF1 /* FSFindSupportHeaderView.swift in Sources */,
+				0A43BFA02414015E008067F4 /* FSTransferManageVC.swift in Sources */,
 				0A86834B235453100057E094 /* FSSearchNewsVC.swift in Sources */,
 				0A40661023352699005AA830 /* AliPayManager.swift in Sources */,
 				0A52AA7B236ACB4500F69B9B /* FSVenueUpdateVC.swift in Sources */,
@@ -2584,6 +2632,7 @@
 				0A1F2E0B23157F120063BFB5 /* FSFollowAndFenSiListVC.swift in Sources */,
 				0A4ECE872367DB6E00A230F2 /* FSSheZhangConfirmVC.swift in Sources */,
 				0A4CD8A223AA05E800EE1421 /* AliyunEffectResourceModel.m in Sources */,
+				0A46F4032414D1C500165B8E /* FSIMCircleNoticeCell.swift in Sources */,
 				0A0FC89223956CB2009327A1 /* FSSubscriptionModel.swift in Sources */,
 				0A2CAFD823A5325C009E418B /* FSMagicCameraVC.swift in Sources */,
 				0A47C0F622D4858E00207CED /* GYZImgAndTxtBtnView.swift in Sources */,
@@ -2628,6 +2677,7 @@
 				0A243F412352239D002566CD /* FSFoodMenuListCell.swift in Sources */,
 				0A3CFD2523308BC300A141E4 /* FSVenueContentCell.swift in Sources */,
 				0A82FAE5240C0F1800430C90 /* FSJoinIMCircleVC.swift in Sources */,
+				0A46F3FD2414CA3C00165B8E /* FSEditIntroductionVC.swift in Sources */,
 				0A39E12F2351C1340004A68A /* FSFindCourseListVC.swift in Sources */,
 				0A47C11822D4858E00207CED /* GYZLoadingView.swift in Sources */,
 				0A46585F232F7FA200345B7C /* FSNearActivityModel.swift in Sources */,
@@ -2674,6 +2724,7 @@
 				0A47C14122D4858E00207CED /* GYZThrowLineTool.swift in Sources */,
 				0AC5C576230EDC2E005AB87B /* FSConmentHeaderView.swift in Sources */,
 				0A22B219237DB7260011BD8A /* FSCoinDetailCell.swift in Sources */,
+				0A46F3FF2414CB8800165B8E /* FSEditIMCircleNameVC.swift in Sources */,
 				0AF823E42322530A00582D8D /* FSTopicBottomView.swift in Sources */,
 				0A3CFD232330864400A141E4 /* FSVenueInfoCell.swift in Sources */,
 				0A26A008239D518700319C0B /* GYZLabelCenterCell.swift in Sources */,
@@ -2704,6 +2755,7 @@
 				0A3D81D423517130000BF536 /* FSFindCourseManageVC.swift in Sources */,
 				0A47C12C22D4858E00207CED /* GYZScanQrcodeVC.swift in Sources */,
 				0A86833F235407580057E094 /* FSFoodStoreManagerVC.swift in Sources */,
+				0A46F3F72414BD8500165B8E /* FSTransferManageCell.swift in Sources */,
 				0A1AFE9F23254C5B0044E45F /* FSVenueTeacherVC.swift in Sources */,
 				0A8F67CB23505DDA00EC0DF1 /* FSNewsVC.swift in Sources */,
 				0A469231234F88700007ACDE /* FSTrainCourseCell.swift in Sources */,

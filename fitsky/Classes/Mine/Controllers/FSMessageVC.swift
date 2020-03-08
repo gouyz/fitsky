@@ -168,6 +168,12 @@ class FSMessageVC: GYZWhiteNavBaseVC {
         let vc = FSCreateIMCircleVC()
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    /// 扫一扫
+    func goScanVC(){
+        let vc = FSIMCircleMangerDetailVC()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 extension FSMessageVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -315,6 +321,8 @@ extension FSMessageVC: YBPopupMenuDelegate{
             goFindCircleVC()
         }else if index == 1 { /// 创建社圈
             goCreateCircleVC()
+        }else if index == 2 { /// 扫一扫
+            goScanVC()
         }
         
     }

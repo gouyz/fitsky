@@ -40,11 +40,10 @@ class FSIMCircleMemberCell: UITableViewCell {
         contentView.addSubview(collectionView)
         contentView.addSubview(lineView)
         collectionView.snp.makeConstraints { (make) in
+            make.top.equalTo(contentView)
             make.left.equalTo(kMargin)
             make.right.equalTo(-kMargin)
-            make.top.equalTo(kMargin)
-            make.bottom.equalTo(lineView.snp.top).offset(-kMargin)
-            make.height.equalTo(130)
+            make.bottom.equalTo(lineView.snp.top)
         }
         lineView.snp.makeConstraints { (make) in
             make.left.right.equalTo(contentView)
@@ -56,13 +55,12 @@ class FSIMCircleMemberCell: UITableViewCell {
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         //设置cell的大小
-        layout.itemSize = CGSize(width: 48, height: 48)
+        layout.itemSize = CGSize(width: 60, height: 60)
         
         //每个Item之间最小的间距
-        layout.minimumInteritemSpacing = kMargin
+        layout.minimumInteritemSpacing = klineWidth
         //每行之间最小的间距
-        layout.minimumLineSpacing = kMargin
-        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = klineWidth
         
         let collView = UICollectionView.init(frame: CGRect.zero, collectionViewLayout: layout)
         collView.dataSource = self
@@ -91,11 +89,11 @@ extension FSIMCircleMemberCell : UICollectionViewDataSource,UICollectionViewDele
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return 6
+        return 10
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if indexPath.row == 5 {
+        if indexPath.row == 9 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: IMCircleMemberRightCell, for: indexPath) as! FSIMCircleMemberRightCell
             
             
