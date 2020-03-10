@@ -1,3 +1,10 @@
 ${PODS_ROOT}/Target Support Files/Pods-fitsky/Pods-fitsky-resources.sh
 ${PODS_ROOT}/AMap3DMap-NO-IDFA/MAMapKit.framework/AMap.bundle
 ${PODS_ROOT}/AlipaySDK-iOS/AlipaySDK.bundle
+${PODS_ROOT}/RongCloudIM/RongCloudIM/RongCloud.bundle
+${PODS_ROOT}/RongCloudIM/RongCloudIM/en.lproj
+${PODS_ROOT}/RongCloudIM/RongCloudIM/zh-Hans.lproj
+${PODS_ROOT}/RongCloudIM/RongCloudIM/Emoji.plist
+${PODS_ROOT}/RongCloudIM/RongCloudIM/RCColor.plist
+${PODS_ROOT}/RongCloudIM/RongCloudIM/RCConfig.plist
+${PODS_ROOT}/RongCloudIM/RongCloudIM/RongSticker.bundle

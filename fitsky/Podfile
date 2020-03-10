@@ -61,7 +61,7 @@ pod 'FMDB',:git => 'https://github.com/ccgus/fmdb.git',:tag => '2.7'
 pod 'JSONModel','~> 1.7.0'
 
 #融云 SDK
-#pod 'RongCloudIM', '~> 2.10.4'
+pod 'RongCloudIM', '~> 2.10.4'
 
 end
 
