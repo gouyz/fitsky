@@ -51,6 +51,9 @@
 
 ///  融云IM
 #import <RongIMKit/RongIMKit.h>
+#import "RCDIMService.h"
+#import "RCDRCIMDataSource.h"
+
 ///  阿里云短视频
 #import <AliyunVideoSDKPro/AliyunVideoSDKPro.h>
 #import "AliyunPathManager.h"

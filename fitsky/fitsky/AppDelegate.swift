@@ -33,6 +33,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         WXApi.registerApp(kWeChatAppID, enableMTA: true)
         GYZTencentShare.shared.registeApp(kQQAppID)
         
+        RCIM.shared()?.initWithAppKey(kRCIMAppKey)
+        RCIM.shared()?.connectionStatusDelegate = self
+        RCIM.shared()?.receiveMessageDelegate = self
+        RCIM.shared()?.userInfoDataSource = RCDRCIMDataSource.sharedInstance()
+        RCIM.shared()?.groupUserInfoDataSource = RCDRCIMDataSource.sharedInstance()
+        RCIM.shared()?.groupInfoDataSource = RCDRCIMDataSource.sharedInstance()
+        RCIM.shared()?.globalConversationPortraitSize = CGSize.init(width: 46, height: 46)
+        RCIM.shared()?.enableTypingStatus = true
+        /// //融云即时通讯 消息推送通知
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveMessageNotification(notification:)), name: NSNotification.Name.RCKitDispatchMessage, object: nil)
+        
         // [ GTSDK ]：使用APPID/APPKEY/APPSECRENT启动个推
         GeTuiSdk.start(withAppId: kGtAppId, appKey: kGtAppKey, appSecret: kGtAppSecret, delegate: self)
         // [ 参考代码，开发者注意根据实际需求自行修改 ] 注册远程通知
@@ -57,10 +68,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if newFeature() {//引导页
             window?.rootViewController = ViewController()
-        }else if userDefaults.bool(forKey: kIsLoginTagKey) { //如果未登录进入登录界面，登录后进入首页
+        }else if userDefaults.bool(forKey: kIsLoginTagKey) {
+            
+            loginAndEnterMainPage()
+            //如果未登录进入登录界面，登录后进入首页
             window?.rootViewController = GYZMainTabBarVC()
         }else{
-            window?.rootViewController = GYZBaseNavigationVC(rootViewController: FSLoginVC())
+            goLogin()
         }
         //        window?.rootViewController = GYZBaseNavigationVC(rootViewController: FSLoginVC())
         window?.makeKeyAndVisible()
@@ -220,6 +234,70 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         locationManager.distanceFilter = 200
         locationManager.locatingWithReGeocode = true
         locationManager.startUpdatingLocation()
+    }
+    // 去登录
+    func goLogin(){
+        window?.rootViewController = GYZBaseNavigationVC(rootViewController: FSLoginVC())
+    }
+    /// 融云消息通知
+    @objc func didReceiveMessageNotification(notification:Notification){
+        let left = notification.userInfo!["left"] as! Int
+        if RCIMClient.shared()?.sdkRunningMode == RCSDKRunningMode.background && left == 0 {
+            let unreadMsgCount = getTotalUnreadCount()
+            DispatchQueue.main.async {
+                UIApplication.shared.applicationIconBadgeNumber = Int(unreadMsgCount)
+            }
+        }
+    }
+    /// 未读消息数量
+    func getTotalUnreadCount() -> Int32{
+        let unreadMsgCount = RCIMClient.shared()?.getUnreadCount([RCConversationType.ConversationType_PRIVATE,RCConversationType.ConversationType_GROUP,RCConversationType.ConversationType_SYSTEM])
+        return unreadMsgCount ?? 0
+    }
+    
+    func loginAndEnterMainPage(){
+        let token = userDefaults.string(forKey: "im_token")
+        let userId = userDefaults.string(forKey: "userId")
+        let userNickName = userDefaults.string(forKey: "nickname")
+        let userPortraitUri = userDefaults.string(forKey: "userPortraitUri")
+        let userName = userDefaults.string(forKey: "userName")
+        
+        if token?.count > 0 && userId?.count > 0 {
+            let _currentUserInfo: RCUserInfo = RCUserInfo.init(userId: userId, name: userNickName, portrait: userPortraitUri)
+            RCIM.shared()?.currentUserInfo = _currentUserInfo
+            
+            RCDIMService.shared().connect(withToken: token!, dbOpened: { (code) in
+                
+            }, success: { (userId) in
+                // 从服务器获取用户信息
+//                [SendRequest getUserInfo:nil result:^(id result, NSError *error) {
+//                    if ([[result objectForKey:@"status_code"]isEqualToString:@"200"]) {
+//                        id userInfo = [result objectForKey:@"data"];
+//                        _currentUserInfo.name = [userInfo objectForKey:@"alias"];
+//                        _currentUserInfo.portraitUri = [userInfo objectForKey:@"head_url"];
+//                        _currentUserInfo.userId = userId;
+//                    }
+//                    [[RCIM sharedRCIM]refreshUserInfoCache:_currentUserInfo withUserId:userId];
+//                    [USERDEFAULTS setObject:_currentUserInfo.portraitUri forKey:@"userPortraitUri"];
+//                    [USERDEFAULTS setObject:_currentUserInfo.name forKey:@"userName"];
+//                    [USERDEFAULTS synchronize];
+//                    [RCIMClient sharedRCIMClient].currentUserInfo = _currentUserInfo;
+//                }];
+            }, error: { (status) in
+                let _currentUserInfo: RCUserInfo = RCUserInfo.init(userId: userId, name: userNickName, portrait: nil)
+                RCIM.shared()?.currentUserInfo = _currentUserInfo
+            }) {
+                DispatchQueue.main.async {
+                    GYZTool.removeUserInfo()
+                    self.goLogin()
+                    
+                    let alert = UIAlertView.init(title: "温馨提示", message: "Token已过期，请重新登录", delegate: self, cancelButtonTitle: "确定")
+                    alert.show()
+                }
+            }
+        }else {
+            self.goLogin()
+        }
     }
 }
 
@@ -498,6 +576,41 @@ extension AppDelegate : UIAlertViewDelegate{
                 GYZUpdateVersionTool.goAppStore()
             }
         }
+        
+    }
+}
+extension AppDelegate:RCIMConnectionStatusDelegate,RCIMReceiveMessageDelegate{
+    /*!
+    IMKit连接状态的的监听器
+
+    @param status  SDK与融云服务器的连接状态
+
+    @discussion 如果您设置了IMKit消息监听之后，当SDK与融云服务器的连接状态发生变化时，会回调此方法。
+    */
+    func onRCIMConnectionStatusChanged(_ status: RCConnectionStatus) {
+        if status == .ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT {//当前用户在其他设备上登录，此设备被踢下线
+            GYZTool.removeUserInfo()
+            goLogin()
+            
+            let alert = UIAlertView.init(title: "温馨提示", message: "您的帐号在别的设备上登录，您被迫下线！", delegate: self, cancelButtonTitle: "知道了")
+            alert.show()
+        }else if status == .ConnectionStatus_TOKEN_INCORRECT{//Token无效
+            GYZTool.removeUserInfo()
+            goLogin()
+            
+            let alert = UIAlertView.init(title: "温馨提示", message: "Token已过期，请重新登录", delegate: self, cancelButtonTitle: "确定")
+            alert.show()
+        }
+    }
+    func onRCIMCustomLocalNotification(_ message: RCMessage!, withSenderName senderName: String!) -> Bool {
+        //群组通知不弹本地通知
+        if message.content.isKind(of: RCGroupNotificationMessage.classForCoder()) {
+            return true
+        }
+        return false
+    }
+    
+    func onRCIMReceive(_ message: RCMessage!, left: Int32) {
         
     }
 }

@@ -379,6 +379,8 @@
 		0A56F9C7231508540022EDAA /* FSPersonHomeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A56F9C6231508540022EDAA /* FSPersonHomeListCell.swift */; };
 		0A56F9C9231528E60022EDAA /* FSPersonHomeAblumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A56F9C8231528E60022EDAA /* FSPersonHomeAblumCell.swift */; };
 		0A56F9CB23152BDC0022EDAA /* FSPersonHomeWorksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A56F9CA23152BDC0022EDAA /* FSPersonHomeWorksCell.swift */; };
+		0A5A2B1D241E655200841641 /* RCDRCIMDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5A2B1C241E655200841641 /* RCDRCIMDataSource.m */; };
+		0A5A2B20241E721C00841641 /* RCDIMService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5A2B1F241E721C00841641 /* RCDIMService.m */; };
 		0A5B4CC7235EA6C700660561 /* FSWorkCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B4CC6235EA6C700660561 /* FSWorkCollectionVC.swift */; };
 		0A5B4D21235EEA8800660561 /* FSMyApplyConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B4D20235EEA8800660561 /* FSMyApplyConfirmVC.swift */; };
 		0A5B4D23235EEED600660561 /* FSConfirmConditionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B4D22235EEED600660561 /* FSConfirmConditionVC.swift */; };
@@ -901,6 +903,10 @@
 		0A56F9C6231508540022EDAA /* FSPersonHomeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSPersonHomeListCell.swift; sourceTree = "<group>"; };
 		0A56F9C8231528E60022EDAA /* FSPersonHomeAblumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSPersonHomeAblumCell.swift; sourceTree = "<group>"; };
 		0A56F9CA23152BDC0022EDAA /* FSPersonHomeWorksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSPersonHomeWorksCell.swift; sourceTree = "<group>"; };
+		0A5A2B1B241E655200841641 /* RCDRCIMDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDRCIMDataSource.h; sourceTree = "<group>"; };
+		0A5A2B1C241E655200841641 /* RCDRCIMDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDRCIMDataSource.m; sourceTree = "<group>"; };
+		0A5A2B1E241E721B00841641 /* RCDIMService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDIMService.h; sourceTree = "<group>"; };
+		0A5A2B1F241E721C00841641 /* RCDIMService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDIMService.m; sourceTree = "<group>"; };
 		0A5B4CC6235EA6C700660561 /* FSWorkCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSWorkCollectionVC.swift; sourceTree = "<group>"; };
 		0A5B4D20235EEA8800660561 /* FSMyApplyConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMyApplyConfirmVC.swift; sourceTree = "<group>"; };
 		0A5B4D22235EEED600660561 /* FSConfirmConditionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSConfirmConditionVC.swift; sourceTree = "<group>"; };
@@ -1594,6 +1600,7 @@
 		0A4DB2FE2402BE8200F3058A /* IMCircle */ = {
 			isa = PBXGroup;
 			children = (
+				0A5A2B1A241E655200841641 /* IM */,
 				0A4DB2FF2402BE8200F3058A /* Models */,
 				0A4DB3002402BE8200F3058A /* Controllers */,
 				0A4DB3012402BE8200F3058A /* Views */,
@@ -2041,6 +2048,17 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		0A5A2B1A241E655200841641 /* IM */ = {
+			isa = PBXGroup;
+			children = (
+				0A5A2B1E241E721B00841641 /* RCDIMService.h */,
+				0A5A2B1F241E721C00841641 /* RCDIMService.m */,
+				0A5A2B1B241E655200841641 /* RCDRCIMDataSource.h */,
+				0A5A2B1C241E655200841641 /* RCDRCIMDataSource.m */,
+			);
+			path = IM;
+			sourceTree = "<group>";
+		};
 		0A5C362D232FE7C300A0EE12 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -2450,6 +2468,7 @@
 				0A4AEC192335C2E300DF03E9 /* FSActivityDetailVC.swift in Sources */,
 				0A47C12222D4858E00207CED /* ToolBarView.swift in Sources */,
 				0A20C50B236B39E6003C71CF /* FSMyVenueServerVC.swift in Sources */,
+				0A5A2B1D241E655200841641 /* RCDRCIMDataSource.m in Sources */,
 				0A46585B232F694100345B7C /* FSSelectTopicVC.swift in Sources */,
 				0A46F3F92414C10500165B8E /* FSApplyJoinIMCircleVC.swift in Sources */,
 				0A4CD9AC2355C4DB00995BE0 /* FSFindQiCaiDetailDesHeaderView.swift in Sources */,
@@ -2491,6 +2510,7 @@
 				0A47C14222D4858E00207CED /* GYZTool.swift in Sources */,
 				0A41B7A7238CF59A003202FA /* FSFindCourseCategoryModel.swift in Sources */,
 				0A3F3E77232107D700C0D4E2 /* FSSelectAddressVC.swift in Sources */,
+				0A5A2B20241E721C00841641 /* RCDIMService.m in Sources */,
 				0A421520230E8BD1001F29A1 /* FSHotDynamicVC.swift in Sources */,
 				0A197BE723328EE3006D6F71 /* FSBuyGoodsVC.swift in Sources */,
 				0A47C0EA22D4858E00207CED /* GYZCustomWaitAlert.swift in Sources */,
