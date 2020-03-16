@@ -303,12 +303,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate : GeTuiSdkDelegate, UNUserNotificationCenterDelegate {
     
+    /// 融云 推送处理2
+    //注册用户通知设置
+    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
+        application.registerForRemoteNotifications()
+    }
     // MARK: - 远程通知(推送)回调
     
     /// [ 系统回调 ] 远程通知注册成功回调，获取DeviceToken成功，同步给个推服务器
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         // [ GTSDK ]：（新版）向个推服务器注册deviceToken
         GeTuiSdk.registerDeviceTokenData(deviceToken);
+        
+        // 融云推送处理
+        RCIMClient.shared()?.setDeviceTokenData(deviceToken)
         
         NSLog("[ TestDemo ] [ DeviceToken(NSData) ]: %@ \n", NSData.init(data: deviceToken));
     }

@@ -179,6 +179,7 @@ class FSBindPhoneVC: GYZBaseVC {
                 userDefaults.set(data["token"].stringValue, forKey: "token")
                 userDefaults.set(data["member_type"].stringValue, forKey: kMemberTypeKey)
                 weakSelf?.requestPushMemberClientID()
+                weakSelf?.requestMemberInfo()
                 KeyWindow.rootViewController = GYZMainTabBarVC()
             }
             

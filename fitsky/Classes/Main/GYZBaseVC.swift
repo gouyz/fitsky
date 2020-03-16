@@ -85,4 +85,48 @@ class GYZBaseVC: UIViewController {
         hud = MBProgressHUD.showHUD(message: message,toView: view)
     }
 
+    
+    ///获取用户信息
+    func requestMemberInfo(){
+        if !GYZTool.checkNetWork() {
+            return
+        }
+        weak var weakSelf = self
+        GYZNetWork.requestNetwork("Member/Login/getMemberInfo",parameters: nil,  success: {(response) in
+            
+            GYZLog(response)
+            if response["result"].intValue == kQuestSuccessTag{//请求成功
+                let userInfo = response["data"]["u"]
+                let nick_name = userInfo["nick_name"].stringValue
+                userDefaults.set(nick_name, forKey: "nickname")
+                userDefaults.set(userInfo["avatar"].stringValue, forKey: "avatar")
+                let member_id = userInfo["im_data"]["member_id"].stringValue
+                let im_token = userInfo["im_data"]["im_token"].stringValue
+                weakSelf?.loginRongCloud(userName: nick_name, userId: member_id, imToken: im_token)
+            }
+            
+        }, failture: { (error) in
+            
+            GYZLog(error)
+        })
+    }
+    /// 登录融云
+    func loginRongCloud(userName: String,userId: String,imToken:String){
+        if RCIMClient.shared()?.getCurrentNetworkStatus() == RCNetworkStatus.notReachable {
+            MBProgressHUD.showAutoDismissHUD(message: "当前网络不可用")
+            return
+        }
+        RCDIMService.shared().connect(withToken: imToken, dbOpened: { (code) in
+            
+        }, success: { (imUserid) in
+            userDefaults.set(imUserid, forKey: "userId")
+            userDefaults.set(imToken, forKey: "imToken")
+            let currentUserInfo = RCUserInfo.init(userId: imUserid, name: userName, portrait: nil)
+            RCIMClient.shared()?.currentUserInfo = currentUserInfo
+        }, error: { (status) in
+            
+        }) {
+            
+        }
+    }
 }

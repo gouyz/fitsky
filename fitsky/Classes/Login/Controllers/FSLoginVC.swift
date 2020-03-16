@@ -396,6 +396,7 @@ class FSLoginVC: GYZBaseVC {
                 userDefaults.set(true, forKey: kIsLoginTagKey)//是否登录标识
                 userDefaults.set(data["token"].stringValue, forKey: "token")
                 userDefaults.set(data["member_type"].stringValue, forKey: kMemberTypeKey)
+                weakSelf?.requestMemberInfo()
                 weakSelf?.requestPushMemberClientID()
                 KeyWindow.rootViewController = GYZMainTabBarVC()
             }else if response["result"].intValue == 10001{//请求成功
