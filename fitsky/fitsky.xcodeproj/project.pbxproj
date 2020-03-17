@@ -113,6 +113,8 @@
 		0A24D5D0238D7604002866C6 /* FSCookBookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A24D5CF238D7604002866C6 /* FSCookBookModel.swift */; };
 		0A24D5D2238D8225002866C6 /* FSCookBookDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A24D5D1238D8225002866C6 /* FSCookBookDetailModel.swift */; };
 		0A24D5D4238D8308002866C6 /* FSFoodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A24D5D3238D8308002866C6 /* FSFoodModel.swift */; };
+		0A24E12E242117FB00B91BB7 /* FSIMCircleCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A24E12D242117FB00B91BB7 /* FSIMCircleCategoryVC.swift */; };
+		0A24E1302421285C00B91BB7 /* FSIMCircleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A24E12F2421285C00B91BB7 /* FSIMCircleModel.swift */; };
 		0A25EA6723981234004FBEF7 /* GYZTencentShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A25EA6523981234004FBEF7 /* GYZTencentShare.swift */; };
 		0A25EA6823981234004FBEF7 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A25EA6623981234004FBEF7 /* TencentOpenAPI.framework */; };
 		0A26A006239D25C000319C0B /* UILabel+YBAttributeTextTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A26A005239D25C000319C0B /* UILabel+YBAttributeTextTapAction.m */; };
@@ -606,6 +608,8 @@
 		0A24D5CF238D7604002866C6 /* FSCookBookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCookBookModel.swift; sourceTree = "<group>"; };
 		0A24D5D1238D8225002866C6 /* FSCookBookDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCookBookDetailModel.swift; sourceTree = "<group>"; };
 		0A24D5D3238D8308002866C6 /* FSFoodModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFoodModel.swift; sourceTree = "<group>"; };
+		0A24E12D242117FB00B91BB7 /* FSIMCircleCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleCategoryVC.swift; sourceTree = "<group>"; };
+		0A24E12F2421285C00B91BB7 /* FSIMCircleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleModel.swift; sourceTree = "<group>"; };
 		0A25EA6523981234004FBEF7 /* GYZTencentShare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GYZTencentShare.swift; sourceTree = "<group>"; };
 		0A25EA6623981234004FBEF7 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		0A26A004239D25C000319C0B /* UILabel+YBAttributeTextTapAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+YBAttributeTextTapAction.h"; sourceTree = "<group>"; };
@@ -1611,6 +1615,7 @@
 		0A4DB2FF2402BE8200F3058A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0A24E12F2421285C00B91BB7 /* FSIMCircleModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1632,6 +1637,7 @@
 				0A46F3FE2414CB8800165B8E /* FSEditIMCircleNameVC.swift */,
 				0A46F4002414CDED00165B8E /* FSIMCircleNoticeVC.swift */,
 				0A46F4042414D8B000165B8E /* FSPublishNoticeVC.swift */,
+				0A24E12D242117FB00B91BB7 /* FSIMCircleCategoryVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2413,6 +2419,7 @@
 				0A3F4C962363E62A00017B4E /* FSLinkCustomerAlertView.swift in Sources */,
 				0A25EA6723981234004FBEF7 /* GYZTencentShare.swift in Sources */,
 				0A52AA73236A7EB000F69B9B /* FSMineVenueVC.swift in Sources */,
+				0A24E12E242117FB00B91BB7 /* FSIMCircleCategoryVC.swift in Sources */,
 				0A2456CE2385A0FF0021BDEC /* FSVenueCocahDetailModel.swift in Sources */,
 				0A39E12D23519F020004A68A /* FSBodyStrongListVC.swift in Sources */,
 				0A0FC890239561FF009327A1 /* FSMessageChatCell.swift in Sources */,
@@ -2754,6 +2761,7 @@
 				0A20879B2350D35000ECD7F3 /* FSFoodGuideChildCell.swift in Sources */,
 				0A3F761322D85E0500333F8C /* FSLoginVC.swift in Sources */,
 				0A1E73C123200592009BF848 /* FSFollowDetailHeaderView.swift in Sources */,
+				0A24E1302421285C00B91BB7 /* FSIMCircleModel.swift in Sources */,
 				0A1DE9CC23181B1100668809 /* FSCompainCategoryModel.swift in Sources */,
 				0A0FC89423956F49009327A1 /* FSMessageHomeModel.swift in Sources */,
 				0A54D435231D070E000ADB6B /* FSCustomUIDelegate.swift in Sources */,

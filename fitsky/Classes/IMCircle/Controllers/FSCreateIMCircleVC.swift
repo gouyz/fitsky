@@ -7,12 +7,22 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class FSCreateIMCircleVC: GYZWhiteNavBaseVC {
-
+    
+    /// 分类
+    var currCategoryModel:FSWorksCategoryModel?
+    /// 地点
+    var currAddress: AMapPOI?
+    /// 选择头像
+    var selectHeaderImg: UIImage?
+    /// 选择头像
+    var selectHeaderImgUrl:String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.navigationItem.title = "创立社圈"
         self.view.backgroundColor = kWhiteColor
         
@@ -25,6 +35,7 @@ class FSCreateIMCircleVC: GYZWhiteNavBaseVC {
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: rightBtn)
         
         setUpUI()
+        requestInitData()
     }
     
     func setUpUI(){
@@ -172,6 +183,9 @@ class FSCreateIMCircleVC: GYZWhiteNavBaseVC {
         nView.desLab.textColor = kGaryFontColor
         nView.textFiled.textColor = kHeightGaryFontColor
         nView.textFiled.font = k13Font
+        nView.textFiled.isEnabled = false
+        
+        nView.addOnClickListener(target: self, action: #selector(onSelectCategory))
         
         return nView
     }()
@@ -240,10 +254,12 @@ class FSCreateIMCircleVC: GYZWhiteNavBaseVC {
     }()
     /// 坐标
     lazy var addressView: GYZLabAndFieldView = {
-        let nView = GYZLabAndFieldView.init(desName: "坐标", placeHolder: "")
+        let nView = GYZLabAndFieldView.init(desName: "坐标", placeHolder: "请选择坐标")
         nView.desLab.textColor = kGaryFontColor
         nView.textFiled.textColor = kHeightGaryFontColor
         nView.textFiled.font = k13Font
+        nView.textFiled.isEnabled = false
+        nView.addOnClickListener(target: self, action: #selector(onClickedSelectAddress))
         
         return nView
     }()
@@ -274,14 +290,141 @@ class FSCreateIMCircleVC: GYZWhiteNavBaseVC {
     
     /// 申请
     @objc func onClickRightBtn(){
+        if currCategoryModel == nil {
+            MBProgressHUD.showAutoDismissHUD(message: "请选择分类")
+            return
+        }
+        if currAddress == nil {
+            MBProgressHUD.showAutoDismissHUD(message: "请选择坐标")
+            return
+        }
+        requestApply()
+    }
+    //申请社圈
+    func requestApply(){
+        if !GYZTool.checkNetWork() {
+            return
+        }
         
+        weak var weakSelf = self
+        createHUD(message: "加载中...")
+        
+        let paramDic: [String:Any] = ["name":circlrNameView.textFiled.text!,"category_id":(currCategoryModel?.id)!,"material":selectHeaderImgUrl,"province":currAddress?.province ?? "","city":currAddress?.city ?? "","county":currAddress?.district ?? "","lng":currAddress?.location.longitude ?? "","lat":currAddress?.location.latitude ?? "","position":currAddress?.name ?? "","address":currAddress?.address ?? "","is_message_free": (switchMsgView.isOn ? "1" : "0"),"is_top_message":(switchTopView.isOn ? "1" : "0")]
+        
+        GYZNetWork.requestNetwork("Circle/Circle/add", parameters: paramDic,  success: { (response) in
+            
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(response)
+        
+            MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+            if response["result"].intValue == kQuestSuccessTag{//请求成功
+                weakSelf?.clickedBackBtn()
+            }
+            
+        }, failture: { (error) in
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(error)
+        })
     }
     /// 选择头像
     @objc func onClickedSelectedHeader(){
+        GYZOpenCameraPhotosTool.shareTool.choosePicture(self, editor: true, finished: { [unowned self] (image) in
+            
+            self.selectHeaderImg = image
+            self.headerImgView.image = image
+            self.uploadImgFiles()
+        })
+    }
+    /// 上传图片
+    ///
+    /// - Parameter params: 参数
+    func uploadImgFiles(){
+        if !GYZTool.checkNetWork() {
+            return
+        }
         
+        //        createHUD(message: "加载中...")
+        weak var weakSelf = self
+        
+        var imgsParam: [ImageFileUploadParam] = [ImageFileUploadParam]()
+        let imgParam: ImageFileUploadParam = ImageFileUploadParam()
+        imgParam.name = "files[]"
+        imgParam.fileName = "circle0.jpg"
+        imgParam.mimeType = "image/jpg"
+        imgParam.data = UIImage.jpegData(self.selectHeaderImg!)(compressionQuality: 0.5)!
+        
+        imgsParam.append(imgParam)
+        
+        GYZNetWork.uploadImageRequest("Dynamic/Publish/addMaterial", parameters: nil, uploadParam: imgsParam, success: { (response) in
+            
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(response)
+            if response["result"].intValue == kQuestSuccessTag{//请求成功
+                guard let data = response["data"]["files"].array else { return }
+                var urls: String = ""
+                for item in data{
+                    urls += item["material"].stringValue + ","
+                }
+                if urls.count > 0{
+                    urls = urls.subString(start: 0, length: urls.count - 1)
+                }
+                weakSelf?.selectHeaderImgUrl = urls
+            }else{
+                MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+            }
+            
+        }, failture: { (error) in
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(error)
+        })
     }
     /// 选择坐标
     @objc func onClickedSelectAddress(){
+        let vc = FSSelectAddressVC()
+        vc.selectPoi = self.currAddress
+        vc.resultBlock = {[unowned self] (address) in
+            self.currAddress = address
+            if  address != nil {
+                self.addressView.textFiled.text = address?.name
+            }
+        }
+        let seeNav = GYZBaseNavigationVC(rootViewController:vc)
+        self.present(seeNav, animated: true, completion: nil)
+    }
+    /// 选择分类
+    @objc func onSelectCategory(){
+        let vc = FSIMCircleCategoryVC()
+        vc.resultBlock = {[unowned self] (model) in
+            self.currCategoryModel = model
+            self.categoryView.textFiled.text = model.name
+        }
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    // 创立社圈-初始化
+    func requestInitData(){
+        if !GYZTool.checkNetWork() {
+            return
+        }
         
+        weak var weakSelf = self
+        createHUD(message: "加载中...")
+        
+        GYZNetWork.requestNetwork("Circle/Circle/addInit", parameters: nil,  success: { (response) in
+            
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(response)
+        
+            if response["result"].intValue == kQuestSuccessTag{//请求成功
+                
+                weakSelf?.desLab.text = response["data"]["formdata"]["apply_text"].stringValue
+            
+            }else{
+                MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+            }
+            
+        }, failture: { (error) in
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(error)
+        })
     }
 }

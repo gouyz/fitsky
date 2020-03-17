@@ -256,11 +256,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func loginAndEnterMainPage(){
-        let token = userDefaults.string(forKey: "im_token")
+        let token = userDefaults.string(forKey: "imToken")
         let userId = userDefaults.string(forKey: "userId")
         let userNickName = userDefaults.string(forKey: "nickname")
-        let userPortraitUri = userDefaults.string(forKey: "userPortraitUri")
-        let userName = userDefaults.string(forKey: "userName")
+        let userPortraitUri = userDefaults.string(forKey: "avatar")
         
         if token?.count > 0 && userId?.count > 0 {
             let _currentUserInfo: RCUserInfo = RCUserInfo.init(userId: userId, name: userNickName, portrait: userPortraitUri)
@@ -270,19 +269,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
             }, success: { (userId) in
                 // 从服务器获取用户信息
-//                [SendRequest getUserInfo:nil result:^(id result, NSError *error) {
-//                    if ([[result objectForKey:@"status_code"]isEqualToString:@"200"]) {
-//                        id userInfo = [result objectForKey:@"data"];
-//                        _currentUserInfo.name = [userInfo objectForKey:@"alias"];
-//                        _currentUserInfo.portraitUri = [userInfo objectForKey:@"head_url"];
-//                        _currentUserInfo.userId = userId;
-//                    }
-//                    [[RCIM sharedRCIM]refreshUserInfoCache:_currentUserInfo withUserId:userId];
-//                    [USERDEFAULTS setObject:_currentUserInfo.portraitUri forKey:@"userPortraitUri"];
-//                    [USERDEFAULTS setObject:_currentUserInfo.name forKey:@"userName"];
-//                    [USERDEFAULTS synchronize];
-//                    [RCIMClient sharedRCIMClient].currentUserInfo = _currentUserInfo;
-//                }];
+                GYZNetWork.requestNetwork("Member/Login/getMemberInfo",parameters: nil,  success: {(response) in
+                    
+                    GYZLog(response)
+                    if response["result"].intValue == kQuestSuccessTag{//请求成功
+                        let userInfo = response["data"]["u"]
+                        let nick_name = userInfo["nick_name"].stringValue
+                        userDefaults.set(nick_name, forKey: "nickname")
+                        userDefaults.set(userInfo["avatar"].stringValue, forKey: "avatar")
+                        userDefaults.set(userInfo["im_data"]["member_id"].stringValue, forKey: "userId")
+                        userDefaults.set(userInfo["im_data"]["im_token"].stringValue, forKey: "imToken")
+                        let currentUserInfo = RCUserInfo.init(userId: userInfo["im_data"]["member_id"].stringValue, name: nick_name, portrait: userInfo["avatar"].stringValue)
+                        RCIMClient.shared()?.currentUserInfo = currentUserInfo
+                    }
+                    
+                }, failture: { (error) in
+                    
+                    GYZLog(error)
+                })
+                
             }, error: { (status) in
                 let _currentUserInfo: RCUserInfo = RCUserInfo.init(userId: userId, name: userNickName, portrait: nil)
                 RCIM.shared()?.currentUserInfo = _currentUserInfo
