@@ -120,6 +120,7 @@
 		0A26A006239D25C000319C0B /* UILabel+YBAttributeTextTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A26A005239D25C000319C0B /* UILabel+YBAttributeTextTapAction.m */; };
 		0A26A008239D518700319C0B /* GYZLabelCenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26A007239D518700319C0B /* GYZLabelCenterCell.swift */; };
 		0A26A00A239D6BCD00319C0B /* FSMyCourseSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26A009239D6BCD00319C0B /* FSMyCourseSearchVC.swift */; };
+		0A278299242284F700FE3467 /* FSIMCircleMemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A278298242284F700FE3467 /* FSIMCircleMemberModel.swift */; };
 		0A27A519240E9C910064CDB4 /* FSIMCircleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A27A518240E9C910064CDB4 /* FSIMCircleVC.swift */; };
 		0A27A51B240E9DC00064CDB4 /* FSIMCircleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A27A51A240E9DC00064CDB4 /* FSIMCircleCell.swift */; };
 		0A289258230B01B300687FAD /* FSSquareSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A289257230B01B300687FAD /* FSSquareSearchVC.swift */; };
@@ -616,6 +617,7 @@
 		0A26A005239D25C000319C0B /* UILabel+YBAttributeTextTapAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+YBAttributeTextTapAction.m"; sourceTree = "<group>"; };
 		0A26A007239D518700319C0B /* GYZLabelCenterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GYZLabelCenterCell.swift; sourceTree = "<group>"; };
 		0A26A009239D6BCD00319C0B /* FSMyCourseSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMyCourseSearchVC.swift; sourceTree = "<group>"; };
+		0A278298242284F700FE3467 /* FSIMCircleMemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleMemberModel.swift; sourceTree = "<group>"; };
 		0A27A518240E9C910064CDB4 /* FSIMCircleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleVC.swift; sourceTree = "<group>"; };
 		0A27A51A240E9DC00064CDB4 /* FSIMCircleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleCell.swift; sourceTree = "<group>"; };
 		0A289257230B01B300687FAD /* FSSquareSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSquareSearchVC.swift; sourceTree = "<group>"; };
@@ -1616,6 +1618,7 @@
 			isa = PBXGroup;
 			children = (
 				0A24E12F2421285C00B91BB7 /* FSIMCircleModel.swift */,
+				0A278298242284F700FE3467 /* FSIMCircleMemberModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2747,6 +2750,7 @@
 				0A13EACA23545869007F41EC /* FSSearchCourseVC.swift in Sources */,
 				0A54D437231D0793000ADB6B /* FSCustomGroupDetailImageCell.swift in Sources */,
 				0A536DC023078D49009B569C /* FSFindVC.swift in Sources */,
+				0A278299242284F700FE3467 /* FSIMCircleMemberModel.swift in Sources */,
 				0A56F9C7231508540022EDAA /* FSPersonHomeListCell.swift in Sources */,
 				0A47C14122D4858E00207CED /* GYZThrowLineTool.swift in Sources */,
 				0AC5C576230EDC2E005AB87B /* FSConmentHeaderView.swift in Sources */,

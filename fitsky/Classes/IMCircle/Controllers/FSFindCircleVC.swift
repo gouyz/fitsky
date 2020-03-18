@@ -81,6 +81,7 @@ class FSFindCircleVC: GYZWhiteNavBaseVC {
         //显示输入光标
         search.tintColor = kHeightGaryFontColor
         search.backgroundImage = UIImage.init()
+    
         /// 搜索框背景色
         if #available(iOS 13.0, *){
             search.searchTextField.backgroundColor = kGrayBackGroundColor
@@ -100,6 +101,9 @@ class FSFindCircleVC: GYZWhiteNavBaseVC {
             return
         }
         
+        if searchContent.isEmpty {
+            isSearch = false
+        }
         weak var weakSelf = self
         showLoadingView()
         
@@ -192,17 +196,27 @@ class FSFindCircleVC: GYZWhiteNavBaseVC {
 }
 extension FSFindCircleVC: UISearchBarDelegate {
     ///mark - UISearchBarDelegate
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.searchBar.showsCancelButton = true
+        self.isSearch = true
+    }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         searchBar.resignFirstResponder()
         self.searchContent = searchBar.text ?? ""
-        self.isSearch = true
         dataList.removeAll()
         tableView.reloadData()
         refresh()
         
     }
-    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        self.isSearch = false
+        self.searchBar.showsCancelButton = false
+        dataList.removeAll()
+        tableView.reloadData()
+        refresh()
+    }
 }
 extension FSFindCircleVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {

@@ -14,6 +14,13 @@ private let IMCircleHeader = "IMCircleHeader"
 
 class FSIMCircleVC: GYZWhiteNavBaseVC {
     
+    var currPage : Int = 1
+    /// 最后一页
+    var lastPage: Int = 1
+    
+    var myCreateList:[FSIMCircleModel] = [FSIMCircleModel]()
+    var myJoinList:[FSIMCircleModel] = [FSIMCircleModel]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,6 +32,8 @@ class FSIMCircleVC: GYZWhiteNavBaseVC {
             make.edges.equalTo(0)
         }
         
+        requestMyCreateList()
+        requestMyJoinList()
     }
     lazy var tableView : UITableView = {
         let table = UITableView(frame: CGRect.zero, style: .grouped)
@@ -36,100 +45,119 @@ class FSIMCircleVC: GYZWhiteNavBaseVC {
         table.register(FSIMCircleCell.classForCoder(), forCellReuseIdentifier: IMCircleCell)
         table.register(LHSGeneralHeaderView.classForCoder(), forHeaderFooterViewReuseIdentifier: IMCircleHeader)
         
-        //            weak var weakSelf = self
-        //            ///添加下拉刷新
-        //            GYZTool.addPullRefresh(scorllView: table, pullRefreshCallBack: {
-        //                weakSelf?.refresh()
-        //            })
-        //            ///添加上拉加载更多
-        //            GYZTool.addLoadMore(scorllView: table, loadMoreCallBack: {
-        //                weakSelf?.loadMore()
-        //            })
+        weak var weakSelf = self
+        ///添加下拉刷新
+        GYZTool.addPullRefresh(scorllView: table, pullRefreshCallBack: {
+            weakSelf?.refresh()
+        })
+        ///添加上拉加载更多
+        GYZTool.addLoadMore(scorllView: table, loadMoreCallBack: {
+            weakSelf?.loadMore()
+        })
         
         return table
     }()
-    ///获取广场 话题搜索数据
-    //    func requestTalkSearchList(){
-    //        if !GYZTool.checkNetWork() {
-    //            return
-    //        }
-    //
-    //        weak var weakSelf = self
-    //        showLoadingView()
-    //
-    //        GYZNetWork.requestNetwork("Dynamic/Topic/search",parameters: ["p":currPage,"keyword": searchContent],  success: { (response) in
-    //
-    //            weakSelf?.closeRefresh()
-    //            weakSelf?.hiddenLoadingView()
-    //            GYZLog(response)
-    //
-    //            if response["result"].intValue == kQuestSuccessTag{//请求成功
-    //
-    //                weakSelf?.lastPage = response["data"]["page"]["last_page"].intValue
-    //
-    //                guard let data = response["data"]["list"].array else { return }
-    //                for item in data{
-    //                    guard let itemInfo = item.dictionaryObject else { return }
-    //                    let model = FSTalkModel.init(dict: itemInfo)
-    //
-    //                    weakSelf?.dataList.append(model)
-    //                }
-    //                weakSelf?.tableView.reloadData()
-    //                if weakSelf?.dataList.count > 0{
-    //                    weakSelf?.hiddenEmptyView()
-    //                }else{
-    //                    ///显示空页面
-    //                    weakSelf?.showEmptyView(content:"暂无话题信息")
-    //                }
-    //
-    //            }else{
-    //                MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
-    //            }
-    //
-    //        }, failture: { (error) in
-    //            weakSelf?.closeRefresh()
-    //            weakSelf?.hiddenLoadingView()
-    //            GYZLog(error)
-    //
-    //            //第一次加载失败，显示加载错误页面
-    //            if weakSelf?.currPage == 1{
-    //                weakSelf?.showEmptyView(content: "加载失败，请点击重新加载", reload: {
-    //                    weakSelf?.hiddenEmptyView()
-    //                    weakSelf?.requestTalkSearchList()
-    //                })
-    //            }
-    //
-    //        })
-    //    }
-    //    // MARK: - 上拉加载更多/下拉刷新
-    //    /// 下拉刷新
-    //    func refresh(){
-    //        if currPage == lastPage {
-    //            GYZTool.resetNoMoreData(scorllView: tableView)
-    //        }
-    //        currPage = 1
-    //        requestTalkSearchList()
-    //    }
-    //
-    //    /// 上拉加载更多
-    //    func loadMore(){
-    //        if currPage == lastPage {
-    //            GYZTool.noMoreData(scorllView: tableView)
-    //            return
-    //        }
-    //        currPage += 1
-    //        requestTalkSearchList()
-    //    }
-    //
-    //    /// 关闭上拉/下拉刷新
-    //    func closeRefresh(){
-    //        if tableView.mj_header.isRefreshing{//下拉刷新
-    //            dataList.removeAll()
-    //            GYZTool.endRefresh(scorllView: tableView)
-    //        }else if tableView.mj_footer.isRefreshing{//上拉加载更多
-    //            GYZTool.endLoadMore(scorllView: tableView)
-    //        }
-    //    }
+    ///获取我创建的社圈数据
+    func requestMyCreateList(){
+        if !GYZTool.checkNetWork() {
+            return
+        }
+        
+        weak var weakSelf = self
+        
+        GYZNetWork.requestNetwork("Circle/Circle/myAdd",parameters: nil,  success: { (response) in
+            
+            GYZLog(response)
+            
+            if response["result"].intValue == kQuestSuccessTag{//请求成功
+                
+                guard let data = response["data"]["list"].array else { return }
+                weakSelf?.myCreateList.removeAll()
+                for item in data{
+                    guard let itemInfo = item.dictionaryObject else { return }
+                    let model = FSIMCircleModel.init(dict: itemInfo)
+                    
+                    weakSelf?.myCreateList.append(model)
+                }
+                weakSelf?.tableView.reloadSections(IndexSet(integer: 0), with: .none)
+                
+            }else{
+                MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+            }
+            
+        }, failture: { (error) in
+            GYZLog(error)
+            
+        })
+    }
+    ///获取我加入的社圈数据
+    func requestMyJoinList(){
+        if !GYZTool.checkNetWork() {
+            return
+        }
+        
+        weak var weakSelf = self
+        showLoadingView()
+        
+        GYZNetWork.requestNetwork("Circle/Circle/myJoin",parameters: nil,  success: { (response) in
+            
+            weakSelf?.closeRefresh()
+            weakSelf?.hiddenLoadingView()
+            GYZLog(response)
+            
+            if response["result"].intValue == kQuestSuccessTag{//请求成功
+                
+                weakSelf?.lastPage = response["data"]["page"]["last_page"].intValue
+                
+                guard let data = response["data"]["list"].array else { return }
+                for item in data{
+                    guard let itemInfo = item.dictionaryObject else { return }
+                    let model = FSIMCircleModel.init(dict: itemInfo)
+                    
+                    weakSelf?.myJoinList.append(model)
+                }
+                weakSelf?.tableView.reloadSections(IndexSet(integer: 1), with: .none)
+                
+            }else{
+                MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+            }
+            
+        }, failture: { (error) in
+            weakSelf?.closeRefresh()
+            weakSelf?.hiddenLoadingView()
+            GYZLog(error)
+            
+        })
+    }
+    // MARK: - 上拉加载更多/下拉刷新
+    /// 下拉刷新
+    func refresh(){
+        if currPage == lastPage {
+            GYZTool.resetNoMoreData(scorllView: tableView)
+        }
+        currPage = 1
+        requestMyJoinList()
+    }
+    
+    /// 上拉加载更多
+    func loadMore(){
+        if currPage == lastPage {
+            GYZTool.noMoreData(scorllView: tableView)
+            return
+        }
+        currPage += 1
+        requestMyJoinList()
+    }
+    
+    /// 关闭上拉/下拉刷新
+    func closeRefresh(){
+        if tableView.mj_header.isRefreshing{//下拉刷新
+            myJoinList.removeAll()
+            GYZTool.endRefresh(scorllView: tableView)
+        }else if tableView.mj_footer.isRefreshing{//上拉加载更多
+            GYZTool.endLoadMore(scorllView: tableView)
+        }
+    }
     /// 社圈
     func goCircle(){
         let vc = FSIMCircleMangerDetailVC()
@@ -141,18 +169,19 @@ extension FSIMCircleVC: UITableViewDelegate,UITableViewDataSource{
         return 2
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 12
-        //            return dataList.count
+        if section == 0 {
+            return myCreateList.count
+        }
+        return myJoinList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: IMCircleCell) as! FSIMCircleCell
         if indexPath.section == 0 {
-            cell.rightIconView.isHidden = false
+            cell.dataModel = myCreateList[indexPath.row]
         }else{
-            cell.rightIconView.isHidden = true
+            cell.dataModel = myJoinList[indexPath.row]
         }
         
         cell.selectionStyle = .none

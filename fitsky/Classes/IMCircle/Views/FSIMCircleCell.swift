@@ -9,6 +9,18 @@
 import UIKit
 
 class FSIMCircleCell: UITableViewCell {
+    
+    /// 填充数据
+    var dataModel : FSIMCircleModel?{
+        didSet{
+            if let model = dataModel {
+                
+                tagImgView.kf.setImage(with: URL.init(string: model.thumb!), placeholder: UIImage.init(named: "app_img_avatar_def"))
+                nameLab.text = model.name
+                
+            }
+        }
+    }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
