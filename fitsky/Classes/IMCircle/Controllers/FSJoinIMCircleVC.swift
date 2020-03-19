@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class FSJoinIMCircleVC: GYZWhiteNavBaseVC {
+    
+    var circleId:String = ""
+    var dataModel: FSIMCircleInitModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,6 +20,7 @@ class FSJoinIMCircleVC: GYZWhiteNavBaseVC {
         self.view.backgroundColor = kWhiteColor
         
         setUpUI()
+        requestInitInfo()
     }
     
     func setUpUI(){
@@ -215,8 +220,85 @@ class FSJoinIMCircleVC: GYZWhiteNavBaseVC {
         return rightBtn
     }()
     
+    ///信息
+    func requestInitInfo(){
+        if !GYZTool.checkNetWork() {
+            return
+        }
+        
+        weak var weakSelf = self
+        createHUD(message: "加载中...")
+        
+        GYZNetWork.requestNetwork("Circle/Circle/joinInit", parameters: ["id":circleId],  success: { (response) in
+            
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(response)
+            
+            if response["result"].intValue == kQuestSuccessTag{//请求成功
+                guard let data = response["data"].dictionaryObject else { return }
+                weakSelf?.dataModel = FSIMCircleInitModel.init(dict: data)
+                weakSelf?.dealData()
+            }else{
+                MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+            }
+            
+        }, failture: { (error) in
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(error)
+        })
+    }
+    func dealData(){
+        if let model = dataModel {
+            headerImgView.kf.setImage(with: URL.init(string: (model.circleModel?.thumb)!), placeholder: UIImage.init(named: "app_img_avatar_def"))
+            nameLab.text = model.circleModel?.name
+            categoryLab.text = model.circleModel?.category_id_text
+            addressLab.text = (model.circleModel?.province)! + (model.circleModel?.city)!
+            desContentLab.text = "简介：" + (model.circleModel?.brief)!
+            
+            if model.memberList.count == 1 {
+                admin1ImgView.kf.setImage(with: URL.init(string: model.memberList[0].avatar!), placeholder: UIImage.init(named: "app_img_avatar_def"))
+                admin2ImgView.isHidden = true
+                admin3ImgView.isHidden = true
+            }else if model.memberList.count == 2{
+                admin1ImgView.kf.setImage(with: URL.init(string: model.memberList[0].avatar!), placeholder: UIImage.init(named: "app_img_avatar_def"))
+                admin2ImgView.isHidden = false
+                admin2ImgView.kf.setImage(with: URL.init(string: model.memberList[1].avatar!), placeholder: UIImage.init(named: "app_img_avatar_def"))
+                admin3ImgView.isHidden = true
+            }else if model.memberList.count == 3{
+                admin1ImgView.kf.setImage(with: URL.init(string: model.memberList[0].avatar!), placeholder: UIImage.init(named: "app_img_avatar_def"))
+                admin2ImgView.isHidden = false
+                admin2ImgView.kf.setImage(with: URL.init(string: model.memberList[1].avatar!), placeholder: UIImage.init(named: "app_img_avatar_def"))
+                admin3ImgView.isHidden = false
+                admin3ImgView.kf.setImage(with: URL.init(string: model.memberList[2].avatar!), placeholder: UIImage.init(named: "app_img_avatar_def"))
+            }
+        }
+    }
     /// 申请
     @objc func onClickApplyBtn(){
+        requestApply()
+    }
+    
+    func requestApply(){
+        if !GYZTool.checkNetWork() {
+            return
+        }
         
+        weak var weakSelf = self
+        createHUD(message: "加载中...")
+        
+        GYZNetWork.requestNetwork("Circle/Circle/join", parameters: ["circle_id":circleId],  success: { (response) in
+            
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(response)
+        
+            MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+            if response["result"].intValue == kQuestSuccessTag{//请求成功
+                weakSelf?.clickedBackBtn()
+            }
+            
+        }, failture: { (error) in
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(error)
+        })
     }
 }

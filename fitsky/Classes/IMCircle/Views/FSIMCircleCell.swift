@@ -18,6 +18,12 @@ class FSIMCircleCell: UITableViewCell {
                 tagImgView.kf.setImage(with: URL.init(string: model.thumb!), placeholder: UIImage.init(named: "app_img_avatar_def"))
                 nameLab.text = model.name
                 
+                if model.memberModel?.is_message_free == "1" {
+                    rightIconView.isHidden = false
+                }else{
+                    rightIconView.isHidden = true
+                }
+                
             }
         }
     }

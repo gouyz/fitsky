@@ -38,6 +38,14 @@ class FSIMCircleModel: LHSBaseModel {
     var is_invitation_confirmation : String? = ""
     /// 状态（0-待审核 1-已审核 2-被打回 3-已删除）
     var status : String? = ""
+    ///
+    var lng : String? = ""
+    ///
+    var lat : String? = ""
+    /// 地图兴趣点名称
+    var position : String? = ""
+    /// 地址
+    var address : String? = ""
     /// 排序ID
     var sort_id : String? = ""
     /// 会员ID（创建人）
@@ -56,4 +64,14 @@ class FSIMCircleModel: LHSBaseModel {
     var category_id_text : String? = ""
     /// 缩略图
     var thumb : String? = ""
+    var memberModel:FSIMCircleMemberModel?
+    
+    override func setValue(_ value: Any?, forKey key: String) {
+        if key == "circle_member"{
+            guard let datas = value as? [String : Any] else { return }
+            memberModel = FSIMCircleMemberModel(dict: datas)
+        }else {
+            super.setValue(value, forKey: key)
+        }
+    }
 }

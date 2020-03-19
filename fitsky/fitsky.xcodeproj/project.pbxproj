@@ -140,6 +140,8 @@
 		0A34E9CF23817AB500C64805 /* FSCourseOrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A34E9CE23817AB500C64805 /* FSCourseOrderModel.swift */; };
 		0A34E9D12381BF6100C64805 /* FSOrderFeedBackVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A34E9D02381BF6100C64805 /* FSOrderFeedBackVC.swift */; };
 		0A37692E237EEE77000E20AB /* FSAccountSafeInitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37692D237EEE77000E20AB /* FSAccountSafeInitModel.swift */; };
+		0A399FE72423BF5C0082C1E3 /* FSIMCircleInitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A399FE62423BF5C0082C1E3 /* FSIMCircleInitModel.swift */; };
+		0A399FE92423CAA60082C1E3 /* FSIMCircleDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A399FE82423CAA60082C1E3 /* FSIMCircleDetailModel.swift */; };
 		0A39E12D23519F020004A68A /* FSBodyStrongListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39E12C23519F020004A68A /* FSBodyStrongListVC.swift */; };
 		0A39E12F2351C1340004A68A /* FSFindCourseListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A39E12E2351C1340004A68A /* FSFindCourseListVC.swift */; };
 		0A3A86862391682B00492786 /* FSVenueVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3A86852391682B00492786 /* FSVenueVideoView.swift */; };
@@ -641,6 +643,8 @@
 		0A34E9CE23817AB500C64805 /* FSCourseOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCourseOrderModel.swift; sourceTree = "<group>"; };
 		0A34E9D02381BF6100C64805 /* FSOrderFeedBackVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSOrderFeedBackVC.swift; sourceTree = "<group>"; };
 		0A37692D237EEE77000E20AB /* FSAccountSafeInitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSAccountSafeInitModel.swift; sourceTree = "<group>"; };
+		0A399FE62423BF5C0082C1E3 /* FSIMCircleInitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleInitModel.swift; sourceTree = "<group>"; };
+		0A399FE82423CAA60082C1E3 /* FSIMCircleDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleDetailModel.swift; sourceTree = "<group>"; };
 		0A39E12C23519F020004A68A /* FSBodyStrongListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSBodyStrongListVC.swift; sourceTree = "<group>"; };
 		0A39E12E2351C1340004A68A /* FSFindCourseListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFindCourseListVC.swift; sourceTree = "<group>"; };
 		0A3A86852391682B00492786 /* FSVenueVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSVenueVideoView.swift; sourceTree = "<group>"; };
@@ -1619,6 +1623,8 @@
 			children = (
 				0A24E12F2421285C00B91BB7 /* FSIMCircleModel.swift */,
 				0A278298242284F700FE3467 /* FSIMCircleMemberModel.swift */,
+				0A399FE62423BF5C0082C1E3 /* FSIMCircleInitModel.swift */,
+				0A399FE82423CAA60082C1E3 /* FSIMCircleDetailModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2700,6 +2706,8 @@
 				0A47C13F22D4858E00207CED /* GYZOpenCameraPhotosTool.swift in Sources */,
 				0A2CAFEB23A67F3B009E418B /* FSCameraBottomView.swift in Sources */,
 				0A84C1F72317C18A0037B16C /* FSDynamicDetailModel.swift in Sources */,
+				0A399FE72423BF5C0082C1E3 /* FSIMCircleInitModel.swift in Sources */,
+				0A399FE92423CAA60082C1E3 /* FSIMCircleDetailModel.swift in Sources */,
 				0A21A24423609C0F008F7647 /* FSAccountSafeVC.swift in Sources */,
 				0A220061239583EA00B9B928 /* FSMsgZanCell.swift in Sources */,
 				0A60961B23136D3800C06896 /* FSAllReplyMsgVC.swift in Sources */,

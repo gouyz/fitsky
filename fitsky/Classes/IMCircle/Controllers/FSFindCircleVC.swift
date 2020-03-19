@@ -189,8 +189,9 @@ class FSFindCircleVC: GYZWhiteNavBaseVC {
         }
     }
     /// 申请社圈
-    func goApplyCircle(){
+    func goApplyCircle(circleId: String){
         let vc = FSJoinIMCircleVC()
+        vc.circleId = circleId
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -253,7 +254,7 @@ extension FSFindCircleVC: UITableViewDelegate,UITableViewDataSource{
         return UIView()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        goApplyCircle()
+        goApplyCircle(circleId: dataList[indexPath.row].id!)
     }
     ///MARK : UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
