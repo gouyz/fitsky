@@ -32,6 +32,15 @@ class FSIMCircleVC: GYZWhiteNavBaseVC {
             make.edges.equalTo(0)
         }
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        myJoinList.removeAll()
+        myCreateList.removeAll()
+        currPage = 1
+        lastPage = 1
+        tableView.reloadData()
         requestMyCreateList()
         requestMyJoinList()
     }
@@ -159,8 +168,9 @@ class FSIMCircleVC: GYZWhiteNavBaseVC {
         }
     }
     /// 社圈
-    func goCircle(){
+    func goCircle(model:FSIMCircleModel){
         let vc = FSIMCircleMangerDetailVC()
+        vc.circleId = model.id!
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -206,7 +216,11 @@ extension FSIMCircleVC: UITableViewDelegate,UITableViewDataSource{
         return UIView()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        goCircle()
+        if indexPath.section == 0{
+            goCircle(model: myCreateList[indexPath.row])
+        }else{
+            goCircle(model: myJoinList[indexPath.row])
+        }
     }
     ///MARK : UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

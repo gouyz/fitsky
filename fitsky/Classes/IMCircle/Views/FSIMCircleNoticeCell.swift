@@ -10,6 +10,35 @@ import UIKit
 
 class FSIMCircleNoticeCell: UITableViewCell {
     
+    /// 填充数据
+    var dataModel : FSIMCircleNoticeModel?{
+        didSet{
+            if let model = dataModel {
+                
+                userImgView.kf.setImage(with: URL.init(string: model.avatar!), placeholder: UIImage.init(named: "app_img_avatar_def"))
+                
+                /// 会员类型（1-普通 2-达人 3-场馆）
+                vipImgView.isHidden = false
+                if model.member_type == "2"{
+                    vipImgView.image = UIImage.init(named: "app_icon_daren")
+                }else if model.member_type == "3"{
+                    vipImgView.image = UIImage.init(named: "app_icon_approve_venue")
+                }else{
+                    vipImgView.isHidden = true
+                }
+                nameLab.text = model.nick_name
+                if model.is_group == "1" || model.is_admin == "1" {
+                    managerImgView.isHidden = false
+                }else{
+                    managerImgView.isHidden = true
+                }
+                dateLab.text = model.display_create_time
+                contentLab.text = model.content
+                
+            }
+        }
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         

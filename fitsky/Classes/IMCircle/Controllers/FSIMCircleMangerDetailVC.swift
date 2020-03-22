@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 private let IMCircleMangerMemberIconCell = "IMCircleMangerMemberIconCell"
 private let IMCircleMangerCell = "IMCircleMangerCell"
@@ -16,6 +17,7 @@ private let IMCircleMangerOperatorCell = "IMCircleMangerOperatorCell"
 class FSIMCircleMangerDetailVC: GYZWhiteNavBaseVC {
     
     var managerTitles:[String] = ["管理社圈","圈内昵称","*ID账号","*二维码","公告","简介","置顶消息","消息免打扰","查找聊天内容","地址","清空聊天内容","删除并退出"]
+    var circleId: String = ""
     
     var dataModel: FSIMCircleDetailModel?
     
@@ -29,7 +31,7 @@ class FSIMCircleMangerDetailVC: GYZWhiteNavBaseVC {
         tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(0)
         }
-        
+        requestCircleData()
     }
     lazy var tableView : UITableView = {
         let table = UITableView(frame: CGRect.zero, style: .grouped)
@@ -46,83 +48,118 @@ class FSIMCircleMangerDetailVC: GYZWhiteNavBaseVC {
         
         return table
     }()
-    ///获取广场 话题搜索数据
-    //    func requestTalkSearchList(){
-    //        if !GYZTool.checkNetWork() {
-    //            return
-    //        }
-    //
-    //        weak var weakSelf = self
-    //        showLoadingView()
-    //
-    //        GYZNetWork.requestNetwork("Dynamic/Topic/search",parameters: ["p":currPage,"keyword": searchContent],  success: { (response) in
-    //
-    //            weakSelf?.closeRefresh()
-    //            weakSelf?.hiddenLoadingView()
-    //            GYZLog(response)
-    //
-    //            if response["result"].intValue == kQuestSuccessTag{//请求成功
-    //
-    //                weakSelf?.lastPage = response["data"]["page"]["last_page"].intValue
-    //
-    //                guard let data = response["data"]["list"].array else { return }
-    //                for item in data{
-    //                    guard let itemInfo = item.dictionaryObject else { return }
-    //                    let model = FSTalkModel.init(dict: itemInfo)
-    //
-    //                    weakSelf?.dataList.append(model)
-    //                }
-    //                weakSelf?.tableView.reloadData()
-    //                if weakSelf?.dataList.count > 0{
-    //                    weakSelf?.hiddenEmptyView()
-    //                }else{
-    //                    ///显示空页面
-    //                    weakSelf?.showEmptyView(content:"暂无话题信息")
-    //                }
-    //
-    //            }else{
-    //                MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
-    //            }
-    //
-    //        }, failture: { (error) in
-    //            weakSelf?.closeRefresh()
-    //            weakSelf?.hiddenLoadingView()
-    //            GYZLog(error)
-    //
-    //            //第一次加载失败，显示加载错误页面
-    //            if weakSelf?.currPage == 1{
-    //                weakSelf?.showEmptyView(content: "加载失败，请点击重新加载", reload: {
-    //                    weakSelf?.hiddenEmptyView()
-    //                    weakSelf?.requestTalkSearchList()
-    //                })
-    //            }
-    //
-    //        })
-    //    }
+    ///获取社圈数据
+    func requestCircleData(){
+        if !GYZTool.checkNetWork() {
+            return
+        }
+        
+        weak var weakSelf = self
+        createHUD(message: "加载中")
+        
+        GYZNetWork.requestNetwork("Circle/Circle/info",parameters: ["id":circleId],  success: { (response) in
+            
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(response)
+            
+            if response["result"].intValue == kQuestSuccessTag{//请求成功
+                
+                
+                guard let data = response["data"].dictionaryObject else { return }
+                weakSelf?.dataModel = FSIMCircleDetailModel.init(dict: data)
+                
+                weakSelf?.tableView.reloadData()
+            }else{
+                MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+            }
+            
+        }, failture: { (error) in
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(error)
+            
+        })
+    }
     /// 全部成员
     func goAllMembers(){
         let vc = FSIMCircleAllMemberVC()
+        vc.circleId = circleId
         navigationController?.pushViewController(vc, animated: true)
     }
     /// 管理社圈
     func goManageCircle(){
         let vc = FSManageIMCircleVC()
+        vc.dataModel = self.dataModel
+        vc.circleId = circleId
         navigationController?.pushViewController(vc, animated: true)
     }
     /// 简介
     func goEditIntroduction(){
         let vc = FSEditIntroductionVC()
+        vc.circleId = circleId
+        vc.contentMaxCount = dataModel == nil ? 10 : (dataModel?.circle_brief_limit)!
+        vc.content = dataModel == nil ? "" : (dataModel?.circleModel?.brief)!
+        vc.resultBlock = {[unowned self] (name) in
+            self.dataModel?.circleModel?.brief = name
+        }
         navigationController?.pushViewController(vc, animated: true)
     }
     /// 昵称
     func goEditNickName(){
         let vc = FSEditIMCircleNameVC()
+        vc.circleId = circleId
+        vc.contentMaxCount = dataModel == nil ? 10 : (dataModel?.circle_nick_name_limit)!
+        vc.resultBlock = {[unowned self] (name) in
+            self.dataModel?.myCircleMemberModel?.circle_nick_name = name
+        }
         navigationController?.pushViewController(vc, animated: true)
     }
     /// 公告
     func goNoticeVC(){
         let vc = FSIMCircleNoticeVC()
+        vc.circleId = circleId
+        vc.contentMaxCount = dataModel == nil ? 120 : (dataModel?.circle_notice_limit)!
         navigationController?.pushViewController(vc, animated: true)
+    }
+    /// 退出社圈
+    func showLoginOutAlert(){
+        if dataModel == nil {
+            return
+        }
+        GYZAlertViewTools.alertViewTools.showAlert(title: nil, message: "确认删除并退出吗?", cancleTitle: "取消", viewController: self, buttonTitles: "确定") { [unowned self] (tag) in
+            
+            if tag != cancelIndex{
+                self.requestLoginOutData()
+            }
+        }
+    }
+    ///删除并退出
+    func requestLoginOutData(){
+        if !GYZTool.checkNetWork() {
+            return
+        }
+        
+        weak var weakSelf = self
+        createHUD(message: "加载中")
+        var method: String = "Circle/Circle/quit"
+        if dataModel?.myCircleMemberModel?.is_group == "1" {
+            method = "Circle/Circle/dismiss"
+        }
+        
+        GYZNetWork.requestNetwork(method,parameters: ["id":(dataModel?.myCircleMemberModel?.id)!],  success: { (response) in
+            
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(response)
+            MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+            if response["result"].intValue == kQuestSuccessTag{//请求成功
+                
+                weakSelf?.clickedBackBtn()
+            }
+            
+        }, failture: { (error) in
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(error)
+            
+        })
     }
 }
 extension FSIMCircleMangerDetailVC: UITableViewDelegate,UITableViewDataSource{
@@ -140,8 +177,11 @@ extension FSIMCircleMangerDetailVC: UITableViewDelegate,UITableViewDataSource{
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: IMCircleMangerMemberIconCell) as! FSIMCircleMemberCell
             
+            cell.dataModels = dataModel?.memberList
             cell.didSelectItemBlock = {[unowned self](index) in
-                self.goAllMembers()
+                if index == self.dataModel?.memberList.count {
+                    self.goAllMembers()
+                }
             }
             
             cell.selectionStyle = .none
@@ -169,6 +209,16 @@ extension FSIMCircleMangerDetailVC: UITableViewDelegate,UITableViewDataSource{
             }else{
                 cell.rightIconView.isHidden = false
             }
+            cell.contentLab.text = ""
+            if let model = dataModel {
+                if indexPath.row == 2 {
+                    cell.contentLab.text = model.myCircleMemberModel?.circle_nick_name
+                }else if indexPath.row == 3 {
+                    cell.contentLab.text = model.circleModel?.unique_id
+                }else if indexPath.row == 10 {
+                    cell.contentLab.text = (model.circleModel?.province)! + (model.circleModel?.city)!
+                }
+            }
             
             cell.selectionStyle = .none
             return cell
@@ -191,14 +241,22 @@ extension FSIMCircleMangerDetailVC: UITableViewDelegate,UITableViewDataSource{
             goNoticeVC()
         }else if indexPath.row == 6 { //简介
             goEditIntroduction()
+        }else if indexPath.row == 12 { //退出
+            showLoginOutAlert()
         }
     }
     ///MARK : UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row > 0 {
-            return 50
+        if indexPath.row == 0 {
+            if let model = dataModel {
+                if model.memberList.count > 4 {
+                    return 130
+                }
+                return 65
+            }
+            return 0.00001
         }
-        return 130
+        return 50
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.00001

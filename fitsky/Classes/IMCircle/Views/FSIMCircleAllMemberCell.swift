@@ -9,6 +9,45 @@
 import UIKit
 
 class FSIMCircleAllMemberCell: UITableViewCell {
+    
+    /// 填充数据
+    var dataModel : FSIMCircleMemberModel?{
+        didSet{
+            if let model = dataModel {
+                
+                userImgView.kf.setImage(with: URL.init(string: model.avatar!), placeholder: UIImage.init(named: "app_img_avatar_def"))
+                
+                /// 会员类型（1-普通 2-达人 3-场馆）
+                vipImgView.isHidden = false
+                if model.member_type == "2"{
+                    vipImgView.image = UIImage.init(named: "app_icon_daren")
+                }else if model.member_type == "3"{
+                    vipImgView.image = UIImage.init(named: "app_icon_approve_venue")
+                }else{
+                    vipImgView.isHidden = true
+                }
+                nameLab.text = model.circle_nick_name
+                checkImgView.isHidden = true
+                if model.is_group == "1" || model.is_admin == "1" {
+                    managerImgView.isHidden = false
+                }else{
+                    managerImgView.isHidden = true
+                }
+                /// 好友关系（0-未关注 1-已关注 2-相互关注 3-自己）
+                if model.friend_type == "0"{
+                    followLab.isHidden = false
+                    followLab.text = "关注"
+                    followLab.backgroundColor = kOrangeFontColor
+                }else if model.friend_type == "1" || model.friend_type == "2"{
+                    followLab.isHidden = false
+                    followLab.text = "取消关注"
+                    followLab.backgroundColor = kHeightGaryFontColor
+                }else{
+                    followLab.isHidden = true
+                }
+            }
+        }
+    }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)

@@ -15,7 +15,7 @@ class FSIMCircleMemberCell: UITableViewCell {
     
     var didSelectItemBlock:((_ index: Int) -> Void)?
     /// 填充数据
-    var dataModels : [String]?{
+    var dataModels : [FSIMCircleMemberModel]?{
         didSet{
             if dataModels != nil {
                 
@@ -89,11 +89,11 @@ extension FSIMCircleMemberCell : UICollectionViewDataSource,UICollectionViewDele
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return 10
+        return dataModels == nil ? 0 : dataModels!.count + 1
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if indexPath.row == 9 {
+        if indexPath.row == dataModels?.count{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: IMCircleMemberRightCell, for: indexPath) as! FSIMCircleMemberRightCell
             
             
@@ -101,7 +101,7 @@ extension FSIMCircleMemberCell : UICollectionViewDataSource,UICollectionViewDele
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: IMCircleMemberIconCell, for: indexPath) as! FSIMCircleMemberIconCell
             
-            //            cell.iconView.kf.setImage(with: URL.init(string: dataModels![indexPath.row]))
+            cell.iconView.kf.setImage(with: URL.init(string: (dataModels?[indexPath.row].avatar)!), placeholder: UIImage.init(named: "app_img_avatar_def"))
             
             return cell
         }

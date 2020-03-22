@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class FSEditIntroductionVC: GYZWhiteNavBaseVC {
     
@@ -15,6 +16,7 @@ class FSEditIntroductionVC: GYZWhiteNavBaseVC {
     
     //// 最大字数
     var contentMaxCount: Int = 120
+    var circleId: String = ""
     ///txtView 提示文字
     let placeHolder = "填写简介"
     var content: String = ""
@@ -96,33 +98,33 @@ class FSEditIntroductionVC: GYZWhiteNavBaseVC {
     }()
     /// 完成
     @objc func onClickRightBtn(){
-        
+        requestModifyBrief()
     }
-    //修改个人简介
-//    func requestModifyBrief(){
-//        if !GYZTool.checkNetWork() {
-//            return
-//        }
-//
-//        weak var weakSelf = self
-//        createHUD(message: "加载中...")
-//
-//        GYZNetWork.requestNetwork("Member/Member/brief", parameters: ["brief":content],  success: { (response) in
-//
-//            weakSelf?.hud?.hide(animated: true)
-//            GYZLog(response)
-//
-//            MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
-//            if response["result"].intValue == kQuestSuccessTag{//请求成功
-//                weakSelf?.dealData()
-//
-//            }
-//
-//        }, failture: { (error) in
-//            weakSelf?.hud?.hide(animated: true)
-//            GYZLog(error)
-//        })
-//    }
+    //修改简介
+    func requestModifyBrief(){
+        if !GYZTool.checkNetWork() {
+            return
+        }
+
+        weak var weakSelf = self
+        createHUD(message: "加载中...")
+
+        GYZNetWork.requestNetwork("Circle/Circle/editBrief", parameters: ["brief":content,"id":circleId],  success: { (response) in
+
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(response)
+
+            MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+            if response["result"].intValue == kQuestSuccessTag{//请求成功
+                weakSelf?.dealData()
+
+            }
+
+        }, failture: { (error) in
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(error)
+        })
+    }
     
     func dealData(){
         if resultBlock != nil {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class FSEditIMCircleNameVC: GYZWhiteNavBaseVC {
     
@@ -15,6 +16,7 @@ class FSEditIMCircleNameVC: GYZWhiteNavBaseVC {
     //// 最大字数
     var contentMaxCount: Int = 10
     var nickName: String = ""
+    var circleId: String = ""
     var placeholder: String = "请输入圈内昵称"
     
     override func viewDidLoad() {
@@ -97,30 +99,30 @@ class FSEditIMCircleNameVC: GYZWhiteNavBaseVC {
         
     }
     //修改昵称
-//    func requestModifyProfileInfo(){
-//        if !GYZTool.checkNetWork() {
-//            return
-//        }
-//        
-//        weak var weakSelf = self
-//        createHUD(message: "加载中...")
-//        
-//        GYZNetWork.requestNetwork("Member/Member/nickname", parameters: ["nick_name":nickName],  success: { (response) in
-//            
-//            weakSelf?.hud?.hide(animated: true)
-//            GYZLog(response)
-//            
-//            MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
-//            if response["result"].intValue == kQuestSuccessTag{//请求成功
-//                weakSelf?.dealData()
-//                
-//            }
-//            
-//        }, failture: { (error) in
-//            weakSelf?.hud?.hide(animated: true)
-//            GYZLog(error)
-//        })
-//    }
+    func requestModifyProfileInfo(){
+        if !GYZTool.checkNetWork() {
+            return
+        }
+        
+        weak var weakSelf = self
+        createHUD(message: "加载中...")
+        
+        GYZNetWork.requestNetwork("Circle/Circle/editNi", parameters: ["circle_nick_name":nickName,"id":circleId],  success: { (response) in
+            
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(response)
+            
+            MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+            if response["result"].intValue == kQuestSuccessTag{//请求成功
+                weakSelf?.dealData()
+                
+            }
+            
+        }, failture: { (error) in
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(error)
+        })
+    }
     
     func dealData(){
         if resultBlock != nil {

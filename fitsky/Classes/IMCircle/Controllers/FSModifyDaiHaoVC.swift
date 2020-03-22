@@ -15,20 +15,21 @@ class FSModifyDaiHaoVC: GYZWhiteNavBaseVC {
     var resultBlock:((_ nickName: String) -> Void)?
     //// 最大字数
     var contentMaxCount: Int = 10
+    var circleId: String = ""
     var nickName: String = ""
-    var placeholder: String = "请输入代号"
+    var placeholder: String = "请输入社圈名称"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "修改代号"
+        self.navigationItem.title = "修改社圈名称"
         
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: rightBtn)
         
         view.addSubview(bgView)
         bgView.addSubview(desLab)
         bgView.addSubview(nicknameTxtFiled)
-        //            view.addSubview(fontCountLab)
+        view.addSubview(fontCountLab)
         bgView.snp.makeConstraints { (make) in
             make.left.right.equalTo(view)
             make.top.equalTo(kTitleAndStateHeight + kMargin)
@@ -44,15 +45,15 @@ class FSModifyDaiHaoVC: GYZWhiteNavBaseVC {
             make.right.equalTo(-kMargin)
             make.top.bottom.equalTo(bgView)
         }
-        //            fontCountLab.snp.makeConstraints { (make) in
-        //                make.left.equalTo(kMargin)
-        //                make.right.equalTo(-kMargin)
-        //                make.top.equalTo(bgView.snp.bottom)
-        //                make.height.equalTo(30)
-        //            }
+        fontCountLab.snp.makeConstraints { (make) in
+            make.left.equalTo(kMargin)
+            make.right.equalTo(-kMargin)
+            make.top.equalTo(bgView.snp.bottom)
+            make.height.equalTo(30)
+        }
         
         nicknameTxtFiled.text = nickName
-        //            self.fontCountLab.text = "\(nickName.count)/\(contentMaxCount)"
+        self.fontCountLab.text = "\(nickName.count)/\(contentMaxCount)"
         if nickName.count > 0 {
             rightBtn.isEnabled = true
         }else {
@@ -81,7 +82,7 @@ class FSModifyDaiHaoVC: GYZWhiteNavBaseVC {
         let lab = UILabel()
         lab.font = UIFont.boldSystemFont(ofSize: 15)
         lab.textColor = kGaryFontColor
-        lab.text = "代号"
+        lab.text = "社圈名称"
         
         return lab
     }()
@@ -98,15 +99,15 @@ class FSModifyDaiHaoVC: GYZWhiteNavBaseVC {
         return textFiled
     }()
     /// 限制字数
-    //        lazy var fontCountLab : UILabel = {
-    //            let lab = UILabel()
-    //            lab.font = k13Font
-    //            lab.textColor = kHeightGaryFontColor
-    //            lab.textAlignment = .right
-    //            lab.text = "0/\(contentMaxCount)"
-    //
-    //            return lab
-    //        }()
+    lazy var fontCountLab : UILabel = {
+        let lab = UILabel()
+        lab.font = k13Font
+        lab.textColor = kHeightGaryFontColor
+        lab.textAlignment = .right
+        lab.text = "0/\(contentMaxCount)"
+        
+        return lab
+    }()
     /// 完成
     @objc func onClickRightBtn(){
         
@@ -114,32 +115,33 @@ class FSModifyDaiHaoVC: GYZWhiteNavBaseVC {
             MBProgressHUD.showAutoDismissHUD(message: placeholder)
             return
         }
+        requestModifyNameInfo()
     }
     //修改昵称
-    //        func requestModifyProfileInfo(){
-    //            if !GYZTool.checkNetWork() {
-    //                return
-    //            }
-    //
-    //            weak var weakSelf = self
-    //            createHUD(message: "加载中...")
-    //
-    //            GYZNetWork.requestNetwork("Member/Member/nickname", parameters: ["nick_name":nickName],  success: { (response) in
-    //
-    //                weakSelf?.hud?.hide(animated: true)
-    //                GYZLog(response)
-    //
-    //                MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
-    //                if response["result"].intValue == kQuestSuccessTag{//请求成功
-    //                    weakSelf?.dealData()
-    //
-    //                }
-    //
-    //            }, failture: { (error) in
-    //                weakSelf?.hud?.hide(animated: true)
-    //                GYZLog(error)
-    //            })
-    //        }
+    func requestModifyNameInfo(){
+        if !GYZTool.checkNetWork() {
+            return
+        }
+        
+        weak var weakSelf = self
+        createHUD(message: "加载中...")
+        
+        GYZNetWork.requestNetwork("Circle/Circle/editName", parameters: ["name":nickName,"id":circleId],  success: { (response) in
+            
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(response)
+            
+            MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+            if response["result"].intValue == kQuestSuccessTag{//请求成功
+                weakSelf?.dealData()
+                
+            }
+            
+        }, failture: { (error) in
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(error)
+        })
+    }
     
     func dealData(){
         if resultBlock != nil {
@@ -150,34 +152,34 @@ class FSModifyDaiHaoVC: GYZWhiteNavBaseVC {
     
     @objc func textFieldDidChange(textField:UITextField){
         if textField == self.nicknameTxtFiled {
-            //            if textField.text?.count > contentMaxCount {
-            //                textField.text = textField.text?.subString(start: 0, length: contentMaxCount)
-            //            }
-            //                if textField.text!.count > contentMaxCount - 10 {
-            //
-            //                    //获得已输出字数与正输入字母数
-            //                    let selectRange = textField.markedTextRange
-            //
-            //                    //获取高亮部分 － 如果有联想词则解包成功
-            //                    if let selectRange =   selectRange {
-            //                        let position =  textField.position(from: (selectRange.start), offset: 0)
-            //                        if (position != nil) {
-            //                            return
-            //                        }
-            //                    }
-            //
-            //                    let textContent = textField.text
-            //                    let textNum = textContent?.count
-            //
-            //                    //截取500个字
-            //                    if textNum! > contentMaxCount {
-            //                        //                let index = textContent?.index((textContent?.startIndex)!, offsetBy: contentMaxCount)
-            //                        let str = textContent?.subString(start: 0, length: contentMaxCount)
-            //                        textField.text = str
-            //                    }
-            //                }
+            if textField.text?.count > contentMaxCount {
+                textField.text = textField.text?.subString(start: 0, length: contentMaxCount)
+            }
+            if textField.text!.count > contentMaxCount - 10 {
+                
+                //获得已输出字数与正输入字母数
+                let selectRange = textField.markedTextRange
+                
+                //获取高亮部分 － 如果有联想词则解包成功
+                if let selectRange =   selectRange {
+                    let position =  textField.position(from: (selectRange.start), offset: 0)
+                    if (position != nil) {
+                        return
+                    }
+                }
+                
+                let textContent = textField.text
+                let textNum = textContent?.count
+                
+                //截取500个字
+                if textNum! > contentMaxCount {
+                    //                let index = textContent?.index((textContent?.startIndex)!, offsetBy: contentMaxCount)
+                    let str = textContent?.subString(start: 0, length: contentMaxCount)
+                    textField.text = str
+                }
+            }
             nickName = textField.text!
-            //                self.fontCountLab.text = "\(nickName.count)/\(contentMaxCount)"
+            self.fontCountLab.text = "\(nickName.count)/\(contentMaxCount)"
             if nickName.count > 0 {
                 rightBtn.isEnabled = true
             }else {
