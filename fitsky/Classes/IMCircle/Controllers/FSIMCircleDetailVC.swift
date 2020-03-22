@@ -1,22 +1,22 @@
 //
-//  FSIMCircleMangerDetailVC.swift
+//  FSIMCircleDetailVC.swift
 //  fitsky
-//  社圈 管理员详情
-//  Created by gouyz on 2020/3/4.
+//  社圈 详情
+//  Created by gouyz on 2020/3/23.
 //  Copyright © 2020 gyz. All rights reserved.
 //
 
 import UIKit
 import MBProgressHUD
 
-private let IMCircleMangerMemberIconCell = "IMCircleMangerMemberIconCell"
-private let IMCircleMangerCell = "IMCircleMangerCell"
-private let IMCircleMangerSwitchCell = "IMCircleMangerSwitchCell"
-private let IMCircleMangerOperatorCell = "IMCircleMangerOperatorCell"
+private let IMCircleMemberIconCell = "IMCircleMemberIconCell"
+private let IMCircleDetailCell = "IMCircleDetailCell"
+private let IMCircleDetailSwitchCell = "IMCircleDetailSwitchCell"
+private let IMCircleDetailOperatorCell = "IMCircleDetailOperatorCell"
 
-class FSIMCircleMangerDetailVC: GYZWhiteNavBaseVC {
+class FSIMCircleDetailVC: GYZWhiteNavBaseVC {
     
-    var managerTitles:[String] = ["管理社圈","圈内昵称","*ID账号","*二维码","公告","简介","置顶消息","消息免打扰","查找聊天内容","地址","清空聊天内容","删除并退出"]
+    var managerTitles:[String] = ["圈内昵称","*ID账号","*二维码","置顶消息","消息免打扰","地址","清空聊天内容","删除并退出"]
     var circleId: String = ""
     
     var dataModel: FSIMCircleDetailModel?
@@ -40,10 +40,10 @@ class FSIMCircleMangerDetailVC: GYZWhiteNavBaseVC {
         table.separatorStyle = .none
         table.backgroundColor = kWhiteColor
         
-        table.register(FSIMCircleMemberCell.classForCoder(), forCellReuseIdentifier: IMCircleMangerMemberIconCell)
-        table.register(GYZCommonArrowCell.classForCoder(), forCellReuseIdentifier: IMCircleMangerCell)
-        table.register(GYZCommonSwitchCell.classForCoder(), forCellReuseIdentifier: IMCircleMangerSwitchCell)
-        table.register(GYZLabelCenterCell.classForCoder(), forCellReuseIdentifier: IMCircleMangerOperatorCell)
+        table.register(FSIMCircleMemberCell.classForCoder(), forCellReuseIdentifier: IMCircleMemberIconCell)
+        table.register(GYZCommonArrowCell.classForCoder(), forCellReuseIdentifier: IMCircleDetailCell)
+        table.register(GYZCommonSwitchCell.classForCoder(), forCellReuseIdentifier: IMCircleDetailSwitchCell)
+        table.register(GYZLabelCenterCell.classForCoder(), forCellReuseIdentifier: IMCircleDetailOperatorCell)
         
         
         return table
@@ -85,24 +85,6 @@ class FSIMCircleMangerDetailVC: GYZWhiteNavBaseVC {
         vc.circleId = circleId
         navigationController?.pushViewController(vc, animated: true)
     }
-    /// 管理社圈
-    func goManageCircle(){
-        let vc = FSManageIMCircleVC()
-        vc.dataModel = self.dataModel
-        vc.circleId = circleId
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    /// 简介
-    func goEditIntroduction(){
-        let vc = FSEditIntroductionVC()
-        vc.circleId = circleId
-        vc.contentMaxCount = dataModel == nil ? 10 : (dataModel?.circle_brief_limit)!
-        vc.content = dataModel == nil ? "" : (dataModel?.circleModel?.brief)!
-        vc.resultBlock = {[unowned self] (name) in
-            self.dataModel?.circleModel?.brief = name
-        }
-        navigationController?.pushViewController(vc, animated: true)
-    }
     /// 昵称
     func goEditNickName(){
         let vc = FSEditIMCircleNameVC()
@@ -111,13 +93,6 @@ class FSIMCircleMangerDetailVC: GYZWhiteNavBaseVC {
         vc.resultBlock = {[unowned self] (name) in
             self.dataModel?.myCircleMemberModel?.circle_nick_name = name
         }
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    /// 公告
-    func goNoticeVC(){
-        let vc = FSIMCircleNoticeVC()
-        vc.circleId = circleId
-        vc.contentMaxCount = dataModel == nil ? 120 : (dataModel?.circle_notice_limit)!
         navigationController?.pushViewController(vc, animated: true)
     }
     /// 退出社圈
@@ -140,12 +115,8 @@ class FSIMCircleMangerDetailVC: GYZWhiteNavBaseVC {
         
         weak var weakSelf = self
         createHUD(message: "加载中")
-        var method: String = "Circle/Circle/quit"
-        if dataModel?.myCircleMemberModel?.is_group == "1" {
-            method = "Circle/Circle/dismiss"
-        }
         
-        GYZNetWork.requestNetwork(method,parameters: ["id":(dataModel?.myCircleMemberModel?.id)!],  success: { (response) in
+        GYZNetWork.requestNetwork("Circle/Circle/quit",parameters: ["id":(dataModel?.myCircleMemberModel?.id)!],  success: { (response) in
             
             weakSelf?.hud?.hide(animated: true)
             GYZLog(response)
@@ -162,20 +133,19 @@ class FSIMCircleMangerDetailVC: GYZWhiteNavBaseVC {
         })
     }
 }
-extension FSIMCircleMangerDetailVC: UITableViewDelegate,UITableViewDataSource{
+extension FSIMCircleDetailVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return managerTitles.count + 1
-        //            return dataList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: IMCircleMangerMemberIconCell) as! FSIMCircleMemberCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: IMCircleMemberIconCell) as! FSIMCircleMemberCell
             
             cell.dataModels = dataModel?.memberList
             cell.didSelectItemBlock = {[unowned self](index) in
@@ -186,36 +156,36 @@ extension FSIMCircleMangerDetailVC: UITableViewDelegate,UITableViewDataSource{
             
             cell.selectionStyle = .none
             return cell
-        }else if indexPath.row == 7 || indexPath.row == 8 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: IMCircleMangerSwitchCell) as! GYZCommonSwitchCell
+        }else if indexPath.row == 4 || indexPath.row == 5 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: IMCircleDetailSwitchCell) as! GYZCommonSwitchCell
             
             cell.nameLab.text = managerTitles[indexPath.row - 1]
             
             cell.selectionStyle = .none
             return cell
-        }else if indexPath.row == 11 || indexPath.row == 12 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: IMCircleMangerOperatorCell) as! GYZLabelCenterCell
+        }else if indexPath.row == 7 || indexPath.row == 8 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: IMCircleDetailOperatorCell) as! GYZLabelCenterCell
             cell.nameLab.text = managerTitles[indexPath.row - 1]
             
             cell.selectionStyle = .none
             return cell
         }else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: IMCircleMangerCell) as! GYZCommonArrowCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: IMCircleDetailCell) as! GYZCommonArrowCell
             
             cell.nameLab.text = managerTitles[indexPath.row - 1]
             
-            if indexPath.row == 3 || indexPath.row == 10 {
+            if indexPath.row == 2 || indexPath.row == 6 {
                 cell.rightIconView.isHidden = true
             }else{
                 cell.rightIconView.isHidden = false
             }
             cell.contentLab.text = ""
             if let model = dataModel {
-                if indexPath.row == 2 {
+                if indexPath.row == 1 {
                     cell.contentLab.text = model.myCircleMemberModel?.circle_nick_name
-                }else if indexPath.row == 3 {
+                }else if indexPath.row == 2 {
                     cell.contentLab.text = model.circleModel?.unique_id
-                }else if indexPath.row == 10 {
+                }else if indexPath.row == 6 {
                     cell.contentLab.text = (model.circleModel?.province)! + (model.circleModel?.city)!
                 }
             }
@@ -233,15 +203,9 @@ extension FSIMCircleMangerDetailVC: UITableViewDelegate,UITableViewDataSource{
         return UIView()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 1 { //管理社圈
-            goManageCircle()
-        }else if indexPath.row == 2 { //昵称
+        if indexPath.row == 1 { //昵称
             goEditNickName()
-        }else if indexPath.row == 5 { //公告
-            goNoticeVC()
-        }else if indexPath.row == 6 { //简介
-            goEditIntroduction()
-        }else if indexPath.row == 12 { //退出
+        }else if indexPath.row == 8 { //退出
             showLoginOutAlert()
         }
     }
