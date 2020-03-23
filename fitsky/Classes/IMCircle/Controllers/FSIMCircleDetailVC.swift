@@ -83,6 +83,7 @@ class FSIMCircleDetailVC: GYZWhiteNavBaseVC {
     func goAllMembers(){
         let vc = FSIMCircleAllMemberVC()
         vc.circleId = circleId
+        vc.isAdmin = true
         navigationController?.pushViewController(vc, animated: true)
     }
     /// 昵称

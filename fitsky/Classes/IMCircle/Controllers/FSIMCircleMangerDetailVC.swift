@@ -83,6 +83,7 @@ class FSIMCircleMangerDetailVC: GYZWhiteNavBaseVC {
     func goAllMembers(){
         let vc = FSIMCircleAllMemberVC()
         vc.circleId = circleId
+        vc.isAdmin = true
         navigationController?.pushViewController(vc, animated: true)
     }
     /// 管理社圈
@@ -161,6 +162,29 @@ class FSIMCircleMangerDetailVC: GYZWhiteNavBaseVC {
             
         })
     }
+    
+    /// 消息置顶、免打扰
+    @objc func onSwitchViewChange(sender: UISwitch){
+        let tag = sender.tag
+        let status: String = sender.isOn ? "1" : "0"
+        
+        if tag == 7 {//消息置顶
+//            [[RCIMClient sharedRCIMClient] setConversationToTop:ConversationType_GROUP
+//            targetId:self.group.groupId
+//               isTop:swch.on];
+        }else{//免打扰
+//            [[RCIMClient sharedRCIMClient] setConversationNotificationStatus:ConversationType_GROUP
+//            targetId:self.group.groupId
+//            isBlocked:swch.on
+//            success:^(RCConversationNotificationStatus nStatus) {
+//                NSLog(@"成功");
+//            }
+//            error:^(RCErrorCode status) {
+//                NSLog(@"失败");
+//            }];
+        }
+    }
+    
 }
 extension FSIMCircleMangerDetailVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -169,7 +193,6 @@ extension FSIMCircleMangerDetailVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return managerTitles.count + 1
-        //            return dataList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -189,7 +212,15 @@ extension FSIMCircleMangerDetailVC: UITableViewDelegate,UITableViewDataSource{
         }else if indexPath.row == 7 || indexPath.row == 8 {
             let cell = tableView.dequeueReusableCell(withIdentifier: IMCircleMangerSwitchCell) as! GYZCommonSwitchCell
             
+            cell.switchView.tag = indexPath.row
+            cell.switchView.addTarget(self, action: #selector(onSwitchViewChange(sender:)), for: .valueChanged)
+            
             cell.nameLab.text = managerTitles[indexPath.row - 1]
+            if indexPath.row == 7 {//置顶消息
+                cell.switchView.isOn = dataModel?.myCircleMemberModel?.is_top_message == "1"
+            }else{
+                cell.switchView.isOn = dataModel?.myCircleMemberModel?.is_message_free == "1"
+            }
             
             cell.selectionStyle = .none
             return cell

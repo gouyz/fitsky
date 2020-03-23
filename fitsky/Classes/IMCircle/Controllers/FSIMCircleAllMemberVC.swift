@@ -16,6 +16,8 @@ class FSIMCircleAllMemberVC: GYZWhiteNavBaseVC {
     var isDel: Bool = false
     var dataList:[FSIMCircleMemberModel] = [FSIMCircleMemberModel]()
     var circleId: String = ""
+    /// 是否是管理员
+    var isAdmin: Bool = false
     ///  选择删除的成员
     var selectMemberDic:[String:FSIMCircleMemberModel] = [String:FSIMCircleMemberModel]()
     
@@ -25,9 +27,11 @@ class FSIMCircleAllMemberVC: GYZWhiteNavBaseVC {
         self.navigationItem.title = "全部成员"
         self.view.backgroundColor = kWhiteColor
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: rightBtn)
-        rightBtn.addTarget(self, action: #selector(onClickRightBtn), for: .touchUpInside)
-        cancleBtn.addTarget(self, action: #selector(onClickCancleBtn), for: .touchUpInside)
+        if isAdmin {
+            navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: rightBtn)
+            rightBtn.addTarget(self, action: #selector(onClickRightBtn), for: .touchUpInside)
+            cancleBtn.addTarget(self, action: #selector(onClickCancleBtn), for: .touchUpInside)
+        }
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
