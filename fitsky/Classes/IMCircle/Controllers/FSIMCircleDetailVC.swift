@@ -96,6 +96,31 @@ class FSIMCircleDetailVC: GYZWhiteNavBaseVC {
         }
         navigationController?.pushViewController(vc, animated: true)
     }
+    /// 二维码
+    func goQRCodeVC(){
+        let vc = FSIMCircleQrcodeVC()
+        vc.qrcode = dataModel?.circleModel?.qrcode ?? ""
+        vc.circleName = dataModel?.circleModel?.name ?? ""
+        vc.headerImgUrl = dataModel?.circleModel?.thumb ?? ""
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    ///清空聊天内容
+    func showCleanRecordMsgAlert(){
+        GYZAlertViewTools.alertViewTools.showAlert(title: nil, message: "确认清空聊天内容吗?", cancleTitle: "取消", viewController: self, buttonTitles: "确定") { [unowned self] (tag) in
+            
+            if tag != cancelIndex{
+                self.requestCleanRecord()
+            }
+        }
+    }
+    ///清空聊天内容
+    func requestCleanRecord(){
+        RCDIMService.shared().clearHistoryMessage(.ConversationType_GROUP, targetId: circleId, successBlock: {
+            MBProgressHUD.showAutoDismissHUD(message: "清除成功")
+        }) { (error) in
+            GYZLog(error)
+        }
+    }
     /// 退出社圈
     func showLoginOutAlert(){
         if dataModel == nil {
@@ -206,6 +231,10 @@ extension FSIMCircleDetailVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 1 { //昵称
             goEditNickName()
+        }else if indexPath.row == 3 { //二维码
+            goQRCodeVC()
+        }else if indexPath.row == 7 { //清空聊天内容
+            showCleanRecordMsgAlert()
         }else if indexPath.row == 8 { //退出
             showLoginOutAlert()
         }

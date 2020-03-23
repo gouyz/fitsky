@@ -9,14 +9,20 @@
 import UIKit
 
 class FSIMCircleQrcodeVC: GYZWhiteNavBaseVC {
+    
+    var qrcode:String = ""
+    var headerImgUrl: String = ""
+    var circleName:String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.navigationItem.title = "社圈二维码"
         
-        
         setUpUI()
+        qrcodeImgView.image = qrcode.generateQRCodeWithSize(size: 260)
+        userImgView.kf.setImage(with: URL.init(string: headerImgUrl), placeholder: UIImage.init(named: "app_img_avatar_def"))
+        nameLab.text = circleName
     }
     func setUpUI(){
         self.view.addSubview(bgView)
@@ -25,7 +31,34 @@ class FSIMCircleQrcodeVC: GYZWhiteNavBaseVC {
         bgView.addSubview(qrcodeImgView)
         bgView.addSubview(desLab)
         
-        
+        bgView.snp.makeConstraints { (make) in
+            make.left.equalTo(kMargin)
+            make.right.equalTo(-kMargin)
+            make.top.equalTo(kTitleAndStateHeight + 15)
+            make.height.equalTo(410)
+        }
+        userImgView.snp.makeConstraints { (make) in
+            make.left.equalTo(15)
+            make.top.equalTo(15)
+            make.size.equalTo(CGSize.init(width: 72, height: 72))
+        }
+        nameLab.snp.makeConstraints { (make) in
+            make.left.equalTo(userImgView.snp.right).offset(kMargin)
+            make.centerY.equalTo(userImgView)
+            make.right.equalTo(-kMargin)
+            make.height.equalTo(kTitleHeight)
+        }
+        qrcodeImgView.snp.makeConstraints { (make) in
+            make.centerX.equalTo(bgView)
+            make.top.equalTo(userImgView.snp.bottom).offset(15)
+            make.size.equalTo(CGSize.init(width: 260, height: 260))
+        }
+        desLab.snp.makeConstraints { (make) in
+            make.left.equalTo(kMargin)
+            make.right.equalTo(-kMargin)
+            make.top.equalTo(qrcodeImgView.snp.bottom).offset(kMargin)
+            make.height.equalTo(20)
+        }
     }
     
     lazy var bgView: UIView = {

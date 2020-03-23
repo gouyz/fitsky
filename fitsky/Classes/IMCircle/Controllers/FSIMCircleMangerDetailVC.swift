@@ -121,6 +121,31 @@ class FSIMCircleMangerDetailVC: GYZWhiteNavBaseVC {
         vc.contentMaxCount = dataModel == nil ? 120 : (dataModel?.circle_notice_limit)!
         navigationController?.pushViewController(vc, animated: true)
     }
+    /// 二维码
+    func goQRCodeVC(){
+        let vc = FSIMCircleQrcodeVC()
+        vc.qrcode = dataModel?.circleModel?.qrcode ?? ""
+        vc.circleName = dataModel?.circleModel?.name ?? ""
+        vc.headerImgUrl = dataModel?.circleModel?.thumb ?? ""
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    ///清空聊天内容
+    func showCleanRecordMsgAlert(){
+        GYZAlertViewTools.alertViewTools.showAlert(title: nil, message: "确认清空聊天内容吗?", cancleTitle: "取消", viewController: self, buttonTitles: "确定") { [unowned self] (tag) in
+            
+            if tag != cancelIndex{
+                self.requestCleanRecord()
+            }
+        }
+    }
+    ///清空聊天内容
+    func requestCleanRecord(){
+        RCDIMService.shared().clearHistoryMessage(.ConversationType_GROUP, targetId: circleId, successBlock: {
+            MBProgressHUD.showAutoDismissHUD(message: "清除成功")
+        }) { (error) in
+            GYZLog(error)
+        }
+    }
     /// 退出社圈
     func showLoginOutAlert(){
         if dataModel == nil {
@@ -169,22 +194,68 @@ class FSIMCircleMangerDetailVC: GYZWhiteNavBaseVC {
         let status: String = sender.isOn ? "1" : "0"
         
         if tag == 7 {//消息置顶
-//            [[RCIMClient sharedRCIMClient] setConversationToTop:ConversationType_GROUP
-//            targetId:self.group.groupId
-//               isTop:swch.on];
+            RCIMClient.shared()?.setConversationToTop(.ConversationType_GROUP, targetId: circleId, isTop: sender.isOn)
+            requestConversationToTop(status: status)
+
         }else{//免打扰
-//            [[RCIMClient sharedRCIMClient] setConversationNotificationStatus:ConversationType_GROUP
-//            targetId:self.group.groupId
-//            isBlocked:swch.on
-//            success:^(RCConversationNotificationStatus nStatus) {
-//                NSLog(@"成功");
-//            }
-//            error:^(RCErrorCode status) {
-//                NSLog(@"失败");
-//            }];
+            RCIMClient.shared()?.setConversationNotificationStatus(.ConversationType_GROUP, targetId: circleId, isBlocked: sender.isOn, success: { [unowned self](nStatus) in
+                
+                self.requestConversationNotificationStatus(status: status)
+            }, error: { (error) in
+                GYZLog(error)
+            })
         }
     }
-    
+    //消息置顶
+    func requestConversationToTop(status: String){
+        if !GYZTool.checkNetWork() {
+            return
+        }
+        
+        weak var weakSelf = self
+        createHUD(message: "加载中...")
+        
+        GYZNetWork.requestNetwork("Circle/Circle/editIsTopMessage", parameters: ["is_top_message":status,"id":dataModel?.myCircleMemberModel?.id ?? ""],  success: { (response) in
+            
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(response)
+            
+            MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+            if response["result"].intValue == kQuestSuccessTag{//请求成功
+                weakSelf?.dataModel?.myCircleMemberModel?.is_top_message = status
+                weakSelf?.tableView.reloadData()
+            }
+            
+        }, failture: { (error) in
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(error)
+        })
+    }
+    //消息免打扰
+    func requestConversationNotificationStatus(status: String){
+        if !GYZTool.checkNetWork() {
+            return
+        }
+        
+        weak var weakSelf = self
+//        createHUD(message: "加载中...")
+        
+        GYZNetWork.requestNetwork("Circle/Circle/editIsMessageFree", parameters: ["is_message_free":status,"id":dataModel?.myCircleMemberModel?.id ?? ""],  success: { (response) in
+            
+//            weakSelf?.hud?.hide(animated: true)
+            GYZLog(response)
+            
+            MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+            if response["result"].intValue == kQuestSuccessTag{//请求成功
+                weakSelf?.dataModel?.myCircleMemberModel?.is_message_free = status
+                weakSelf?.tableView.reloadData()
+            }
+            
+        }, failture: { (error) in
+//            weakSelf?.hud?.hide(animated: true)
+            GYZLog(error)
+        })
+    }
 }
 extension FSIMCircleMangerDetailVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -270,8 +341,12 @@ extension FSIMCircleMangerDetailVC: UITableViewDelegate,UITableViewDataSource{
             goEditNickName()
         }else if indexPath.row == 5 { //公告
             goNoticeVC()
+        }else if indexPath.row == 4 { //二维码
+            goQRCodeVC()
         }else if indexPath.row == 6 { //简介
             goEditIntroduction()
+        }else if indexPath.row == 11 { //清空聊天内容
+            showCleanRecordMsgAlert()
         }else if indexPath.row == 12 { //退出
             showLoginOutAlert()
         }
