@@ -165,7 +165,7 @@ extension String {
         let radius : CGFloat = 5//圆角
         let borderLineWidth : CGFloat = 1.5//线宽
         let borderLineColor = UIColor.gray//线颜色
-        let boderWidth : CGFloat = 8//白带宽度
+        let boderWidth : CGFloat = 2//白带宽度
         let borderColor = UIColor.white//白带颜色
         
         return generateQRCode(size: size, color: color, bgColor: bgColor, logo: logo,radius:radius,borderLineWidth: borderLineWidth,borderLineColor: borderLineColor,boderWidth: boderWidth,borderColor: borderColor)
