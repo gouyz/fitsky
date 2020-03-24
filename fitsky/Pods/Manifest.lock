@@ -157,7 +157,7 @@ DEPENDENCIES:
   - ZFPlayer/ControlView
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
     - Alamofire
     - AlipaySDK-iOS
     - AlivcConan
@@ -254,6 +254,6 @@ SPEC CHECKSUMS:
   YBPopupMenu: 6efb286385d95ba5f97c58b8464ec873645e8764
   ZFPlayer: b2ba40c924e1b9a7f0a670632c4235ffbe6ee055
 
-PODFILE CHECKSUM: f37239da56252c53d0a3401af84ae210b7339b89
+PODFILE CHECKSUM: 8c87573e65f8dadbf20da4955cefa9dfb02c9b07
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.9.1
