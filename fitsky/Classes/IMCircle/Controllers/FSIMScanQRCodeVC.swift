@@ -10,6 +10,7 @@ import UIKit
 
 class FSIMScanQRCodeVC: GYZWhiteNavBaseVC {
     
+    var isFirstScan: Bool = true
     var lightOn = false///开光灯
     //扫描的类型
     var scanType : ScanQRCodeType?
@@ -224,12 +225,6 @@ class FSIMScanQRCodeVC: GYZWhiteNavBaseVC {
         }
         
     }
-    ///立即报事
-    @objc func onClickedBaoShi(){
-        self.scanSession!.stopRunning()
-        let baoshiVC = LHSXunGengBaoShiVC()
-        navigationController?.pushViewController(baoshiVC, animated: true)
-    }
     
     /// 闪光灯
     @objc func clickedLightBtn(btn : UIButton){
@@ -436,20 +431,20 @@ extension FSIMScanQRCodeVC : AVCaptureMetadataOutputObjectsDelegate
             if let resultObj = metadataObjects.first as? AVMetadataMachineReadableCodeObject
             {
                 
-                mNodeCode = resultObj.stringValue ?? ""
-                if mNodeCode.hasPrefix("LRS-"){
-                    if checkHasNode(){
-                        requestSign()
-                    }else{
-                        MBProgressHUD.showAutoDismissHUD(message: "请扫描该巡更路线上的节点二维码")
-                        //继续扫描
-                        self.startScan()
-                    }
-                }else{
-                    MBProgressHUD.showAutoDismissHUD(message: "请扫描指定的二维码")
-                    //继续扫描
-                    self.startScan()
-                }
+//                mNodeCode = resultObj.stringValue ?? ""
+//                if mNodeCode.hasPrefix("LRS-"){
+//                    if checkHasNode(){
+//                        requestSign()
+//                    }else{
+//                        MBProgressHUD.showAutoDismissHUD(message: "请扫描该巡更路线上的节点二维码")
+//                        //继续扫描
+//                        self.startScan()
+//                    }
+//                }else{
+//                    MBProgressHUD.showAutoDismissHUD(message: "请扫描指定的二维码")
+//                    //继续扫描
+//                    self.startScan()
+//                }
                 
             }
         }

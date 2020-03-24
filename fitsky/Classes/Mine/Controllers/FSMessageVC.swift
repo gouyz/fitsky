@@ -171,7 +171,7 @@ class FSMessageVC: GYZWhiteNavBaseVC {
     
     /// 扫一扫
     func goScanVC(){
-        let vc = FSIMCircleMangerDetailVC()
+        let vc = FSIMScanQRCodeVC()
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

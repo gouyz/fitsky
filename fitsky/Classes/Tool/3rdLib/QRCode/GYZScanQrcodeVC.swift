@@ -208,7 +208,7 @@ class GYZScanQrcodeVC: UIViewController {
             
             //设置会话
             let  scanSession = AVCaptureSession()
-            scanSession.canSetSessionPreset(AVCaptureSession.Preset.high)
+            scanSession.sessionPreset = AVCaptureSession.Preset.high
             
             if scanSession.canAddInput(input)
             {
