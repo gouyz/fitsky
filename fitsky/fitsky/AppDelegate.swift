@@ -36,9 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RCIM.shared()?.initWithAppKey(kRCIMAppKey)
         RCIM.shared()?.connectionStatusDelegate = self
         RCIM.shared()?.receiveMessageDelegate = self
-        RCIM.shared()?.userInfoDataSource = RCDRCIMDataSource.sharedInstance()
-        RCIM.shared()?.groupUserInfoDataSource = RCDRCIMDataSource.sharedInstance()
-        RCIM.shared()?.groupInfoDataSource = RCDRCIMDataSource.sharedInstance()
+        RCIM.shared()?.userInfoDataSource = self
+        RCIM.shared()?.groupInfoDataSource = self
         RCIM.shared()?.globalConversationPortraitSize = CGSize.init(width: 46, height: 46)
         RCIM.shared()?.enableTypingStatus = true
         /// //融云即时通讯 消息推送通知
@@ -592,7 +591,7 @@ extension AppDelegate : UIAlertViewDelegate{
         
     }
 }
-extension AppDelegate:RCIMConnectionStatusDelegate,RCIMReceiveMessageDelegate{
+extension AppDelegate:RCIMConnectionStatusDelegate,RCIMReceiveMessageDelegate,RCIMUserInfoDataSource,RCIMGroupInfoDataSource{
     /*!
     IMKit连接状态的的监听器
 
@@ -625,5 +624,51 @@ extension AppDelegate:RCIMConnectionStatusDelegate,RCIMReceiveMessageDelegate{
     
     func onRCIMReceive(_ message: RCMessage!, left: Int32) {
         
+    }
+    /*!
+    *获取用户信息
+    */
+    func getUserInfo(withUserId userId: String!, completion: ((RCUserInfo?) -> Void)!) {
+        if !GYZTool.checkNetWork() {
+            return
+        }
+        
+        GYZNetWork.requestNetwork("Circle/Circle/getRongyunMemberInfo", parameters: ["member_id":userId!],  success: { (response) in
+            
+            GYZLog(response)
+            
+            if response["result"].intValue == kQuestSuccessTag{//请求成功
+                guard let data = response["data"]["formdata"].dictionaryObject else { return }
+                let dataModel = FSUserInfoModel.init(dict: data)
+                let userInfo: RCUserInfo = RCUserInfo.init(userId: userId, name: dataModel.nick_name!, portrait: dataModel.avatar!)
+                completion(userInfo)
+            }
+            
+        }, failture: { (error) in
+            GYZLog(error)
+        })
+    }
+    /**
+    *  获取群组信息
+    */
+    func getGroupInfo(withGroupId groupId: String!, completion: ((RCGroup?) -> Void)!) {
+        if !GYZTool.checkNetWork() {
+            return
+        }
+        
+        GYZNetWork.requestNetwork("Circle/Circle/getRongyunCircleInfo", parameters: ["id":groupId!],  success: { (response) in
+            
+            GYZLog(response)
+            
+            if response["result"].intValue == kQuestSuccessTag{//请求成功
+                guard let data = response["data"]["formdata"].dictionaryObject else { return }
+                let dataModel = FSIMCircleModel.init(dict: data)
+                let groupInfo: RCGroup = RCGroup.init(groupId: groupId, groupName: dataModel.name!, portraitUri: dataModel.thumb!)
+                completion(groupInfo)
+            }
+            
+        }, failture: { (error) in
+            GYZLog(error)
+        })
     }
 }

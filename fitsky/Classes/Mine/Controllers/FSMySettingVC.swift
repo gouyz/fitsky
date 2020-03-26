@@ -154,6 +154,8 @@ class FSMySettingVC: GYZWhiteNavBaseVC {
             
             if response["result"].intValue == kQuestSuccessTag{//请求成功
                 GYZTool.removeUserInfo()
+                ///退出融云服务器
+                RCIM.shared()?.logout()
                 KeyWindow.rootViewController = GYZBaseNavigationVC(rootViewController: FSLoginVC())
             }else{
                 MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)

@@ -7,3 +7,4 @@ ${PODS_ROOT}/RongCloudIM/RongCloudIM/zh-Hans.lproj
 ${PODS_ROOT}/RongCloudIM/RongCloudIM/Emoji.plist
 ${PODS_ROOT}/RongCloudIM/RongCloudIM/RCColor.plist
 ${PODS_ROOT}/RongCloudIM/RongCloudIM/RCConfig.plist
+${PODS_ROOT}/RongCloudIM/RongCloudIM/RongSticker.bundle
