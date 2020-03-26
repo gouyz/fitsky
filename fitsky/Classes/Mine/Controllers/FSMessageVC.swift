@@ -22,6 +22,8 @@ class FSMessageVC: GYZWhiteNavBaseVC {
     
     var dataModel: FSMessageHomeModel?
     var rightManagerTitles: [String] = [String]()
+    /// 会话列表
+    var conversationList:[RCConversation] = [RCConversation]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +72,7 @@ class FSMessageVC: GYZWhiteNavBaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         requestMessageInfo()
+        getChatList()
     }
     // 清消息
     @objc func onClickedClearMsg(){
@@ -79,6 +82,13 @@ class FSMessageVC: GYZWhiteNavBaseVC {
         
     }
     
+    func getChatList(){
+        
+        if let list = RCIMClient.shared()?.getConversationList([RCConversationType.ConversationType_PRIVATE,RCConversationType.ConversationType_GROUP,RCConversationType.ConversationType_SYSTEM,RCConversationType.ConversationType_DISCUSSION,RCConversationType.ConversationType_CHATROOM,RCConversationType.ConversationType_APPSERVICE]) {
+            conversationList = list as! [RCConversation]
+        }
+//        conversationList = RCIMClient.shared()?.getConversationList([RCConversationType.ConversationType_PRIVATE,RCConversationType.ConversationType_GROUP,RCConversationType.ConversationType_SYSTEM,RCConversationType.ConversationType_DISCUSSION,RCConversationType.ConversationType_CHATROOM,RCConversationType.ConversationType_APPSERVICE]) as! [RCConversation]
+    }
     //清消息
     func requestClearMsg(){
         if !GYZTool.checkNetWork() {
@@ -184,7 +194,7 @@ extension FSMessageVC: UITableViewDelegate,UITableViewDataSource{
         if section == 0 {
             return titleArr.count
         }
-        return 1
+        return 1 + conversationList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -246,24 +256,29 @@ extension FSMessageVC: UITableViewDelegate,UITableViewDataSource{
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: messageChatCell) as! FSMessageChatCell
             
-            cell.tagImgView.image = UIImage.init(named: "app_icon_message_subscription")
-            cell.nameLab.text = "订阅号"
-            
-            if let model = dataModel {
-                cell.numLab.isHidden = false
-                cell.nameLab.text = model.subscriptionData?.title
-                cell.timeLab.text = model.subscriptionData?.display_send_time
-                cell.contentLab.text = (model.subscriptionData?.store_name)! + "：" + (model.subscriptionData?.title)!
+            if indexPath.row == 0 {
+                cell.tagImgView.image = UIImage.init(named: "app_icon_message_subscription")
+                cell.nameLab.text = "订阅号"
                 
-                if Int(model.subscription!) > 0 {
+                if let model = dataModel {
                     cell.numLab.isHidden = false
-                    cell.numLab.text = model.subscription
+                    cell.nameLab.text = model.subscriptionData?.title
+                    cell.timeLab.text = model.subscriptionData?.display_send_time
+                    cell.contentLab.text = (model.subscriptionData?.store_name)! + "：" + (model.subscriptionData?.title)!
+                    
+                    if Int(model.subscription!) > 0 {
+                        cell.numLab.isHidden = false
+                        cell.numLab.text = model.subscription
+                    }else{
+                        cell.numLab.isHidden = true
+                    }
                 }else{
                     cell.numLab.isHidden = true
                 }
             }else{
-                cell.numLab.isHidden = true
+                
             }
+            
             
             cell.selectionStyle = .none
             return cell
