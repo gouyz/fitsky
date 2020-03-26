@@ -81,13 +81,13 @@ class FSMessageVC: GYZWhiteNavBaseVC {
         }
         
     }
-    
+    /// 获取聊天消息
     func getChatList(){
         
-        if let list = RCIMClient.shared()?.getConversationList([RCConversationType.ConversationType_PRIVATE,RCConversationType.ConversationType_GROUP,RCConversationType.ConversationType_SYSTEM,RCConversationType.ConversationType_DISCUSSION,RCConversationType.ConversationType_CHATROOM,RCConversationType.ConversationType_APPSERVICE]) {
+        if let list = RCIMClient.shared()?.getConversationList([RCConversationType.ConversationType_PRIVATE.rawValue,RCConversationType.ConversationType_GROUP.rawValue,RCConversationType.ConversationType_SYSTEM.rawValue,RCConversationType.ConversationType_DISCUSSION.rawValue,RCConversationType.ConversationType_CHATROOM.rawValue,RCConversationType.ConversationType_APPSERVICE.rawValue]) {
             conversationList = list as! [RCConversation]
+            tableView.reloadData()
         }
-//        conversationList = RCIMClient.shared()?.getConversationList([RCConversationType.ConversationType_PRIVATE,RCConversationType.ConversationType_GROUP,RCConversationType.ConversationType_SYSTEM,RCConversationType.ConversationType_DISCUSSION,RCConversationType.ConversationType_CHATROOM,RCConversationType.ConversationType_APPSERVICE]) as! [RCConversation]
     }
     //清消息
     func requestClearMsg(){
@@ -276,6 +276,8 @@ extension FSMessageVC: UITableViewDelegate,UITableViewDataSource{
                     cell.numLab.isHidden = true
                 }
             }else{
+                let model = conversationList[indexPath.row - 1]
+                cell.nameLab.text = model.conversationTitle
                 
             }
             
