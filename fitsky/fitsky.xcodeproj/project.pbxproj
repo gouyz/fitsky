@@ -473,6 +473,7 @@
 		0AFA14BB238E74330094F6BC /* FSCookBookCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA14BA238E74330094F6BC /* FSCookBookCategoryModel.swift */; };
 		0BA1340B218A5E8791D6B5FB /* Pods_fitsky.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE040770BB4EAAA0E7E29D8 /* Pods_fitsky.framework */; };
 		88061C61242A054500BBCBD5 /* FSIMScanQRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88061C60242A054500BBCBD5 /* FSIMScanQRCodeVC.swift */; };
+		881ED2E1242AE6E7002FD758 /* FSChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881ED2E0242AE6E7002FD758 /* FSChatVC.swift */; };
 		889AD73E24288E770040FBC5 /* FSIMCircleQrcodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AD73D24288E770040FBC5 /* FSIMCircleQrcodeVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -1011,6 +1012,7 @@
 		3BE040770BB4EAAA0E7E29D8 /* Pods_fitsky.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fitsky.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56EEBEBDCA4AB711BC5E2D6A /* Pods-fitsky.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fitsky.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fitsky/Pods-fitsky.debug.xcconfig"; sourceTree = "<group>"; };
 		88061C60242A054500BBCBD5 /* FSIMScanQRCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMScanQRCodeVC.swift; sourceTree = "<group>"; };
+		881ED2E0242AE6E7002FD758 /* FSChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSChatVC.swift; sourceTree = "<group>"; };
 		889AD73D24288E770040FBC5 /* FSIMCircleQrcodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleQrcodeVC.swift; sourceTree = "<group>"; };
 		FF47584BAC956E3BC8F69255 /* Pods-fitsky.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fitsky.release.xcconfig"; path = "Pods/Target Support Files/Pods-fitsky/Pods-fitsky.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1659,6 +1661,7 @@
 				0A27C8E82427DABD000CFFBD /* FSIMCircleDetailVC.swift */,
 				889AD73D24288E770040FBC5 /* FSIMCircleQrcodeVC.swift */,
 				88061C60242A054500BBCBD5 /* FSIMScanQRCodeVC.swift */,
+				881ED2E0242AE6E7002FD758 /* FSChatVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2659,6 +2662,7 @@
 				0A52AA79236ABC5900F69B9B /* FSMyVenueProfileVC.swift in Sources */,
 				0A7339422365E3D9001A56D7 /* FSMyCoinChangeVC.swift in Sources */,
 				0A49A05824121E050027453C /* FSIMCircleMemberCell.swift in Sources */,
+				881ED2E1242AE6E7002FD758 /* FSChatVC.swift in Sources */,
 				0A4C7D5D23583D6A0082C926 /* FSModifyNickNameVC.swift in Sources */,
 				0A340EA42337CDF700153B08 /* FSCoachDetailView.swift in Sources */,
 				0A54BFC7238ECD44008C47CF /* FSFoodDetailModel.swift in Sources */,
@@ -3011,7 +3015,7 @@
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
-				DEVELOPMENT_TEAM = NBLB797Y9B;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Classes/Tool/3rdLib/QQ",
@@ -3042,7 +3046,7 @@
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
-				DEVELOPMENT_TEAM = NBLB797Y9B;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Classes/Tool/3rdLib/QQ",
@@ -3069,6 +3073,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = fitskyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3089,6 +3094,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = fitskyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3108,6 +3114,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = fitskyUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3127,6 +3134,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = fitskyUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

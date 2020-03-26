@@ -275,7 +275,16 @@ class FSJoinIMCircleVC: GYZWhiteNavBaseVC {
     }
     /// 申请
     @objc func onClickApplyBtn(){
-        requestApply()
+//        requestApply()
+        goChatVC()
+    }
+    
+    func goChatVC(){
+        let vc = FSChatVC()
+        vc.targetId = circleId
+        vc.conversationType = .ConversationType_GROUP
+        vc.userName = (dataModel?.circleModel?.name)!
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func requestApply(){
