@@ -8,29 +8,30 @@
 
 import UIKit
 
-class FSMessageCell: UITableViewCell {
+class FSMessageCell: UIView {
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    // MARK: 生命周期方法
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
-        contentView.backgroundColor = kWhiteColor
+        self.backgroundColor = kWhiteColor
+        
         setupUI()
     }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     func setupUI(){
         
-        contentView.addSubview(tagImgView)
-        contentView.addSubview(nameLab)
-        contentView.addSubview(numLab)
-        contentView.addSubview(lineView)
+        addSubview(tagImgView)
+        addSubview(nameLab)
+        addSubview(numLab)
+        addSubview(lineView)
         
         tagImgView.snp.makeConstraints { (make) in
             make.left.equalTo(kMargin)
-            make.centerY.equalTo(contentView)
+            make.centerY.equalTo(self)
             make.size.equalTo(CGSize.init(width: 36, height: 36))
         }
         nameLab.snp.makeConstraints { (make) in
@@ -45,7 +46,7 @@ class FSMessageCell: UITableViewCell {
         }
         lineView.snp.makeConstraints { (make) in
             make.left.equalTo(nameLab)
-            make.bottom.equalTo(contentView)
+            make.bottom.equalTo(self)
             make.right.equalTo(numLab)
             make.height.equalTo(klineWidth)
         }

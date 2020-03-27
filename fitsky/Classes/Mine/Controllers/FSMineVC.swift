@@ -203,6 +203,7 @@ class FSMineVC: GYZWhiteNavBaseVC {
     /// 消息
     func goMyMessage(){
         let vc = FSMessageVC()
+//        let vc = FSChatListVC()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     /// 个人主页

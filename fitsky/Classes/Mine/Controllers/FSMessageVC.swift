@@ -14,7 +14,9 @@ private let messageChatCell = "messageChatCell"
 
 private let msgCustomPopupMenuCell = "msgCustomPopupMenuCell"
 
-class FSMessageVC: GYZWhiteNavBaseVC {
+class FSMessageVC: RCConversationListViewController {
+    
+    var hud : MBProgressHUD?
     
     let titleArr:[String] = ["点赞","评论","收藏","通知"]
     let iconNameArr:[String] = ["app_icon_like_message","app_icon_comment_message","app_icon_collect_message","app_icon_message_official"]
@@ -30,10 +32,21 @@ class FSMessageVC: GYZWhiteNavBaseVC {
         
         self.navigationItem.titleView = clearBtn
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: rightBtn)
+        // 添加返回按钮,不被系统默认渲染,显示图像原始颜色
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_back_black")?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(clickedBackBtn))
         
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints { (make) in
-            make.edges.equalTo(0)
+        self.view.backgroundColor = kBackgroundColor
+        self.setDisplayConversationTypes([RCConversationType.ConversationType_PRIVATE.rawValue,RCConversationType.ConversationType_GROUP.rawValue,RCConversationType.ConversationType_APPSERVICE.rawValue,RCConversationType.ConversationType_PUBLICSERVICE.rawValue,RCConversationType.ConversationType_SYSTEM.rawValue])
+        
+        //设置tableView样式
+        self.conversationListTableView.separatorColor = kGrayLineColor
+        self.conversationListTableView.tableFooterView = UIView()
+        self.conversationListTableView.tableHeaderView = headerView
+        // 设置在NavigatorBar中显示连接中的提示
+        self.showConnectingStatusOnNavigatorBar = true
+        
+        headerView.didSelectItemBlock = {[unowned self] (index) in
+            self.goOperator(index: index)
         }
         
     }
@@ -56,23 +69,11 @@ class FSMessageVC: GYZWhiteNavBaseVC {
         
         return btn
     }()
-    lazy var tableView : UITableView = {
-        let table = UITableView(frame: CGRect.zero, style: .grouped)
-        table.dataSource = self
-        table.delegate = self
-        table.separatorStyle = .none
-        
-        
-        table.register(FSMessageCell.classForCoder(), forCellReuseIdentifier: messageCell)
-        table.register(FSMessageChatCell.classForCoder(), forCellReuseIdentifier: messageChatCell)
-        
-        return table
-    }()
+    lazy var headerView:FSMessageHeaderView = FSMessageHeaderView.init(frame: CGRect.init(x: 0, y: 0, width: kScreenWidth, height: 300))
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         requestMessageInfo()
-        getChatList()
     }
     // 清消息
     @objc func onClickedClearMsg(){
@@ -81,13 +82,36 @@ class FSMessageVC: GYZWhiteNavBaseVC {
         }
         
     }
-    /// 获取聊天消息
-    func getChatList(){
-        
-        if let list = RCIMClient.shared()?.getConversationList([RCConversationType.ConversationType_PRIVATE.rawValue,RCConversationType.ConversationType_GROUP.rawValue,RCConversationType.ConversationType_SYSTEM.rawValue,RCConversationType.ConversationType_DISCUSSION.rawValue,RCConversationType.ConversationType_CHATROOM.rawValue,RCConversationType.ConversationType_APPSERVICE.rawValue]) {
-            conversationList = list as! [RCConversation]
-            tableView.reloadData()
+    /// 返回
+    @objc func clickedBackBtn() {
+        _ = navigationController?.popViewController(animated: true)
+    }
+    /// 创建HUD
+    func createHUD(message: String){
+        if hud != nil {
+            hud?.hide(animated: true)
+            hud = nil
         }
+        
+        hud = MBProgressHUD.showHUD(message: message,toView: view)
+    }
+    ///
+    func goOperator(index: Int){
+        if index == 110 {//点赞
+            goZanMsgVC(type: "1")
+        }else if index == 112 {//收藏
+            goZanMsgVC(type: "2")
+        }else if index == 111 {//评论
+            let vc = FSMsgConmentVC()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else if index == 113 {//通知
+            let vc = FSMsgNoticeVC()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else if index == 114 {//订阅号
+            let vc = FSSubscriptionVC()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
     }
     //清消息
     func requestClearMsg(){
@@ -110,7 +134,7 @@ class FSMessageVC: GYZWhiteNavBaseVC {
                 weakSelf?.dataModel?.comment = data["comment"].stringValue
                 weakSelf?.dataModel?.notice = data["notice"].stringValue
                 weakSelf?.dataModel?.subscription = data["subscription"].stringValue
-                weakSelf?.tableView.reloadData()
+                weakSelf?.conversationListTableView.reloadData()
                 MBProgressHUD.showAutoDismissHUD(message: "清扫成功")
             }else{
                 MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
@@ -138,7 +162,7 @@ class FSMessageVC: GYZWhiteNavBaseVC {
             if response["result"].intValue == kQuestSuccessTag{//请求成功
                 guard let data = response["data"].dictionaryObject else { return }
                 weakSelf?.dataModel = FSMessageHomeModel.init(dict: data)
-                weakSelf?.tableView.reloadData()
+                weakSelf?.initHeaderViewData()
                 
             }else{
                 MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
@@ -148,6 +172,77 @@ class FSMessageVC: GYZWhiteNavBaseVC {
             weakSelf?.hud?.hide(animated: true)
             GYZLog(error)
         })
+    }
+    
+    func initHeaderViewData(){
+        headerView.dingYueView.numLab.isHidden = true
+        if let model = dataModel {
+            // 点赞
+            headerView.zanView.tagImgView.image = UIImage.init(named: iconNameArr[0])
+            headerView.zanView.tagImgView.highlightedImage = UIImage.init(named: iconHightNameArr[0])
+            headerView.zanView.nameLab.text = titleArr[0]
+            if Int(model.like!) > 0 {
+                headerView.zanView.numLab.isHidden = false
+                headerView.zanView.numLab.text = model.like
+                headerView.zanView.tagImgView.isHighlighted = true
+            }else{
+                headerView.zanView.numLab.isHidden = true
+                headerView.zanView.tagImgView.isHighlighted = false
+            }
+            
+            /// 评论
+            headerView.conmentView.tagImgView.image = UIImage.init(named: iconNameArr[1])
+            headerView.conmentView.tagImgView.highlightedImage = UIImage.init(named: iconHightNameArr[1])
+            headerView.conmentView.nameLab.text = titleArr[1]
+            if Int(model.comment!) > 0 {
+                headerView.conmentView.numLab.isHidden = false
+                headerView.conmentView.numLab.text = model.comment
+                headerView.conmentView.tagImgView.isHighlighted = true
+            }else{
+                headerView.conmentView.numLab.isHidden = true
+                headerView.conmentView.tagImgView.isHighlighted = false
+            }
+            
+            /// 收藏
+            headerView.favouriteView.tagImgView.image = UIImage.init(named: iconNameArr[2])
+            headerView.favouriteView.tagImgView.highlightedImage = UIImage.init(named: iconHightNameArr[2])
+            headerView.favouriteView.nameLab.text = titleArr[2]
+            if Int(model.collect!) > 0 {
+                headerView.favouriteView.numLab.isHidden = false
+                headerView.favouriteView.numLab.text = model.collect
+                headerView.favouriteView.tagImgView.isHighlighted = true
+            }else{
+                headerView.favouriteView.numLab.isHidden = true
+                headerView.favouriteView.tagImgView.isHighlighted = false
+            }
+            
+            /// 通知
+            headerView.noticeView.tagImgView.image = UIImage.init(named: iconNameArr[3])
+            headerView.noticeView.tagImgView.highlightedImage = UIImage.init(named: iconHightNameArr[3])
+            headerView.noticeView.nameLab.text = titleArr[3]
+            if Int(model.notice!) > 0 {
+                headerView.noticeView.numLab.isHidden = false
+                headerView.noticeView.numLab.text = model.notice
+                headerView.noticeView.tagImgView.isHighlighted = true
+            }else{
+                headerView.noticeView.numLab.isHidden = true
+                headerView.noticeView.tagImgView.isHighlighted = false
+            }
+            
+            headerView.dingYueView.tagImgView.image = UIImage.init(named: "app_icon_message_subscription")
+            headerView.dingYueView.nameLab.text = "订阅号"
+            headerView.dingYueView.numLab.isHidden = false
+            headerView.dingYueView.nameLab.text = model.subscriptionData?.title
+            headerView.dingYueView.timeLab.text = model.subscriptionData?.display_send_time
+            headerView.dingYueView.contentLab.text = (model.subscriptionData?.store_name)! + "：" + (model.subscriptionData?.title)!
+
+            if Int(model.subscription!) > 0 {
+                headerView.dingYueView.numLab.isHidden = false
+                headerView.dingYueView.numLab.text = model.subscription
+            }else{
+                headerView.dingYueView.numLab.isHidden = true
+            }
+        }
     }
     
     func goZanMsgVC(type:String){
@@ -184,153 +279,45 @@ class FSMessageVC: GYZWhiteNavBaseVC {
         let vc = FSIMScanQRCodeVC()
         self.navigationController?.pushViewController(vc, animated: true)
     }
-}
-extension FSMessageVC: UITableViewDelegate,UITableViewDataSource{
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if section == 0 {
-            return titleArr.count
-        }
-        return 1 + conversationList.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: messageCell) as! FSMessageCell
-            
-            cell.tagImgView.image = UIImage.init(named: iconNameArr[indexPath.row])
-            cell.tagImgView.highlightedImage = UIImage.init(named: iconHightNameArr[indexPath.row])
-            cell.nameLab.text = titleArr[indexPath.row]
-            
-            if let model = dataModel {
-                if indexPath.row == 0 {// 点赞
-                    
-                    if Int(model.like!) > 0 {
-                        cell.numLab.isHidden = false
-                        cell.numLab.text = model.like
-                        cell.tagImgView.isHighlighted = true
-                    }else{
-                        cell.numLab.isHidden = true
-                        cell.tagImgView.isHighlighted = false
-                    }
-                    
-                }else if indexPath.row == 1 {// 评论
-                    
-                    if Int(model.comment!) > 0 {
-                        cell.numLab.isHidden = false
-                        cell.numLab.text = model.comment
-                        cell.tagImgView.isHighlighted = true
-                    }else{
-                        cell.numLab.isHidden = true
-                        cell.tagImgView.isHighlighted = false
-                    }
-                }else if indexPath.row == 2 {// 收藏
-                    
-                    if Int(model.collect!) > 0 {
-                        cell.numLab.isHidden = false
-                        cell.numLab.text = model.collect
-                        cell.tagImgView.isHighlighted = true
-                    }else{
-                        cell.numLab.isHidden = true
-                        cell.tagImgView.isHighlighted = false
-                    }
-                }else if indexPath.row == 3{// 通知
-                    
-                    if Int(model.notice!) > 0 {
-                        cell.numLab.isHidden = false
-                        cell.numLab.text = model.notice
-                        cell.tagImgView.isHighlighted = true
-                    }else{
-                        cell.numLab.isHidden = true
-                        cell.tagImgView.isHighlighted = false
-                    }
-                }
-            }
-            
-            cell.selectionStyle = .none
-            return cell
-        }else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: messageChatCell) as! FSMessageChatCell
-            
-            if indexPath.row == 0 {
-                cell.tagImgView.image = UIImage.init(named: "app_icon_message_subscription")
-                cell.nameLab.text = "订阅号"
-                
-                if let model = dataModel {
-                    cell.numLab.isHidden = false
-                    cell.nameLab.text = model.subscriptionData?.title
-                    cell.timeLab.text = model.subscriptionData?.display_send_time
-                    cell.contentLab.text = (model.subscriptionData?.store_name)! + "：" + (model.subscriptionData?.title)!
-                    
-                    if Int(model.subscription!) > 0 {
-                        cell.numLab.isHidden = false
-                        cell.numLab.text = model.subscription
-                    }else{
-                        cell.numLab.isHidden = true
-                    }
-                }else{
-                    cell.numLab.isHidden = true
-                }
-            }else{
-                let model = conversationList[indexPath.row - 1]
-                cell.nameLab.text = model.conversationTitle
-                
-            }
-            
-            
-            cell.selectionStyle = .none
-            return cell
-        }
-    }
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        return UIView()
-    }
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            if indexPath.row == 0 {//点赞
-                goZanMsgVC(type: "1")
-            }else if indexPath.row == 2 {//收藏
-                goZanMsgVC(type: "2")
-            }else if indexPath.row == 1 {//评论
-                let vc = FSMsgConmentVC()
-                self.navigationController?.pushViewController(vc, animated: true)
-            }else if indexPath.row == 3 {//通知
-                let vc = FSMsgNoticeVC()
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
-        }else{
-            if indexPath.row == 0 {//订阅号
-                let vc = FSSubscriptionVC()
-                self.navigationController?.pushViewController(vc, animated: true)
+    /// 聊天页面
+    func pushChatVC(model: RCConversationModel){
+        let vc = FSChatVC()
+        vc.targetId = model.targetId
+        vc.conversationType = model.conversationType
+        vc.userName = model.conversationTitle
+        vc.title = model.conversationTitle
+        if model.conversationModelType == .CONVERSATION_MODEL_TYPE_NORMAL {
+            vc.unReadMessage = model.unreadMessageCount
+            vc.enableNewComingMessageIcon = true
+            vc.enableUnreadMessageIcon = true
+            if model.conversationType == .ConversationType_SYSTEM {
+                vc.userName = "系统消息"
+                vc.title = "系统消息"
+            }else if model.conversationType == .ConversationType_PRIVATE{
+                vc.displayUserNameInCell = false
             }
         }
+        navigationController?.pushViewController(vc, animated: true)
     }
-    ///MARK : UITableViewDelegate
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 1 {
-            return 64
+    /**
+    *  点击进入会话页面
+    *
+    *  @param conversationModelType 会话类型
+    *  @param model                 会话数据
+    *  @param indexPath             indexPath description
+    */
+    override func onSelectedTableRow(_ conversationModelType: RCConversationModelType, conversationModel model: RCConversationModel!, at indexPath: IndexPath!) {
+        if model.conversationModelType == .CONVERSATION_MODEL_TYPE_NORMAL || model.conversationModelType == .CONVERSATION_MODEL_TYPE_PUBLIC_SERVICE {
+            pushChatVC(model: model)
         }
-        return 50
     }
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 1 {
-            return kMargin
-        }
-        return 0.00001
+    //左滑删除
+    override func rcConversationListTableView(_ tableView: UITableView!, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath!) {
+        let model: RCConversationModel = self.conversationListDataSource[indexPath.row] as! RCConversationModel
+        RCIMClient.shared()?.remove(.ConversationType_SYSTEM, targetId: model.targetId)
+        self.conversationListDataSource.removeObject(at: indexPath.row)
+        conversationListTableView.reloadData()
     }
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        
-        return 0.00001
-    }
-    
 }
 extension FSMessageVC: YBPopupMenuDelegate{
     func ybPopupMenu(_ ybPopupMenu: YBPopupMenu!, didSelectedAt index: Int) {

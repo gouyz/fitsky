@@ -56,7 +56,7 @@ class FSSubscriptionCell: UITableViewCell {
         timeLab.snp.makeConstraints { (make) in
             make.right.equalTo(-kMargin)
             make.centerY.equalTo(nameLab)
-            make.width.equalTo(80)
+            make.width.equalTo(100)
             make.height.equalTo(20)
         }
         contentLab.snp.makeConstraints { (make) in

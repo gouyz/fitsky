@@ -120,6 +120,7 @@
 		0A26A006239D25C000319C0B /* UILabel+YBAttributeTextTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A26A005239D25C000319C0B /* UILabel+YBAttributeTextTapAction.m */; };
 		0A26A008239D518700319C0B /* GYZLabelCenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26A007239D518700319C0B /* GYZLabelCenterCell.swift */; };
 		0A26A00A239D6BCD00319C0B /* FSMyCourseSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26A009239D6BCD00319C0B /* FSMyCourseSearchVC.swift */; };
+		0A2735C9242E36070035ED5E /* FSMessageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2735C8242E36070035ED5E /* FSMessageHeaderView.swift */; };
 		0A278299242284F700FE3467 /* FSIMCircleMemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A278298242284F700FE3467 /* FSIMCircleMemberModel.swift */; };
 		0A27A519240E9C910064CDB4 /* FSIMCircleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A27A518240E9C910064CDB4 /* FSIMCircleVC.swift */; };
 		0A27A51B240E9DC00064CDB4 /* FSIMCircleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A27A51A240E9DC00064CDB4 /* FSIMCircleCell.swift */; };
@@ -624,6 +625,7 @@
 		0A26A005239D25C000319C0B /* UILabel+YBAttributeTextTapAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+YBAttributeTextTapAction.m"; sourceTree = "<group>"; };
 		0A26A007239D518700319C0B /* GYZLabelCenterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GYZLabelCenterCell.swift; sourceTree = "<group>"; };
 		0A26A009239D6BCD00319C0B /* FSMyCourseSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMyCourseSearchVC.swift; sourceTree = "<group>"; };
+		0A2735C8242E36070035ED5E /* FSMessageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMessageHeaderView.swift; sourceTree = "<group>"; };
 		0A278298242284F700FE3467 /* FSIMCircleMemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleMemberModel.swift; sourceTree = "<group>"; };
 		0A27A518240E9C910064CDB4 /* FSIMCircleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleVC.swift; sourceTree = "<group>"; };
 		0A27A51A240E9DC00064CDB4 /* FSIMCircleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleCell.swift; sourceTree = "<group>"; };
@@ -1900,6 +1902,7 @@
 				0A4DBE042396C98A00B3ACF3 /* FSSubscriptionCell.swift */,
 				0A4DBE062396CCF500B3ACF3 /* FSSubscriptionDetailCell.swift */,
 				0A30CDB523CE070600AC4F56 /* FSRiLiItemView.swift */,
+				0A2735C8242E36070035ED5E /* FSMessageHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2567,6 +2570,7 @@
 				0A8F67CF2350632A00EC0DF1 /* FSNewsListCell.swift in Sources */,
 				0A24D5D4238D8308002866C6 /* FSFoodModel.swift in Sources */,
 				0A18603623AFB40A006ABEC7 /* FSPersonHomeListHeaderView.swift in Sources */,
+				0A2735C9242E36070035ED5E /* FSMessageHeaderView.swift in Sources */,
 				0AF7F26522E1BBD50038CA46 /* FSSelectCityVC.swift in Sources */,
 				0A4D405D235715250040F505 /* FSFoodMenuDetailCell.swift in Sources */,
 				0A197BE92332902B006D6F71 /* FSBuyGoodsHeaderView.swift in Sources */,

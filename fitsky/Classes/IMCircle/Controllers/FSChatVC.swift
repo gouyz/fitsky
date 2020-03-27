@@ -22,7 +22,7 @@ class FSChatVC: RCConversationViewController {
     }
     /// 未读消息数
     func getTotalUnreadCount() ->Int{
-        let count: Int32 = RCIMClient.shared()?.getUnreadCount([RCConversationType.ConversationType_PRIVATE,RCConversationType.ConversationType_GROUP,RCConversationType.ConversationType_APPSERVICE,RCConversationType.ConversationType_PUBLICSERVICE,RCConversationType.ConversationType_SYSTEM]) ?? 0
+        let count: Int32 = RCIMClient.shared()?.getUnreadCount([RCConversationType.ConversationType_PRIVATE.rawValue,RCConversationType.ConversationType_GROUP.rawValue,RCConversationType.ConversationType_APPSERVICE.rawValue,RCConversationType.ConversationType_PUBLICSERVICE.rawValue,RCConversationType.ConversationType_SYSTEM.rawValue]) ?? 0
         
         return Int(count)
     }
@@ -40,7 +40,7 @@ class FSChatVC: RCConversationViewController {
         leftBtn.setTitle("取消", for: .normal)
         leftBtn.titleLabel?.font = k15Font
         leftBtn.setTitleColor(kHeightGaryFontColor, for: .normal)
-        leftBtn.frame = CGRect.init(x: 0, y: 0, width: 87, height: kTitleHeight)
+        leftBtn.frame = CGRect.init(x: 0, y: 0, width: kTitleHeight, height: kTitleHeight)
         leftBtn.set(image: UIImage.init(named: "icon_back_black"), title: backString, titlePosition: .right, additionalSpacing: 5, state: .normal)
         leftBtn.addTarget(self, action: #selector(leftBarButtonItemPressed), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: leftBtn)

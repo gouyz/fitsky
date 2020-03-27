@@ -8,31 +8,32 @@
 
 import UIKit
 
-class FSMessageChatCell: UITableViewCell {
+class FSMessageChatCell: UIView {
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    // MARK: 生命周期方法
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
-        contentView.backgroundColor = kWhiteColor
+        self.backgroundColor = kWhiteColor
+        
         setupUI()
     }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     func setupUI(){
         
-        contentView.addSubview(tagImgView)
-        contentView.addSubview(nameLab)
-        contentView.addSubview(timeLab)
-        contentView.addSubview(contentLab)
-        contentView.addSubview(numLab)
-        contentView.addSubview(lineView)
+        addSubview(tagImgView)
+        addSubview(nameLab)
+        addSubview(timeLab)
+        addSubview(contentLab)
+        addSubview(numLab)
+        addSubview(lineView)
         
         tagImgView.snp.makeConstraints { (make) in
             make.left.equalTo(kMargin)
-            make.centerY.equalTo(contentView)
+            make.centerY.equalTo(self)
             make.size.equalTo(CGSize.init(width: 48, height: 48))
         }
         nameLab.snp.makeConstraints { (make) in
@@ -44,7 +45,7 @@ class FSMessageChatCell: UITableViewCell {
         timeLab.snp.makeConstraints { (make) in
             make.right.equalTo(-kMargin)
             make.centerY.equalTo(nameLab)
-            make.width.equalTo(80)
+            make.width.equalTo(100)
             make.height.equalTo(20)
         }
         contentLab.snp.makeConstraints { (make) in
@@ -59,7 +60,7 @@ class FSMessageChatCell: UITableViewCell {
             make.height.equalTo(16)
         }
         lineView.snp.makeConstraints { (make) in
-            make.left.right.bottom.equalTo(contentView)
+            make.left.right.bottom.equalTo(self)
             make.height.equalTo(klineWidth)
         }
         
