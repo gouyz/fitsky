@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class FSIMScanQRCodeVC: GYZWhiteNavBaseVC {
     
@@ -318,68 +319,34 @@ class FSIMScanQRCodeVC: GYZWhiteNavBaseVC {
             catch{ }
         }
     }
-    // 签到
-//    func requestSign(){
+    // 申请加入社圈
+    func requestApply(code: String){
+        if !GYZTool.checkNetWork() {
+            return
+        }
+        
+        weak var weakSelf = self
+        createHUD(message: "加载中...")
+        
+        GYZNetWork.requestNetwork("Circle/Circle/join", parameters: ["circle_id":code],  success: { (response) in
+            
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(response)
+        
+            MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+//            if response["result"].intValue == kQuestSuccessTag{//请求成功
 //
-//        createHUD(message: "加载中...")
-//
-//        weak var weakSelf = self
-//
-//        var dict: [String:Any] = [:]
-//        dict["ppaId"] = userDefaults.string(forKey: "userId")
-//        dict["wtdId"] = mTaskId
-//        dict["nodeCode"] = mNodeCode
-//        dict["scanner"] = IDFV
-//        dict["lng"] = mLon
-//        dict["lat"] = mLat
-//
-//        if !(networkManager?.isReachable)! {
-//
-//            dict["punchTime"] = String.init(Int.init(Date().timeIntervalSince1970 * 1000))
-//            let signModel: LHSSaveSignModel = LHSSaveSignModel.init(dict: dict)
-//
-//            signModel.saveToDB()
-//
-//            hud?.hide(animated: true)
-//            MBProgressHUD.showCustomTimeHUD(message: "网络不可用！有网络时会自动上传数据", time: 3.0)
-//
-//            //继续扫描
-//            startScan()
-//
-//            return
-//        }
-//
-//        GYZNetWork.requestNetwork("xg/signIn.do",baseUrl: BaseRequestURL_XG,parameters: dict,  success: { (response) in
-//
-//            weakSelf?.hud?.hide(animated: true)
-//            GYZLog(response)
-//            if response["code"].intValue == kQuestSuccessTag{//请求成功
-//                guard let data = response["data"].dictionaryObject else { return }
-//                let scanResultModel: LHSXunGengScanResultModel = LHSXunGengScanResultModel.init(dict: data)
-//                weakSelf?.isEnd = scanResultModel.isend!
-//
-//                if (scanResultModel.deviceParams?.isEmpty)!{
-//                    //不是设备直接刷新数据
-//                    weakSelf?.notificationResult()
-//                }else{//展示设备内容
-//                    weakSelf?.goDeviceDetail(model: scanResultModel)
-//                    //                    weakSelf?.showAlert(content: (scanResultModel.remark)!)
-//                }
-//
-//            }else{
-//                MBProgressHUD.showAutoDismissHUD(message: response["message"].stringValue)
-//                //继续扫描
-//                weakSelf?.startScan()
 //            }
-//
-//        }, failture: { (error) in
-//
-//            weakSelf?.hud?.hide(animated: true)
-//            GYZLog(error)
-//            //继续扫描
-//            weakSelf?.startScan()
-//        })
-//    }
+            //继续扫描
+            self.startScan()
+            
+        }, failture: { (error) in
+            weakSelf?.hud?.hide(animated: true)
+            //继续扫描
+            self.startScan()
+            GYZLog(error)
+        })
+    }
     
     //MARK: Dealloc
     deinit{
@@ -431,20 +398,15 @@ extension FSIMScanQRCodeVC : AVCaptureMetadataOutputObjectsDelegate
             if let resultObj = metadataObjects.first as? AVMetadataMachineReadableCodeObject
             {
                 
-//                mNodeCode = resultObj.stringValue ?? ""
-//                if mNodeCode.hasPrefix("LRS-"){
-//                    if checkHasNode(){
-//                        requestSign()
-//                    }else{
-//                        MBProgressHUD.showAutoDismissHUD(message: "请扫描该巡更路线上的节点二维码")
-//                        //继续扫描
-//                        self.startScan()
-//                    }
-//                }else{
-//                    MBProgressHUD.showAutoDismissHUD(message: "请扫描指定的二维码")
-//                    //继续扫描
-//                    self.startScan()
-//                }
+                var mNodeCode: String = resultObj.stringValue ?? ""
+                if mNodeCode.hasPrefix("202003"){
+                    mNodeCode = mNodeCode.subString(start: 6)
+                    requestApply(code: mNodeCode)
+                }else{
+                    MBProgressHUD.showAutoDismissHUD(message: "请扫描指定的二维码")
+                    //继续扫描
+                    self.startScan()
+                }
                 
             }
         }

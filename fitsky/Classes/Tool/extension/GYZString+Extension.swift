@@ -404,19 +404,19 @@ extension String {
     }
     
     // base64编码
-    func toBase64() -> String? {
+    func toBase64() -> String {
         if let data = self.data(using: .utf8) {
             return data.base64EncodedString()
         }
-        return nil
+        return ""
     }
     
     // base64解码
-    func fromBase64() -> String? {
+    func fromBase64() -> String {
         if let data = Data(base64Encoded: self) {
-            return String(data: data, encoding: .utf8)
+            return String(data: data, encoding: .utf8) ?? ""
         }
-        return nil
+        return ""
     }
     
     // 替换手机号中间四位
