@@ -213,6 +213,7 @@ extension FSFindCircleVC: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         self.isSearch = false
+        self.searchBar.text = ""
         self.searchBar.showsCancelButton = false
         dataList.removeAll()
         tableView.reloadData()

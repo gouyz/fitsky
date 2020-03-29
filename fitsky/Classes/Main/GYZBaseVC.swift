@@ -33,13 +33,15 @@ class GYZBaseVC: UIViewController {
         self.view.backgroundColor = kBackgroundColor
         navBarBgAlpha = 1
         
+        if !isWhiteBack {
+            setNeedsStatusBarAppearanceUpdate()
+        }
         if navigationController?.children.count > 1 {
             // 添加返回按钮,不被系统默认渲染,显示图像原始颜色
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: (isWhiteBack ? "icon_back_white" : "icon_back_black"))?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(clickedBackBtn))
         }
         
     }
-    
     /// 重载设置状态栏样式
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if statusBarShouldLight {

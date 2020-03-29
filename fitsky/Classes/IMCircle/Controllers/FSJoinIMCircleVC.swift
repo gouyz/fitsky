@@ -278,14 +278,6 @@ class FSJoinIMCircleVC: GYZWhiteNavBaseVC {
         requestApply()
     }
     
-//    func goChatVC(){
-//        let vc = FSChatVC()
-//        vc.targetId = circleId
-//        vc.conversationType = .ConversationType_GROUP
-//        vc.userName = (dataModel?.circleModel?.name)!
-//        navigationController?.pushViewController(vc, animated: true)
-//    }
-    
     func requestApply(){
         if !GYZTool.checkNetWork() {
             return

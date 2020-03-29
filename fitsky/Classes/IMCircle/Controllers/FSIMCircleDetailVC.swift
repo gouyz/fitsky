@@ -115,10 +115,11 @@ class FSIMCircleDetailVC: GYZWhiteNavBaseVC {
     }
     ///清空聊天内容
     func requestCleanRecord(){
-        RCDIMService.shared().clearHistoryMessage(.ConversationType_GROUP, targetId: circleId, successBlock: {
+        let isClear: Bool = (RCIMClient.shared()?.clearMessages(.ConversationType_GROUP, targetId: circleId))!
+        if isClear {
             MBProgressHUD.showAutoDismissHUD(message: "清除成功")
-        }) { (error) in
-            GYZLog(error)
+        }else{
+            MBProgressHUD.showAutoDismissHUD(message: "清除失败")
         }
     }
     /// 退出社圈

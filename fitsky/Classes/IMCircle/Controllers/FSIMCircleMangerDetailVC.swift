@@ -129,6 +129,13 @@ class FSIMCircleMangerDetailVC: GYZWhiteNavBaseVC {
         vc.headerImgUrl = dataModel?.circleModel?.thumb ?? ""
         navigationController?.pushViewController(vc, animated: true)
     }
+    /// 查找聊天
+    func goSearchChatVC(){
+        let vc = FSSearchChatRecordVC()
+        vc.targetId = circleId
+        vc.conversationType = .ConversationType_GROUP
+        navigationController?.pushViewController(vc, animated: true)
+    }
     ///清空聊天内容
     func showCleanRecordMsgAlert(){
         GYZAlertViewTools.alertViewTools.showAlert(title: nil, message: "确认清空聊天内容吗?", cancleTitle: "取消", viewController: self, buttonTitles: "确定") { [unowned self] (tag) in
@@ -140,10 +147,11 @@ class FSIMCircleMangerDetailVC: GYZWhiteNavBaseVC {
     }
     ///清空聊天内容
     func requestCleanRecord(){
-        RCDIMService.shared().clearHistoryMessage(.ConversationType_GROUP, targetId: circleId, successBlock: {
+        let isClear: Bool = (RCIMClient.shared()?.clearMessages(.ConversationType_GROUP, targetId: circleId))!
+        if isClear {
             MBProgressHUD.showAutoDismissHUD(message: "清除成功")
-        }) { (error) in
-            GYZLog(error)
+        }else{
+            MBProgressHUD.showAutoDismissHUD(message: "清除失败")
         }
     }
     /// 退出社圈
@@ -345,6 +353,8 @@ extension FSIMCircleMangerDetailVC: UITableViewDelegate,UITableViewDataSource{
             goQRCodeVC()
         }else if indexPath.row == 6 { //简介
             goEditIntroduction()
+        }else if indexPath.row == 9 { //查找聊天内容
+            goSearchChatVC()
         }else if indexPath.row == 11 { //清空聊天内容
             showCleanRecordMsgAlert()
         }else if indexPath.row == 12 { //退出

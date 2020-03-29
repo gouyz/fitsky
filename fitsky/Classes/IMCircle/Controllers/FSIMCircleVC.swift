@@ -169,24 +169,32 @@ class FSIMCircleVC: GYZWhiteNavBaseVC {
     }
     /// 社圈
     func goCircle(model:FSIMCircleModel){
+        let vc = FSChatVC()
+        vc.targetId = model.id!
+        vc.conversationType = .ConversationType_GROUP
+        vc.userName = model.name!
         if model.memberModel?.is_group == "1" || model.memberModel?.is_admin == "1"{
-            goManagerDetail(cirId: model.id!)
-        }else{
-            goCircleDetail(cirId: model.id!)
+            vc.ismanager = true
         }
+        navigationController?.pushViewController(vc, animated: true)
+//        if model.memberModel?.is_group == "1" || model.memberModel?.is_admin == "1"{
+//            goManagerDetail(cirId: model.id!)
+//        }else{
+//            goCircleDetail(cirId: model.id!)
+//        }
     }
     // 管理员详情
-    func goManagerDetail(cirId: String){
-        let vc = FSIMCircleMangerDetailVC()
-        vc.circleId = cirId
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    // 普通成员详情
-    func goCircleDetail(cirId: String){
-        let vc = FSIMCircleDetailVC()
-        vc.circleId = cirId
-        navigationController?.pushViewController(vc, animated: true)
-    }
+//    func goManagerDetail(cirId: String){
+//        let vc = FSIMCircleMangerDetailVC()
+//        vc.circleId = cirId
+//        navigationController?.pushViewController(vc, animated: true)
+//    }
+//    // 普通成员详情
+//    func goCircleDetail(cirId: String){
+//        let vc = FSIMCircleDetailVC()
+//        vc.circleId = cirId
+//        navigationController?.pushViewController(vc, animated: true)
+//    }
 }
 extension FSIMCircleVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {

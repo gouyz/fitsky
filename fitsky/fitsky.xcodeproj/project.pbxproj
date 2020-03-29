@@ -444,6 +444,12 @@
 		0A8F67CF2350632A00EC0DF1 /* FSNewsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8F67CE2350632A00EC0DF1 /* FSNewsListCell.swift */; };
 		0A8F67D123506CDD00EC0DF1 /* FSSupportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8F67D023506CDD00EC0DF1 /* FSSupportVC.swift */; };
 		0A8F67D323506E7B00EC0DF1 /* FSFindSupportHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8F67D223506E7B00EC0DF1 /* FSFindSupportHeaderView.swift */; };
+		0A9C17BB2430677800E5931C /* FSPersonHomeBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9C17BA2430677800E5931C /* FSPersonHomeBottomView.swift */; };
+		0A9C17BD243074CB00E5931C /* FSChatImageSlideVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9C17BC243074CB00E5931C /* FSChatImageSlideVC.swift */; };
+		0A9C17BF24307DD400E5931C /* FSPrivateChatSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9C17BE24307DD400E5931C /* FSPrivateChatSettingVC.swift */; };
+		0A9C17C12430CC4C00E5931C /* FSSearchChatRecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9C17C02430CC4C00E5931C /* FSSearchChatRecordVC.swift */; };
+		0A9C17C32430D39D00E5931C /* FSSearchChatMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9C17C22430D39D00E5931C /* FSSearchChatMessageModel.swift */; };
+		0A9C17C52430E3B000E5931C /* FSSearchChatMsgCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9C17C42430E3B000E5931C /* FSSearchChatMsgCell.swift */; };
 		0A9C68F523AB64C4008D320D /* FSPasterImgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9C68F423AB64C4008D320D /* FSPasterImgView.swift */; };
 		0AA3EA2E234F1FB800653AA3 /* FSTrainListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA3EA2D234F1FB800653AA3 /* FSTrainListVC.swift */; };
 		0AA3EA30234F209C00653AA3 /* FSTrainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA3EA2F234F209C00653AA3 /* FSTrainHeaderView.swift */; };
@@ -981,6 +987,12 @@
 		0A8F67CE2350632A00EC0DF1 /* FSNewsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSNewsListCell.swift; sourceTree = "<group>"; };
 		0A8F67D023506CDD00EC0DF1 /* FSSupportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSupportVC.swift; sourceTree = "<group>"; };
 		0A8F67D223506E7B00EC0DF1 /* FSFindSupportHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFindSupportHeaderView.swift; sourceTree = "<group>"; };
+		0A9C17BA2430677800E5931C /* FSPersonHomeBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSPersonHomeBottomView.swift; sourceTree = "<group>"; };
+		0A9C17BC243074CB00E5931C /* FSChatImageSlideVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSChatImageSlideVC.swift; sourceTree = "<group>"; };
+		0A9C17BE24307DD400E5931C /* FSPrivateChatSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSPrivateChatSettingVC.swift; sourceTree = "<group>"; };
+		0A9C17C02430CC4C00E5931C /* FSSearchChatRecordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSearchChatRecordVC.swift; sourceTree = "<group>"; };
+		0A9C17C22430D39D00E5931C /* FSSearchChatMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSearchChatMessageModel.swift; sourceTree = "<group>"; };
+		0A9C17C42430E3B000E5931C /* FSSearchChatMsgCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSearchChatMsgCell.swift; sourceTree = "<group>"; };
 		0A9C68F423AB64C4008D320D /* FSPasterImgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSPasterImgView.swift; sourceTree = "<group>"; };
 		0AA3EA2D234F1FB800653AA3 /* FSTrainListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTrainListVC.swift; sourceTree = "<group>"; };
 		0AA3EA2F234F209C00653AA3 /* FSTrainHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTrainHeaderView.swift; sourceTree = "<group>"; };
@@ -1638,6 +1650,7 @@
 				0A399FE62423BF5C0082C1E3 /* FSIMCircleInitModel.swift */,
 				0A399FE82423CAA60082C1E3 /* FSIMCircleDetailModel.swift */,
 				0A27C8E624279968000CFFBD /* FSIMCircleNoticeModel.swift */,
+				0A9C17C22430D39D00E5931C /* FSSearchChatMessageModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1664,6 +1677,9 @@
 				889AD73D24288E770040FBC5 /* FSIMCircleQrcodeVC.swift */,
 				88061C60242A054500BBCBD5 /* FSIMScanQRCodeVC.swift */,
 				881ED2E0242AE6E7002FD758 /* FSChatVC.swift */,
+				0A9C17BC243074CB00E5931C /* FSChatImageSlideVC.swift */,
+				0A9C17BE24307DD400E5931C /* FSPrivateChatSettingVC.swift */,
+				0A9C17C02430CC4C00E5931C /* FSSearchChatRecordVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1680,6 +1696,7 @@
 				0A46F3F62414BD8500165B8E /* FSTransferManageCell.swift */,
 				0A46F3FA2414C1A700165B8E /* FSApplyJoinIMCircleCell.swift */,
 				0A46F4022414D1C500165B8E /* FSIMCircleNoticeCell.swift */,
+				0A9C17C42430E3B000E5931C /* FSSearchChatMsgCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1771,6 +1788,7 @@
 				0A18603523AFB40A006ABEC7 /* FSPersonHomeListHeaderView.swift */,
 				0A18603723AFBDB4006ABEC7 /* FSPersonHomeAblumHeaderView.swift */,
 				0A45082D23B44F1900D7C687 /* FSDynamicVideoDetailCell.swift */,
+				0A9C17BA2430677800E5931C /* FSPersonHomeBottomView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2394,6 +2412,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A9C17C32430D39D00E5931C /* FSSearchChatMessageModel.swift in Sources */,
 				0A12F9D522E8B00C00AD7BB5 /* FSSearchCityVC.swift in Sources */,
 				0A13EAD023546DD0007F41EC /* FSTitleAndMoreHeaderView.swift in Sources */,
 				0A9C68F523AB64C4008D320D /* FSPasterImgView.swift in Sources */,
@@ -2446,6 +2465,7 @@
 				0A3F4C962363E62A00017B4E /* FSLinkCustomerAlertView.swift in Sources */,
 				0A25EA6723981234004FBEF7 /* GYZTencentShare.swift in Sources */,
 				0A52AA73236A7EB000F69B9B /* FSMineVenueVC.swift in Sources */,
+				0A9C17C52430E3B000E5931C /* FSSearchChatMsgCell.swift in Sources */,
 				0A24E12E242117FB00B91BB7 /* FSIMCircleCategoryVC.swift in Sources */,
 				0A2456CE2385A0FF0021BDEC /* FSVenueCocahDetailModel.swift in Sources */,
 				0A39E12D23519F020004A68A /* FSBodyStrongListVC.swift in Sources */,
@@ -2485,6 +2505,7 @@
 				0A47C0FF22D4858E00207CED /* LHSUserInfoModel.swift in Sources */,
 				0A3CFD1F2330721600A141E4 /* FSCoachModel.swift in Sources */,
 				0A4C7D5F235851250082C926 /* FSModifyIntroductionVC.swift in Sources */,
+				0A9C17C12430CC4C00E5931C /* FSSearchChatRecordVC.swift in Sources */,
 				0A47C11F22D4858E00207CED /* Picker.swift in Sources */,
 				0A2485B7239551D8008F1905 /* FSMessageVC.swift in Sources */,
 				0A1BC675238D0D5D00313CF2 /* FSFindCourseDetailModel.swift in Sources */,
@@ -2494,6 +2515,7 @@
 				0A243F4323536C4C002566CD /* FSFoodMenuCategoryVC.swift in Sources */,
 				0A4DBE052396C98A00B3ACF3 /* FSSubscriptionCell.swift in Sources */,
 				0A7339442365F268001A56D7 /* FSCoinChangeCell.swift in Sources */,
+				0A9C17BD243074CB00E5931C /* FSChatImageSlideVC.swift in Sources */,
 				0AD08E202366E00F00D727F5 /* FSMyCourseOrderVC.swift in Sources */,
 				0A47C10D22D4858E00207CED /* GYZUIButton+Extension.swift in Sources */,
 				0A216364231C0173008463A1 /* FSWorksCategoryModel.swift in Sources */,
@@ -2732,6 +2754,7 @@
 				0A399FE92423CAA60082C1E3 /* FSIMCircleDetailModel.swift in Sources */,
 				0A21A24423609C0F008F7647 /* FSAccountSafeVC.swift in Sources */,
 				0A220061239583EA00B9B928 /* FSMsgZanCell.swift in Sources */,
+				0A9C17BB2430677800E5931C /* FSPersonHomeBottomView.swift in Sources */,
 				0A60961B23136D3800C06896 /* FSAllReplyMsgVC.swift in Sources */,
 				0A45FFCB235379EE00EF6B21 /* FSFindQiCaiCell.swift in Sources */,
 				0A243F412352239D002566CD /* FSFoodMenuListCell.swift in Sources */,
@@ -2786,6 +2809,7 @@
 				0A47C14122D4858E00207CED /* GYZThrowLineTool.swift in Sources */,
 				0AC5C576230EDC2E005AB87B /* FSConmentHeaderView.swift in Sources */,
 				0A22B219237DB7260011BD8A /* FSCoinDetailCell.swift in Sources */,
+				0A9C17BF24307DD400E5931C /* FSPrivateChatSettingVC.swift in Sources */,
 				0A46F3FF2414CB8800165B8E /* FSEditIMCircleNameVC.swift in Sources */,
 				0AF823E42322530A00582D8D /* FSTopicBottomView.swift in Sources */,
 				0A3CFD232330864400A141E4 /* FSVenueInfoCell.swift in Sources */,
@@ -3015,11 +3039,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = fitsky/fitsky.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Changzhou Tricolor Feather Sports Culture Media Co., Ltd. (NBLB797Y9B)";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = NBLB797Y9B;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Classes/Tool/3rdLib/QQ",
@@ -3046,11 +3071,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = fitsky/fitsky.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Changzhou Tricolor Feather Sports Culture Media Co., Ltd. (NBLB797Y9B)";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = NBLB797Y9B;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Classes/Tool/3rdLib/QQ",
@@ -3077,7 +3103,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = NBLB797Y9B;
 				INFOPLIST_FILE = fitskyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3098,7 +3124,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = NBLB797Y9B;
 				INFOPLIST_FILE = fitskyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3118,7 +3144,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = NBLB797Y9B;
 				INFOPLIST_FILE = fitskyUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3138,7 +3164,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = NBLB797Y9B;
 				INFOPLIST_FILE = fitskyUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

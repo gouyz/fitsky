@@ -9,6 +9,8 @@
 import UIKit
 
 class FSChatVC: RCConversationViewController {
+    /// 社圈 管理员
+    var ismanager: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +20,14 @@ class FSChatVC: RCConversationViewController {
         self.notifyUpdateUnreadMessageCount()
         //开启语音连读功能
         self.enableContinuousReadUnreadVoice = true
+        // 移除发送位置
+        self.chatSessionInputBarControl.pluginBoardView.removeItem(at: 2)
         
+        if self.conversationType == .ConversationType_PRIVATE || self.conversationType == .ConversationType_GROUP {
+            setRightNavigationItem()
+        }else{
+            self.navigationItem.rightBarButtonItem = nil
+        }
     }
     /// 未读消息数
     func getTotalUnreadCount() ->Int{
@@ -37,7 +46,6 @@ class FSChatVC: RCConversationViewController {
             backString = "返回"
         }
         let leftBtn = UIButton(type: .custom)
-        leftBtn.setTitle("取消", for: .normal)
         leftBtn.titleLabel?.font = k15Font
         leftBtn.setTitleColor(kHeightGaryFontColor, for: .normal)
         leftBtn.frame = CGRect.init(x: 0, y: 0, width: kTitleHeight, height: kTitleHeight)
@@ -46,6 +54,49 @@ class FSChatVC: RCConversationViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: leftBtn)
     }
     
+    func setRightNavigationItem(){
+        let leftBtn = UIButton(type: .custom)
+        leftBtn.titleLabel?.font = k13Font
+        leftBtn.setTitleColor(kHeightGaryFontColor, for: .normal)
+        leftBtn.frame = CGRect.init(x: 0, y: 0, width: kTitleHeight, height: kTitleHeight)
+        leftBtn.setTitle("设置", for: .normal)
+        leftBtn.addTarget(self, action: #selector(goSetting), for: .touchUpInside)
+        navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: leftBtn)
+    }
+    /// 设置
+    @objc func goSetting(){
+        if conversationType == .ConversationType_PRIVATE {
+            goPrivateSetting()
+        }else if conversationType == .ConversationType_GROUP{
+            if ismanager {
+                goManagerDetail()
+            }else{
+                goCircleDetail()
+            }
+        }
+    }
+    // 单聊设置
+    func goPrivateSetting(){
+        let vc = FSPrivateChatSettingVC()
+        vc.targetId = self.targetId
+        vc.resultBlock = {[unowned self]() in
+            self.conversationDataRepository.removeAllObjects()
+            self.conversationMessageCollectionView.reloadData()
+        }
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    // 管理员详情
+    func goManagerDetail(){
+        let vc = FSIMCircleMangerDetailVC()
+        vc.circleId = self.targetId
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    // 普通成员详情
+    func goCircleDetail(){
+        let vc = FSIMCircleDetailVC()
+        vc.circleId = self.targetId
+        navigationController?.pushViewController(vc, animated: true)
+    }
     /// 返回
     override func leftBarButtonItemPressed(_ sender: Any!) {
         super.leftBarButtonItemPressed(sender)
@@ -75,7 +126,7 @@ extension FSChatVC:RCMessageCellDelegate{
     *  @param imageMessageContent 图片消息内容
     */
     override func presentImagePreviewController(_ model: RCMessageModel!) {
-        let previewController = RCImagePreviewController.init()
+        let previewController = FSChatImageSlideVC.init()
         previewController.messageModel = model
         previewController.navigationItem.title = "图片预览"
         

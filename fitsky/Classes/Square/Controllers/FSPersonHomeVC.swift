@@ -52,6 +52,15 @@ class FSPersonHomeVC: GYZWhiteNavBaseVC {
         userHeaderView.followNumLab.addOnClickListener(target: self, action: #selector(onClickedFollowAndFenSi))
         userHeaderView.fenSiNumLab.addOnClickListener(target: self, action: #selector(onClickedFollowAndFenSi))
         
+        self.view.addSubview(bottomView)
+        bottomView.snp.makeConstraints { (make) in
+            make.bottom.equalTo(-kStateHeight)
+            make.right.equalTo(-kMargin)
+            make.size.equalTo(CGSize.init(width: 50, height: 96))
+        }
+        
+        bottomView.followImgView.addOnClickListener(target: self, action: #selector(onClickedFolled))
+        bottomView.chatImgView.addOnClickListener(target: self, action: #selector(onClickedChat))
         
         requestUserInfo()
     }
@@ -102,6 +111,8 @@ class FSPersonHomeVC: GYZWhiteNavBaseVC {
     // header
     lazy var userHeaderView: FSPersonHomeHeaderView = FSPersonHomeHeaderView.init(frame: CGRect.init(x: 0, y: 0, width: kScreenWidth, height: CGFloat.init(JXTableHeaderViewHeight)))
     
+    /// 底部按钮
+    lazy var bottomView: FSPersonHomeBottomView = FSPersonHomeBottomView.init()
     ///用户基本信息
     func requestUserInfo(){
         if !GYZTool.checkNetWork() {
@@ -167,6 +178,14 @@ class FSPersonHomeVC: GYZWhiteNavBaseVC {
             userHeaderView.fenSiNumLab.text = "粉丝 \((userModel?.formData?.fans)!)"
             userHeaderView.confirmLab.text = userModel?.formData?.type_text
             
+            /// 好友关系（0-未关注 1-已关注 2-相互关注 3-自己）
+            if userModel?.formData?.friend_type == "0"{
+                bottomView.followImgView.isHighlighted = false
+            }else if userModel?.formData?.friend_type == "1" || userModel?.formData?.friend_type == "2" { bottomView.followImgView.isHighlighted = true
+            }else{
+                bottomView.isHidden = true
+            }
+            
             
             userHeaderView.birthdayLab.text = userModel?.formData?.birthday
             userHeaderView.addressLab.text = (userModel?.formData?.province)! + (userModel?.formData?.city)! + (userModel?.formData?.county)!
@@ -205,6 +224,42 @@ class FSPersonHomeVC: GYZWhiteNavBaseVC {
         let vc = FSFollowAndFenSiVC()
         vc.userId = self.userId
         vc.sex = (userModel?.formData?.sex)!
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    /// 关注
+    @objc func onClickedFolled(){
+        if !GYZTool.checkNetWork() {
+            return
+        }
+        
+        weak var weakSelf = self
+        createHUD(message: "加载中...")
+        GYZNetWork.requestNetwork("Member/MemberFollow/add", parameters: ["friend_id":userId],  success: { (response) in
+            
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(response)
+            MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+            if response["result"].intValue == kQuestSuccessTag{//请求成功
+                let data = response["data"]
+                weakSelf?.userModel?.formData?.friend_type = data["statue"].stringValue
+                if weakSelf?.userModel?.formData?.friend_type == "0" {
+                    weakSelf?.bottomView.followImgView.isHighlighted = false
+                }else{
+                    weakSelf?.bottomView.followImgView.isHighlighted = true
+                }
+            }
+            
+        }, failture: { (error) in
+            weakSelf?.hud?.hide(animated: true)
+            GYZLog(error)
+        })
+    }
+    /// 聊天
+    @objc func onClickedChat(){
+        let vc = FSChatVC()
+        vc.targetId = userId
+        vc.conversationType = .ConversationType_PRIVATE
+        vc.userName = (userModel?.formData?.nick_name)!
         navigationController?.pushViewController(vc, animated: true)
     }
 }

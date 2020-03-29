@@ -44,6 +44,7 @@ class FSMessageVC: RCConversationListViewController {
         self.conversationListTableView.tableHeaderView = headerView
         // 设置在NavigatorBar中显示连接中的提示
         self.showConnectingStatusOnNavigatorBar = true
+        self.emptyConversationView = UIView()
         
         headerView.didSelectItemBlock = {[unowned self] (index) in
             self.goOperator(index: index)
