@@ -26,6 +26,7 @@ class GYZBaseVC: UIViewController {
     var statusBarShouldLight = true
     /// 是否是白色返回键
     var isWhiteBack = true
+    var loginFailureTimes: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,6 +129,10 @@ class GYZBaseVC: UIViewController {
         }, error: { (status) in
             GYZLog(status)
         }) {
+            if self.loginFailureTimes == 0{
+                self.loginFailureTimes += 1
+                self.requestMemberInfo()
+            }
             GYZLog("IncorrectToken")
         }
     }
