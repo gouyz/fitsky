@@ -147,11 +147,10 @@ class GYZTool: NSObject {
         userDefaults.removeObject(forKey: "token")//用户token
         userDefaults.removeObject(forKey: kMemberTypeKey)//用户member_type
         userDefaults.removeObject(forKey: CURRDayPunch)//打卡
-//        userDefaults.removeObject(forKey: "head")//用户ID
-//        userDefaults.removeObject(forKey: "realName")//用户电话
-//        userDefaults.removeObject(forKey: "code")//用户ID
-//        userDefaults.removeObject(forKey: "sex")//用户电话
-//        userDefaults.removeObject(forKey: "birthday")//用户ID
+        userDefaults.removeObject(forKey: "nickname")//用户昵称
+        userDefaults.removeObject(forKey: "avatar")//用户头像
+        userDefaults.removeObject(forKey: "userId")//用户ID
+        userDefaults.removeObject(forKey: "imToken")//融云IMtoken
     }
     
     /// 字典或数组转json字符串
