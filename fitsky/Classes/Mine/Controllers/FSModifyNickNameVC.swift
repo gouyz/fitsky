@@ -52,7 +52,7 @@ class FSModifyNickNameVC: GYZWhiteNavBaseVC {
             make.top.equalTo(bgView.snp.bottom)
             make.height.equalTo(30)
         }
-        
+        nicknameTxtFiled.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
         nicknameTxtFiled.text = nickName
         self.fontCountLab.text = "\(nickName.count)/\(contentMaxCount)"
         if nickName.count > 0 {
@@ -87,7 +87,7 @@ class FSModifyNickNameVC: GYZWhiteNavBaseVC {
         textFiled.textColor = kGaryFontColor
         textFiled.clearButtonMode = .whileEditing
         textFiled.placeholder = placeholder
-        textFiled.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
+//        textFiled.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
         
         return textFiled
     }()

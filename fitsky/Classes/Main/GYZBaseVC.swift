@@ -104,7 +104,7 @@ class GYZBaseVC: UIViewController {
                 userDefaults.set(userInfo["avatar"].stringValue, forKey: "avatar")
                 let member_id = userInfo["im_data"]["member_id"].stringValue
                 let im_token = userInfo["im_data"]["im_token"].stringValue
-                weakSelf?.loginRongCloud(userName: nick_name, userId: member_id, imToken: im_token)
+                self.loginRongCloud(userName: nick_name, userId: member_id, imToken: im_token)
             }
             
         }, failture: { (error) in
@@ -126,9 +126,9 @@ class GYZBaseVC: UIViewController {
             let currentUserInfo = RCUserInfo.init(userId: imUserid, name: userName, portrait: nil)
             RCIMClient.shared()?.currentUserInfo = currentUserInfo
         }, error: { (status) in
-            
+            GYZLog(status)
         }) {
-            
+            GYZLog("IncorrectToken")
         }
     }
 }

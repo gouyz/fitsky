@@ -97,6 +97,7 @@ class FSMessageChatCell: UIView {
         let lab = UILabel()
         lab.textColor = kGaryFontColor
         lab.font = k13Font
+        lab.textAlignment = .right
         
         return lab
     }()

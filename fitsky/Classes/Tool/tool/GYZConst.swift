@@ -136,7 +136,7 @@ let kWeChatAppSecret = "0cf5e92ca4aa826934423706ac7852ea"
 /// QQ APPID
 let kQQAppID = "1109203141"
 /// 融云IM AppKey
-let kRCIMAppKey = "cpj2xarlctkkn"
+let kRCIMAppKey = "pgyu6atqp5hhu"//"cpj2xarlctkkn"
 
 /// 个推开发者网站中申请App时，注册的AppId、AppKey、AppSecret
 let kGtAppId = "nxfoDpZicQ9CTnsb9eSYX4"
