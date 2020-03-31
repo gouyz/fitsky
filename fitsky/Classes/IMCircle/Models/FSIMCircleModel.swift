@@ -64,6 +64,8 @@ class FSIMCircleModel: LHSBaseModel {
     var category_id_text : String? = ""
     /// 缩略图
     var thumb : String? = ""
+    /// 是否加入（0-否 1-是）
+    var is_join : String? = ""
     var memberModel:FSIMCircleMemberModel?
     
     override func setValue(_ value: Any?, forKey key: String) {

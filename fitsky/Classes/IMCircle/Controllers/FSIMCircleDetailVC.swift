@@ -16,6 +16,9 @@ private let IMCircleDetailOperatorCell = "IMCircleDetailOperatorCell"
 
 class FSIMCircleDetailVC: GYZWhiteNavBaseVC {
     
+    /// 选择结果回调
+    var resultBlock:(() -> Void)?
+    
     var managerTitles:[String] = ["圈内昵称","*ID账号","*二维码","置顶消息","消息免打扰","地址","清空聊天内容","删除并退出"]
     var circleId: String = ""
     
@@ -117,6 +120,9 @@ class FSIMCircleDetailVC: GYZWhiteNavBaseVC {
     func requestCleanRecord(){
         let isClear: Bool = (RCIMClient.shared()?.clearMessages(.ConversationType_GROUP, targetId: circleId))!
         if isClear {
+            if self.resultBlock != nil {
+                self.resultBlock!()
+            }
             MBProgressHUD.showAutoDismissHUD(message: "清除成功")
         }else{
             MBProgressHUD.showAutoDismissHUD(message: "清除失败")

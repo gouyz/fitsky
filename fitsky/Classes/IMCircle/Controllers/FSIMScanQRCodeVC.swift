@@ -383,9 +383,7 @@ class FSIMScanQRCodeVC: GYZWhiteNavBaseVC {
 //扫描捕捉完成
 extension FSIMScanQRCodeVC : AVCaptureMetadataOutputObjectsDelegate
 {
-    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!)
-    {
-        
+    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         //停止扫描
         stopScan()
         
@@ -399,6 +397,7 @@ extension FSIMScanQRCodeVC : AVCaptureMetadataOutputObjectsDelegate
             {
                 
                 var mNodeCode: String = resultObj.stringValue ?? ""
+                mNodeCode = mNodeCode.fromBase64()
                 if mNodeCode.hasPrefix("202003"){
                     mNodeCode = mNodeCode.subString(start: 6)
                     requestApply(code: mNodeCode)

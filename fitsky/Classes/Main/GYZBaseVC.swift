@@ -126,8 +126,8 @@ class GYZBaseVC: UIViewController {
             userDefaults.set(imToken, forKey: "imToken")
             let currentUserInfo = RCUserInfo.init(userId: imUserid, name: userName, portrait: nil)
             RCIMClient.shared()?.currentUserInfo = currentUserInfo
-        }, error: { (status) in
-            GYZLog(status)
+        }, error: { (errorCode) in
+            GYZLog(errorCode)
         }) {
             if self.loginFailureTimes == 0{
                 self.loginFailureTimes += 1

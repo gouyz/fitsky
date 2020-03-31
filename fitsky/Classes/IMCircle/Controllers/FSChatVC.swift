@@ -11,6 +11,7 @@ import UIKit
 class FSChatVC: RCConversationViewController {
     /// 社圈 管理员
     var ismanager: Bool = false
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,11 +23,15 @@ class FSChatVC: RCConversationViewController {
         self.enableContinuousReadUnreadVoice = true
         // 移除发送位置
         self.chatSessionInputBarControl.pluginBoardView.removeItem(at: 2)
+        self.chatSessionInputBarControl.emojiBoardView.addExtensionEmojiTab(nil)
         
         if self.conversationType == .ConversationType_PRIVATE || self.conversationType == .ConversationType_GROUP {
             setRightNavigationItem()
         }else{
             self.navigationItem.rightBarButtonItem = nil
+        }
+        if self.conversationType == .ConversationType_GROUP {
+            requestCircleData()
         }
     }
     /// 未读消息数
@@ -89,12 +94,20 @@ class FSChatVC: RCConversationViewController {
     func goManagerDetail(){
         let vc = FSIMCircleMangerDetailVC()
         vc.circleId = self.targetId
+        vc.resultBlock = {[unowned self]() in
+            self.conversationDataRepository.removeAllObjects()
+            self.conversationMessageCollectionView.reloadData()
+        }
         navigationController?.pushViewController(vc, animated: true)
     }
     // 普通成员详情
     func goCircleDetail(){
         let vc = FSIMCircleDetailVC()
         vc.circleId = self.targetId
+        vc.resultBlock = {[unowned self]() in
+            self.conversationDataRepository.removeAllObjects()
+            self.conversationMessageCollectionView.reloadData()
+        }
         navigationController?.pushViewController(vc, animated: true)
     }
     /// 返回
@@ -115,6 +128,33 @@ class FSChatVC: RCConversationViewController {
         }
     }
     
+    ///获取社圈数据
+    func requestCircleData(){
+        if !GYZTool.checkNetWork() {
+            return
+        }
+        
+        weak var weakSelf = self
+        
+        GYZNetWork.requestNetwork("Circle/Circle/info",parameters: ["id":self.targetId!],  success: { (response) in
+            
+            GYZLog(response)
+            
+            if response["result"].intValue == kQuestSuccessTag{//请求成功
+                
+                
+                guard let data = response["data"].dictionaryObject else { return }
+                let model = FSIMCircleDetailModel.init(dict: data)
+                if model.myCircleMemberModel?.is_group == "1" || model.myCircleMemberModel?.is_admin == "1"{
+                    weakSelf?.ismanager = true
+                }
+            }
+            
+        }, failture: { (error) in
+            GYZLog(error)
+            
+        })
+    }
 }
 /*!
 消息Cell点击的回调

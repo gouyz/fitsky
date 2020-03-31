@@ -20,7 +20,7 @@ class FSIMCircleQrcodeVC: GYZWhiteNavBaseVC {
         self.navigationItem.title = "社圈二维码"
         
         setUpUI()
-        qrcode += "202003"
+        qrcode = "202003" + qrcode
         qrcodeImgView.image = qrcode.toBase64().generateQRCodeWithSize(size: 260)
         userImgView.kf.setImage(with: URL.init(string: headerImgUrl), placeholder: UIImage.init(named: "app_img_avatar_def"))
         nameLab.text = circleName

@@ -194,6 +194,14 @@ class FSFindCircleVC: GYZWhiteNavBaseVC {
         vc.circleId = circleId
         navigationController?.pushViewController(vc, animated: true)
     }
+    /// 聊天
+    func goChat(index: Int){
+        let vc = FSChatVC()
+        vc.targetId = dataList[index].id!
+        vc.conversationType = .ConversationType_GROUP
+        vc.userName = dataList[index].name!
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 extension FSFindCircleVC: UISearchBarDelegate {
     ///mark - UISearchBarDelegate
@@ -255,7 +263,11 @@ extension FSFindCircleVC: UITableViewDelegate,UITableViewDataSource{
         return UIView()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        goApplyCircle(circleId: dataList[indexPath.row].id!)
+        if dataList[indexPath.row].is_join == "1" {
+            goChat(index: indexPath.row)
+        }else{
+            goApplyCircle(circleId: dataList[indexPath.row].id!)
+        }
     }
     ///MARK : UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

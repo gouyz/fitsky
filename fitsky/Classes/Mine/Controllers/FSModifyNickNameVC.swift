@@ -32,6 +32,7 @@ class FSModifyNickNameVC: GYZWhiteNavBaseVC {
 //        rightBtn.frame = CGRect.init(x: 0, y: 0, width: kTitleHeight, height: kTitleHeight)
 //        rightBtn.addTarget(self, action: #selector(onClickRightBtn), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: rightBtn)
+        rightBtn.addTarget(self, action: #selector(onClickRightBtn), for: .touchUpInside)
         
         view.addSubview(bgView)
         bgView.addSubview(nicknameTxtFiled)
@@ -68,7 +69,7 @@ class FSModifyNickNameVC: GYZWhiteNavBaseVC {
         rightBtn.setTitleColor(kHeightGaryFontColor, for: .disabled)
         rightBtn.setTitleColor(kBlueFontColor, for: .normal)
         rightBtn.frame = CGRect.init(x: 0, y: 0, width: kTitleHeight, height: kTitleHeight)
-        rightBtn.addTarget(self, action: #selector(onClickRightBtn), for: .touchUpInside)
+//        rightBtn.addTarget(self, action: #selector(onClickRightBtn), for: .touchUpInside)
         
         return rightBtn
     }()

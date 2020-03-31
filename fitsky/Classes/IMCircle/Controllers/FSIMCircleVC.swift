@@ -11,6 +11,7 @@ import MBProgressHUD
 
 private let IMCircleCell = "IMCircleCell"
 private let IMCircleHeader = "IMCircleHeader"
+private let IMCircleEmptyFooter = "IMCircleEmptyFooter"
 
 class FSIMCircleVC: GYZWhiteNavBaseVC {
     
@@ -53,6 +54,7 @@ class FSIMCircleVC: GYZWhiteNavBaseVC {
         
         table.register(FSIMCircleCell.classForCoder(), forCellReuseIdentifier: IMCircleCell)
         table.register(LHSGeneralHeaderView.classForCoder(), forHeaderFooterViewReuseIdentifier: IMCircleHeader)
+        table.register(GYZEmptyFooterView.classForCoder(), forHeaderFooterViewReuseIdentifier: IMCircleEmptyFooter)
         
         weak var weakSelf = self
         ///添加下拉刷新
@@ -173,9 +175,6 @@ class FSIMCircleVC: GYZWhiteNavBaseVC {
         vc.targetId = model.id!
         vc.conversationType = .ConversationType_GROUP
         vc.userName = model.name!
-        if model.memberModel?.is_group == "1" || model.memberModel?.is_admin == "1"{
-            vc.ismanager = true
-        }
         navigationController?.pushViewController(vc, animated: true)
 //        if model.memberModel?.is_group == "1" || model.memberModel?.is_admin == "1"{
 //            goManagerDetail(cirId: model.id!)
@@ -235,6 +234,11 @@ extension FSIMCircleVC: UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
+        if (section == 0 && myCreateList.count == 0) || (section == 1 && myJoinList.count == 0) {
+            let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: IMCircleEmptyFooter) as! GYZEmptyFooterView
+            footerView.contentLab.text = section == 0 ? "您还未创建社圈" : "您还未加入社圈"
+            return footerView
+        }
         return UIView()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -252,6 +256,15 @@ extension FSIMCircleVC: UITableViewDelegate,UITableViewDataSource{
         return 34
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 0 {
+            if myCreateList.count == 0{
+                return 120
+            }
+        }else if section == 1 {
+            if myJoinList.count == 0{
+                return 120
+            }
+        }
         return 0.00001
     }
 }
