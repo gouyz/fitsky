@@ -60,6 +60,8 @@
 #import "AliyunMediaConfig.h"
 #import "QUProgressView.h"
 #import "AlivcRecordFocusView.h"
+#import "AliyunAlbumModel.h"
+#import "AliyunPhotoLibraryManager.h"
 
 
 #import "AliyunDBHelper.h"

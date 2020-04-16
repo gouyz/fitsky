@@ -361,6 +361,8 @@
 		0A4ECE852367C50200A230F2 /* FSDaRenConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4ECE842367C50200A230F2 /* FSDaRenConfirmVC.swift */; };
 		0A4ECE872367DB6E00A230F2 /* FSSheZhangConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4ECE862367DB6E00A230F2 /* FSSheZhangConfirmVC.swift */; };
 		0A4ECE89236822B200A230F2 /* FSVenueConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4ECE88236822B200A230F2 /* FSVenueConfirmVC.swift */; };
+		0A4F5EFD2448BB4100419EB1 /* AliyunAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4F5EF92448BB4100419EB1 /* AliyunAlbumModel.m */; };
+		0A4F5EFE2448BB4100419EB1 /* AliyunPhotoLibraryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4F5EFA2448BB4100419EB1 /* AliyunPhotoLibraryManager.m */; };
 		0A5109E5236679C8003369AC /* FSMyActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5109E4236679C8003369AC /* FSMyActivityVC.swift */; };
 		0A5109E723667F5F003369AC /* FSMyActivityListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5109E623667F5F003369AC /* FSMyActivityListVC.swift */; };
 		0A52AA73236A7EB000F69B9B /* FSMineVenueVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A52AA72236A7EB000F69B9B /* FSMineVenueVC.swift */; };
@@ -902,6 +904,10 @@
 		0A4ECE842367C50200A230F2 /* FSDaRenConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSDaRenConfirmVC.swift; sourceTree = "<group>"; };
 		0A4ECE862367DB6E00A230F2 /* FSSheZhangConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSheZhangConfirmVC.swift; sourceTree = "<group>"; };
 		0A4ECE88236822B200A230F2 /* FSVenueConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSVenueConfirmVC.swift; sourceTree = "<group>"; };
+		0A4F5EF92448BB4100419EB1 /* AliyunAlbumModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliyunAlbumModel.m; sourceTree = "<group>"; };
+		0A4F5EFA2448BB4100419EB1 /* AliyunPhotoLibraryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliyunPhotoLibraryManager.m; sourceTree = "<group>"; };
+		0A4F5EFB2448BB4100419EB1 /* AliyunAlbumModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliyunAlbumModel.h; sourceTree = "<group>"; };
+		0A4F5EFC2448BB4100419EB1 /* AliyunPhotoLibraryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliyunPhotoLibraryManager.h; sourceTree = "<group>"; };
 		0A5109E4236679C8003369AC /* FSMyActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMyActivityVC.swift; sourceTree = "<group>"; };
 		0A5109E623667F5F003369AC /* FSMyActivityListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMyActivityListVC.swift; sourceTree = "<group>"; };
 		0A52AA72236A7EB000F69B9B /* FSMineVenueVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMineVenueVC.swift; sourceTree = "<group>"; };
@@ -1176,6 +1182,7 @@
 		0A2CAFD923A545AB009E418B /* AliyunShortVideo */ = {
 			isa = PBXGroup;
 			children = (
+				0A4F5EF82448BB4100419EB1 /* PhotoLibrary */,
 				0A2151F423ABD75E008A6936 /* AliAssetImageGenerator */,
 				0A2083EF23AA66C600BB68A4 /* AlivcShortVideoResource */,
 				0A4CD89C23A9FFFC00EE1421 /* DB */,
@@ -1699,6 +1706,17 @@
 				0A9C17C42430E3B000E5931C /* FSSearchChatMsgCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		0A4F5EF82448BB4100419EB1 /* PhotoLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				0A4F5EF92448BB4100419EB1 /* AliyunAlbumModel.m */,
+				0A4F5EFA2448BB4100419EB1 /* AliyunPhotoLibraryManager.m */,
+				0A4F5EFB2448BB4100419EB1 /* AliyunAlbumModel.h */,
+				0A4F5EFC2448BB4100419EB1 /* AliyunPhotoLibraryManager.h */,
+			);
+			path = PhotoLibrary;
 			sourceTree = "<group>";
 		};
 		0A536DAB23078BFA009B569C /* Square */ = {
@@ -2700,6 +2718,7 @@
 				0A56F9BD2314D4980022EDAA /* FSNavUserInfoView.swift in Sources */,
 				0A13EAD22354718F007F41EC /* FSFindZongHeWorksCell.swift in Sources */,
 				0A34E9D12381BF6100C64805 /* FSOrderFeedBackVC.swift in Sources */,
+				0A4F5EFE2448BB4100419EB1 /* AliyunPhotoLibraryManager.m in Sources */,
 				0A8F67D323506E7B00EC0DF1 /* FSFindSupportHeaderView.swift in Sources */,
 				0A43BFA02414015E008067F4 /* FSTransferManageVC.swift in Sources */,
 				0A86834B235453100057E094 /* FSSearchNewsVC.swift in Sources */,
@@ -2769,6 +2788,7 @@
 				0A4DBDFB2396AEAC00B3ACF3 /* FSMsgConmentCell.swift in Sources */,
 				0A47C12722D4858E00207CED /* ZCycleViewCell.swift in Sources */,
 				0A4866E3236BCD9C00BEAB9F /* FSMyCoachEditProfileVC.swift in Sources */,
+				0A4F5EFD2448BB4100419EB1 /* AliyunAlbumModel.m in Sources */,
 				0A1E73C523200FA6009BF848 /* FSFollowSeePowerCell.swift in Sources */,
 				0A47C13622D4858E00207CED /* SYProgressView.m in Sources */,
 				0A43647523A8A593008D7C47 /* AlivcRecordFocusView.m in Sources */,

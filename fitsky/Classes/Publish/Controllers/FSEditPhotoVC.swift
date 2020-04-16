@@ -74,7 +74,7 @@ class FSEditPhotoVC: GYZWhiteNavBaseVC {
                 self.taskPath = contentEditingInput!.fullSizeImageURL!.absoluteString
                 GYZLog(self.taskPath)
                 
-                let clip: AliyunClip = AliyunClip.init(imagePath: self.taskPath, duration: 3, animDuration: 0)
+                let clip: AliyunClip = AliyunClip.init(imagePath: self.taskPath, duration: 1, animDuration: 0)
                 self.importor?.addMediaClip(clip)
                 let param: AliyunVideoParam = AliyunVideoParam.default()
                 param.codecType = .hardware
