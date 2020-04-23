@@ -14,6 +14,7 @@ class FSSelectPhotosVC: GYZWhiteNavBaseVC {
     var maxImgCount = kMaxSelectCount
     /// 选择的图片
     var selectImgs: [DKAsset] = [DKAsset]()
+    var photoPathArr: [String] = [String]()
     /// 是否返回上一页
     var isBack:Bool = false
     /// 是否发布作品
@@ -72,10 +73,28 @@ class FSSelectPhotosVC: GYZWhiteNavBaseVC {
             }
             self.rightBtn.isEnabled = self.pickerController.selectedAssets.count > 0 ? true : false
         }
+        /// 清除视频合成目录
+        AliyunPathManager.clearDir(AliyunPathManager.compositionRootDir())
     }
     /// 下一步
     @objc func onClickRightBtn(){
-        goPublishDynamic(isVideo:false)
+//        goPublishDynamic(isVideo:false)
+        savePhoto()
+    }
+    
+    func savePhoto(){
+        self.photoPathArr.removeAll()
+        createHUD(message: "加载中...")
+        for item in self.pickerController.selectedAssets {
+            let tmpPhotoPath: String = AliyunPathManager.compositionRootDir() + AliyunPathManager.randomString() + ".jpg"
+            AliyunPhotoLibraryManager.shared()?.savePhoto(with: item.originalAsset, maxSize: CGSize.init(width: 1080, height: 1920), outputPath: tmpPhotoPath, completion: { [unowned self](error, image) in
+                self.photoPathArr.append(tmpPhotoPath)
+                if self.photoPathArr.count == self.pickerController.selectedAssets.count{
+                    self.hud?.hide(animated: true)
+                    self.goPublishDynamic(isVideo: false)
+                }
+            })
+        }
     }
     
     func goPublishDynamic(isVideo: Bool){
@@ -147,6 +166,7 @@ class FSSelectPhotosVC: GYZWhiteNavBaseVC {
 //                navigationController?.pushViewController(vc, animated: true)
                 let vc = FSEditPhotoVC()
                 vc.selectImgs = self.pickerController.selectedAssets
+                vc.sourcePathArr = self.photoPathArr
                 navigationController?.pushViewController(vc, animated: true)
             }
             

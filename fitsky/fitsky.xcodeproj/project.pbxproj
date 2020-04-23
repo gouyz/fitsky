@@ -127,6 +127,7 @@
 		0A27C8E724279968000CFFBD /* FSIMCircleNoticeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A27C8E624279968000CFFBD /* FSIMCircleNoticeModel.swift */; };
 		0A27C8E92427DABD000CFFBD /* FSIMCircleDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A27C8E82427DABD000CFFBD /* FSIMCircleDetailVC.swift */; };
 		0A289258230B01B300687FAD /* FSSquareSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A289257230B01B300687FAD /* FSSquareSearchVC.swift */; };
+		0A29D33A2451E7E500486B42 /* FSEditPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A29D3392451E7E500486B42 /* FSEditPhotoView.swift */; };
 		0A2B56B9231FA2220063C011 /* FSSquareNearVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B56B8231FA2220063C011 /* FSSquareNearVC.swift */; };
 		0A2CAFD823A5325C009E418B /* FSMagicCameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2CAFD723A5325C009E418B /* FSMagicCameraVC.swift */; };
 		0A2CAFDC23A545AB009E418B /* AliyunPathManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A2CAFDA23A545AB009E418B /* AliyunPathManager.m */; };
@@ -317,6 +318,7 @@
 		0A49A05824121E050027453C /* FSIMCircleMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A49A05724121E050027453C /* FSIMCircleMemberCell.swift */; };
 		0A49A05A2412399B0027453C /* FSIMCircleMemberIconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A49A0592412399B0027453C /* FSIMCircleMemberIconCell.swift */; };
 		0A49A05C24123AC90027453C /* FSIMCircleMemberRightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A49A05B24123AC90027453C /* FSIMCircleMemberRightCell.swift */; };
+		0A49AA9A244B67B600390462 /* FSFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A49AA99244B67B600390462 /* FSFilterView.swift */; };
 		0A4ABBAB23A92E00001F888A /* FSBeautyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4ABBAA23A92E00001F888A /* FSBeautyView.swift */; };
 		0A4ABBAD23A9521D001F888A /* FSFilterTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4ABBAC23A9521D001F888A /* FSFilterTypeCell.swift */; };
 		0A4AEC192335C2E300DF03E9 /* FSActivityDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4AEC182335C2E300DF03E9 /* FSActivityDetailVC.swift */; };
@@ -640,6 +642,7 @@
 		0A27C8E624279968000CFFBD /* FSIMCircleNoticeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleNoticeModel.swift; sourceTree = "<group>"; };
 		0A27C8E82427DABD000CFFBD /* FSIMCircleDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleDetailVC.swift; sourceTree = "<group>"; };
 		0A289257230B01B300687FAD /* FSSquareSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSquareSearchVC.swift; sourceTree = "<group>"; };
+		0A29D3392451E7E500486B42 /* FSEditPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSEditPhotoView.swift; sourceTree = "<group>"; };
 		0A2B56B8231FA2220063C011 /* FSSquareNearVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSquareNearVC.swift; sourceTree = "<group>"; };
 		0A2CAFD723A5325C009E418B /* FSMagicCameraVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMagicCameraVC.swift; sourceTree = "<group>"; };
 		0A2CAFDA23A545AB009E418B /* AliyunPathManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliyunPathManager.m; sourceTree = "<group>"; };
@@ -851,6 +854,7 @@
 		0A49A05724121E050027453C /* FSIMCircleMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleMemberCell.swift; sourceTree = "<group>"; };
 		0A49A0592412399B0027453C /* FSIMCircleMemberIconCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleMemberIconCell.swift; sourceTree = "<group>"; };
 		0A49A05B24123AC90027453C /* FSIMCircleMemberRightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleMemberRightCell.swift; sourceTree = "<group>"; };
+		0A49AA99244B67B600390462 /* FSFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFilterView.swift; sourceTree = "<group>"; };
 		0A4ABBAA23A92E00001F888A /* FSBeautyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSBeautyView.swift; sourceTree = "<group>"; };
 		0A4ABBAC23A9521D001F888A /* FSFilterTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFilterTypeCell.swift; sourceTree = "<group>"; };
 		0A4AEC182335C2E300DF03E9 /* FSActivityDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSActivityDetailVC.swift; sourceTree = "<group>"; };
@@ -2113,6 +2117,8 @@
 				0A4ABBAA23A92E00001F888A /* FSBeautyView.swift */,
 				0A4ABBAC23A9521D001F888A /* FSFilterTypeCell.swift */,
 				0A9C68F423AB64C4008D320D /* FSPasterImgView.swift */,
+				0A49AA99244B67B600390462 /* FSFilterView.swift */,
+				0A29D3392451E7E500486B42 /* FSEditPhotoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2747,6 +2753,7 @@
 				0A47C0F722D4858E00207CED /* GYZBottomSendView.swift in Sources */,
 				0A47C13422D4858E00207CED /* ContentView.swift in Sources */,
 				0A0A026C22E7461E008BC4BB /* FSCityAreaCell.swift in Sources */,
+				0A29D33A2451E7E500486B42 /* FSEditPhotoView.swift in Sources */,
 				0A47C10F22D4858E00207CED /* MBProgressHUD+Extension.swift in Sources */,
 				0A1AFE9D23254A450044E45F /* FSVenueServiceVC.swift in Sources */,
 				0A4CD8AA23AA144000EE1421 /* AliyunEffectInfo.m in Sources */,
@@ -2807,6 +2814,7 @@
 				0AC5C57C230EE871005AB87B /* FSConmentBottomView.swift in Sources */,
 				0A49A05A2412399B0027453C /* FSIMCircleMemberIconCell.swift in Sources */,
 				0A0FFE1122DF6615009BC09E /* FSResetPwdVC.swift in Sources */,
+				0A49AA9A244B67B600390462 /* FSFilterView.swift in Sources */,
 				0A47C11422D4858E00207CED /* GYZUIViewController+Loading.swift in Sources */,
 				0A47C0E622D4858E00207CED /* LHSAddPhotoView.swift in Sources */,
 				0A4DBDFF2396C27400B3ACF3 /* FSMsgNoticeModel.swift in Sources */,
