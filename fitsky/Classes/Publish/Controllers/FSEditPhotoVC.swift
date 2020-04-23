@@ -16,16 +16,16 @@ class FSEditPhotoVC: GYZBaseVC {
     var numOfPages: Int = 4
     var currPage: Int = 0
     //初始输出分辨率，此值切换画幅的时候用到
-    var outputSize: CGSize = CGSize.init(width: kScreenWidth, height: kScreenWidth * 16.0 / 9.0)//CGSize.init(width: 720, height: 1280)
+//    var outputSize: CGSize = CGSize.init(width: kScreenWidth, height: kScreenWidth * 16.0 / 9.0)//CGSize.init(width: 720, height: 1280)
     /// 视频配置参数
-    var quVideo: AliyunMediaConfig = AliyunMediaConfig.default()
+//    var quVideo: AliyunMediaConfig = AliyunMediaConfig.default()
     /// 多个资源的本地存放文件夹路径 - 从相册选择界面进入传这个值
     var taskPath: String = ""
-    var editor: AliyunEditor?
-    var player: AliyunIPlayer?
-    var exporter: AliyunIExporter?
-    var clipConstructor: AliyunIClipConstructor?
-    var importor: AliyunImporter?
+//    var editor: AliyunEditor?
+//    var player: AliyunIPlayer?
+//    var exporter: AliyunIExporter?
+//    var clipConstructor: AliyunIClipConstructor?
+//    var importor: AliyunImporter?
     /// 选择的图片
     var selectImgs: [DKAsset] = [DKAsset]()
     var sourcePathArr: [String] = [String]()
@@ -40,10 +40,10 @@ class FSEditPhotoVC: GYZBaseVC {
         automaticallyAdjustsScrollViewInsets = false
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named:"app_next_normal")?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(clickedNextBtn))
         self.view.backgroundColor = kBlackColor
-        outputSize = quVideo.fixedSize()
-        quVideo.outputSize = outputSize
-        quVideo.videoQuality = .medium
-        quVideo.encodeMode = .hardH264
+//        outputSize = quVideo.fixedSize()
+//        quVideo.outputSize = outputSize
+//        quVideo.videoQuality = .medium
+//        quVideo.encodeMode = .hardH264
         //初始化动图资源
         AliyunEffectPrestoreManager.init().insertInitialData()
         ///放到最底层
@@ -51,14 +51,18 @@ class FSEditPhotoVC: GYZBaseVC {
         //        setImgData()
         
         addSubviews()
-        setImgData()
+        editPhotoView.imgPath = self.sourcePathArr[0]
+        editPhotoView.editor?.delegate = (self as AliyunIExporterCallback & AliyunIPlayerCallback & AliyunIRenderCallback)
+//        setImgData()
     }
     
     func addSubviews(){
-        let factor: CGFloat = outputSize.height / outputSize.width
-        movieView.frame = CGRect.init(x: 0, y: 0, width: kScreenWidth, height: kScreenWidth * factor)
-        
-        self.view.addSubview(movieView)
+//        let factor: CGFloat = outputSize.height / outputSize.width
+//        movieView.frame = CGRect.init(x: 0, y: 0, width: kScreenWidth, height: kScreenWidth * factor)
+//
+//        self.view.addSubview(movieView)
+        editPhotoView.frame = self.view.bounds
+        self.view.addSubview(editPhotoView)
         self.view.addSubview(filterView)
         filterView.snp.makeConstraints { (make) in
             make.left.right.bottom.equalTo(self.view)
@@ -69,40 +73,42 @@ class FSEditPhotoVC: GYZBaseVC {
             let effectFilter: AliyunEffectFilter = AliyunEffectFilter.init(file: filterModel.localFilterResourcePath())
             //            GYZLog(filterModel.localFilterResourcePath())
             //            GYZLog(effectFilter.path)
-            self.editor?.apply(effectFilter)
+//            self.editor?.apply(effectFilter)
+            self.editPhotoView.editor?.apply(effectFilter)
         }
     }
     func initSDKAbout(path: String){
-        editor = AliyunEditor.init(path: path, preview: movieView)
-        editor?.delegate = (self as! AliyunIExporterCallback & AliyunIPlayerCallback & AliyunIRenderCallback)
-        
-        player = editor?.getPlayer()
-        exporter = editor?.getExporter()
-        clipConstructor = editor?.getClipConstructor()
-        
-        editor?.startEdit()
-        if !(player?.isPlaying())! {
-            player?.play()
-        }
+//        editor = AliyunEditor.init(path: path, preview: movieView)
+//        editor?.delegate = (self as! AliyunIExporterCallback & AliyunIPlayerCallback & AliyunIRenderCallback)
+//
+//        player = editor?.getPlayer()
+//        exporter = editor?.getExporter()
+//        clipConstructor = editor?.getClipConstructor()
+//
+//        editor?.startEdit()
+//        if !(player?.isPlaying())! {
+//            player?.play()
+//        }
     }
-    func setImgData(){
-        //        var count:Int = 0
-        //视频存储路径
-        let videoSavePath: String = AliyunPathManager.compositionRootDir() + AliyunPathManager.randomString() + ".mp4"
-        taskPath = videoSavePath
-        importor = AliyunImporter.init(path: videoSavePath, outputSize: outputSize)
-        let clip: AliyunClip = AliyunClip.init(imagePath: self.sourcePathArr[0], duration: 1, animDuration: 0)
-        self.importor?.addMediaClip(clip)
-        let param: AliyunVideoParam = AliyunVideoParam.default()
-        param.codecType = .hardware
-        param.scaleMode = .fill
-        
-        self.importor?.setVideoParam(param)
-        self.importor?.generateProjectConfigure()
-        self.initSDKAbout(path: videoSavePath)
-    }
-    var movieView: UIView = UIView()
+//    func setImgData(){
+//        //        var count:Int = 0
+//        //视频存储路径
+//        let videoSavePath: String = AliyunPathManager.compositionRootDir() + AliyunPathManager.randomString() + ".mp4"
+//        taskPath = videoSavePath
+//        importor = AliyunImporter.init(path: videoSavePath, outputSize: outputSize)
+//        let clip: AliyunClip = AliyunClip.init(imagePath: self.sourcePathArr[0], duration: 1, animDuration: 0)
+//        self.importor?.addMediaClip(clip)
+//        let param: AliyunVideoParam = AliyunVideoParam.default()
+//        param.codecType = .hardware
+//        param.scaleMode = .fill
+//
+//        self.importor?.setVideoParam(param)
+//        self.importor?.generateProjectConfigure()
+//        self.initSDKAbout(path: videoSavePath)
+//    }
+//    var movieView: UIView = UIView()
     var filterView: FSFilterView = FSFilterView()
+    var editPhotoView: FSEditPhotoView = FSEditPhotoView()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -138,10 +144,11 @@ class FSEditPhotoVC: GYZBaseVC {
     
     /// 下一步
     @objc func clickedNextBtn(){
-        self.player?.stop()
-        self.editor?.stopEdit()
+//        self.player?.stop()
+//        self.editor?.stopEdit()
         let videoSavePath: String = AliyunPathManager.compositionRootDir() + AliyunPathManager.randomString() + ".mp4"
-        self.exporter?.startExport(videoSavePath)
+        self.editPhotoView.exporter?.startExport(videoSavePath)
+//        self.exporter?.startExport(videoSavePath)
 //        featchFirstFrame(path: <#T##String#>)
     }
     /// 获取视频封面
@@ -160,7 +167,7 @@ class FSEditPhotoVC: GYZBaseVC {
             info.type = .image
         }
         
-        let image: UIImage = info.captureImage(atTime: 0, outputSize: self.quVideo.outputSize)
+        let image: UIImage = info.captureImage(atTime: 0, outputSize: self.editPhotoView.quVideo.outputSize)
         //保存到相册中
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.savePhoto(image:didFinishSavingWithError:contextInfo:)), nil)
     }
@@ -182,15 +189,15 @@ extension FSEditPhotoVC: UIScrollViewDelegate {
         //        pageControl.currentPage = Int(offset.x / view.bounds.width)
         currPage = Int(offset.x / view.bounds.width)
         // 因为currentPage是从0开始，所以numOfPages减1
-                if currPage == numOfPages - 1 {
-                    UIView.animate(withDuration: 0.5, animations: {
-                        self.startButton.alpha = 1.0
-                    })
-                } else {
-                    UIView.animate(withDuration: 0.2, animations: {
-                        self.startButton.alpha = 0.0
-                    })
-                }
+//                if currPage == numOfPages - 1 {
+//                    UIView.animate(withDuration: 0.5, animations: {
+//                        self.startButton.alpha = 1.0
+//                    })
+//                } else {
+//                    UIView.animate(withDuration: 0.2, animations: {
+//                        self.startButton.alpha = 0.0
+//                    })
+//                }
     }
 }
 // MARK: - UIScrollViewDelegate

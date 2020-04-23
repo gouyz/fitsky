@@ -16,8 +16,7 @@ class FSEditPhotoView: UIView {
     var quVideo: AliyunMediaConfig = AliyunMediaConfig.default()
     /// 多个资源的本地存放文件夹路径 - 从相册选择界面进入传这个值
     var taskPath: String = ""
-    /// 图片路径
-    var imgPath: String = ""
+    
     var editor: AliyunEditor?
     var player: AliyunIPlayer?
     var exporter: AliyunIExporter?
@@ -26,6 +25,16 @@ class FSEditPhotoView: UIView {
     
     /// 当前滤镜model
     var currFilterModel: AliyunEffectFilterInfo?
+    
+    /// 图片路径
+    var imgPath : String?{
+        didSet{
+            if imgPath != nil {
+                
+                setImgData()
+            }
+        }
+    }
 
     // MARK: 生命周期方法
     override init(frame: CGRect) {
@@ -39,7 +48,7 @@ class FSEditPhotoView: UIView {
         quVideo.encodeMode = .hardH264
         
         setupUI()
-        setImgData()
+    
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -57,7 +66,7 @@ class FSEditPhotoView: UIView {
         let videoSavePath: String = AliyunPathManager.compositionRootDir() + AliyunPathManager.randomString() + ".mp4"
         taskPath = videoSavePath
         importor = AliyunImporter.init(path: videoSavePath, outputSize: outputSize)
-        let clip: AliyunClip = AliyunClip.init(imagePath: imgPath, duration: 1, animDuration: 0)
+        let clip: AliyunClip = AliyunClip.init(imagePath: imgPath!, duration: 1, animDuration: 0)
         self.importor?.addMediaClip(clip)
         let param: AliyunVideoParam = AliyunVideoParam.default()
         param.codecType = .hardware
@@ -74,7 +83,7 @@ class FSEditPhotoView: UIView {
         player = editor?.getPlayer()
         exporter = editor?.getExporter()
         clipConstructor = editor?.getClipConstructor()
-        
+        startEdit()
 //        editor?.startEdit()
 //        if !(player?.isPlaying())! {
 //            player?.play()
