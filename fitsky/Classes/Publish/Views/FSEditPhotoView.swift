@@ -84,10 +84,6 @@ class FSEditPhotoView: UIView {
         exporter = editor?.getExporter()
         clipConstructor = editor?.getClipConstructor()
         startEdit()
-//        editor?.startEdit()
-//        if !(player?.isPlaying())! {
-//            player?.play()
-//        }
     }
     func startEdit(){
         editor?.startEdit()

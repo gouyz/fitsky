@@ -16,7 +16,7 @@ class FSFilterView: UIView {
     /// FMDB的封装类
     var dbHelper: AliyunDBHelper = AliyunDBHelper.init()
     var dataList: [AliyunEffectFilterInfo] = [AliyunEffectFilterInfo]()
-    /// 当前滤镜model
+    /// 当前滤镜索引
     var currFilterModel: AliyunEffectFilterInfo?
     
     // MARK: 生命周期方法

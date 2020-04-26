@@ -12,26 +12,19 @@ import MBProgressHUD
 import AssetsLibrary
 
 class FSEditPhotoVC: GYZBaseVC {
-    
-    var numOfPages: Int = 4
+    /// 合成的索引
+    var currIndex: Int = 0
     var currPage: Int = 0
-    //初始输出分辨率，此值切换画幅的时候用到
-//    var outputSize: CGSize = CGSize.init(width: kScreenWidth, height: kScreenWidth * 16.0 / 9.0)//CGSize.init(width: 720, height: 1280)
-    /// 视频配置参数
-//    var quVideo: AliyunMediaConfig = AliyunMediaConfig.default()
-    /// 多个资源的本地存放文件夹路径 - 从相册选择界面进入传这个值
-    var taskPath: String = ""
-//    var editor: AliyunEditor?
-//    var player: AliyunIPlayer?
-//    var exporter: AliyunIExporter?
-//    var clipConstructor: AliyunIClipConstructor?
-//    var importor: AliyunImporter?
     /// 选择的图片
     var selectImgs: [DKAsset] = [DKAsset]()
     var sourcePathArr: [String] = [String]()
-    
-    /// 当前滤镜model
-    var currFilterModel: AliyunEffectFilterInfo?
+    // 选择的图片UIImage
+    var selectCameraImgs: [UIImage] = [UIImage]()
+    var editViews: [FSEditPhotoView] = [FSEditPhotoView]()
+    // 选择的滤镜
+    var selectFilterDic: [Int:AliyunEffectFilter] = [:]
+    // 选择的滤镜信息
+    var selectFilterInfoDic: [Int:AliyunEffectFilterInfo] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,93 +33,37 @@ class FSEditPhotoVC: GYZBaseVC {
         automaticallyAdjustsScrollViewInsets = false
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named:"app_next_normal")?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(clickedNextBtn))
         self.view.backgroundColor = kBlackColor
-//        outputSize = quVideo.fixedSize()
-//        quVideo.outputSize = outputSize
-//        quVideo.videoQuality = .medium
-//        quVideo.encodeMode = .hardH264
         //初始化动图资源
         AliyunEffectPrestoreManager.init().insertInitialData()
-        ///放到最底层
-        //        self.view.insertSubview(scrollView, at: 0)
-        //        setImgData()
         
         addSubviews()
-        editPhotoView.imgPath = self.sourcePathArr[0]
-        editPhotoView.editor?.delegate = (self as AliyunIExporterCallback & AliyunIPlayerCallback & AliyunIRenderCallback)
-//        setImgData()
     }
     
     func addSubviews(){
-//        let factor: CGFloat = outputSize.height / outputSize.width
-//        movieView.frame = CGRect.init(x: 0, y: 0, width: kScreenWidth, height: kScreenWidth * factor)
-//
-//        self.view.addSubview(movieView)
-        editPhotoView.frame = self.view.bounds
-        self.view.addSubview(editPhotoView)
+        for index in 0..<sourcePathArr.count {
+//            self.selectFilterArr.append(nil)
+            let editPhotoView: FSEditPhotoView = FSEditPhotoView.init(frame:CGRect(x: self.view.frame.size.width * CGFloat(index), y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
+            editPhotoView.imgPath = self.sourcePathArr[index]
+            editPhotoView.editor?.delegate = (self as AliyunIExporterCallback & AliyunIPlayerCallback & AliyunIRenderCallback)
+            editViews.append(editPhotoView)
+            scrollView.addSubview(editPhotoView)
+        }
+        ///放到最底层
+        self.view.insertSubview(scrollView, at: 0)
         self.view.addSubview(filterView)
         filterView.snp.makeConstraints { (make) in
             make.left.right.bottom.equalTo(self.view)
             make.height.equalTo((kStateHeight > 20 ? 220 : 200))
         }
         filterView.didSelectItemBlock = {[unowned self] (filterModel) in
-            self.currFilterModel = filterModel
+            self.selectFilterInfoDic[self.currPage] = filterModel
             let effectFilter: AliyunEffectFilter = AliyunEffectFilter.init(file: filterModel.localFilterResourcePath())
-            //            GYZLog(filterModel.localFilterResourcePath())
+            self.selectFilterDic[self.currPage] = effectFilter
             //            GYZLog(effectFilter.path)
-//            self.editor?.apply(effectFilter)
-            self.editPhotoView.editor?.apply(effectFilter)
+            self.editViews[self.currPage].editor?.apply(effectFilter)
         }
     }
-    func initSDKAbout(path: String){
-//        editor = AliyunEditor.init(path: path, preview: movieView)
-//        editor?.delegate = (self as! AliyunIExporterCallback & AliyunIPlayerCallback & AliyunIRenderCallback)
-//
-//        player = editor?.getPlayer()
-//        exporter = editor?.getExporter()
-//        clipConstructor = editor?.getClipConstructor()
-//
-//        editor?.startEdit()
-//        if !(player?.isPlaying())! {
-//            player?.play()
-//        }
-    }
-//    func setImgData(){
-//        //        var count:Int = 0
-//        //视频存储路径
-//        let videoSavePath: String = AliyunPathManager.compositionRootDir() + AliyunPathManager.randomString() + ".mp4"
-//        taskPath = videoSavePath
-//        importor = AliyunImporter.init(path: videoSavePath, outputSize: outputSize)
-//        let clip: AliyunClip = AliyunClip.init(imagePath: self.sourcePathArr[0], duration: 1, animDuration: 0)
-//        self.importor?.addMediaClip(clip)
-//        let param: AliyunVideoParam = AliyunVideoParam.default()
-//        param.codecType = .hardware
-//        param.scaleMode = .fill
-//
-//        self.importor?.setVideoParam(param)
-//        self.importor?.generateProjectConfigure()
-//        self.initSDKAbout(path: videoSavePath)
-//    }
-//    var movieView: UIView = UIView()
     var filterView: FSFilterView = FSFilterView()
-    var editPhotoView: FSEditPhotoView = FSEditPhotoView()
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        //        self.navigationController?.setNavigationBarHidden(true, animated: false)
-        
-        //        editor?.startEdit()
-        //        if !(player?.isPlaying())! {
-        //            player?.play()
-        //        }
-    }
-    
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        //        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        
-    }
     
     lazy var scrollView: UIScrollView = {
         let scroll = UIScrollView.init(frame: self.view.bounds)
@@ -136,6 +73,8 @@ class FSEditPhotoVC: GYZBaseVC {
         scroll.scrollsToTop = false
         scroll.bounces = false
         scroll.contentOffset = CGPoint.zero
+        // 将 scrollView 的 contentSize 设为屏幕宽度的3倍(根据实际情况改变)
+        scroll.contentSize = CGSize(width: self.view.frame.size.width * CGFloat(self.sourcePathArr.count), height: self.view.frame.size.height)
         
         scroll.delegate = self
         
@@ -144,12 +83,16 @@ class FSEditPhotoVC: GYZBaseVC {
     
     /// 下一步
     @objc func clickedNextBtn(){
-//        self.player?.stop()
-//        self.editor?.stopEdit()
-        let videoSavePath: String = AliyunPathManager.compositionRootDir() + AliyunPathManager.randomString() + ".mp4"
-        self.editPhotoView.exporter?.startExport(videoSavePath)
+        
+        createHUD(message: "合成中...")
+        self.currIndex = 0
+        self.stratDeal()
 //        self.exporter?.startExport(videoSavePath)
 //        featchFirstFrame(path: <#T##String#>)
+    }
+    func stratDeal(){
+        let videoSavePath: String = AliyunPathManager.compositionRootDir() + AliyunPathManager.randomString() + ".mp4"
+        self.editViews[currIndex].exporter?.startExport(videoSavePath)
     }
     /// 获取视频封面
     func featchFirstFrame(path: String){
@@ -167,7 +110,8 @@ class FSEditPhotoVC: GYZBaseVC {
             info.type = .image
         }
         
-        let image: UIImage = info.captureImage(atTime: 0, outputSize: self.editPhotoView.quVideo.outputSize)
+        let image: UIImage = info.captureImage(atTime: 0, outputSize: self.editViews[self.currPage].quVideo.outputSize)
+        self.selectCameraImgs.append(image)
         //保存到相册中
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.savePhoto(image:didFinishSavingWithError:contextInfo:)), nil)
     }
@@ -188,16 +132,14 @@ extension FSEditPhotoVC: UIScrollViewDelegate {
         // 随着滑动改变pageControl的状态
         //        pageControl.currentPage = Int(offset.x / view.bounds.width)
         currPage = Int(offset.x / view.bounds.width)
-        // 因为currentPage是从0开始，所以numOfPages减1
-//                if currPage == numOfPages - 1 {
-//                    UIView.animate(withDuration: 0.5, animations: {
-//                        self.startButton.alpha = 1.0
-//                    })
-//                } else {
-//                    UIView.animate(withDuration: 0.2, animations: {
-//                        self.startButton.alpha = 0.0
-//                    })
-//                }
+        if self.selectFilterDic.keys.contains(self.currPage) {
+//            self.editViews[self.currPage].editor?.apply(self.selectFilterDic[self.currPage])
+            self.filterView.currFilterModel = self.selectFilterInfoDic[self.currPage]
+            self.filterView.collectionView.reloadData()
+        }else{
+            self.filterView.currFilterModel = nil
+            self.filterView.collectionView.reloadData()
+        }
     }
 }
 // MARK: - UIScrollViewDelegate
@@ -227,8 +169,12 @@ extension FSEditPhotoVC: AliyunIExporterCallback,AliyunIPlayerCallback,AliyunIRe
 //        let outputPathURL: URL = URL.init(fileURLWithPath: quVideo.outputPath)
         ALAssetsLibrary.init().writeVideoAtPath(toSavedPhotosAlbum: URL.init(fileURLWithPath: outputPath)) {[unowned self] (assetURL, error) in
             self.featchFirstFrame(path: outputPath)
-            /// 视频已保存到相册
-//            self.goPublishDynamic(isVideo: true, img: self.featchFirstFrame()!)
+            if self.currIndex < self.sourcePathArr.count - 1{
+                self.currIndex += 1
+                self.stratDeal()
+            }else{
+                self.hud?.hide(animated: true)
+            }
         }
     }
     
