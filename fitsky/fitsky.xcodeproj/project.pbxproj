@@ -486,6 +486,7 @@
 		88061C61242A054500BBCBD5 /* FSIMScanQRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88061C60242A054500BBCBD5 /* FSIMScanQRCodeVC.swift */; };
 		881ED2E1242AE6E7002FD758 /* FSChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881ED2E0242AE6E7002FD758 /* FSChatVC.swift */; };
 		889AD73E24288E770040FBC5 /* FSIMCircleQrcodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AD73D24288E770040FBC5 /* FSIMCircleQrcodeVC.swift */; };
+		88C1167D245AA67B00615B32 /* FSEditPhotoPasterTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C1167C245AA67B00615B32 /* FSEditPhotoPasterTagVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1038,6 +1039,7 @@
 		88061C60242A054500BBCBD5 /* FSIMScanQRCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMScanQRCodeVC.swift; sourceTree = "<group>"; };
 		881ED2E0242AE6E7002FD758 /* FSChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSChatVC.swift; sourceTree = "<group>"; };
 		889AD73D24288E770040FBC5 /* FSIMCircleQrcodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleQrcodeVC.swift; sourceTree = "<group>"; };
+		88C1167C245AA67B00615B32 /* FSEditPhotoPasterTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSEditPhotoPasterTagVC.swift; sourceTree = "<group>"; };
 		FF47584BAC956E3BC8F69255 /* Pods-fitsky.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fitsky.release.xcconfig"; path = "Pods/Target Support Files/Pods-fitsky/Pods-fitsky.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -2101,6 +2103,7 @@
 				0A46585A232F694100345B7C /* FSSelectTopicVC.swift */,
 				0A2CAFD723A5325C009E418B /* FSMagicCameraVC.swift */,
 				0A43C35323BED58D0004CCE3 /* FSEditPhotoVC.swift */,
+				88C1167C245AA67B00615B32 /* FSEditPhotoPasterTagVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2632,6 +2635,7 @@
 				0A56F9C5231507600022EDAA /* FSPersonHomeWorksVC.swift in Sources */,
 				0AF823E32322530A00582D8D /* FSTopicDetailMsgHeaderView.swift in Sources */,
 				0A34E9CF23817AB500C64805 /* FSCourseOrderModel.swift in Sources */,
+				88C1167D245AA67B00615B32 /* FSEditPhotoPasterTagVC.swift in Sources */,
 				0A4CD89B23A9BD9C00EE1421 /* QiSlider.m in Sources */,
 				0A30CDB623CE070600AC4F56 /* FSRiLiItemView.swift in Sources */,
 				0A56F9C3231507210022EDAA /* FSPersonHomeAblumVC.swift in Sources */,

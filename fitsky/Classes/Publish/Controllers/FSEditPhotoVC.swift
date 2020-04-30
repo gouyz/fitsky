@@ -41,7 +41,6 @@ class FSEditPhotoVC: GYZBaseVC {
     
     func addSubviews(){
         for index in 0..<sourcePathArr.count {
-//            self.selectFilterArr.append(nil)
             let editPhotoView: FSEditPhotoView = FSEditPhotoView.init(frame:CGRect(x: self.view.frame.size.width * CGFloat(index), y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
             editPhotoView.imgPath = self.sourcePathArr[index]
             editPhotoView.editor?.delegate = (self as AliyunIExporterCallback & AliyunIPlayerCallback & AliyunIRenderCallback)
@@ -87,8 +86,6 @@ class FSEditPhotoVC: GYZBaseVC {
         createHUD(message: "合成中...")
         self.currIndex = 0
         self.stratDeal()
-//        self.exporter?.startExport(videoSavePath)
-//        featchFirstFrame(path: <#T##String#>)
     }
     func stratDeal(){
         let videoSavePath: String = AliyunPathManager.compositionRootDir() + AliyunPathManager.randomString() + ".mp4"
@@ -97,7 +94,6 @@ class FSEditPhotoVC: GYZBaseVC {
     /// 获取视频封面
     func featchFirstFrame(path: String){
         let clip:AliyunClip = AliyunClip.init(videoPath: path, animDuration: 0)
-//        let clip:AliyunClip = (self.clipConstructor?.mediaClips()?.first)!
         
         let info: AliAssetInfo = AliAssetInfo.init()
         info.path = clip.src
@@ -113,7 +109,7 @@ class FSEditPhotoVC: GYZBaseVC {
         let image: UIImage = info.captureImage(atTime: 0, outputSize: self.editViews[self.currPage].quVideo.outputSize)
         self.selectCameraImgs.append(image)
         //保存到相册中
-        UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.savePhoto(image:didFinishSavingWithError:contextInfo:)), nil)
+//        UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.savePhoto(image:didFinishSavingWithError:contextInfo:)), nil)
     }
     //保存到相册中
     @objc func savePhoto(image:UIImage,didFinishSavingWithError:NSError?,contextInfo:Any){
@@ -124,16 +120,17 @@ class FSEditPhotoVC: GYZBaseVC {
 //            self.goPublishDynamic(isVideo: false, img: image)
         }
     }
+    func goNext(){// 下一步
+        
+    }
 }
 // MARK: - UIScrollViewDelegate
 extension FSEditPhotoVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset
         // 随着滑动改变pageControl的状态
-        //        pageControl.currentPage = Int(offset.x / view.bounds.width)
         currPage = Int(offset.x / view.bounds.width)
         if self.selectFilterDic.keys.contains(self.currPage) {
-//            self.editViews[self.currPage].editor?.apply(self.selectFilterDic[self.currPage])
             self.filterView.currFilterModel = self.selectFilterInfoDic[self.currPage]
             self.filterView.collectionView.reloadData()
         }else{
@@ -165,17 +162,23 @@ extension FSEditPhotoVC: AliyunIExporterCallback,AliyunIPlayerCallback,AliyunIRe
     }
     
     func exporterDidEnd(_ outputPath: String!) {
-//        featchFirstFrame(path: outputPath)
-//        let outputPathURL: URL = URL.init(fileURLWithPath: quVideo.outputPath)
-        ALAssetsLibrary.init().writeVideoAtPath(toSavedPhotosAlbum: URL.init(fileURLWithPath: outputPath)) {[unowned self] (assetURL, error) in
-            self.featchFirstFrame(path: outputPath)
-            if self.currIndex < self.sourcePathArr.count - 1{
-                self.currIndex += 1
-                self.stratDeal()
-            }else{
-                self.hud?.hide(animated: true)
-            }
+        self.featchFirstFrame(path: outputPath)
+        if self.currIndex < self.sourcePathArr.count - 1{
+            self.currIndex += 1
+            self.stratDeal()
+        }else{
+            self.hud?.hide(animated: true)
+            self.goNext()
         }
+//        ALAssetsLibrary.init().writeVideoAtPath(toSavedPhotosAlbum: URL.init(fileURLWithPath: outputPath)) {[unowned self] (assetURL, error) in
+//            self.featchFirstFrame(path: outputPath)
+//            if self.currIndex < self.sourcePathArr.count - 1{
+//                self.currIndex += 1
+//                self.stratDeal()
+//            }else{
+//                self.hud?.hide(animated: true)
+//            }
+//        }
     }
     
     func exporterDidCancel() {
