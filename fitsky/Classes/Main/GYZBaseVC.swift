@@ -4,18 +4,6 @@
 //  基控制器
 //  Created by gouyz on 2016/11/7.
 //  Copyright © 2016年 gouyz. All rights reserved.
-//  svn:
-//  gouyongzheng
-//  ab5!3U2|*rHwc`#F
-//  apidoc:
-//  413977349@qq.com
-//  ysZ$BfI?94^rmO&a
-//  svn地址：svn://106.15.95.95/tyapp
-//  接口文档：http://apidoc.lijiayin.com/login.html
-//  UI设计稿地址：https://lanhuapp.com/url/P8Hoi-6FV9A
-//  ios账号
-//  jyn@fitsky.net
-//  Ssym6925
 
 import UIKit
 import MBProgressHUD
