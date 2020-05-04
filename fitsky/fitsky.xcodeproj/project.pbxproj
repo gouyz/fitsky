@@ -487,6 +487,7 @@
 		881ED2E1242AE6E7002FD758 /* FSChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881ED2E0242AE6E7002FD758 /* FSChatVC.swift */; };
 		889AD73E24288E770040FBC5 /* FSIMCircleQrcodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AD73D24288E770040FBC5 /* FSIMCircleQrcodeVC.swift */; };
 		88C1167D245AA67B00615B32 /* FSEditPhotoPasterTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C1167C245AA67B00615B32 /* FSEditPhotoPasterTagVC.swift */; };
+		88EB8C77246015DD0008619C /* YBPasterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EB8C75246015DD0008619C /* YBPasterView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1040,6 +1041,8 @@
 		881ED2E0242AE6E7002FD758 /* FSChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSChatVC.swift; sourceTree = "<group>"; };
 		889AD73D24288E770040FBC5 /* FSIMCircleQrcodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleQrcodeVC.swift; sourceTree = "<group>"; };
 		88C1167C245AA67B00615B32 /* FSEditPhotoPasterTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSEditPhotoPasterTagVC.swift; sourceTree = "<group>"; };
+		88EB8C75246015DD0008619C /* YBPasterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPasterView.m; sourceTree = "<group>"; };
+		88EB8C76246015DD0008619C /* YBPasterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPasterView.h; sourceTree = "<group>"; };
 		FF47584BAC956E3BC8F69255 /* Pods-fitsky.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fitsky.release.xcconfig"; path = "Pods/Target Support Files/Pods-fitsky/Pods-fitsky.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1483,6 +1486,7 @@
 		0A47C0A022D4858E00207CED /* 3rdLib */ = {
 			isa = PBXGroup;
 			children = (
+				88EB8C74246015DD0008619C /* YBPasterImage */,
 				0A4CD89823A9BD9B00EE1421 /* QiSlider */,
 				0A2CAFD923A545AB009E418B /* AliyunShortVideo */,
 				0A25EA6423981234004FBEF7 /* QQ */,
@@ -2203,6 +2207,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		88EB8C74246015DD0008619C /* YBPasterImage */ = {
+			isa = PBXGroup;
+			children = (
+				88EB8C75246015DD0008619C /* YBPasterView.m */,
+				88EB8C76246015DD0008619C /* YBPasterView.h */,
+			);
+			path = YBPasterImage;
+			sourceTree = "<group>";
+		};
 		F272D4A639534192A5B8EE03 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2463,6 +2476,7 @@
 				0A676A8E2362081700FA7542 /* FSCustomCooperateAlertView.swift in Sources */,
 				0A7189A82319132100C7536C /* FSReplyModel.swift in Sources */,
 				0A5109E5236679C8003369AC /* FSMyActivityVC.swift in Sources */,
+				88EB8C77246015DD0008619C /* YBPasterView.m in Sources */,
 				0AFA14BB238E74330094F6BC /* FSCookBookCategoryModel.swift in Sources */,
 				0A6915F92369E89F00999206 /* FSMonthClockVC.swift in Sources */,
 				0A21A24E2360B400008F7647 /* FSChangePwdVC.swift in Sources */,

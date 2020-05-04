@@ -80,6 +80,9 @@
 ///  自定义slider
 #import "QiSlider.h"
 
+///  贴纸view
+#import "YBPasterView.h"
+
 ///  个推
 #import <GTSDK/GeTuiSdk.h>
 // iOS10注册APNs所需头文件

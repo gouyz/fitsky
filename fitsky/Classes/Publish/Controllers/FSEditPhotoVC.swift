@@ -121,7 +121,9 @@ class FSEditPhotoVC: GYZBaseVC {
         }
     }
     func goNext(){// 下一步
-        
+        let vc = FSEditPhotoPasterTagVC()
+        vc.selectCameraImgs = self.selectCameraImgs
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 // MARK: - UIScrollViewDelegate
