@@ -467,6 +467,7 @@
 		0AD08E202366E00F00D727F5 /* FSMyCourseOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD08E1F2366E00F00D727F5 /* FSMyCourseOrderVC.swift */; };
 		0AD08E222366E1E400D727F5 /* FSMyCourseOrderListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD08E212366E1E400D727F5 /* FSMyCourseOrderListVC.swift */; };
 		0AD08E242366E36B00D727F5 /* FSMyCourseOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD08E232366E36B00D727F5 /* FSMyCourseOrderCell.swift */; };
+		0AD10D902461CB330073A63D /* GYZScrollView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD10D8F2461CB330073A63D /* GYZScrollView+Extension.swift */; };
 		0AF7F26522E1BBD50038CA46 /* FSSelectCityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF7F26422E1BBD50038CA46 /* FSSelectCityVC.swift */; };
 		0AF823DE2322530A00582D8D /* FSTopicDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF823D22322530900582D8D /* FSTopicDetailVC.swift */; };
 		0AF823DF2322530A00582D8D /* FSTopicManagerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF823D32322530900582D8D /* FSTopicManagerVC.swift */; };
@@ -1020,6 +1021,7 @@
 		0AD08E1F2366E00F00D727F5 /* FSMyCourseOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMyCourseOrderVC.swift; sourceTree = "<group>"; };
 		0AD08E212366E1E400D727F5 /* FSMyCourseOrderListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMyCourseOrderListVC.swift; sourceTree = "<group>"; };
 		0AD08E232366E36B00D727F5 /* FSMyCourseOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSMyCourseOrderCell.swift; sourceTree = "<group>"; };
+		0AD10D8F2461CB330073A63D /* GYZScrollView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GYZScrollView+Extension.swift"; sourceTree = "<group>"; };
 		0AF7F26422E1BBD50038CA46 /* FSSelectCityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSelectCityVC.swift; sourceTree = "<group>"; };
 		0AF823D22322530900582D8D /* FSTopicDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSTopicDetailVC.swift; sourceTree = "<group>"; };
 		0AF823D32322530900582D8D /* FSTopicManagerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSTopicManagerVC.swift; sourceTree = "<group>"; };
@@ -1468,6 +1470,7 @@
 				0A47C09822D4858E00207CED /* GYZUIViewControl+Empty.swift */,
 				0A47C09922D4858E00207CED /* GYZDate+Extension.swift */,
 				0A47C09A22D4858E00207CED /* GYZUIViewController+Loading.swift */,
+				0AD10D8F2461CB330073A63D /* GYZScrollView+Extension.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -2600,6 +2603,7 @@
 				0A47C12F22D4858E00207CED /* GYZActionSheet.swift in Sources */,
 				0A4ABBAD23A9521D001F888A /* FSFilterTypeCell.swift in Sources */,
 				0A4D40592356EF8F0040F505 /* FSFoodMenuDetailHeaderView.swift in Sources */,
+				0AD10D902461CB330073A63D /* GYZScrollView+Extension.swift in Sources */,
 				0A4DB3052402DBBA00F3058A /* FSFindCircleCell.swift in Sources */,
 				0A2DE07C23561F1700DE24A5 /* FSFindCourseDetailInfoCell.swift in Sources */,
 				0A4CD8B423AA22C900EE1421 /* AliyunIConfig.m in Sources */,

@@ -322,6 +322,7 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    [super touchesBegan:touches withEvent:event];
     UITouch *touch = [touches anyObject] ;
     touchStart = [touch locationInView:self.superview] ;
 }
@@ -331,6 +332,7 @@
  */
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    [super touchesMoved:touches withEvent:event];
     CGPoint touchLocation = [[touches anyObject] locationInView:self];
     if (CGRectContainsPoint(self.scaleImageView.frame, touchLocation)) {
         return;

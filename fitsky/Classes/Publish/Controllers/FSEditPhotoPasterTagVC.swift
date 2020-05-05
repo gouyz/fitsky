@@ -41,6 +41,7 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
             let scale = selectCameraImgs[index].size.width / selectCameraImgs[index].size.height
             let pasterImgView: UIImageView = UIImageView.init(frame:CGRect(x: self.view.frame.size.width * CGFloat(index), y: 0, width: self.view.frame.size.width, height: self.view.frame.size.width / scale))
             pasterImgView.image = self.selectCameraImgs[index]
+            pasterImgView.isUserInteractionEnabled = true
             editViews.append(pasterImgView)
             scrollView.addSubview(pasterImgView)
             selectPasterViewDic[index] = [YBPasterView]()
@@ -70,7 +71,7 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
         scroll.bounces = false
         scroll.contentOffset = CGPoint.zero
         // 将 scrollView 的 contentSize 设为屏幕宽度的3倍(根据实际情况改变)
-        scroll.contentSize = CGSize(width: self.view.frame.size.width * CGFloat(self.selectCameraImgs.count), height: self.view.frame.size.height)
+        scroll.contentSize = CGSize(width: self.view.frame.size.width * CGFloat(self.selectCameraImgs.count), height: self.view.bounds.height - 54)
         
         scroll.delegate = self
         
@@ -197,6 +198,16 @@ extension FSEditPhotoPasterTagVC: UIScrollViewDelegate {
         // 随着滑动改变pageControl的状态
         currPage = Int(offset.x / view.bounds.width)
         self.navigationItem.title = "\((currPage + 1))/\(selectCameraImgs.count)"
+    }
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch:AnyObject in touches {
+            let t:UITouch = touch as! UITouch
+            if (t.view?.isKind(of: YBPasterView.classForCoder()))!{
+                self.scrollView.isScrollEnabled = false
+            }else{
+                self.scrollView.isScrollEnabled = true
+            }
+        }
     }
 }
 // MARK: - YBPasterViewDelegate
