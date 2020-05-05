@@ -35,6 +35,7 @@ class FSEditPhotoVC: GYZBaseVC {
         self.view.backgroundColor = kBlackColor
         //初始化动图资源
         AliyunEffectPrestoreManager.init().insertInitialData()
+        self.navigationItem.title = "\((currPage + 1))/\(sourcePathArr.count)"
         
         addSubviews()
     }
@@ -82,7 +83,7 @@ class FSEditPhotoVC: GYZBaseVC {
     
     /// 下一步
     @objc func clickedNextBtn(){
-        
+        self.selectCameraImgs.removeAll()
         createHUD(message: "合成中...")
         self.currIndex = 0
         self.stratDeal()
@@ -139,6 +140,7 @@ extension FSEditPhotoVC: UIScrollViewDelegate {
             self.filterView.currFilterModel = nil
             self.filterView.collectionView.reloadData()
         }
+        self.navigationItem.title = "\((currPage + 1))/\(sourcePathArr.count)"
     }
 }
 // MARK: - UIScrollViewDelegate

@@ -89,4 +89,14 @@ extension UIImage
         UIGraphicsEndImageContext()
         return newImg
     }
+    // 将UIView转成UIImage
+    static func getImageFromView(theView : UIView) -> UIImage{
+        let orgSize: CGSize = theView.bounds.size
+        UIGraphicsBeginImageContextWithOptions(orgSize, false, 1)
+        theView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        // End the context
+        UIGraphicsEndImageContext()
+        return image!
+    }
 }

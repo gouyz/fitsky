@@ -12,7 +12,16 @@ private let pasterImgCell = "pasterImgCell"
 
 class FSPasterImgView: UIView {
     
-    var didSelectItemBlock:((_ model: AliyunEffectFilterInfo) -> Void)?
+    var didSelectItemBlock:((_ pasterImage: UIImage) -> Void)?
+    /// 填充数据
+    var pasterImageArray : [FSFindQiCaiCategoryModel]?{
+        didSet{
+            if pasterImageArray != nil {
+                
+                collectionView.reloadData()
+            }
+        }
+    }
     
     // MARK: 生命周期方法
     override init(frame: CGRect) {
@@ -130,21 +139,24 @@ extension FSPasterImgView : UICollectionViewDataSource,UICollectionViewDelegate{
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 22
+        return pasterImageArray?.count ?? 0
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: pasterImgCell, for: indexPath) as! FSPersonHomeAblumCell
-        
+        cell.iconView.kf.setImage(with: URL.init(string: pasterImageArray![indexPath.row].thumb!), placeholder: UIImage.init(named: "icon_bg_square_default"))
         return cell
     }
     
     // MARK: UICollectionViewDelegate的代理方法
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell: FSPersonHomeAblumCell = self.collectionView.cellForItem(at: indexPath) as! FSPersonHomeAblumCell
+        
 //        currFilterModel = dataList[indexPath.row]
 //        self.collectionView.reloadData()
-//        if didSelectItemBlock != nil {
-//            didSelectItemBlock!(dataList[indexPath.row])
-//        }
+        if didSelectItemBlock != nil {
+            didSelectItemBlock!(cell.iconView.image!)
+        }
+        hide()
     }
 }
