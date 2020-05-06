@@ -202,9 +202,12 @@ extension FSEditPhotoPasterTagVC: UIScrollViewDelegate {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch:AnyObject in touches {
             let t:UITouch = touch as! UITouch
-            if (t.view?.isKind(of: YBPasterView.classForCoder()))!{
+            if (t.view?.isKind(of: YBPasterView.self))!{
                 self.scrollView.isScrollEnabled = false
+                GYZLog("111")
+                break
             }else{
+                GYZLog("222")
                 self.scrollView.isScrollEnabled = true
             }
         }
