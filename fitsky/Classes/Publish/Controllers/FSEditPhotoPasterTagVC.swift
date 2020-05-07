@@ -105,6 +105,13 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
             }
             donePasterEdit(index: key)
         }
+        goPublishDynamic()
+    }
+    func goPublishDynamic(){
+        let vc = FSPublishDynamicVC()
+        vc.selectCameraImgs = self.dealResultImgs
+        vc.isVideo = false
+        navigationController?.pushViewController(vc, animated: true)
     }
     /// 贴纸
     @objc func onClickedPasterImgBtn(){
@@ -200,17 +207,23 @@ extension FSEditPhotoPasterTagVC: UIScrollViewDelegate {
         self.navigationItem.title = "\((currPage + 1))/\(selectCameraImgs.count)"
     }
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch:AnyObject in touches {
-            let t:UITouch = touch as! UITouch
-            if (t.view?.isKind(of: YBPasterView.self))!{
-                self.scrollView.isScrollEnabled = false
-                GYZLog("111")
-                break
-            }else{
-                GYZLog("222")
-                self.scrollView.isScrollEnabled = true
-            }
-        }
+        GYZLog("444")
+        self.scrollView.isScrollEnabled = false
+//        for touch:AnyObject in touches {
+//            let t:UITouch = touch as! UITouch
+//            if (t.view?.isKind(of: YBPasterView.self))!{
+//                self.scrollView.isScrollEnabled = false
+//                GYZLog("111")
+//                break
+//            }else{
+//                GYZLog("222")
+//                self.scrollView.isScrollEnabled = true
+//            }
+//        }
+    }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        GYZLog("333")
+        self.scrollView.isScrollEnabled = true
     }
 }
 // MARK: - YBPasterViewDelegate

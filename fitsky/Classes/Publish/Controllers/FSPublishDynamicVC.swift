@@ -62,11 +62,16 @@ class FSPublishDynamicVC: GYZWhiteNavBaseVC {
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: rightBtn)
         
         setUpUI()
-        if isRecord {
-            setCaramRecord()
+        if selectCameraImgs.count > 0 { // 美颜
+            self.setView()
         }else{
-            setImgData()
+            if isRecord {
+                setCaramRecord()
+            }else{
+                setImgData()
+            }
         }
+    
         contentTxtView.delegate = self
         contentTxtView.text = placeHolder
         
@@ -238,8 +243,7 @@ class FSPublishDynamicVC: GYZWhiteNavBaseVC {
                 self.selectCameraImgs.append(image!)
                 count += 1
                 if count == self.selectImgs.count{
-                    self.selectImgCount = self.selectCameraImgs.count
-                    self.resetAddImgView()
+                    self.setView()
                 }
             }
         }
@@ -252,6 +256,9 @@ class FSPublishDynamicVC: GYZWhiteNavBaseVC {
             addPhotosView.maxImgCount = maxImgCount
         }
         self.selectCameraImgs.append(recordImg)
+        self.setView()
+    }
+    func setView(){
         self.selectImgCount = self.selectCameraImgs.count
         self.resetAddImgView()
     }

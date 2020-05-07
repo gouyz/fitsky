@@ -11,7 +11,7 @@ import UIKit
 class FSEditPhotoView: UIView {
     
     //初始输出分辨率，此值切换画幅的时候用到
-    var outputSize: CGSize = CGSize.init(width: kScreenWidth, height: kScreenWidth * 16.0 / 9.0)//CGSize.init(width: 720, height: 1280)
+    var outputSize: CGSize = CGSize.init(width: kScreenWidth, height: kScreenHeight)//kScreenWidth * 16.0 / 9.0 CGSize.init(width: 720, height: 1280)
     /// 视频配置参数
     var quVideo: AliyunMediaConfig = AliyunMediaConfig.default()
     /// 多个资源的本地存放文件夹路径 - 从相册选择界面进入传这个值
@@ -42,7 +42,7 @@ class FSEditPhotoView: UIView {
         
         self.backgroundColor = UIColor.clear
         
-        outputSize = quVideo.fixedSize()
+//        outputSize = quVideo.fixedSize()
         quVideo.outputSize = outputSize
         quVideo.videoQuality = .medium
         quVideo.encodeMode = .hardH264
@@ -54,8 +54,8 @@ class FSEditPhotoView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     func setupUI(){
-        let factor: CGFloat = outputSize.height / outputSize.width
-        movieView.frame = CGRect.init(x: 0, y: 0, width: kScreenWidth, height: kScreenWidth * factor)
+//        let factor: CGFloat = outputSize.height / outputSize.width
+        movieView.frame = CGRect.init(x: 0, y: 0, width: kScreenWidth, height: kScreenHeight/*kScreenWidth * factor*/)
         
         self.addSubview(movieView)
     }
