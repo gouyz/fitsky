@@ -160,7 +160,7 @@ class FSMineVenueVC: GYZWhiteNavBaseVC {
         case 107://教练
             goMyCoach()
         case 108://社圈
-            break
+            goMyIMCircle()
         case 109://交易
             goMyTrade()
         case 110://个人主页
@@ -168,6 +168,11 @@ class FSMineVenueVC: GYZWhiteNavBaseVC {
         default:
             break
         }
+    }
+    /// 社圈
+    func goMyIMCircle(){
+        let vc = FSIMCircleVC()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     /// 我的关注、粉丝
     func goMyFollowVC(type:Int){

@@ -11,7 +11,7 @@ import UIKit
 class FSEditPhotoView: UIView {
     
     //初始输出分辨率，此值切换画幅的时候用到
-    var outputSize: CGSize = CGSize.init(width: kScreenWidth, height: kScreenHeight)//kScreenWidth * 16.0 / 9.0 CGSize.init(width: 720, height: 1280)
+    var outputSize: CGSize = CGSize.init(width: 720, height: 1280)
     /// 视频配置参数
     var quVideo: AliyunMediaConfig = AliyunMediaConfig.default()
     /// 多个资源的本地存放文件夹路径 - 从相册选择界面进入传这个值
@@ -42,7 +42,7 @@ class FSEditPhotoView: UIView {
         
         self.backgroundColor = UIColor.clear
         
-//        outputSize = quVideo.fixedSize()
+        outputSize = quVideo.fixedSize()
         quVideo.outputSize = outputSize
         quVideo.videoQuality = .medium
         quVideo.encodeMode = .hardH264
@@ -62,10 +62,11 @@ class FSEditPhotoView: UIView {
     var movieView: UIView = UIView()
     
     func setImgData(){
+        handleOriginalSize()
         //视频存储路径
         let videoSavePath: String = AliyunPathManager.compositionRootDir() + AliyunPathManager.randomString() + ".mp4"
         taskPath = videoSavePath
-        importor = AliyunImporter.init(path: videoSavePath, outputSize: outputSize)
+        importor = AliyunImporter.init(path: videoSavePath, outputSize: quVideo.outputSize)
         let clip: AliyunClip = AliyunClip.init(imagePath: imgPath!, duration: 1, animDuration: 0)
         self.importor?.addMediaClip(clip)
         let param: AliyunVideoParam = AliyunVideoParam.default()
@@ -90,5 +91,14 @@ class FSEditPhotoView: UIView {
         if !(player?.isPlaying())! {
             player?.play()
         }
+    }
+    /// 原比例下对size的处理
+    func handleOriginalSize(){
+        let image:UIImage = UIImage.init(contentsOfFile: imgPath!)!
+        let ratio: CGFloat = image.size.width / image.size.height
+        if ratio > 0 {
+            quVideo.outputSize = CGSize.init(width: quVideo.outputSize.width, height: quVideo.outputSize.width / ratio)
+        }
+        quVideo.outputSize = quVideo.fixedSize()
     }
 }
