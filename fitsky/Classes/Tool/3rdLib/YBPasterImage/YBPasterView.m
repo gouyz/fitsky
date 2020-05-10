@@ -322,7 +322,6 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-//    [super touchesBegan:touches withEvent:event];
     UITouch *touch = [touches anyObject] ;
     touchStart = [touch locationInView:self.superview] ;
 }
@@ -342,7 +341,14 @@
     [self checkIsOut];
     touchStart = touch;
 }
-
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(foucsThePaster)])
+    {
+        [self hiddenBtn];
+        [self.delegate foucsThePaster];
+    }
+}
 /**
  *  确保移动时不超出屏幕
  */
@@ -377,9 +383,9 @@
 
 
 #pragma mark - UIGestureRecognizerDelegate
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
-shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    return YES;
-}
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+//shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+//    return YES;
+//}
 
 @end

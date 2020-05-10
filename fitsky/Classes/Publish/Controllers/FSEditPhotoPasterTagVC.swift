@@ -39,7 +39,7 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
     func addSubviews(){
         for index in 0..<selectCameraImgs.count {
             let scale = selectCameraImgs[index].size.width / selectCameraImgs[index].size.height
-            let pasterImgView: UIImageView = UIImageView.init(frame:CGRect(x: self.view.frame.size.width * CGFloat(index), y: 0, width: self.view.frame.size.width, height: self.view.frame.size.width / scale))
+            let pasterImgView: UIImageView = UIImageView.init(frame:CGRect(x: self.view.frame.size.width * CGFloat(index), y: kTitleAndStateHeight, width: self.view.frame.size.width, height: self.view.frame.size.width / scale))
             pasterImgView.image = self.selectCameraImgs[index]
             pasterImgView.isUserInteractionEnabled = true
             editViews.append(pasterImgView)
@@ -61,6 +61,9 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
             make.right.equalTo(self.view)
             make.bottom.width.height.equalTo(tagBtn)
         }
+    }
+    override func clickedBackBtn() {
+        _ = navigationController?.popToRootViewController(animated: true)
     }
     lazy var scrollView: UIScrollView = {
         let scroll = UIScrollView.init(frame: CGRect.init(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height - 54))
@@ -127,6 +130,8 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
         pasterView.show()
     }
     func createPasterView(pasterImg: UIImage){
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        self.scrollView.isScrollEnabled = false
         var pasteArr: [YBPasterView]?
         if self.selectPasterViewDic.keys.contains(currPage) {
             pasteArr = selectPasterViewDic[currPage]
@@ -206,25 +211,6 @@ extension FSEditPhotoPasterTagVC: UIScrollViewDelegate {
         currPage = Int(offset.x / view.bounds.width)
         self.navigationItem.title = "\((currPage + 1))/\(selectCameraImgs.count)"
     }
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        GYZLog("444")
-        self.scrollView.isScrollEnabled = false
-//        for touch:AnyObject in touches {
-//            let t:UITouch = touch as! UITouch
-//            if (t.view?.isKind(of: YBPasterView.self))!{
-//                self.scrollView.isScrollEnabled = false
-//                GYZLog("111")
-//                break
-//            }else{
-//                GYZLog("222")
-//                self.scrollView.isScrollEnabled = true
-//            }
-//        }
-    }
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        GYZLog("333")
-        self.scrollView.isScrollEnabled = true
-    }
 }
 // MARK: - YBPasterViewDelegate
 extension FSEditPhotoPasterTagVC: YBPasterViewDelegate {
@@ -234,12 +220,16 @@ extension FSEditPhotoPasterTagVC: YBPasterViewDelegate {
                 if item == sender {
                     item.removeFromSuperview()
                     self.selectPasterViewDic[currPage]!.remove(at: index)
+                    self.scrollView.isScrollEnabled = true
                     break
                 }
             }
         }
     }
     func showEditThePaster(_ sender: YBPasterView!) {
+        
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        self.scrollView.isScrollEnabled = false
         sender.showBtn()
         if self.selectPasterViewDic.keys.contains(currPage) {
             for item in selectPasterViewDic[currPage]! {
@@ -248,5 +238,8 @@ extension FSEditPhotoPasterTagVC: YBPasterViewDelegate {
                 }
             }
         }
+    }
+    func foucsThePaster(){
+        self.scrollView.isScrollEnabled = true
     }
 }

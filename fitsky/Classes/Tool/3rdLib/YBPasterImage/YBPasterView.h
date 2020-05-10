@@ -15,6 +15,7 @@
 @optional;
 - (void)deleteThePaster:(YBPasterView *)sender;
 - (void)showEditThePaster:(YBPasterView *)sender;
+- (void)foucsThePaster;
 @end
 
 @interface YBPasterView : UIView

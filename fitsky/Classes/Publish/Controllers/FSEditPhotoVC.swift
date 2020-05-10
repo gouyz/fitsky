@@ -63,6 +63,15 @@ class FSEditPhotoVC: GYZBaseVC {
             self.editViews[self.currPage].editor?.apply(effectFilter)
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        for index in 0..<editViews.count {
+            self.editViews[index].startEdit()
+            if !(self.editViews[index].player?.isPlaying())! {
+                self.editViews[index].player?.play()
+            }
+        }
+    }
     var filterView: FSFilterView = FSFilterView()
     
     lazy var scrollView: UIScrollView = {
