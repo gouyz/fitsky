@@ -84,7 +84,7 @@ class FSSelectPhotosVC: GYZWhiteNavBaseVC {
     
     func savePhoto(){
         self.photoPathArr.removeAll()
-        createHUD(message: "加载中...")
+        createHUD(message: "处理中...")
         for item in self.pickerController.selectedAssets {
             let tmpPhotoPath: String = AliyunPathManager.compositionRootDir() + AliyunPathManager.randomString() + ".jpg"
             AliyunPhotoLibraryManager.shared()?.savePhoto(with: item.originalAsset, maxSize: CGSize.init(width: 1080, height: 1920), outputPath: tmpPhotoPath, completion: { [unowned self](error, image) in

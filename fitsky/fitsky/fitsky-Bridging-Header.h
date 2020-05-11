@@ -83,6 +83,12 @@
 ///  贴纸view
 #import "YBPasterView.h"
 
+///  图片加标签
+#import "TagView.h"
+#import "MarkedImageView.h"
+#import "TagModel.h"
+#import "TagViewModel.h"
+
 ///  个推
 #import <GTSDK/GeTuiSdk.h>
 // iOS10注册APNs所需头文件

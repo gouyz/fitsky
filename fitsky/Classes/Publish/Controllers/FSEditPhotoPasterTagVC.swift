@@ -16,14 +16,18 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
     var selectCameraImgs: [UIImage] = [UIImage]()
     // 合成后图片UIImage
     var dealResultImgs: [UIImage] = [UIImage]()
-    /// 合成的索引
-    var currIndex: Int = 0
+    
     var currPage: Int = 0
-    var editViews: [UIImageView] = [UIImageView]()
+    
+    var editViews: [MarkedImageView] = [MarkedImageView]()
     // 贴纸view
     var selectPasterViewDic: [Int:[YBPasterView]] = [:]
     // 贴纸列表
     var dataList:[FSFindQiCaiCategoryModel] = [FSFindQiCaiCategoryModel]()
+    /// 标签删除索引
+    var deleteIndex: Int = -1
+    // 标签model
+    var viewModelsDic: [Int:[TagViewModel]] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,16 +39,31 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
         self.navigationItem.title = "\((currPage + 1))/\(selectCameraImgs.count)"
         addSubviews()
         requestPasterList()
+        
     }
     func addSubviews(){
         for index in 0..<selectCameraImgs.count {
             let scale = selectCameraImgs[index].size.width / selectCameraImgs[index].size.height
-            let pasterImgView: UIImageView = UIImageView.init(frame:CGRect(x: self.view.frame.size.width * CGFloat(index), y: kTitleAndStateHeight, width: self.view.frame.size.width, height: self.view.frame.size.width / scale))
+            let pasterImgView: MarkedImageView = MarkedImageView.init(frame:CGRect(x: self.view.frame.size.width * CGFloat(index), y: kTitleAndStateHeight, width: self.view.frame.size.width, height: self.view.frame.size.width / scale))
             pasterImgView.image = self.selectCameraImgs[index]
+            pasterImgView.contentMode = .scaleAspectFill
             pasterImgView.isUserInteractionEnabled = true
+            pasterImgView.editable = true
+            //点击图片，编辑或新建标签
+            pasterImgView.markedImageDidTapBlock = {[unowned self] (viewModel) in
+                let model1: TagModel = TagModel.init(name: "qwqw", value: "", valueType: "1")
+                viewModel?.tagModels.add(model1)
+                self.viewModelsDic[self.currPage]?.append(viewModel!)
+                self.showMarkedImageView()
+            }
+            //长按删除标签
+            pasterImgView.deleteTagViewBlock = {[unowned self] (viewModel) in
+                self.handleDeleteTagView(viewModel: viewModel!)
+            }
             editViews.append(pasterImgView)
             scrollView.addSubview(pasterImgView)
             selectPasterViewDic[index] = [YBPasterView]()
+            self.viewModelsDic[index] = []
         }
         ///放到最底层
         self.view.insertSubview(scrollView, at: 0)
@@ -201,6 +220,33 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
             GYZLog(error)
             
         })
+    }
+    // 删除标签
+    func handleDeleteTagView(viewModel: TagViewModel){
+        self.deleteIndex = Int(viewModel.index)
+        GYZAlertViewTools.alertViewTools.showAlert(title: nil, message: "确认删除标签吗?", cancleTitle: "取消", viewController: self, buttonTitles: "确定") { [unowned self] (tag) in
+            
+            if tag != cancelIndex{
+                self.deleteTagView()
+            }
+        }
+    }
+    func deleteTagView(){
+        if deleteIndex == -1 {
+            return
+        }
+        self.viewModelsDic[currPage]?.remove(at: deleteIndex)
+        deleteIndex = -1
+        showMarkedImageView()
+    }
+    /// 显示标签
+    func showMarkedImageView(){
+        let arr:NSMutableArray = []
+        for item in self.viewModelsDic[currPage]! {
+            arr.add(item)
+        }
+        self.editViews[currPage].createTagView(arr)
+        self.editViews[currPage].showTagViews()
     }
 }
 // MARK: - UIScrollViewDelegate

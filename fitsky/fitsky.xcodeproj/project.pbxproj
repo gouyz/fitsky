@@ -485,6 +485,11 @@
 		0BA1340B218A5E8791D6B5FB /* Pods_fitsky.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE040770BB4EAAA0E7E29D8 /* Pods_fitsky.framework */; };
 		88061C61242A054500BBCBD5 /* FSIMScanQRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88061C60242A054500BBCBD5 /* FSIMScanQRCodeVC.swift */; };
 		881ED2E1242AE6E7002FD758 /* FSChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881ED2E0242AE6E7002FD758 /* FSChatVC.swift */; };
+		8876BE8B2469397B002EBED3 /* TagViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8876BE832469397B002EBED3 /* TagViewModel.m */; };
+		8876BE8C2469397B002EBED3 /* TagViewStyle.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8876BE842469397B002EBED3 /* TagViewStyle.plist */; };
+		8876BE8D2469397B002EBED3 /* TagModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8876BE852469397B002EBED3 /* TagModel.m */; };
+		8876BE8E2469397B002EBED3 /* TagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8876BE882469397B002EBED3 /* TagView.m */; };
+		8876BE8F2469397B002EBED3 /* MarkedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8876BE892469397B002EBED3 /* MarkedImageView.m */; };
 		889AD73E24288E770040FBC5 /* FSIMCircleQrcodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AD73D24288E770040FBC5 /* FSIMCircleQrcodeVC.swift */; };
 		88C1167D245AA67B00615B32 /* FSEditPhotoPasterTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C1167C245AA67B00615B32 /* FSEditPhotoPasterTagVC.swift */; };
 		88EB8C77246015DD0008619C /* YBPasterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EB8C75246015DD0008619C /* YBPasterView.m */; };
@@ -1039,6 +1044,15 @@
 		56EEBEBDCA4AB711BC5E2D6A /* Pods-fitsky.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fitsky.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fitsky/Pods-fitsky.debug.xcconfig"; sourceTree = "<group>"; };
 		88061C60242A054500BBCBD5 /* FSIMScanQRCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMScanQRCodeVC.swift; sourceTree = "<group>"; };
 		881ED2E0242AE6E7002FD758 /* FSChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSChatVC.swift; sourceTree = "<group>"; };
+		8876BE812469397B002EBED3 /* TagViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagViewModel.h; sourceTree = "<group>"; };
+		8876BE822469397B002EBED3 /* TagModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagModel.h; sourceTree = "<group>"; };
+		8876BE832469397B002EBED3 /* TagViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagViewModel.m; sourceTree = "<group>"; };
+		8876BE842469397B002EBED3 /* TagViewStyle.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TagViewStyle.plist; sourceTree = "<group>"; };
+		8876BE852469397B002EBED3 /* TagModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagModel.m; sourceTree = "<group>"; };
+		8876BE872469397B002EBED3 /* MarkedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkedImageView.h; sourceTree = "<group>"; };
+		8876BE882469397B002EBED3 /* TagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagView.m; sourceTree = "<group>"; };
+		8876BE892469397B002EBED3 /* MarkedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkedImageView.m; sourceTree = "<group>"; };
+		8876BE8A2469397B002EBED3 /* TagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagView.h; sourceTree = "<group>"; };
 		889AD73D24288E770040FBC5 /* FSIMCircleQrcodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleQrcodeVC.swift; sourceTree = "<group>"; };
 		88C1167C245AA67B00615B32 /* FSEditPhotoPasterTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSEditPhotoPasterTagVC.swift; sourceTree = "<group>"; };
 		88EB8C75246015DD0008619C /* YBPasterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPasterView.m; sourceTree = "<group>"; };
@@ -1486,6 +1500,7 @@
 		0A47C0A022D4858E00207CED /* 3rdLib */ = {
 			isa = PBXGroup;
 			children = (
+				8876BE7F2469397B002EBED3 /* TaggedImage */,
 				88EB8C74246015DD0008619C /* YBPasterImage */,
 				0A4CD89823A9BD9B00EE1421 /* QiSlider */,
 				0A2CAFD923A545AB009E418B /* AliyunShortVideo */,
@@ -2207,6 +2222,38 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		8876BE7F2469397B002EBED3 /* TaggedImage */ = {
+			isa = PBXGroup;
+			children = (
+				8876BE802469397B002EBED3 /* Model */,
+				8876BE862469397B002EBED3 /* View */,
+			);
+			path = TaggedImage;
+			sourceTree = "<group>";
+		};
+		8876BE802469397B002EBED3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8876BE812469397B002EBED3 /* TagViewModel.h */,
+				8876BE822469397B002EBED3 /* TagModel.h */,
+				8876BE832469397B002EBED3 /* TagViewModel.m */,
+				8876BE842469397B002EBED3 /* TagViewStyle.plist */,
+				8876BE852469397B002EBED3 /* TagModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8876BE862469397B002EBED3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8876BE872469397B002EBED3 /* MarkedImageView.h */,
+				8876BE882469397B002EBED3 /* TagView.m */,
+				8876BE892469397B002EBED3 /* MarkedImageView.m */,
+				8876BE8A2469397B002EBED3 /* TagView.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		88EB8C74246015DD0008619C /* YBPasterImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -2354,6 +2401,7 @@
 				0A208A1423AA684500BB68A4 /* Animation_Effects in Resources */,
 				0A2089F723AA66C900BB68A4 /* QPSDK.bundle in Resources */,
 				0A47C12322D4858E00207CED /* City.plist in Resources */,
+				8876BE8C2469397B002EBED3 /* TagViewStyle.plist in Resources */,
 				0A208A0723AA681300BB68A4 /* LocalCaption.json in Resources */,
 				0A208A0A23AA681300BB68A4 /* LocalAnimationEffects.json in Resources */,
 				0A208A0523AA681300BB68A4 /* LocalFilter.json in Resources */,
@@ -2541,6 +2589,7 @@
 				0A208189237AFA4B00761F81 /* FSConfirmConditionModel.swift in Sources */,
 				0A47C12A22D4858E00207CED /* MMShareSheet.swift in Sources */,
 				0A5B4CC7235EA6C700660561 /* FSWorkCollectionVC.swift in Sources */,
+				8876BE8F2469397B002EBED3 /* MarkedImageView.m in Sources */,
 				0A46F4052414D8B000165B8E /* FSPublishNoticeVC.swift in Sources */,
 				0A48022C234C79B300ED7F13 /* FSLabAndLabBtnView.swift in Sources */,
 				0A47C0FF22D4858E00207CED /* LHSUserInfoModel.swift in Sources */,
@@ -2655,6 +2704,7 @@
 				0A56F9C3231507210022EDAA /* FSPersonHomeAblumVC.swift in Sources */,
 				0A5B4D21235EEA8800660561 /* FSMyApplyConfirmVC.swift in Sources */,
 				0AC5C57E230EF22E005AB87B /* FSConmentSendView.swift in Sources */,
+				8876BE8E2469397B002EBED3 /* TagView.m in Sources */,
 				0A47C12822D4858E00207CED /* ZCycleLayout.swift in Sources */,
 				0A6096252313CBA100C06896 /* FSComplainCell.swift in Sources */,
 				0A27C8E92427DABD000CFFBD /* FSIMCircleDetailVC.swift in Sources */,
@@ -2679,6 +2729,7 @@
 				0A84C1F323177CAC0037B16C /* FSSquareUserModel.swift in Sources */,
 				0A243F3F235221A2002566CD /* FSFoodMenuListVC.swift in Sources */,
 				0A45735E23599D93007B74EE /* FSMyBodyDataVC.swift in Sources */,
+				8876BE8D2469397B002EBED3 /* TagModel.m in Sources */,
 				0A3DD8BE230B8DC500FAF2A5 /* FSZongHeCell.swift in Sources */,
 				0A1E73C323200B80009BF848 /* FSFollowWebViewHeaderView.swift in Sources */,
 				0A26A006239D25C000319C0B /* UILabel+YBAttributeTextTapAction.m in Sources */,
@@ -2821,6 +2872,7 @@
 				0A732042235F64B4009CD650 /* FSPrivacySettingVC.swift in Sources */,
 				0AD08E222366E1E400D727F5 /* FSMyCourseOrderListVC.swift in Sources */,
 				0A2CAFDF23A6015E009E418B /* AliyunMediaConfig.m in Sources */,
+				8876BE8B2469397B002EBED3 /* TagViewModel.m in Sources */,
 				0A5B4D23235EEED600660561 /* FSConfirmConditionVC.swift in Sources */,
 				0A24D5CE238D75DA002866C6 /* FSFoodGuideModel.swift in Sources */,
 				0A421522230E9103001F29A1 /* FSHotDynamicCell.swift in Sources */,
