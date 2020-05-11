@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, TagViewStyle) {
 //样式
 @property (nonatomic, assign) TagViewStyle style;
 //顺序标志
-@property (nonatomic, assign) NSUInteger index;
+@property (nonatomic, assign) NSInteger index;
 
 //初始化
 - (instancetype)initWithArray:(NSArray<TagModel *> *)tagModels coordinate:(CGPoint)coordinate;

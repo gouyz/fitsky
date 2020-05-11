@@ -53,7 +53,11 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
             pasterImgView.markedImageDidTapBlock = {[unowned self] (viewModel) in
                 let model1: TagModel = TagModel.init(name: "qwqw", value: "", valueType: "1")
                 viewModel?.tagModels.add(model1)
-                self.viewModelsDic[self.currPage]?.append(viewModel!)
+                if viewModel?.index == -1 {
+                    self.viewModelsDic[self.currPage]?.append(viewModel!)
+                }else{
+                    self.viewModelsDic[self.currPage]![viewModel!.index] = viewModel!
+                }
                 self.showMarkedImageView()
             }
             //长按删除标签
@@ -223,7 +227,7 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
     }
     // 删除标签
     func handleDeleteTagView(viewModel: TagViewModel){
-        self.deleteIndex = Int(viewModel.index)
+        self.deleteIndex = viewModel.index
         GYZAlertViewTools.alertViewTools.showAlert(title: nil, message: "确认删除标签吗?", cancleTitle: "取消", viewController: self, buttonTitles: "确定") { [unowned self] (tag) in
             
             if tag != cancelIndex{

@@ -490,6 +490,8 @@
 		8876BE8D2469397B002EBED3 /* TagModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8876BE852469397B002EBED3 /* TagModel.m */; };
 		8876BE8E2469397B002EBED3 /* TagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8876BE882469397B002EBED3 /* TagView.m */; };
 		8876BE8F2469397B002EBED3 /* MarkedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8876BE892469397B002EBED3 /* MarkedImageView.m */; };
+		8876BE91246960FE002EBED3 /* FSSelectVenueTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8876BE90246960FE002EBED3 /* FSSelectVenueTagVC.swift */; };
+		8876BE9324696651002EBED3 /* FSCustomTagSelectedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8876BE9224696651002EBED3 /* FSCustomTagSelectedCell.swift */; };
 		889AD73E24288E770040FBC5 /* FSIMCircleQrcodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AD73D24288E770040FBC5 /* FSIMCircleQrcodeVC.swift */; };
 		88C1167D245AA67B00615B32 /* FSEditPhotoPasterTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C1167C245AA67B00615B32 /* FSEditPhotoPasterTagVC.swift */; };
 		88EB8C77246015DD0008619C /* YBPasterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EB8C75246015DD0008619C /* YBPasterView.m */; };
@@ -1053,6 +1055,8 @@
 		8876BE882469397B002EBED3 /* TagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagView.m; sourceTree = "<group>"; };
 		8876BE892469397B002EBED3 /* MarkedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkedImageView.m; sourceTree = "<group>"; };
 		8876BE8A2469397B002EBED3 /* TagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagView.h; sourceTree = "<group>"; };
+		8876BE90246960FE002EBED3 /* FSSelectVenueTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSelectVenueTagVC.swift; sourceTree = "<group>"; };
+		8876BE9224696651002EBED3 /* FSCustomTagSelectedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCustomTagSelectedCell.swift; sourceTree = "<group>"; };
 		889AD73D24288E770040FBC5 /* FSIMCircleQrcodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleQrcodeVC.swift; sourceTree = "<group>"; };
 		88C1167C245AA67B00615B32 /* FSEditPhotoPasterTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSEditPhotoPasterTagVC.swift; sourceTree = "<group>"; };
 		88EB8C75246015DD0008619C /* YBPasterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPasterView.m; sourceTree = "<group>"; };
@@ -2123,6 +2127,7 @@
 				0A2CAFD723A5325C009E418B /* FSMagicCameraVC.swift */,
 				0A43C35323BED58D0004CCE3 /* FSEditPhotoVC.swift */,
 				88C1167C245AA67B00615B32 /* FSEditPhotoPasterTagVC.swift */,
+				8876BE90246960FE002EBED3 /* FSSelectVenueTagVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2141,6 +2146,7 @@
 				0A9C68F423AB64C4008D320D /* FSPasterImgView.swift */,
 				0A49AA99244B67B600390462 /* FSFilterView.swift */,
 				0A29D3392451E7E500486B42 /* FSEditPhotoView.swift */,
+				8876BE9224696651002EBED3 /* FSCustomTagSelectedCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2534,6 +2540,7 @@
 				0AF823EA232253F800582D8D /* FSEditTopicIntroduceVC.swift in Sources */,
 				0A47C0F322D4858E00207CED /* GYZMyProfileCell.swift in Sources */,
 				0A676A8C2361FF4500FA7542 /* FSAboutHeaderView.swift in Sources */,
+				8876BE9324696651002EBED3 /* FSCustomTagSelectedCell.swift in Sources */,
 				0A0A026A22E74205008BC4BB /* FSHotCityCell.swift in Sources */,
 				0A4DB3032402C23500F3058A /* FSFindCircleVC.swift in Sources */,
 				0A47C11222D4858E00207CED /* GYZUIViewControl+Empty.swift in Sources */,
@@ -2690,6 +2697,7 @@
 				0A47C14322D4858E00207CED /* GYZCheckTool.m in Sources */,
 				0A47C14422D4858E00207CED /* GYZConst.swift in Sources */,
 				0A60962323138E6E00C06896 /* FSComplainVC.swift in Sources */,
+				8876BE91246960FE002EBED3 /* FSSelectVenueTagVC.swift in Sources */,
 				0A47C11022D4858E00207CED /* GYZString+Extension.swift in Sources */,
 				0A54BFC9238EDE29008C47CF /* FSQiCaiDetailModel.swift in Sources */,
 				0A45082E23B44F1900D7C687 /* FSDynamicVideoDetailCell.swift in Sources */,
