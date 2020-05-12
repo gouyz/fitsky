@@ -22,6 +22,8 @@ class FSPublishDynamicVC: GYZWhiteNavBaseVC {
     var selectImgs: [DKAsset] = [DKAsset]()
     // 拍照
     var selectCameraImgs: [UIImage] = [UIImage]()
+    // 标签model
+    var selectedTagModelsDic: [Int:[TagViewModel]] = [:]
     /// 录制视频、拍照图片
     var recordImg:UIImage = UIImage.init()
     /// 最大选择图片数量

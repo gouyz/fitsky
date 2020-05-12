@@ -119,18 +119,21 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
     /// 下一步
     @objc func clickedNextBtn(){
         dealResultImgs.removeAll()
+        createHUD(message: "处理中...")
         for key in self.selectPasterViewDic.keys {
             for item in self.selectPasterViewDic[key]! {
                 item.hiddenBtn()
             }
             donePasterEdit(index: key)
         }
+        hud?.hide(animated: true)
         goPublishDynamic()
     }
     func goPublishDynamic(){
         let vc = FSPublishDynamicVC()
         vc.selectCameraImgs = self.dealResultImgs
         vc.isVideo = false
+        vc.selectedTagModelsDic = self.viewModelsDic
         navigationController?.pushViewController(vc, animated: true)
     }
     /// 贴纸

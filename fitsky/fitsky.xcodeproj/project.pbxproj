@@ -117,6 +117,7 @@
 		0A24E1302421285C00B91BB7 /* FSIMCircleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A24E12F2421285C00B91BB7 /* FSIMCircleModel.swift */; };
 		0A25EA6723981234004FBEF7 /* GYZTencentShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A25EA6523981234004FBEF7 /* GYZTencentShare.swift */; };
 		0A25EA6823981234004FBEF7 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A25EA6623981234004FBEF7 /* TencentOpenAPI.framework */; };
+		0A268D43246AF9C200C73A56 /* FSTagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A268D42246AF9C200C73A56 /* FSTagModel.swift */; };
 		0A26A006239D25C000319C0B /* UILabel+YBAttributeTextTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A26A005239D25C000319C0B /* UILabel+YBAttributeTextTapAction.m */; };
 		0A26A008239D518700319C0B /* GYZLabelCenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26A007239D518700319C0B /* GYZLabelCenterCell.swift */; };
 		0A26A00A239D6BCD00319C0B /* FSMyCourseSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26A009239D6BCD00319C0B /* FSMyCourseSearchVC.swift */; };
@@ -640,6 +641,7 @@
 		0A24E12F2421285C00B91BB7 /* FSIMCircleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleModel.swift; sourceTree = "<group>"; };
 		0A25EA6523981234004FBEF7 /* GYZTencentShare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GYZTencentShare.swift; sourceTree = "<group>"; };
 		0A25EA6623981234004FBEF7 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
+		0A268D42246AF9C200C73A56 /* FSTagModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTagModel.swift; sourceTree = "<group>"; };
 		0A26A004239D25C000319C0B /* UILabel+YBAttributeTextTapAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+YBAttributeTextTapAction.h"; sourceTree = "<group>"; };
 		0A26A005239D25C000319C0B /* UILabel+YBAttributeTextTapAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+YBAttributeTextTapAction.m"; sourceTree = "<group>"; };
 		0A26A007239D518700319C0B /* GYZLabelCenterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GYZLabelCenterCell.swift; sourceTree = "<group>"; };
@@ -2112,6 +2114,7 @@
 		0A54D42F231D05FA000ADB6B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0A268D42246AF9C200C73A56 /* FSTagModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2779,6 +2782,7 @@
 				0A5B4D25235EF2A800660561 /* FSConfirmConditionCell.swift in Sources */,
 				0A45FFC92353784200EF6B21 /* FSFindQiCaiVC.swift in Sources */,
 				0A47C0E922D4858E00207CED /* GYZCommonInfoCell.swift in Sources */,
+				0A268D43246AF9C200C73A56 /* FSTagModel.swift in Sources */,
 				0A47C02F22D4783800207CED /* AppDelegate.swift in Sources */,
 				0A47C11522D4858E00207CED /* GYZEmptyView.swift in Sources */,
 				0A47C13B22D4858E00207CED /* GYZNetWork.swift in Sources */,
