@@ -35,9 +35,9 @@ class FSCustomTagSelectedCell: UITableViewCell {
             make.size.equalTo(CGSize.init(width: 30, height: 30))
         }
         nameLab.snp.makeConstraints { (make) in
-            make.left.equalTo(kMargin)
+            make.right.equalTo(-kMargin)
             make.top.equalTo(kMargin)
-            make.right.equalTo(iconView.snp.left).offset(-kMargin)
+            make.left.equalTo(iconView.snp.right).offset(kMargin)
             make.height.equalTo(24)
         }
         desLab.snp.makeConstraints { (make) in

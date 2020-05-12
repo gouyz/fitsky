@@ -16,7 +16,7 @@ private let venueListEmptyFooter = "venueListEmptyFooter"
 class FSSelectVenueTagVC: GYZBaseVC {
     
     /// 选择结果回调
-    var resultBlock:((_ tagNames: String) -> Void)?
+    var resultBlock:((_ viewModel: TagViewModel) -> Void)?
     
     // 场馆列表
     var dataVenueList: [FSTrainVenueModel] = [FSTrainVenueModel]()
@@ -200,7 +200,11 @@ extension FSSelectVenueTagVC: UITableViewDelegate,UITableViewDataSource{
             return cell
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: customTagCell) as! FSCustomTagSelectedCell
-            
+            if dataVenueList.count == 0 {
+                cell.nameLab.text = searchContent
+            }else{
+                cell.nameLab.text = ""
+            }
             cell.selectionStyle = .none
             return cell
         }
@@ -234,12 +238,28 @@ extension FSSelectVenueTagVC: UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 { // 自定义
-            currTagList.append(dataList[indexPath.row].name!)
-            if isHas {
-                cancleSearchClick()
+        if viewModel != nil {
+            viewModel?.tagModels.removeAllObjects()
+            if indexPath.section == 0 { // 自定义
+                if dataVenueList.count == 0 {
+                    let model: TagModel = TagModel.init(name: searchContent, value: "", valueType: "0")
+                    viewModel?.tagModels.add(model)
+                    viewModel?.synchronizeAngle()
+                    if resultBlock != nil {
+                        resultBlock!(viewModel!)
+                    }
+                    clickedBackBtn()
+                }else{
+                    MBProgressHUD.showAutoDismissHUD(message: "请选择场馆")
+                }
             }else{
-                requestAddTags()
+                let model: TagModel = TagModel.init(name: dataVenueList[indexPath.row].store_name, value: dataVenueList[indexPath.row].id, valueType: "1")
+                viewModel?.tagModels.add(model)
+                viewModel?.synchronizeAngle()
+                if resultBlock != nil {
+                    resultBlock!(viewModel!)
+                }
+                clickedBackBtn()
             }
         }
     }

@@ -51,14 +51,7 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
             pasterImgView.editable = true
             //点击图片，编辑或新建标签
             pasterImgView.markedImageDidTapBlock = {[unowned self] (viewModel) in
-                let model1: TagModel = TagModel.init(name: "qwqw", value: "", valueType: "1")
-                viewModel?.tagModels.add(model1)
-                if viewModel?.index == -1 {
-                    self.viewModelsDic[self.currPage]?.append(viewModel!)
-                }else{
-                    self.viewModelsDic[self.currPage]![viewModel!.index] = viewModel!
-                }
-                self.showMarkedImageView()
+                self.goTagVC(model: viewModel!)
             }
             //长按删除标签
             pasterImgView.deleteTagViewBlock = {[unowned self] (viewModel) in
@@ -110,6 +103,7 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
         btn.setTitleColor(kWhiteColor, for: .normal)
         btn.setTitle("标签", for: .normal)
         btn.backgroundColor = UIColor.ColorHex("#343434")
+        btn.addTarget(self, action: #selector(onClickedSelectTagBtn), for: .touchUpInside)
         return btn
     }()
     /// 贴纸
@@ -143,7 +137,20 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
     @objc func onClickedPasterImgBtn(){
         showPasterView()
     }
-    
+    /// 标签
+    @objc func onClickedSelectTagBtn(){
+        let model: TagViewModel = TagViewModel.init(array: nil, coordinate: editViews[currPage].center)
+        model.index = -1
+        goTagVC(model: model)
+    }
+    func goTagVC(model: TagViewModel){
+        let vc = FSSelectVenueTagVC()
+        vc.viewModel = model
+        vc.resultBlock = {[unowned self] (tagModel) in
+            self.handleNewTagViewModel(model: tagModel)
+        }
+        navigationController?.pushViewController(vc, animated: true)
+    }
     func showPasterView(){
         let pasterView: FSPasterImgView = FSPasterImgView()
         pasterView.pasterImageArray = dataList
@@ -251,6 +258,16 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
         }
         self.editViews[currPage].createTagView(arr)
         self.editViews[currPage].showTagViews()
+    }
+    // 处理选择的标签
+    func handleNewTagViewModel(model: TagViewModel){
+        if model.index == -1 {
+            model.index = self.viewModelsDic[currPage]!.count
+            self.viewModelsDic[currPage]?.append(model)
+        }else{
+            self.viewModelsDic[self.currPage]![model.index] = model
+        }
+        self.showMarkedImageView()
     }
 }
 // MARK: - UIScrollViewDelegate
