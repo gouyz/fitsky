@@ -32,4 +32,5 @@ typedef void(^deleteTagViewBlock)(TagViewModel *);
 - (void)createTagView:(NSMutableArray<TagViewModel *> *)viewModels;
 - (void)showTagViews;
 - (void)hideTagViews;
+- (BOOL)pointInsideAnyTagView:(CGPoint)point;
 @end

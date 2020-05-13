@@ -193,6 +193,13 @@ class FSCustomPhotoBrowserCell: UIView, UIScrollViewDelegate, UIGestureRecognize
     
     /// 单击
     @objc open func onSingleTap(_ tap: UITapGestureRecognizer) {
+        
+        //新建标签
+        let position: CGPoint = tap.location(in: imageView)
+        //判断是否要新建标签，如果任何标签的文字或中心点包含了这个点，则不创建
+        if imageView.point(insideAnyTagView: position){
+            return
+        }
         photoBrowser?.dismiss()
     }
     

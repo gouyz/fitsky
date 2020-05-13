@@ -719,6 +719,11 @@ class FSHotDynamicVC: GYZWhiteNavBaseVC {
             browserCell?.imageView.kf.setImage(with: URL.init(string: urls[context.index]), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
                 browserCell?.setNeedsLayout()
             })
+            //点击图片，编辑或新建标签
+            browserCell?.imageView.markedImageDidTapBlock = {[unowned self] (viewModel) in
+                GYZLog(viewModel)
+            }
+            // 加标签
             let arr:NSMutableArray = []
             for item in (self.dataModel?.materialList[context.index].tagsList)! {
                 let model: TagModel = TagModel.init(name: item.tag_content_text, value: item.tag_content_id, valueType: item.tag_type)
