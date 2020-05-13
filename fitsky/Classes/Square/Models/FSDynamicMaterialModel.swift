@@ -30,4 +30,18 @@ class FSDynamicMaterialModel: LHSBaseModel {
     var create_time : String? = ""
     /// 缩略图
     var thumb : String? = ""
+    /// 标签list
+    var tagsList:[FSTagModel] = [FSTagModel]()
+    
+    override func setValue(_ value: Any?, forKey key: String) {
+        if key == "tag"{
+            guard let datas = value as? [[String : Any]] else { return }
+            for item in datas {
+                let model = FSTagModel(dict: item)
+                tagsList.append(model)
+            }
+        }else {
+            super.setValue(value, forKey: key)
+        }
+    }
 }

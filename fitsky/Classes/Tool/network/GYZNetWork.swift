@@ -120,7 +120,7 @@ class GYZNetWork: NSObject {
     ///   - failture: 上传失败的回调
     static func uploadImageRequest(_ url : String,
                                    baseUrl: String = BaseRequestURL,
-                                   parameters : [String:String]? = nil,
+                                   parameters : [String:Any]? = nil,
                                    uploadParam : [ImageFileUploadParam],
                                    success : @escaping (_ response : JSON)->Void,
                                    failture : @escaping (_ error : Error?)-> Void){
@@ -129,7 +129,7 @@ class GYZNetWork: NSObject {
         
         let headers = ["content-type":"multipart/form-data"]
         
-        var paramDic:[String: String] = parameters == nil ? [String: String]() : parameters!
+        var paramDic:[String: Any] = parameters == nil ? [String: Any]() : parameters!
         
         if let token = userDefaults.string(forKey: "token") {
             //                header = ["Authorization":token]
@@ -149,8 +149,13 @@ class GYZNetWork: NSObject {
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             
             if paramDic.count > 0{
-                for param in paramDic{
-                    multipartFormData.append( (param.value.data(using: String.Encoding.utf8)!), withName: param.key)
+                for (key, value) in paramDic{
+                    if let strValue = value as? String {
+                        multipartFormData.append( strValue.data(using: String.Encoding.utf8)!, withName: key)
+                    }else{
+                        multipartFormData.append(GYZTool.ObjectToData(object: value)!, withName: key)
+                    }
+//                    multipartFormData.append( (param.value.data(using: String.Encoding.utf8)!), withName: param.key)
                 }
             }
             for item in uploadParam{

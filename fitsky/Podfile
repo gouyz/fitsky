@@ -17,6 +17,7 @@ pod 'Cosmos', '~> 19.0.3' # 星星评分 https://github.com/marketplacer/Cosmos
 
 pod 'DKImagePickerController' #图片选择器 https://github.com/zhangao0086/DKImagePickerController
 pod 'SKPhotoBrowser' #图片浏览器 https://github.com/suzuki-0000/SKPhotoBrowser
+pod 'JXPhotoBrowser', '~> 3.0' #图片浏览器 https://github.com/JiongXing/PhotoBrowser
 pod 'PYSearch'  # 搜索框 https://github.com/ko1o/PYSearch
 pod 'CRBoxInputView', '~> 1.1.0' #短信验证码输入框，支持密文模式 https://github.com/CRAnimation/CRBoxInputView
 pod 'JXPagingView/Paging' #类似微博主页、简书主页等效果。多页面嵌套，既可以上下滑动，也可以左右滑动切换页面。支持HeaderView悬浮、支持下拉刷新、上拉加载更多 https://github.com/pujiaxin33/JXPagingView

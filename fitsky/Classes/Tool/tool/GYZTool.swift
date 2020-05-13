@@ -366,6 +366,23 @@ class GYZTool: NSObject {
         return JSONString! as String
         
     }
+    /**
+     字典|数组 转Data
+     
+     - parameter object: 参数
+     
+     - returns: Data
+     */
+    static func ObjectToData(object: Any) -> Data? {
+        do {
+            //如果设置options为JSONSerialization.WritingOptions.prettyPrinted，则打印格式更好阅读
+            return try JSONSerialization.data(withJSONObject: object, options: JSONSerialization.WritingOptions.prettyPrinted)
+        } catch {
+            print(error)
+        }
+        return nil
+        
+    }
     /// 根据图片原url及缩略图url获取图片宽高比
     ///
     /// - Parameters:

@@ -44,10 +44,16 @@
     _editable = NO;
     _showed = NO;
     
+    if (_editable) {
+        //手势
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
+        tapGesture.cancelsTouchesInView = YES;
+        [self addGestureRecognizer:tapGesture];
+    }
     //手势
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
-    tapGesture.cancelsTouchesInView = YES;
-    [self addGestureRecognizer:tapGesture];
+//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
+//    tapGesture.cancelsTouchesInView = YES;
+//    [self addGestureRecognizer:tapGesture];
     
 }
 

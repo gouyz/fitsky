@@ -294,6 +294,7 @@ class FSPublishDynamicVC: GYZWhiteNavBaseVC {
         createHUD(message: "加载中...")
         weak var weakSelf = self
         
+        var tagsArr:[[[String:Any]]] = [[[String:Any]]]()
         var imgsParam: [ImageFileUploadParam] = [ImageFileUploadParam]()
         for (index,imgItem) in selectCameraImgs.enumerated() {
             let imgParam: ImageFileUploadParam = ImageFileUploadParam()
@@ -303,10 +304,24 @@ class FSPublishDynamicVC: GYZWhiteNavBaseVC {
             imgParam.data = UIImage.jpegData(imgItem)(compressionQuality: 0.5)!
             
             imgsParam.append(imgParam)
+            tagsArr.append([])
+        }
+        for key in selectedTagModelsDic.keys {
+            for item in selectedTagModelsDic[key]! {
+                var model: [String:Any] = [:]
+                model["tag_x"] = String.init(format: "%.2f", item.coordinate.x)
+                model["tag_y"] = String.init(format: "%.2f", item.coordinate.y)
+                if item.tagModels.count > 0 {
+                    model["tag_type"] = (item.tagModels[0] as! TagModel).valueType
+                    model["tag_content_text"] = (item.tagModels[0] as! TagModel).name
+                    model["tag_content_id"] = (item.tagModels[0] as! TagModel).value
+                }
+                tagsArr[key].append(model)
+            }
         }
         
-        GYZNetWork.uploadImageRequest("Dynamic/Publish/addMaterial", parameters: nil, uploadParam: imgsParam, success: { (response) in
-            
+        GYZNetWork.uploadImageRequest("Dynamic/Publish/addMaterial", parameters: ["tag":tagsArr], uploadParam: imgsParam, success: { (response) in
+
             GYZLog(response)
             if response["result"].intValue == kQuestSuccessTag{//请求成功
                 guard let data = response["data"]["files"].array else { return }
@@ -322,7 +337,7 @@ class FSPublishDynamicVC: GYZWhiteNavBaseVC {
                 weakSelf?.hud?.hide(animated: true)
                 MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
             }
-            
+
         }, failture: { (error) in
             weakSelf?.hud?.hide(animated: true)
             GYZLog(error)

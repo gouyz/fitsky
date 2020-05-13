@@ -343,7 +343,7 @@ class FSVenueHomeListVC: GYZWhiteNavBaseVC {
     func goBigPhotos(index: Int, urls: [String]){
         let browser = SKPhotoBrowser(photos: GYZTool.createWebPhotos(urls: urls, isShowDel: false, isShowAction: true))
         browser.initializePageIndex(index)
-                browser.delegate = self
+//        browser.delegate = self
         
         present(browser, animated: true, completion: nil)
     }

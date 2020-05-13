@@ -493,6 +493,7 @@
 		8876BE8F2469397B002EBED3 /* MarkedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8876BE892469397B002EBED3 /* MarkedImageView.m */; };
 		8876BE91246960FE002EBED3 /* FSSelectVenueTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8876BE90246960FE002EBED3 /* FSSelectVenueTagVC.swift */; };
 		8876BE9324696651002EBED3 /* FSCustomTagSelectedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8876BE9224696651002EBED3 /* FSCustomTagSelectedCell.swift */; };
+		88808E2F246BF14A00F5A814 /* FSCustomPhotoBrowserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88808E2E246BF14A00F5A814 /* FSCustomPhotoBrowserCell.swift */; };
 		889AD73E24288E770040FBC5 /* FSIMCircleQrcodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AD73D24288E770040FBC5 /* FSIMCircleQrcodeVC.swift */; };
 		88C1167D245AA67B00615B32 /* FSEditPhotoPasterTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C1167C245AA67B00615B32 /* FSEditPhotoPasterTagVC.swift */; };
 		88EB8C77246015DD0008619C /* YBPasterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EB8C75246015DD0008619C /* YBPasterView.m */; };
@@ -1059,6 +1060,7 @@
 		8876BE8A2469397B002EBED3 /* TagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagView.h; sourceTree = "<group>"; };
 		8876BE90246960FE002EBED3 /* FSSelectVenueTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSelectVenueTagVC.swift; sourceTree = "<group>"; };
 		8876BE9224696651002EBED3 /* FSCustomTagSelectedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCustomTagSelectedCell.swift; sourceTree = "<group>"; };
+		88808E2E246BF14A00F5A814 /* FSCustomPhotoBrowserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCustomPhotoBrowserCell.swift; sourceTree = "<group>"; };
 		889AD73D24288E770040FBC5 /* FSIMCircleQrcodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSIMCircleQrcodeVC.swift; sourceTree = "<group>"; };
 		88C1167C245AA67B00615B32 /* FSEditPhotoPasterTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSEditPhotoPasterTagVC.swift; sourceTree = "<group>"; };
 		88EB8C75246015DD0008619C /* YBPasterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPasterView.m; sourceTree = "<group>"; };
@@ -1397,6 +1399,7 @@
 				0A408860231DFAD000D61B1F /* GYZIconLabArrowView.swift */,
 				0A48022B234C79B300ED7F13 /* FSLabAndLabBtnView.swift */,
 				0A26A007239D518700319C0B /* GYZLabelCenterCell.swift */,
+				88808E2E246BF14A00F5A814 /* FSCustomPhotoBrowserCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2923,6 +2926,7 @@
 				0A46F3FF2414CB8800165B8E /* FSEditIMCircleNameVC.swift in Sources */,
 				0AF823E42322530A00582D8D /* FSTopicBottomView.swift in Sources */,
 				0A3CFD232330864400A141E4 /* FSVenueInfoCell.swift in Sources */,
+				88808E2F246BF14A00F5A814 /* FSCustomPhotoBrowserCell.swift in Sources */,
 				0A26A008239D518700319C0B /* GYZLabelCenterCell.swift in Sources */,
 				0A47C14022D4858E00207CED /* GYZAlertViewTools.swift in Sources */,
 				0A2186D723746402002513B2 /* FSMyProfileModel.swift in Sources */,

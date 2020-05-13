@@ -20,4 +20,5 @@ class FSTagModel: LHSBaseModel {
     var tag_content_id : String? = ""
     /// 标签显示内容
     var tag_content_text : String? = ""
+    var direction : String? = ""
 }

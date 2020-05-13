@@ -8,7 +8,7 @@
 
 import UIKit
 import MBProgressHUD
-import SKPhotoBrowser
+import JXPhotoBrowser
 import ZFPlayer
 
 private let hotDynamicCell = "hotDynamicCell"
@@ -699,11 +699,41 @@ class FSHotDynamicVC: GYZWhiteNavBaseVC {
     ///   - index: 索引
     ///   - urls: 图片路径
     func goBigPhotos(index: Int, urls: [String]){
-        let browser = SKPhotoBrowser(photos: GYZTool.createWebPhotos(urls: urls, isShowDel: false, isShowAction: true))
-        browser.initializePageIndex(index)
-        //        browser.delegate = self
+//        let browser = SKPhotoBrowser(photos: GYZTool.createWebPhotos(urls: urls, isShowDel: false, isShowAction: true))
+//        browser.initializePageIndex(index)
+////        browser.delegate = self
+//
+//        present(browser, animated: true, completion: nil)
         
-        present(browser, animated: true, completion: nil)
+        let browser = JXPhotoBrowser()
+        browser.numberOfItems = {
+            urls.count
+        }
+        // 使用自定义的Cell
+        browser.cellClassAtIndex = { _ in
+            FSCustomPhotoBrowserCell.self
+        }
+        browser.reloadCellAtIndex = {[unowned self] context in
+            let browserCell = context.cell as? FSCustomPhotoBrowserCell
+            // 用Kingfisher加载
+            browserCell?.imageView.kf.setImage(with: URL.init(string: urls[context.index]), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
+                browserCell?.setNeedsLayout()
+            })
+            let arr:NSMutableArray = []
+            for item in (self.dataModel?.materialList[context.index].tagsList)! {
+                let model: TagModel = TagModel.init(name: item.tag_content_text, value: item.tag_content_id, valueType: item.tag_type)
+                let x: Double = Double.init(item.tag_x!)!
+                let y: Double = Double.init(item.tag_y!)!
+                let viewModel: TagViewModel = TagViewModel.init(array: [model], coordinate: CGPoint.init(x: x, y: y))
+                arr.add(viewModel)
+            }
+            browserCell?.imageView.createTagView(arr)
+            browserCell?.imageView.showTagViews()
+        }
+        // 数字样式的页码指示器
+        browser.pageIndicator = JXPhotoBrowserNumberPageIndicator()
+        browser.pageIndex = index
+        browser.show()
     }
     /// 播放视频
     func playVideo(index:IndexPath){
@@ -886,3 +916,4 @@ extension FSHotDynamicVC{
         return .slide
     }
 }
+
