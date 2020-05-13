@@ -68,7 +68,9 @@ NSString *const kAnimationKeyHide = @"hide";
 {
     //是否需要更新center
     if(_needsUpdateCenter){
-        self.center = _viewModel.coordinate;
+        CGFloat x = self.superview.bounds.size.width * _viewModel.coordinate.x;
+        CGFloat y = self.superview.bounds.size.height * _viewModel.coordinate.y;
+        self.center = CGPointMake(x, y);
         _needsUpdateCenter = NO;
     }
 }
@@ -568,8 +570,8 @@ NSString *const kAnimationKeyHide = @"hide";
             CGFloat moveX = position.x - _startPosition.x;
             CGFloat moveY = position.y - _startPosition.y;
             
-            CGFloat origX = _viewModel.coordinate.x;
-            CGFloat origY = _viewModel.coordinate.y;
+            CGFloat origX = self.superview.bounds.size.width * _viewModel.coordinate.x;
+            CGFloat origY = self.superview.bounds.size.height * _viewModel.coordinate.y;
             
             CGFloat currentX = MIN(MAX(origX+moveX, 0), self.superview.bounds.size.width);
             CGFloat currentY = MIN(MAX(origY+moveY, 0), self.superview.bounds.size.height);
@@ -585,8 +587,12 @@ NSString *const kAnimationKeyHide = @"hide";
                 return;
             }
             //最后保存中心点的坐标
+            CGFloat x,y;
+            x = self.center.x/self.superview.bounds.size.width;
+            y = self.center.y/self.superview.bounds.size.height;
+
             
-            CGPoint coordinate = CGPointMake(self.center.x, self.center.y);
+            CGPoint coordinate = CGPointMake(x, y);
             _viewModel.coordinate = coordinate;
             NSLog(@"%@", NSStringFromCGPoint(coordinate));
             

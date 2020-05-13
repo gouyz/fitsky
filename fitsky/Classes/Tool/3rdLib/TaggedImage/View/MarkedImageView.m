@@ -75,7 +75,7 @@
             return;
         }
         //创建TagViewModel
-        CGPoint coordinate = CGPointMake(position.x, position.y);
+        CGPoint coordinate = CGPointMake(position.x/self.frame.size.width, position.y/self.frame.size.height);
         TagViewModel *viewModel = [[TagViewModel alloc] initWithArray:nil coordinate:coordinate];
         viewModel.index = -1;
         self.markedImageDidTapBlock(viewModel);
