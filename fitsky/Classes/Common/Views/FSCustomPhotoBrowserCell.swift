@@ -28,6 +28,7 @@ class FSCustomPhotoBrowserCell: UIView, UIScrollViewDelegate, UIGestureRecognize
     open var imageView: MarkedImageView = {
         let view = MarkedImageView()
         view.clipsToBounds = true
+//        view.isUserInteractionEnabled = true
         view.editable = false
         return view
     }()
@@ -193,21 +194,18 @@ class FSCustomPhotoBrowserCell: UIView, UIScrollViewDelegate, UIGestureRecognize
     
     /// 单击
     @objc open func onSingleTap(_ tap: UITapGestureRecognizer) {
-        
-        //新建标签
-        let position: CGPoint = tap.location(in: imageView)
-        //判断是否要新建标签，如果任何标签的文字或中心点包含了这个点，则不创建
-        if imageView.point(insideAnyTagView: position){
-            return
-        }
         photoBrowser?.dismiss()
+        
+//        if (tap.view?.isKind(of: FSCustomPhotoBrowserCell.self))! {
+//            photoBrowser?.dismiss()
+//        }
     }
     
     /// 双击
     @objc open func onDoubleTap(_ tap: UITapGestureRecognizer) {
         // 如果当前没有任何缩放，则放大到目标比例，否则重置到原比例
         if scrollView.zoomScale < 1.1 {
-            imageView.hideTagViews()
+//            imageView.hideTagViews()
             // 以点击的位置为中心，放大
             let pointInView = tap.location(in: imageView)
             let width = scrollView.bounds.size.width / scrollView.maximumZoomScale
@@ -216,7 +214,7 @@ class FSCustomPhotoBrowserCell: UIView, UIScrollViewDelegate, UIGestureRecognize
             let y = pointInView.y - (height / 2.0)
             scrollView.zoom(to: CGRect(x: x, y: y, width: width, height: height), animated: true)
         } else {
-            imageView.showTagViews()
+//            imageView.showTagViews()
             scrollView.setZoomScale(1.0, animated: true)
         }
     }
@@ -328,4 +326,11 @@ class FSCustomPhotoBrowserCell: UIView, UIScrollViewDelegate, UIGestureRecognize
     open var showContentView: UIView {
         return imageView
     }
+//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+//        if (touch.view?.isKind(of: MarkedImageView.self))! {
+//            
+//            return false
+//        }
+//        return true
+//    }
 }

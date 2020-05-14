@@ -715,14 +715,6 @@ class FSHotDynamicVC: GYZWhiteNavBaseVC {
         }
         browser.reloadCellAtIndex = {[unowned self] context in
             let browserCell = context.cell as? FSCustomPhotoBrowserCell
-            // 用Kingfisher加载
-            browserCell?.imageView.kf.setImage(with: URL.init(string: urls[context.index]), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
-                browserCell?.setNeedsLayout()
-            })
-            //点击图片，编辑或新建标签
-            browserCell?.imageView.markedImageDidTapBlock = {[unowned self] (viewModel) in
-                GYZLog(viewModel)
-            }
             // 加标签
             let arr:NSMutableArray = []
             for item in (self.dataModel?.materialList[context.index].tagsList)! {
@@ -734,6 +726,15 @@ class FSHotDynamicVC: GYZWhiteNavBaseVC {
             }
             browserCell?.imageView.createTagView(arr)
             browserCell?.imageView.showTagViews()
+            // 用Kingfisher加载
+            browserCell?.imageView.kf.setImage(with: URL.init(string: urls[context.index]), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
+                browserCell?.setNeedsLayout()
+            })
+            //点击图片，编辑或新建标签
+            browserCell?.imageView.markedImageDidTapBlock = {[unowned self] (viewModel) in
+                GYZLog(viewModel)
+            }
+            
         }
         // 数字样式的页码指示器
         browser.pageIndicator = JXPhotoBrowserNumberPageIndicator()

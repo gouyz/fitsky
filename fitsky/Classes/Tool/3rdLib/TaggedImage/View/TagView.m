@@ -95,7 +95,7 @@ NSString *const kAnimationKeyHide = @"hide";
     UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPan:)];
     
-    
+    tapGesture.delegate = self;
     [self addGestureRecognizer:tapGesture];
     [self addGestureRecognizer:longPressGesture];
     [self addGestureRecognizer:panGesture];
@@ -738,5 +738,8 @@ NSString *const kAnimationKeyHide = @"hide";
     [CATransaction commit];
 }
 
-
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    return YES;
+}
 @end

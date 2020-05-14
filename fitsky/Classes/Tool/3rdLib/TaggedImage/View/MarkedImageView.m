@@ -43,17 +43,11 @@
     _tagViews = [NSMutableArray array];
     _editable = NO;
     _showed = NO;
-    
-    if (_editable) {
-        //手势
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
-        tapGesture.cancelsTouchesInView = YES;
-        [self addGestureRecognizer:tapGesture];
-    }
     //手势
-//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
-//    tapGesture.cancelsTouchesInView = YES;
-//    [self addGestureRecognizer:tapGesture];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapImage:)];
+    tapGesture.cancelsTouchesInView = YES;
+    tapGesture.delegate = self;
+    [self addGestureRecognizer:tapGesture];
     
 }
 
@@ -64,7 +58,7 @@
 }
 
 #pragma mark - 手势、点击
-- (void)didTap:(UITapGestureRecognizer *)recognizer
+- (void)didTapImage:(UITapGestureRecognizer *)recognizer
 {
     
     if(_editable){
@@ -81,10 +75,16 @@
         self.markedImageDidTapBlock(viewModel);
     }else{
         //显示、隐藏标签
-        if(_showed){
-            [self hideTagViews];
-        }else{
-            [self showTagViews];
+//        if(_showed){
+//            [self hideTagViews];
+//        }else{
+//            [self showTagViews];
+//        }
+        //新建标签
+        CGPoint position = [recognizer locationInView:self];
+        //判断是否要新建标签，如果任何标签的文字或中心点包含了这个点，则不创建
+        if([self pointInsideAnyTagView:position]){
+            return;
         }
     }
 }
@@ -134,6 +134,7 @@
         //生成标签
         TagView *tagView = [[TagView alloc] initWithTagModel:viewModel];
         __weak typeof(self) wself = self;
+        tagView.userInteractionEnabled = YES;
         tagView.textDidTapBlock = ^(TagView *tagView){
             wself.markedImageDidTapBlock(tagView.viewModel);
         };
@@ -163,6 +164,14 @@
     }
     _showed = NO;
 }
-
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+   
+    if ([touch.view isKindOfClass:[MarkedImageView class]] && !_editable)
+    {
+        return NO;
+    }
+    return YES;
+}
 
 @end

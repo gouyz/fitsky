@@ -142,7 +142,7 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
     }
     /// 标签
     @objc func onClickedSelectTagBtn(){
-        let model: TagViewModel = TagViewModel.init(array: nil, coordinate: editViews[currPage].center)
+        let model: TagViewModel = TagViewModel.init(array: nil, coordinate: CGPoint.init(x: 0.5, y: 0.5))
         model.index = -1
         goTagVC(model: model)
     }
