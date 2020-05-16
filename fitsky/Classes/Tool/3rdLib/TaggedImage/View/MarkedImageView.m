@@ -44,10 +44,9 @@
     _editable = NO;
     _showed = NO;
     //手势
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapImage:)];
-    tapGesture.cancelsTouchesInView = YES;
-    tapGesture.delegate = self;
-    [self addGestureRecognizer:tapGesture];
+//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapImage:)];
+//    tapGesture.cancelsTouchesInView = YES;
+//    [self addGestureRecognizer:tapGesture];
     
 }
 
@@ -55,6 +54,15 @@
 - (void)setImage:(UIImage *)image
 {
     [super setImage:image];
+}
+- (void)setEditable:(BOOL)editable
+{
+    if (_editable) {
+        //手势
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapImage:)];
+        tapGesture.cancelsTouchesInView = YES;
+        [self addGestureRecognizer:tapGesture];
+    }
 }
 
 #pragma mark - 手势、点击
@@ -75,16 +83,10 @@
         self.markedImageDidTapBlock(viewModel);
     }else{
         //显示、隐藏标签
-//        if(_showed){
-//            [self hideTagViews];
-//        }else{
-//            [self showTagViews];
-//        }
-        //新建标签
-        CGPoint position = [recognizer locationInView:self];
-        //判断是否要新建标签，如果任何标签的文字或中心点包含了这个点，则不创建
-        if([self pointInsideAnyTagView:position]){
-            return;
+        if(_showed){
+            [self hideTagViews];
+        }else{
+            [self showTagViews];
         }
     }
 }
@@ -107,9 +109,9 @@
 {
     UIView *view = [super hitTest:point withEvent:event];
     //如果当前不可编辑，则拦截所有点击事件，并返回自己，无需继续往下寻找响应view
-    if(!_editable && view){
-        return self;
-    }
+//    if(!_editable && view){
+//        return self;
+//    }
     return view;
 }
 
@@ -163,15 +165,6 @@
         view.viewHidden = YES;
     }
     _showed = NO;
-}
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-{
-   
-    if ([touch.view isKindOfClass:[MarkedImageView class]] && !_editable)
-    {
-        return NO;
-    }
-    return YES;
 }
 
 @end

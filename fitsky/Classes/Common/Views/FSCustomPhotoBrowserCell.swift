@@ -28,7 +28,6 @@ class FSCustomPhotoBrowserCell: UIView, UIScrollViewDelegate, UIGestureRecognize
     open var imageView: MarkedImageView = {
         let view = MarkedImageView()
         view.clipsToBounds = true
-//        view.isUserInteractionEnabled = true
         view.editable = false
         return view
     }()

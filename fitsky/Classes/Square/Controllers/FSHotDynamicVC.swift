@@ -733,13 +733,14 @@ class FSHotDynamicVC: GYZWhiteNavBaseVC {
             //点击图片，编辑或新建标签
             browserCell?.imageView.markedImageDidTapBlock = {[unowned self] (viewModel) in
                 GYZLog(viewModel)
+                self.goVenueDetail(model: viewModel!,browser: browser)
             }
             
         }
         // 数字样式的页码指示器
         browser.pageIndicator = JXPhotoBrowserNumberPageIndicator()
         browser.pageIndex = index
-        browser.show()
+        browser.show(method: .push(inNC: self.navigationController))
     }
     /// 播放视频
     func playVideo(index:IndexPath){
@@ -753,6 +754,18 @@ class FSHotDynamicVC: GYZWhiteNavBaseVC {
                 }else{
                     self.controlView.showTitle("", coverURLString: model.formData?.video_thumb_url, fullScreenMode: .landscape)
                 }
+            }
+        }
+    }
+    func goVenueDetail(model: TagViewModel,browser:JXPhotoBrowser){
+        if model.tagModels.count > 0 {
+            let item: TagModel = model.tagModels[0] as! TagModel
+            if item.valueType == "1" {
+                let vc = FSVenueHomeVC()
+                vc.userId = item.value
+                browser.navigationController?.pushViewController(vc, animated: true)
+            }else{
+                MBProgressHUD.showAutoDismissHUD(message: "您点击了自定义标签")
             }
         }
     }
