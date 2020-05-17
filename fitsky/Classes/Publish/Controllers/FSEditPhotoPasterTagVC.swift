@@ -28,10 +28,14 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
     var deleteIndex: Int = -1
     // 标签model
     var viewModelsDic: [Int:[TagViewModel]] = [:]
-
+    /// 是否返回上一页
+    var isBack:Bool = false
+    /// 是否发布作品
+    var isWork:Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navBarBgAlpha = 0
         automaticallyAdjustsScrollViewInsets = false
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named:"app_next_normal")?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(clickedNextBtn))
@@ -127,14 +131,63 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
             donePasterEdit(index: key)
         }
         hud?.hide(animated: true)
-        goPublishDynamic()
+        goPublishDynamic(isVideo:false)
     }
-    func goPublishDynamic(){
-        let vc = FSPublishDynamicVC()
-        vc.selectCameraImgs = self.dealResultImgs
-        vc.isVideo = false
-        vc.selectedTagModelsDic = self.viewModelsDic
-        navigationController?.pushViewController(vc, animated: true)
+    func goPublishDynamic(isVideo: Bool){
+        if isBack {
+            for i in 0..<(navigationController?.viewControllers.count)!{
+                
+                if isWork {// 发布作品
+                    if navigationController?.viewControllers[i].isKind(of: FSPublishWorkVC.self) == true {
+                        
+                        let vc = navigationController?.viewControllers[i] as! FSPublishWorkVC
+                        for img in self.dealResultImgs {
+                            vc.selectCameraImgs.append(img)
+                        }
+                        for (key,value) in self.viewModelsDic {
+                            vc.selectedTagModelsDic[key + self.dealResultImgs.count] = value
+                        }
+                        vc.isVideo = isVideo
+                        vc.setView()
+                        _ = navigationController?.popToViewController(vc, animated: true)
+                        
+                        break
+                    }
+                }else{
+                    if navigationController?.viewControllers[i].isKind(of: FSPublishDynamicVC.self) == true {
+                        
+                        let vc = navigationController?.viewControllers[i] as! FSPublishDynamicVC
+                        for img in self.dealResultImgs {
+                            vc.selectCameraImgs.append(img)
+                        }
+                        for (key,value) in self.viewModelsDic {
+                            vc.selectedTagModelsDic[key + self.dealResultImgs.count] = value
+                        }
+                        vc.isVideo = isVideo
+                        vc.setView()
+                        _ = navigationController?.popToViewController(vc, animated: true)
+                        
+                        break
+                    }
+                }
+            }
+        }else{
+            if isWork {
+                let vc = FSPublishWorkVC()
+                vc.selectCameraImgs = self.dealResultImgs
+                vc.isVideo = false
+                vc.selectedTagModelsDic = self.viewModelsDic
+                navigationController?.pushViewController(vc, animated: true)
+            }else{
+                let vc = FSPublishDynamicVC()
+                vc.selectCameraImgs = self.dealResultImgs
+                vc.isVideo = false
+                vc.selectedTagModelsDic = self.viewModelsDic
+                navigationController?.pushViewController(vc, animated: true)
+            }
+            
+        }
+        
     }
     /// 贴纸
     @objc func onClickedPasterImgBtn(){
@@ -184,10 +237,10 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
         selectPasterViewDic[currPage] = pasteArr!
     }
     /**
-    *  图片合成
-    *
-    *  @return 返回合成好的图片
-    */
+     *  图片合成
+     *
+     *  @return 返回合成好的图片
+     */
     func donePasterEdit(index: Int){
         let org_width: CGFloat = selectCameraImgs[index].size.width
         let org_height: CGFloat = selectCameraImgs[index].size.height
@@ -199,7 +252,7 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
         let imgTemp = UIImage.getImageFromView(theView: editViews[index])
         
         dealResultImgs.append(imgTemp)
-//        return imgTemp
+        //        return imgTemp
     }
     ///获取贴纸数据
     func requestPasterList(){
@@ -216,7 +269,7 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
             GYZLog(response)
             
             if response["result"].intValue == kQuestSuccessTag{//请求成功
-            
+                
                 guard let data = response["data"]["list"].array else { return }
                 for item in data{
                     guard let itemInfo = item.dictionaryObject else { return }

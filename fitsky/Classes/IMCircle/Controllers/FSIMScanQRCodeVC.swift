@@ -396,7 +396,7 @@ extension FSIMScanQRCodeVC : AVCaptureMetadataOutputObjectsDelegate
             if let resultObj = metadataObjects.first as? AVMetadataMachineReadableCodeObject
             {
                 
-                var mNodeCode: String = resultObj.stringValue ?? ""
+                var mNodeCode: String = resultObj.stringValue!
                 mNodeCode = mNodeCode.fromBase64()
                 if mNodeCode.hasPrefix("202003"){
                     mNodeCode = mNodeCode.subString(start: 6)

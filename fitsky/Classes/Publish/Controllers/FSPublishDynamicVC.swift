@@ -9,7 +9,7 @@
 import UIKit
 import MBProgressHUD
 import DKImagePickerController
-import SKPhotoBrowser
+import JXPhotoBrowser
 import AVKit
 
 class FSPublishDynamicVC: GYZWhiteNavBaseVC {
@@ -50,7 +50,7 @@ class FSPublishDynamicVC: GYZWhiteNavBaseVC {
     var imgHeight:Int = 0
     /// 是否录制视频
     var isRecord: Bool = false
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -73,7 +73,7 @@ class FSPublishDynamicVC: GYZWhiteNavBaseVC {
                 setImgData()
             }
         }
-    
+        
         contentTxtView.delegate = self
         contentTxtView.text = placeHolder
         
@@ -82,7 +82,7 @@ class FSPublishDynamicVC: GYZWhiteNavBaseVC {
             if self.isVideo {
                 self.showPlayVideo()
             }else{
-               self.goBigPhotos(index: index)
+                self.goBigPhotos(index: index)
             }
         }
         
@@ -119,7 +119,7 @@ class FSPublishDynamicVC: GYZWhiteNavBaseVC {
         bgView.snp.makeConstraints { (make) in
             make.left.right.equalTo(contentView)
             make.top.equalTo(kMargin)
-//            make.height.equalTo(140)
+            //            make.height.equalTo(140)
         }
         contentTxtView.snp.makeConstraints { (make) in
             make.top.equalTo(kMargin)
@@ -321,7 +321,7 @@ class FSPublishDynamicVC: GYZWhiteNavBaseVC {
         }
         
         GYZNetWork.uploadImageRequest("Dynamic/Publish/addMaterial", parameters: ["tag":tagsArr], uploadParam: imgsParam, success: { (response) in
-
+            
             GYZLog(response)
             if response["result"].intValue == kQuestSuccessTag{//请求成功
                 guard let data = response["data"]["files"].array else { return }
@@ -337,7 +337,7 @@ class FSPublishDynamicVC: GYZWhiteNavBaseVC {
                 weakSelf?.hud?.hide(animated: true)
                 MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
             }
-
+            
         }, failture: { (error) in
             weakSelf?.hud?.hide(animated: true)
             GYZLog(error)
@@ -357,10 +357,10 @@ class FSPublishDynamicVC: GYZWhiteNavBaseVC {
         
         let imgData = UIImage.jpegData(selectCameraImgs[0])(compressionQuality: 0.5)!
         //将图片转为base64编码
-
+        
         let base64 = imgData.base64EncodedString(options: .endLineWithLineFeed)
-
-//        .addingPercentEncoding(withAllowedCharacters: .alphanumerics)
+        
+        //        .addingPercentEncoding(withAllowedCharacters: .alphanumerics)
         let paramDic: [String: Any] = ["width":"\(imgWidth)","height":"\(imgHeight)","video_poster":"data:image/jpg;base64," + base64,"duration":"\(videoDuration)"]
         
         GYZNetWork.uploadVideoRequest("Dynamic/Publish/addVideo", parameters:paramDic ,fileUrl: videoOutPutUrl, keyName: "files[]", success: { (response) in
@@ -430,7 +430,7 @@ class FSPublishDynamicVC: GYZWhiteNavBaseVC {
                     //转码成功后获取视频视频地址
                     self.videoOutPutUrl = URL.init(fileURLWithPath: outputPath)
                     //上传
-//                    self.uploadVideoFiles(mp4Path: mp4Path)
+                    //                    self.uploadVideoFiles(mp4Path: mp4Path)
                     break;
                 default:
                     print("..")
@@ -555,23 +555,23 @@ class FSPublishDynamicVC: GYZWhiteNavBaseVC {
             MBProgressHUD.showAutoDismissHUD(message: "最多只能上传\(kMaxSelectCount)张图片")
             return
         }
-//        guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
-//            MBProgressHUD.showAutoDismissHUD(message: "该设备无摄像头")
-//            return
-//        }
-//
-//        GYZOpenCameraPhotosTool.shareTool.checkCameraPermission { (granted) in
-//            if granted{
-//                let photo = UIImagePickerController()
-//                photo.delegate = self
-//                photo.sourceType = .camera
-//                photo.allowsEditing = true
-//                photo.modalPresentationStyle = .fullScreen
-//                self.present(photo, animated: true, completion: nil)
-//            }else{
-//                GYZOpenCameraPhotosTool.shareTool.showPermissionAlert(content: "请在iPhone的“设置-隐私”选项中，允许访问你的摄像头",controller : self)
-//            }
-//        }
+        //        guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+        //            MBProgressHUD.showAutoDismissHUD(message: "该设备无摄像头")
+        //            return
+        //        }
+        //
+        //        GYZOpenCameraPhotosTool.shareTool.checkCameraPermission { (granted) in
+        //            if granted{
+        //                let photo = UIImagePickerController()
+        //                photo.delegate = self
+        //                photo.sourceType = .camera
+        //                photo.allowsEditing = true
+        //                photo.modalPresentationStyle = .fullScreen
+        //                self.present(photo, animated: true, completion: nil)
+        //            }else{
+        //                GYZOpenCameraPhotosTool.shareTool.showPermissionAlert(content: "请在iPhone的“设置-隐私”选项中，允许访问你的摄像头",controller : self)
+        //            }
+        //        }
         
         let vc = FSMagicCameraVC()
         vc.isBack = true
@@ -584,7 +584,7 @@ class FSPublishDynamicVC: GYZWhiteNavBaseVC {
         let vc = FSSelectPhotosVC()
         vc.isBack = true
         vc.maxImgCount = self.maxImgCount - self.selectImgCount
-//        vc.selectImgs = self.selectImgs
+        //        vc.selectImgs = self.selectImgs
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -604,7 +604,7 @@ extension FSPublishDynamicVC : UIImagePickerControllerDelegate,UINavigationContr
         
         picker.dismiss(animated: true) { [unowned self] in
             
-//            self.cleanImg()
+            //            self.cleanImg()
             self.selectCameraImgs.append(image)
             self.selectImgCount += 1
             self.resetAddImgView()
@@ -672,11 +672,38 @@ extension FSPublishDynamicVC : UITextViewDelegate,LHSAddPhotoViewDelegate
     ///   - index: 索引
     ///   - urls: 图片路径
     func goBigPhotos(index: Int){
-        let browser = SKPhotoBrowser(photos: GYZTool.createWebPhotosWithImgs(imgs: selectCameraImgs))
-        browser.initializePageIndex(index)
-        //        browser.delegate = self
-        
-        present(browser, animated: true, completion: nil)
+        let browser = JXPhotoBrowser()
+        browser.numberOfItems = {
+            self.selectCameraImgs.count
+        }
+        // 使用自定义的Cell
+        browser.cellClassAtIndex = { _ in
+            FSCustomPhotoBrowserCell.self
+        }
+        browser.reloadCellAtIndex = {[unowned self] context in
+            let browserCell = context.cell as? FSCustomPhotoBrowserCell
+            browserCell?.imageView.image = self.selectCameraImgs[context.index]
+            if self.selectedTagModelsDic[context.index]!.count > 0 {
+                // 加标签
+                let arr:NSMutableArray = []
+                for item in self.selectedTagModelsDic[context.index]! {
+                    
+                    arr.add(item)
+                }
+                browserCell?.imageView.createTagView(arr)
+                browserCell?.imageView.showTagViews()
+            }
+            //点击图片，编辑或新建标签
+            //            browserCell?.imageView.markedImageDidTapBlock = {[unowned self] (viewModel) in
+            //                GYZLog(viewModel)
+            //                self.goVenueDetail(model: viewModel!,browser: browser)
+            //            }
+            
+        }
+        // 数字样式的页码指示器
+        browser.pageIndicator = JXPhotoBrowserNumberPageIndicator()
+        browser.pageIndex = index
+        browser.show(method: .push(inNC: self.navigationController))
     }
     // 视频预览
     func showPlayVideo(){
@@ -722,7 +749,7 @@ extension FSPublishDynamicVC : UITextViewDelegate,LHSAddPhotoViewDelegate
             
             //截取500个字
             if textNum! > contentMaxCount {
-//                let index = textContent?.index((textContent?.startIndex)!, offsetBy: contentMaxCount)
+                //                let index = textContent?.index((textContent?.startIndex)!, offsetBy: contentMaxCount)
                 let str = textContent?.subString(start: 0, length: contentMaxCount)
                 textView.text = str
             }

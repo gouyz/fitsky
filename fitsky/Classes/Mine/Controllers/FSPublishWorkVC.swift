@@ -9,7 +9,7 @@
 import UIKit
 import MBProgressHUD
 import DKImagePickerController
-import SKPhotoBrowser
+import JXPhotoBrowser
 import AVKit
 
 class FSPublishWorkVC: GYZWhiteNavBaseVC {
@@ -22,6 +22,8 @@ class FSPublishWorkVC: GYZWhiteNavBaseVC {
     var selectImgs: [DKAsset] = [DKAsset]()
     // 拍照
     var selectCameraImgs: [UIImage] = [UIImage]()
+    // 标签model
+    var selectedTagModelsDic: [Int:[TagViewModel]] = [:]
     /// 录制视频、拍照图片
     var recordImg:UIImage = UIImage.init()
     /// 最大选择图片数量
@@ -67,11 +69,14 @@ class FSPublishWorkVC: GYZWhiteNavBaseVC {
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: rightBtn)
         
         setUpUI()
-        if isRecord {
-            GYZLog(videoOutPutUrl)
-            setCaramRecord()
+        if selectCameraImgs.count > 0 { // 美颜
+            self.setView()
         }else{
-            setImgData()
+            if isRecord {
+                setCaramRecord()
+            }else{
+                setImgData()
+            }
         }
         contentTxtView.delegate = self
         contentTxtView.text = placeHolder
@@ -319,6 +324,10 @@ class FSPublishWorkVC: GYZWhiteNavBaseVC {
         self.selectImgCount = self.selectCameraImgs.count
         self.resetAddImgView()
     }
+    func setView(){
+        self.selectImgCount = self.selectCameraImgs.count
+        self.resetAddImgView()
+    }
     // 发布
     @objc func onClickRightBtn(){
         if titleTxtFiled.text!.isEmpty{
@@ -352,6 +361,7 @@ class FSPublishWorkVC: GYZWhiteNavBaseVC {
         createHUD(message: "加载中...")
         weak var weakSelf = self
         
+        var tagsArr:[[[String:Any]]] = [[[String:Any]]]()
         var imgsParam: [ImageFileUploadParam] = [ImageFileUploadParam]()
         for (index,imgItem) in selectCameraImgs.enumerated() {
             let imgParam: ImageFileUploadParam = ImageFileUploadParam()
@@ -361,9 +371,23 @@ class FSPublishWorkVC: GYZWhiteNavBaseVC {
             imgParam.data = UIImage.jpegData(imgItem)(compressionQuality: 0.5)!
             
             imgsParam.append(imgParam)
+            tagsArr.append([])
+        }
+        for key in selectedTagModelsDic.keys {
+            for item in selectedTagModelsDic[key]! {
+                var model: [String:Any] = [:]
+                model["tag_x"] = String.init(format: "%.2f", item.coordinate.x)
+                model["tag_y"] = String.init(format: "%.2f", item.coordinate.y)
+                if item.tagModels.count > 0 {
+                    model["tag_type"] = (item.tagModels[0] as! TagModel).valueType
+                    model["tag_content_text"] = (item.tagModels[0] as! TagModel).name
+                    model["tag_content_id"] = (item.tagModels[0] as! TagModel).value
+                }
+                tagsArr[key].append(model)
+            }
         }
         
-        GYZNetWork.uploadImageRequest("Dynamic/Publish/addMaterial", parameters: nil, uploadParam: imgsParam, success: { (response) in
+        GYZNetWork.uploadImageRequest("Dynamic/Publish/addMaterial", parameters: ["tag":tagsArr], uploadParam: imgsParam, success: { (response) in
             
             GYZLog(response)
             if response["result"].intValue == kQuestSuccessTag{//请求成功
@@ -602,23 +626,23 @@ class FSPublishWorkVC: GYZWhiteNavBaseVC {
             MBProgressHUD.showAutoDismissHUD(message: "最多只能上传\(kMaxSelectCount)张图片")
             return
         }
-//        guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
-//            MBProgressHUD.showAutoDismissHUD(message: "该设备无摄像头")
-//            return
-//        }
-//
-//        GYZOpenCameraPhotosTool.shareTool.checkCameraPermission { (granted) in
-//            if granted{
-//                let photo = UIImagePickerController()
-//                photo.delegate = self
-//                photo.sourceType = .camera
-//                photo.allowsEditing = true
-//                photo.modalPresentationStyle = .fullScreen
-//                self.present(photo, animated: true, completion: nil)
-//            }else{
-//                GYZOpenCameraPhotosTool.shareTool.showPermissionAlert(content: "请在iPhone的“设置-隐私”选项中，允许访问你的摄像头",controller : self)
-//            }
-//        }
+        //        guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+        //            MBProgressHUD.showAutoDismissHUD(message: "该设备无摄像头")
+        //            return
+        //        }
+        //
+        //        GYZOpenCameraPhotosTool.shareTool.checkCameraPermission { (granted) in
+        //            if granted{
+        //                let photo = UIImagePickerController()
+        //                photo.delegate = self
+        //                photo.sourceType = .camera
+        //                photo.allowsEditing = true
+        //                photo.modalPresentationStyle = .fullScreen
+        //                self.present(photo, animated: true, completion: nil)
+        //            }else{
+        //                GYZOpenCameraPhotosTool.shareTool.showPermissionAlert(content: "请在iPhone的“设置-隐私”选项中，允许访问你的摄像头",controller : self)
+        //            }
+        //        }
         let vc = FSMagicCameraVC()
         vc.isBack = true
         vc.isWork = true
@@ -717,11 +741,38 @@ extension FSPublishWorkVC : UITextViewDelegate,LHSAddPhotoViewDelegate
     ///   - index: 索引
     ///   - urls: 图片路径
     func goBigPhotos(index: Int){
-        let browser = SKPhotoBrowser(photos: GYZTool.createWebPhotosWithImgs(imgs: selectCameraImgs))
-        browser.initializePageIndex(index)
-        //        browser.delegate = self
-        
-        present(browser, animated: true, completion: nil)
+        let browser = JXPhotoBrowser()
+        browser.numberOfItems = {
+            self.selectCameraImgs.count
+        }
+        // 使用自定义的Cell
+        browser.cellClassAtIndex = { _ in
+            FSCustomPhotoBrowserCell.self
+        }
+        browser.reloadCellAtIndex = {[unowned self] context in
+            let browserCell = context.cell as? FSCustomPhotoBrowserCell
+            browserCell?.imageView.image = self.selectCameraImgs[context.index]
+            if self.selectedTagModelsDic[context.index]!.count > 0 {
+                // 加标签
+                let arr:NSMutableArray = []
+                for item in self.selectedTagModelsDic[context.index]! {
+                    
+                    arr.add(item)
+                }
+                browserCell?.imageView.createTagView(arr)
+                browserCell?.imageView.showTagViews()
+            }
+            //点击图片，编辑或新建标签
+            //            browserCell?.imageView.markedImageDidTapBlock = {[unowned self] (viewModel) in
+            //                GYZLog(viewModel)
+            //                self.goVenueDetail(model: viewModel!,browser: browser)
+            //            }
+            
+        }
+        // 数字样式的页码指示器
+        browser.pageIndicator = JXPhotoBrowserNumberPageIndicator()
+        browser.pageIndex = index
+        browser.show(method: .push(inNC: self.navigationController))
     }
     
     ///MARK UITextViewDelegate

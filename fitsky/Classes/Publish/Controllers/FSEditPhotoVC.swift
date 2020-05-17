@@ -25,6 +25,10 @@ class FSEditPhotoVC: GYZBaseVC {
     var selectFilterDic: [Int:AliyunEffectFilter] = [:]
     // 选择的滤镜信息
     var selectFilterInfoDic: [Int:AliyunEffectFilterInfo] = [:]
+    /// 是否返回上一页
+    var isBack:Bool = false
+    /// 是否发布作品
+    var isWork:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,6 +137,8 @@ class FSEditPhotoVC: GYZBaseVC {
     func goNext(){// 下一步
         let vc = FSEditPhotoPasterTagVC()
         vc.selectCameraImgs = self.selectCameraImgs
+        vc.isBack = self.isBack
+        vc.isWork = self.isWork
         navigationController?.pushViewController(vc, animated: true)
     }
 }

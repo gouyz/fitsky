@@ -699,11 +699,6 @@ class FSHotDynamicVC: GYZWhiteNavBaseVC {
     ///   - index: 索引
     ///   - urls: 图片路径
     func goBigPhotos(index: Int, urls: [String]){
-//        let browser = SKPhotoBrowser(photos: GYZTool.createWebPhotos(urls: urls, isShowDel: false, isShowAction: true))
-//        browser.initializePageIndex(index)
-////        browser.delegate = self
-//
-//        present(browser, animated: true, completion: nil)
         
         let browser = JXPhotoBrowser()
         browser.numberOfItems = {
@@ -715,20 +710,25 @@ class FSHotDynamicVC: GYZWhiteNavBaseVC {
         }
         browser.reloadCellAtIndex = {[unowned self] context in
             let browserCell = context.cell as? FSCustomPhotoBrowserCell
-            // 加标签
             let arr:NSMutableArray = []
-            for item in (self.dataModel?.materialList[context.index].tagsList)! {
-                let model: TagModel = TagModel.init(name: item.tag_content_text, value: item.tag_content_id, valueType: item.tag_type)
-                let x: Double = Double.init(item.tag_x!)!
-                let y: Double = Double.init(item.tag_y!)!
-                let viewModel: TagViewModel = TagViewModel.init(array: [model], coordinate: CGPoint.init(x: x, y: y))
-                arr.add(viewModel)
+            if self.dataModel?.materialList[context.index].tagsList.count > 0 {
+                // 加标签
+//                let arr:NSMutableArray = []
+                for item in (self.dataModel?.materialList[context.index].tagsList)! {
+                    let model: TagModel = TagModel.init(name: item.tag_content_text, value: item.tag_content_id, valueType: item.tag_type)
+                    let x: Double = Double.init(item.tag_x!)!
+                    let y: Double = Double.init(item.tag_y!)!
+                    let viewModel: TagViewModel = TagViewModel.init(array: [model], coordinate: CGPoint.init(x: x, y: y))
+                    arr.add(viewModel)
+                }
+//                browserCell?.imageView.createTagView(arr)
+                //            browserCell?.imageView.showTagViews()
             }
-            browserCell?.imageView.createTagView(arr)
-            browserCell?.imageView.showTagViews()
             // 用Kingfisher加载
             browserCell?.imageView.kf.setImage(with: URL.init(string: urls[context.index]), placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
+                browserCell?.imageView.createTagView(arr)
                 browserCell?.setNeedsLayout()
+                browserCell?.imageView.showTagViews()
             })
             //点击图片，编辑或新建标签
             browserCell?.imageView.markedImageDidTapBlock = {[unowned self] (viewModel) in
@@ -741,6 +741,18 @@ class FSHotDynamicVC: GYZWhiteNavBaseVC {
         browser.pageIndicator = JXPhotoBrowserNumberPageIndicator()
         browser.pageIndex = index
         browser.show(method: .push(inNC: self.navigationController))
+    }
+    func goVenueDetail(model: TagViewModel,browser:JXPhotoBrowser){
+        if model.tagModels.count > 0 {
+            let item: TagModel = model.tagModels[0] as! TagModel
+            if item.valueType == "1" {
+                let vc = FSVenueHomeVC()
+                vc.userId = item.value
+                browser.navigationController?.pushViewController(vc, animated: true)
+            }else{
+                MBProgressHUD.showAutoDismissHUD(message: "您点击了自定义标签")
+            }
+        }
     }
     /// 播放视频
     func playVideo(index:IndexPath){
@@ -757,18 +769,7 @@ class FSHotDynamicVC: GYZWhiteNavBaseVC {
             }
         }
     }
-    func goVenueDetail(model: TagViewModel,browser:JXPhotoBrowser){
-        if model.tagModels.count > 0 {
-            let item: TagModel = model.tagModels[0] as! TagModel
-            if item.valueType == "1" {
-                let vc = FSVenueHomeVC()
-                vc.userId = item.value
-                browser.navigationController?.pushViewController(vc, animated: true)
-            }else{
-                MBProgressHUD.showAutoDismissHUD(message: "您点击了自定义标签")
-            }
-        }
-    }
+    
 }
 extension FSHotDynamicVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {

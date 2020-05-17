@@ -40,10 +40,10 @@ class FSSelectPhotosVC: GYZWhiteNavBaseVC {
         btn.setImage(UIImage.init(named: "app_next_disnable"), for: .disabled)
         return btn
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.navigationItem.title = "图片和视频"
         
         rightBtn.frame = CGRect.init(x: 0, y: 0, width: 80, height: kTitleHeight)
@@ -78,8 +78,11 @@ class FSSelectPhotosVC: GYZWhiteNavBaseVC {
     }
     /// 下一步
     @objc func onClickRightBtn(){
-//        goPublishDynamic(isVideo:false)
-        savePhoto()
+        if isWorkCollection || isUserHeader{
+            goPublishDynamic(isVideo:false)
+        }else{
+            savePhoto()
+        }
     }
     
     func savePhoto(){
@@ -87,7 +90,7 @@ class FSSelectPhotosVC: GYZWhiteNavBaseVC {
         createHUD(message: "处理中...")
         for item in self.pickerController.selectedAssets {
             let tmpPhotoPath: String = AliyunPathManager.compositionRootDir() + AliyunPathManager.randomString() + ".jpg"
-            AliyunPhotoLibraryManager.shared()?.savePhoto(with: item.originalAsset, maxSize: CGSize.init(width: 1080, height: 1920), outputPath: tmpPhotoPath, completion: { [unowned self](error, image) in
+            AliyunPhotoLibraryManager.shared()?.savePhoto(with: item.originalAsset, maxSize: CGSize.init(width: item.originalAsset?.pixelWidth ?? 1080, height: item.originalAsset?.pixelHeight ?? 1920), outputPath: tmpPhotoPath, completion: { [unowned self](error, image) in
                 self.photoPathArr.append(tmpPhotoPath)
                 if self.photoPathArr.count == self.pickerController.selectedAssets.count{
                     self.hud?.hide(animated: true)
@@ -99,78 +102,121 @@ class FSSelectPhotosVC: GYZWhiteNavBaseVC {
     
     func goPublishDynamic(isVideo: Bool){
         if isBack {
-            for i in 0..<(navigationController?.viewControllers.count)!{
-                
-                if isWork {// 发布作品
-                    if navigationController?.viewControllers[i].isKind(of: FSPublishWorkVC.self) == true {
-                        
-                        let vc = navigationController?.viewControllers[i] as! FSPublishWorkVC
-                        vc.selectImgs = self.pickerController.selectedAssets
-                        vc.isVideo = isVideo
-                        vc.setImgData()
-                        _ = navigationController?.popToViewController(vc, animated: true)
-                        
-                        break
+            if isVideo {
+                for i in 0..<(navigationController?.viewControllers.count)!{
+                    
+                    if isWork {// 发布作品
+                        if navigationController?.viewControllers[i].isKind(of: FSPublishWorkVC.self) == true {
+                            
+                            let vc = navigationController?.viewControllers[i] as! FSPublishWorkVC
+                            vc.selectImgs = self.pickerController.selectedAssets
+                            vc.isVideo = isVideo
+                            vc.setImgData()
+                            _ = navigationController?.popToViewController(vc, animated: true)
+                            
+                            break
+                        }
+                    }else if isWorkCollection { // 作品集
+                        if navigationController?.viewControllers[i].isKind(of: FSWorkCollectionVC.self) == true {
+                            
+                            let vc = navigationController?.viewControllers[i] as! FSWorkCollectionVC
+                            vc.selectImgs = self.pickerController.selectedAssets
+                            vc.setImgData()
+                            _ = navigationController?.popToViewController(vc, animated: true)
+                            
+                            break
+                        }
+                    }else if isUserHeader { // 修改用户头像
+                        if navigationController?.viewControllers[i].isKind(of: FSMyProfileVC.self) == true {
+                            
+                            let vc = navigationController?.viewControllers[i] as! FSMyProfileVC
+                            vc.selectImgs = self.pickerController.selectedAssets
+                            vc.setImgData()
+                            _ = navigationController?.popToViewController(vc, animated: true)
+                            
+                            break
+                        }
+                    }else{
+                        if navigationController?.viewControllers[i].isKind(of: FSPublishDynamicVC.self) == true {
+                            
+                            let vc = navigationController?.viewControllers[i] as! FSPublishDynamicVC
+                            vc.selectImgs = self.pickerController.selectedAssets
+                            vc.isVideo = isVideo
+                            vc.setImgData()
+                            _ = navigationController?.popToViewController(vc, animated: true)
+                            
+                            break
+                        }
                     }
-                }else if isWorkCollection { // 作品集
-                    if navigationController?.viewControllers[i].isKind(of: FSWorkCollectionVC.self) == true {
+                }
+            }else{
+                if isWorkCollection || isUserHeader {
+                    for i in 0..<(navigationController?.viewControllers.count)!{
                         
-                        let vc = navigationController?.viewControllers[i] as! FSWorkCollectionVC
-                        vc.selectImgs = self.pickerController.selectedAssets
-                        vc.setImgData()
-                        _ = navigationController?.popToViewController(vc, animated: true)
-                        
-                        break
-                    }
-                }else if isUserHeader { // 修改用户头像
-                    if navigationController?.viewControllers[i].isKind(of: FSMyProfileVC.self) == true {
-                        
-                        let vc = navigationController?.viewControllers[i] as! FSMyProfileVC
-                        vc.selectImgs = self.pickerController.selectedAssets
-                        vc.setImgData()
-                        _ = navigationController?.popToViewController(vc, animated: true)
-                        
-                        break
+                        if isWorkCollection { // 作品集
+                            if navigationController?.viewControllers[i].isKind(of: FSWorkCollectionVC.self) == true {
+                                
+                                let vc = navigationController?.viewControllers[i] as! FSWorkCollectionVC
+                                vc.selectImgs = self.pickerController.selectedAssets
+                                vc.setImgData()
+                                _ = navigationController?.popToViewController(vc, animated: true)
+                                
+                                break
+                            }
+                        }else if isUserHeader { // 修改用户头像
+                            if navigationController?.viewControllers[i].isKind(of: FSMyProfileVC.self) == true {
+                                
+                                let vc = navigationController?.viewControllers[i] as! FSMyProfileVC
+                                vc.selectImgs = self.pickerController.selectedAssets
+                                vc.setImgData()
+                                _ = navigationController?.popToViewController(vc, animated: true)
+                                
+                                break
+                            }
+                        }
                     }
                 }else{
-                    if navigationController?.viewControllers[i].isKind(of: FSPublishDynamicVC.self) == true {
-                        
-                        let vc = navigationController?.viewControllers[i] as! FSPublishDynamicVC
-                        vc.selectImgs = self.pickerController.selectedAssets
-                        vc.isVideo = isVideo
-                        vc.setImgData()
-                        _ = navigationController?.popToViewController(vc, animated: true)
-                        
-                        break
-                    }
+                    goEditVC()
                 }
             }
         }else{
-            if isWork {
-                let vc = FSPublishWorkVC()
-                vc.selectImgs = self.pickerController.selectedAssets
-                vc.isVideo = isVideo
-                navigationController?.pushViewController(vc, animated: true)
-            }else if isWorkCollection { // 作品集
-                let vc = FSWorkCollectionVC()
-                vc.selectImgs = self.pickerController.selectedAssets
-                navigationController?.pushViewController(vc, animated: true)
-            }else if isUserHeader { // 修改用户头像
-                let vc = FSMyProfileVC()
-                vc.selectImgs = self.pickerController.selectedAssets
-                navigationController?.pushViewController(vc, animated: true)
+            if isWorkCollection || isUserHeader {
+                if isWorkCollection { // 作品集
+                    let vc = FSWorkCollectionVC()
+                    vc.selectImgs = self.pickerController.selectedAssets
+                    navigationController?.pushViewController(vc, animated: true)
+                }else if isUserHeader { // 修改用户头像
+                    let vc = FSMyProfileVC()
+                    vc.selectImgs = self.pickerController.selectedAssets
+                    navigationController?.pushViewController(vc, animated: true)
+                }
             }else{
-//                let vc = FSPublishDynamicVC()
-//                vc.selectImgs = self.pickerController.selectedAssets
-//                vc.isVideo = isVideo
-//                navigationController?.pushViewController(vc, animated: true)
-                let vc = FSEditPhotoVC()
-                vc.selectImgs = self.pickerController.selectedAssets
-                vc.sourcePathArr = self.photoPathArr
-                navigationController?.pushViewController(vc, animated: true)
+                if isVideo {
+                    if isWork {
+                        let vc = FSPublishWorkVC()
+                        vc.selectImgs = self.pickerController.selectedAssets
+                        vc.isVideo = isVideo
+                        navigationController?.pushViewController(vc, animated: true)
+                    }else{
+                        let vc = FSPublishDynamicVC()
+                        vc.selectImgs = self.pickerController.selectedAssets
+                        vc.isVideo = isVideo
+                        navigationController?.pushViewController(vc, animated: true)
+                    }
+                }else{
+                    goEditVC()
+                }
             }
             
         }
         
+    }
+    func goEditVC(){
+        let vc = FSEditPhotoVC()
+        vc.selectImgs = self.pickerController.selectedAssets
+        vc.sourcePathArr = self.photoPathArr
+        vc.isBack = self.isBack
+        vc.isWork = self.isWork
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
