@@ -205,6 +205,22 @@ class FSIMCircleAllMemberVC: GYZWhiteNavBaseVC {
             GYZLog(error)
         })
     }
+    // 用户主页
+    @objc func onClickedPersonHome(sender:UITapGestureRecognizer){
+        let index = sender.view?.tag
+        let model = dataList[index!]
+        if model.member_type == "3"{ /// 场馆
+            let vc = FSVenueHomeVC()
+            vc.userId = model.member_id!
+            navigationController?.pushViewController(vc, animated: true)
+        }else{
+            let vc = FSPersonHomeVC()
+            vc.userId = model.member_id!
+            vc.userType = model.member_type!
+            navigationController?.pushViewController(vc, animated: true)
+        }
+           
+    }
 }
 extension FSIMCircleAllMemberVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -221,6 +237,9 @@ extension FSIMCircleAllMemberVC: UITableViewDelegate,UITableViewDataSource{
         cell.followLab.tag = indexPath.row
 
         cell.followLab.addOnClickListener(target: self, action: #selector(onClickedFollow(sender:)))
+        
+        cell.userImgView.tag = indexPath.row
+        cell.userImgView.addOnClickListener(target: self, action: #selector(onClickedPersonHome(sender:)))
         
         let model = dataList[indexPath.row]
         cell.dataModel = model
@@ -261,7 +280,7 @@ extension FSIMCircleAllMemberVC: UITableViewDelegate,UITableViewDataSource{
             }else{
                 selectMemberDic[memberId] = model
             }
-             tableView.reloadData()
+            tableView.reloadData()
          }
     }
     ///MARK : UITableViewDelegate

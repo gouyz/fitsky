@@ -269,6 +269,23 @@ class FSIMCircleMangerDetailVC: GYZWhiteNavBaseVC {
             GYZLog(error)
         })
     }
+    /// 用户主页
+    func goMemberHome(index: Int){
+        if let model = dataModel {
+            let item = model.memberList[index]
+            if item.member_type == "3"{ /// 场馆
+                let vc = FSVenueHomeVC()
+                vc.userId = item.member_id!
+                navigationController?.pushViewController(vc, animated: true)
+            }else{
+                let vc = FSPersonHomeVC()
+                vc.userId = item.member_id!
+                vc.userType = item.member_type!
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+    
+    }
 }
 extension FSIMCircleMangerDetailVC: UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -288,6 +305,8 @@ extension FSIMCircleMangerDetailVC: UITableViewDelegate,UITableViewDataSource{
             cell.didSelectItemBlock = {[unowned self](index) in
                 if index == self.dataModel?.memberList.count {
                     self.goAllMembers()
+                }else{
+                    self.goMemberHome(index: index)
                 }
             }
             

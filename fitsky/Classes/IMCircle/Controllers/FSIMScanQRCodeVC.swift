@@ -334,9 +334,11 @@ class FSIMScanQRCodeVC: GYZWhiteNavBaseVC {
             GYZLog(response)
         
             MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
-//            if response["result"].intValue == kQuestSuccessTag{//请求成功
-//
-//            }
+            if response["result"].intValue == kQuestSuccessTag{//请求成功
+
+            }else{
+                weakSelf?.goChat(circleId: code)
+            }
             //继续扫描
             self.startScan()
             
@@ -348,6 +350,13 @@ class FSIMScanQRCodeVC: GYZWhiteNavBaseVC {
         })
     }
     
+    /// 聊天
+    func goChat(circleId: String){
+        let vc = FSChatVC()
+        vc.targetId = circleId
+        vc.conversationType = .ConversationType_GROUP
+        navigationController?.pushViewController(vc, animated: true)
+    }
     //MARK: Dealloc
     deinit{
         clearCaputure()

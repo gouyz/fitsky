@@ -57,6 +57,7 @@
 }
 - (void)setEditable:(BOOL)editable
 {
+    _editable = editable;
     if (_editable) {
         //手势
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapImage:)];

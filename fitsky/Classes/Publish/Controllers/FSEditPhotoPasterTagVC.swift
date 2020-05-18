@@ -93,6 +93,7 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
         scroll.scrollsToTop = false
         scroll.bounces = false
         scroll.contentOffset = CGPoint.zero
+        scroll.isUserInteractionEnabled = true
         // 将 scrollView 的 contentSize 设为屏幕宽度的3倍(根据实际情况改变)
         scroll.contentSize = CGSize(width: self.view.frame.size.width * CGFloat(self.selectCameraImgs.count), height: self.view.bounds.height - 54)
         

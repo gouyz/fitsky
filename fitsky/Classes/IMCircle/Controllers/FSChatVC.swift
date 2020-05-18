@@ -148,6 +148,7 @@ class FSChatVC: RCConversationViewController {
                 if model.myCircleMemberModel?.is_group == "1" || model.myCircleMemberModel?.is_admin == "1"{
                     weakSelf?.ismanager = true
                 }
+                weakSelf?.title = model.circleModel?.name
             }
             
         }, failture: { (error) in

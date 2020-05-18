@@ -195,9 +195,6 @@ class FSCustomPhotoBrowserCell: UIView, UIScrollViewDelegate, UIGestureRecognize
     @objc open func onSingleTap(_ tap: UITapGestureRecognizer) {
         photoBrowser?.dismiss()
         
-//        if (tap.view?.isKind(of: FSCustomPhotoBrowserCell.self))! {
-//            photoBrowser?.dismiss()
-//        }
     }
     
     /// 双击
