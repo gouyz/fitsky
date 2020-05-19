@@ -575,6 +575,7 @@ class FSPublishDynamicVC: GYZWhiteNavBaseVC {
         
         let vc = FSMagicCameraVC()
         vc.isBack = true
+        vc.maxImgCount = self.maxImgCount - self.selectImgCount
         self.navigationController?.pushViewController(vc, animated: true)
         
     }

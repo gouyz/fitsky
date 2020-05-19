@@ -34,6 +34,7 @@ class FSMagicCameraVC: GYZBaseVC {
     /// 保存视频
     var library: ALAssetsLibrary = ALAssetsLibrary.init()
     
+    var maxImgCount = 1
     /// 是否返回上一页
     var isBack:Bool = false
     /// 是否发布作品
@@ -71,6 +72,7 @@ class FSMagicCameraVC: GYZBaseVC {
         bottomView.photoView.addOnClickListener(target: self, action: #selector(onClickedTakePhoto))
         bottomView.videoView.addOnClickListener(target: self, action: #selector(onClickedTakeVideo))
         bottomView.finishImgView.addOnClickListener(target: self, action: #selector(onClickedFinishedRecord))
+        bottomView.photoImgView.addOnClickListener(target: self, action: #selector(onClickedSelectPhoto))
         
         /// 点击手势
         self.recorder.preview.addOnClickListener(target: self, action: #selector(tapToFocusPoint(sender:)))
@@ -483,6 +485,14 @@ class FSMagicCameraVC: GYZBaseVC {
         isTakePhoto = false
         setSelectDotView()
     }
+    /// 选择照片
+    @objc func onClickedSelectPhoto(){
+        let vc = FSSelectPhotosVC()
+        vc.isBack = self.isBack
+        vc.isWork = self.isWork
+        vc.maxImgCount = self.maxImgCount
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     func setSelectDotView(){
         bottomView.startImgView.image = UIImage.init(named: (isTakePhoto ? "app_icon_take_photo_btn_white" : "app_icon_take_video_btn_no"))
         bottomView.photoDotView.isHidden = !isTakePhoto
@@ -685,6 +695,14 @@ extension FSMagicCameraVC: AliyunIRecorderDelegate{
         
         return info.captureImage(atTime: 0, outputSize: self.quVideo.outputSize)
     }
+    /// 编辑照片
+    func goEditPhoto(img:UIImage){
+        let vc = FSEditPhotoPasterTagVC()
+        vc.selectCameraImgs = [img]
+        vc.isBack = self.isBack
+        vc.isWork = self.isWork
+        navigationController?.pushViewController(vc, animated: true)
+    }
     func goPublishVC(isVideo: Bool,img:UIImage){
         let vc = FSPublishDynamicVC()
         vc.recordImg = img
@@ -700,92 +718,68 @@ extension FSMagicCameraVC: AliyunIRecorderDelegate{
     }
    
     func goPublishDynamic(isVideo: Bool,img:UIImage){
-        if isBack {
-            for i in 0..<(navigationController?.viewControllers.count)!{
-                
-                if isWork {// 发布作品
-                    if navigationController?.viewControllers[i].isKind(of: FSPublishWorkVC.self) == true {
+        if isVideo {
+            if isBack {
+                for i in 0..<(navigationController?.viewControllers.count)!{
+                    
+                    if isWork {// 发布作品
+                        if navigationController?.viewControllers[i].isKind(of: FSPublishWorkVC.self) == true {
 
-                        let vc = navigationController?.viewControllers[i] as! FSPublishWorkVC
-                        vc.recordImg = img
-                        vc.isVideo = isVideo
-                        vc.isRecord = true
-                        if isVideo {
-                            vc.videoOutPutUrl = URL.init(fileURLWithPath: self.recorder.outputPath)
-                            vc.imgWidth = Int(self.quVideo.outputSize.width)
-                            vc.imgHeight = Int(self.quVideo.outputSize.height)
-                            vc.videoDuration = Double(self.recorder.clipManager.duration)
-                        }
-                        vc.setCaramRecord()
-                        _ = navigationController?.popToViewController(vc, animated: true)
+                            let vc = navigationController?.viewControllers[i] as! FSPublishWorkVC
+                            vc.recordImg = img
+                            vc.isVideo = isVideo
+                            vc.isRecord = true
+                            if isVideo {
+                                vc.videoOutPutUrl = URL.init(fileURLWithPath: self.recorder.outputPath)
+                                vc.imgWidth = Int(self.quVideo.outputSize.width)
+                                vc.imgHeight = Int(self.quVideo.outputSize.height)
+                                vc.videoDuration = Double(self.recorder.clipManager.duration)
+                            }
+                            vc.setCaramRecord()
+                            _ = navigationController?.popToViewController(vc, animated: true)
 
-                        break
-                    }
-                }else if isWorkCollection { // 作品集
-//                    if navigationController?.viewControllers[i].isKind(of: FSWorkCollectionVC.self) == true {
-//
-//                        let vc = navigationController?.viewControllers[i] as! FSWorkCollectionVC
-//                        vc.selectImgs = self.pickerController.selectedAssets
-//                        vc.setImgData()
-//                        _ = navigationController?.popToViewController(vc, animated: true)
-//
-//                        break
-//                    }
-                }else if isUserHeader { // 修改用户头像
-//                    if navigationController?.viewControllers[i].isKind(of: FSMyProfileVC.self) == true {
-//
-//                        let vc = navigationController?.viewControllers[i] as! FSMyProfileVC
-//                        vc.selectImgs = self.pickerController.selectedAssets
-//                        vc.setImgData()
-//                        _ = navigationController?.popToViewController(vc, animated: true)
-//
-//                        break
-//                    }
-                }else{
-                    if navigationController?.viewControllers[i].isKind(of: FSPublishDynamicVC.self) == true {
-                        
-                        let vc = navigationController?.viewControllers[i] as! FSPublishDynamicVC
-                        vc.recordImg = img
-                        vc.isVideo = isVideo
-                        vc.isRecord = true
-                        if isVideo {
-                            vc.videoOutPutUrl = URL.init(fileURLWithPath: self.recorder.outputPath)
-                            vc.imgWidth = Int(self.quVideo.outputSize.width)
-                            vc.imgHeight = Int(self.quVideo.outputSize.height)
-                            vc.videoDuration = Double(self.recorder.clipManager.duration)
+                            break
                         }
-                        vc.setCaramRecord()
-                        _ = navigationController?.popToViewController(vc, animated: true)
-                        
-                        break
+                    }else{
+                        if navigationController?.viewControllers[i].isKind(of: FSPublishDynamicVC.self) == true {
+                            
+                            let vc = navigationController?.viewControllers[i] as! FSPublishDynamicVC
+                            vc.recordImg = img
+                            vc.isVideo = isVideo
+                            vc.isRecord = true
+                            if isVideo {
+                                vc.videoOutPutUrl = URL.init(fileURLWithPath: self.recorder.outputPath)
+                                vc.imgWidth = Int(self.quVideo.outputSize.width)
+                                vc.imgHeight = Int(self.quVideo.outputSize.height)
+                                vc.videoDuration = Double(self.recorder.clipManager.duration)
+                            }
+                            vc.setCaramRecord()
+                            _ = navigationController?.popToViewController(vc, animated: true)
+                            
+                            break
+                        }
                     }
                 }
+            }else{
+                if isWork {
+                    let vc = FSPublishWorkVC()
+                    vc.recordImg = img
+                    vc.isVideo = isVideo
+                    vc.isRecord = true
+                    if isVideo {
+                        vc.videoOutPutUrl = URL.init(fileURLWithPath: self.recorder.outputPath)
+                        vc.imgWidth = Int(self.quVideo.outputSize.width)
+                        vc.imgHeight = Int(self.quVideo.outputSize.height)
+                        vc.videoDuration = Double(self.recorder.clipManager.duration)
+                    }
+                    navigationController?.pushViewController(vc, animated: true)
+                }else{
+                    goPublishVC(isVideo: isVideo, img: img)
+                }
+                
             }
         }else{
-            if isWork {
-                let vc = FSPublishWorkVC()
-                vc.recordImg = img
-                vc.isVideo = isVideo
-                vc.isRecord = true
-                if isVideo {
-                    vc.videoOutPutUrl = URL.init(fileURLWithPath: self.recorder.outputPath)
-                    vc.imgWidth = Int(self.quVideo.outputSize.width)
-                    vc.imgHeight = Int(self.quVideo.outputSize.height)
-                    vc.videoDuration = Double(self.recorder.clipManager.duration)
-                }
-                navigationController?.pushViewController(vc, animated: true)
-            }else if isWorkCollection { // 作品集
-//                let vc = FSWorkCollectionVC()
-//                vc.selectImgs = self.pickerController.selectedAssets
-//                navigationController?.pushViewController(vc, animated: true)
-            }else if isUserHeader { // 修改用户头像
-//                let vc = FSMyProfileVC()
-//                vc.selectImgs = self.pickerController.selectedAssets
-//                navigationController?.pushViewController(vc, animated: true)
-            }else{
-                goPublishVC(isVideo: isVideo, img: img)
-            }
-            
+            goEditPhoto(img: img)
         }
         
     }

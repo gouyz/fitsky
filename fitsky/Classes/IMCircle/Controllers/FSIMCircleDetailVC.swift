@@ -165,6 +165,74 @@ class FSIMCircleDetailVC: GYZWhiteNavBaseVC {
             
         })
     }
+    /// 消息置顶、免打扰
+        @objc func onSwitchViewChange(sender: UISwitch){
+            let tag = sender.tag
+            let status: String = sender.isOn ? "1" : "0"
+            
+            if tag == 4 {//消息置顶
+                RCIMClient.shared()?.setConversationToTop(.ConversationType_GROUP, targetId: circleId, isTop: sender.isOn)
+                requestConversationToTop(status: status)
+
+            }else{//免打扰
+                RCIMClient.shared()?.setConversationNotificationStatus(.ConversationType_GROUP, targetId: circleId, isBlocked: sender.isOn, success: { [unowned self](nStatus) in
+                    
+                    self.requestConversationNotificationStatus(status: status)
+                }, error: { (error) in
+                    GYZLog(error)
+                })
+            }
+        }
+        //消息置顶
+        func requestConversationToTop(status: String){
+            if !GYZTool.checkNetWork() {
+                return
+            }
+            
+            weak var weakSelf = self
+            createHUD(message: "加载中...")
+            
+            GYZNetWork.requestNetwork("Circle/Circle/editIsTopMessage", parameters: ["is_top_message":status,"id":dataModel?.myCircleMemberModel?.id ?? ""],  success: { (response) in
+                
+                weakSelf?.hud?.hide(animated: true)
+                GYZLog(response)
+                
+                MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+                if response["result"].intValue == kQuestSuccessTag{//请求成功
+                    weakSelf?.dataModel?.myCircleMemberModel?.is_top_message = status
+                    weakSelf?.tableView.reloadData()
+                }
+                
+            }, failture: { (error) in
+                weakSelf?.hud?.hide(animated: true)
+                GYZLog(error)
+            })
+        }
+        //消息免打扰
+        func requestConversationNotificationStatus(status: String){
+            if !GYZTool.checkNetWork() {
+                return
+            }
+            
+            weak var weakSelf = self
+    //        createHUD(message: "加载中...")
+            
+            GYZNetWork.requestNetwork("Circle/Circle/editIsMessageFree", parameters: ["is_message_free":status,"id":dataModel?.myCircleMemberModel?.id ?? ""],  success: { (response) in
+                
+    //            weakSelf?.hud?.hide(animated: true)
+                GYZLog(response)
+                
+                MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+                if response["result"].intValue == kQuestSuccessTag{//请求成功
+                    weakSelf?.dataModel?.myCircleMemberModel?.is_message_free = status
+                    weakSelf?.tableView.reloadData()
+                }
+                
+            }, failture: { (error) in
+    //            weakSelf?.hud?.hide(animated: true)
+                GYZLog(error)
+            })
+        }
     /// 用户主页
     func goMemberHome(index: Int){
         if let model = dataModel {
@@ -211,7 +279,15 @@ extension FSIMCircleDetailVC: UITableViewDelegate,UITableViewDataSource{
         }else if indexPath.row == 4 || indexPath.row == 5 {
             let cell = tableView.dequeueReusableCell(withIdentifier: IMCircleDetailSwitchCell) as! GYZCommonSwitchCell
             
+            cell.switchView.tag = indexPath.row
+            cell.switchView.addTarget(self, action: #selector(onSwitchViewChange(sender:)), for: .valueChanged)
+            
             cell.nameLab.text = managerTitles[indexPath.row - 1]
+            if indexPath.row == 4 {//置顶消息
+                cell.switchView.isOn = dataModel?.myCircleMemberModel?.is_top_message == "1"
+            }else{
+                cell.switchView.isOn = dataModel?.myCircleMemberModel?.is_message_free == "1"
+            }
             
             cell.selectionStyle = .none
             return cell
