@@ -125,6 +125,9 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
     @objc func clickedNextBtn(){
         dealResultImgs.removeAll()
         createHUD(message: "处理中...")
+        for img in self.selectCameraImgs {
+            self.dealResultImgs.append(img)
+        }
         for key in self.selectPasterViewDic.keys {
             for item in self.selectPasterViewDic[key]! {
                 item.hiddenBtn()
@@ -252,7 +255,8 @@ class FSEditPhotoPasterTagVC: GYZBaseVC {
         rect.origin = CGPoint.init(x: 0, y: (editViews[index].frame.size.height - inScreenH) / 2)
         let imgTemp = UIImage.getImageFromView(theView: editViews[index])
         
-        dealResultImgs.append(imgTemp)
+//        dealResultImgs.append(imgTemp)
+        dealResultImgs[index] = imgTemp
         //        return imgTemp
     }
     ///获取贴纸数据

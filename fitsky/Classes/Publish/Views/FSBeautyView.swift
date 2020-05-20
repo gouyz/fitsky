@@ -52,8 +52,8 @@ class FSBeautyView: UIView {
         contentView.addSubview(beautyView)
         beautyView.addSubview(beautyLab)
         beautyView.addSubview(beautyDotView)
-        contentView.addSubview(pasterView)
-        pasterView.addSubview(pasterLab)
+//        contentView.addSubview(pasterView)
+//        pasterView.addSubview(pasterLab)
         
         contentView.snp.makeConstraints { (make) in
             make.left.right.bottom.equalTo(self)
@@ -96,7 +96,8 @@ class FSBeautyView: UIView {
         beautyView.snp.makeConstraints { (make) in
             make.left.equalTo(filterView.snp.right).offset(20)
             make.top.height.equalTo(filterView)
-            make.width.equalTo(pasterView)
+            make.width.equalTo(filterView)
+            make.right.equalTo(-kMargin)
         }
         beautyLab.snp.makeConstraints { (make) in
             make.right.left.equalTo(beautyView)
@@ -108,17 +109,17 @@ class FSBeautyView: UIView {
             make.top.equalTo(beautyLab.snp.bottom)
             make.size.equalTo(filterDotView)
         }
-        pasterView.snp.makeConstraints { (make) in
-            make.right.equalTo(-kMargin)
-            make.top.height.equalTo(beautyView)
-            make.width.equalTo(filterView)
-            make.left.equalTo(beautyView.snp.right).offset(20)
-        }
-        pasterLab.snp.makeConstraints { (make) in
-            make.right.left.equalTo(pasterView)
-            make.top.equalTo(5)
-            make.height.equalTo(30)
-        }
+//        pasterView.snp.makeConstraints { (make) in
+//            make.right.equalTo(-kMargin)
+//            make.top.height.equalTo(beautyView)
+//            make.width.equalTo(filterView)
+//            make.left.equalTo(beautyView.snp.right).offset(20)
+//        }
+//        pasterLab.snp.makeConstraints { (make) in
+//            make.right.left.equalTo(pasterView)
+//            make.top.equalTo(5)
+//            make.height.equalTo(30)
+//        }
     }
     ///整体背景
     lazy var backgroundView: UIView = UIView()
@@ -223,23 +224,23 @@ class FSBeautyView: UIView {
         return view
     }()
     ///贴纸
-    lazy var pasterView: UIView = {
-        let view = UIView()
-        view.tag = 103
-        view.addOnClickListener(target: self, action: #selector(onClickedOperator(sender:)))
-        
-        return view
-    }()
-    /// 贴纸
-    lazy var pasterLab: UILabel = {
-        let lab = UILabel()
-        lab.font = k16Font
-        lab.textColor = kWhiteColor
-        lab.textAlignment = .center
-        lab.text = "贴纸"
-        
-        return lab
-    }()
+//    lazy var pasterView: UIView = {
+//        let view = UIView()
+//        view.tag = 103
+//        view.addOnClickListener(target: self, action: #selector(onClickedOperator(sender:)))
+//
+//        return view
+//    }()
+//    /// 贴纸
+//    lazy var pasterLab: UILabel = {
+//        let lab = UILabel()
+//        lab.font = k16Font
+//        lab.textColor = kWhiteColor
+//        lab.textAlignment = .center
+//        lab.text = "贴纸"
+//
+//        return lab
+//    }()
     @objc func onClickedOperator(sender: UITapGestureRecognizer){
         if onClickedOperatorBlock != nil {
             onClickedOperatorBlock!(sender.view!.tag,self)
