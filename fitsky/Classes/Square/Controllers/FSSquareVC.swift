@@ -4,6 +4,25 @@
 //  广场
 //  Created by gouyz on 2019/8/17.
 //  Copyright © 2019 gyz. All rights reserved.
+//{
+//　　"aps" :
+//            {
+//                 "alert" : "You got your emails.",
+//                 "badge" : 1,
+//                 "sound" : "default"
+//            },
+//     "rc":{
+//                 "cType":"PR",
+//                 "fId":"2121",
+//                 "oName":"RC:TxtMsg",
+//                 "tId":"3232",
+//                 "rId":"3243",
+//                 "id":"5FSClm2gQ9V9BZ-kUZn58B",
+//                 "rc-dlt-identifier":"2FSClm2gQ9Q9BZ-kUZn54B"
+//     },
+//     "appData":"xxxx"
+//}
+
 //
 
 import UIKit
@@ -264,53 +283,56 @@ class FSSquareVC: GYZWhiteNavBaseVC {
     @objc func refreshJPushView(noti:NSNotification){
         
         let userInfo = noti.userInfo!
-        
-        let payloadMsg = userInfo["payload"] as! String
-        let payloadDic = payloadMsg.convertStringToDictionary()
-        let paramDic = payloadDic!["payload"] as! [String: Any]
-        
-        /// push_type推送类型（1-点赞 2-收藏 3-评论 4-回复 5-通知 6-订阅号）
-        /// 目前用到：
-        /// content_type 内容类型（1-动态（作品）13-场馆服务商品 15-系统通知 16-订阅号）
-        
-        let type = paramDic["content_type"] as! Int
-        let contentId = paramDic["content_id"] as! Int
-        let pushType = paramDic["push_type"] as! Int
-        
-        switch pushType {
-        case 1:// 点赞
-            let isOpus = paramDic["is_opus"] as! Int
-            let commentId = paramDic["comment_id"] as! Int
-            if type == 1 && commentId > 0 {// 评论
+        if userInfo.keys.contains("payload") {
+            let payloadMsg = userInfo["payload"] as! String
+            let payloadDic = payloadMsg.convertStringToDictionary()
+            let paramDic = payloadDic!["payload"] as! [String: Any]
+            
+            /// push_type推送类型（1-点赞 2-收藏 3-评论 4-回复 5-通知 6-订阅号）
+            /// 目前用到：
+            /// content_type 内容类型（1-动态（作品）13-场馆服务商品 15-系统通知 16-订阅号）
+            
+            let type = paramDic["content_type"] as! Int
+            let contentId = paramDic["content_id"] as! Int
+            let pushType = paramDic["push_type"] as! Int
+            
+            switch pushType {
+            case 1:// 点赞
+                let isOpus = paramDic["is_opus"] as! Int
+                let commentId = paramDic["comment_id"] as! Int
+                if type == 1 && commentId > 0 {// 评论
+                    goConmentVC(id: "\(contentId)",type: "\(type)")
+                }else if type == 1 && isOpus == 1 {// 是否作品
+                    goWorksDetailVC(id: "\(contentId)")
+                }else{
+                    goDynamicDetailVC(id: "\(contentId)")
+                }
+            case 2:// 收藏
+                let isOpus = paramDic["is_opus"] as! Int
+                if type == 1 && isOpus == 1 {// 是否作品
+                    goWorksDetailVC(id: "\(contentId)")
+                }else if type == 1 {// 动态
+                    goDynamicDetailVC(id: "\(contentId)")
+                }else if type == 13 {// 课程
+                    goDetailVC(goodsId: "\(contentId)")
+                }
+            case 3:// 评论
                 goConmentVC(id: "\(contentId)",type: "\(type)")
-            }else if type == 1 && isOpus == 1 {// 是否作品
-                goWorksDetailVC(id: "\(contentId)")
-            }else{
-                goDynamicDetailVC(id: "\(contentId)")
+            case 4:// 回复
+                let commentId = paramDic["comment_id"] as! Int
+                goReplyVC(id: "\(commentId)")
+            case 5:// 系统通知
+                let vc = FSMsgNoticeVC()
+                self.navigationController?.pushViewController(vc, animated: true)
+            case 6:// 订阅号通知
+                let vc = FSSubscriptionVC()
+                self.navigationController?.pushViewController(vc, animated: true)
+            default:
+                break
             }
-        case 2:// 收藏
-            let isOpus = paramDic["is_opus"] as! Int
-            if type == 1 && isOpus == 1 {// 是否作品
-                goWorksDetailVC(id: "\(contentId)")
-            }else if type == 1 {// 动态
-                goDynamicDetailVC(id: "\(contentId)")
-            }else if type == 13 {// 课程
-                goDetailVC(goodsId: "\(contentId)")
-            }
-        case 3:// 评论
-            goConmentVC(id: "\(contentId)",type: "\(type)")
-        case 4:// 回复
-            let commentId = paramDic["comment_id"] as! Int
-            goReplyVC(id: "\(commentId)")
-        case 5:// 系统通知
-            let vc = FSMsgNoticeVC()
-            self.navigationController?.pushViewController(vc, animated: true)
-        case 6:// 订阅号通知
-            let vc = FSSubscriptionVC()
-            self.navigationController?.pushViewController(vc, animated: true)
-        default:
-            break
         }
+        
+        
     }
     /// 回复
     func goReplyVC(id: String){
