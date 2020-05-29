@@ -31,7 +31,7 @@ import JXPagingView
 import PYSearch
 
 class FSSquareVC: GYZWhiteNavBaseVC {
-
+    
     var segmentedViewDataSource: JXSegmentedTitleDataSource!
     let JXTableHeaderViewHeight: Int = Int(kTitleAndStateHeight)
     let titles = ["热门", "关注", "话题", "附近"]
@@ -96,7 +96,7 @@ class FSSquareVC: GYZWhiteNavBaseVC {
         }
         
         searchView.searchBtn.set(image: UIImage.init(named: "app_icon_seach"), title: "搜索文章、用户、话题、附近", titlePosition: .right, additionalSpacing: kMargin, state: .normal)
-
+        
         cityLab.text = "常州"
         searchView.searchBtn.addTarget(self, action: #selector(onClickedSearch), for: .touchUpInside)
         publishImgView.addOnClickListener(target: self, action: #selector(onClickedPublish))
@@ -127,7 +127,7 @@ class FSSquareVC: GYZWhiteNavBaseVC {
             let currCityModel = NSKeyedUnarchiver.unarchiveObject(with: currModel) as? FSCityListModel
             
             cityLab.text = currCityModel?.name
-//            cityBtn.set(image: UIImage.init(named: "app_square_location"), title: (currCityModel?.name)!, titlePosition: .left, additionalSpacing: 5, state: .normal)
+            //            cityBtn.set(image: UIImage.init(named: "app_square_location"), title: (currCityModel?.name)!, titlePosition: .left, additionalSpacing: 5, state: .normal)
         }
         
         isSearch = false
@@ -163,7 +163,7 @@ class FSSquareVC: GYZWhiteNavBaseVC {
         return segView
     }()
     
-   lazy var navBarView: UIView = {
+    lazy var navBarView: UIView = {
         let navView = UIView()
         navView.backgroundColor = kWhiteColor
         navView.isUserInteractionEnabled = true
@@ -330,9 +330,15 @@ class FSSquareVC: GYZWhiteNavBaseVC {
             default:
                 break
             }
+        }else{ // 聊天推送
+            goMyMessage()
         }
         
-        
+    }
+    /// 消息
+    func goMyMessage(){
+        let vc = FSMessageVC()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     /// 回复
     func goReplyVC(id: String){
@@ -416,15 +422,15 @@ extension FSSquareVC: JXPagingViewDelegate {
 }
 
 extension FSSquareVC: JXSegmentedViewDelegate {
-        func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
-    
-//            navigationController?.interactivePopGestureRecognizer?.isEnabled = (segmentedView.selectedIndex == 0)
-//            if index != 1 {
-//                publishImgView.isHidden = false
-//            }else{
-//                publishImgView.isHidden = true
-//            }
-        }
+    func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
+        
+        //            navigationController?.interactivePopGestureRecognizer?.isEnabled = (segmentedView.selectedIndex == 0)
+        //            if index != 1 {
+        //                publishImgView.isHidden = false
+        //            }else{
+        //                publishImgView.isHidden = true
+        //            }
+    }
     
     func segmentedView(_ segmentedView: JXSegmentedView, didClickSelectedItemAt index: Int) {
         self.pagingView.listContainerView.collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: false)

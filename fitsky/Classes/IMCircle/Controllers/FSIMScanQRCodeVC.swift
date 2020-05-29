@@ -35,7 +35,7 @@ class FSIMScanQRCodeVC: GYZWhiteNavBaseVC {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        clearCaputure()
+        stopScan()
     }
     /// 顶部视图
     fileprivate lazy var topView : UIView = {
@@ -319,42 +319,54 @@ class FSIMScanQRCodeVC: GYZWhiteNavBaseVC {
             catch{ }
         }
     }
-    // 申请加入社圈
-    func requestApply(code: String){
+    ///获取社圈数据
+    func requestCircleData(code: String){
         if !GYZTool.checkNetWork() {
             return
         }
         
         weak var weakSelf = self
-        createHUD(message: "加载中...")
+        createHUD(message: "加载中")
         
-        GYZNetWork.requestNetwork("Circle/Circle/join", parameters: ["circle_id":code],  success: { (response) in
+        GYZNetWork.requestNetwork("Circle/Circle/info",parameters: ["id":code],  success: { (response) in
             
             weakSelf?.hud?.hide(animated: true)
             GYZLog(response)
-        
-            MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
+            
             if response["result"].intValue == kQuestSuccessTag{//请求成功
-
+                
+                guard let data = response["data"].dictionaryObject else { return }
+                let dataModel: FSIMCircleDetailModel = FSIMCircleDetailModel.init(dict: data)
+                if dataModel.myCircleMemberModel == nil || dataModel.myCircleMemberModel?.status != "1" {
+                    weakSelf?.goApplyCircle(circleId: code)
+                }else{
+                    weakSelf?.goChat(circleId: code, name: (dataModel.circleModel?.name)!)
+                }
             }else{
-                weakSelf?.goChat(circleId: code)
+                MBProgressHUD.showAutoDismissHUD(message: response["msg"].stringValue)
             }
             //继续扫描
             self.startScan()
-            
         }, failture: { (error) in
             weakSelf?.hud?.hide(animated: true)
+            GYZLog(error)
             //继续扫描
             self.startScan()
-            GYZLog(error)
         })
     }
-    
+
     /// 聊天
-    func goChat(circleId: String){
+    func goChat(circleId: String,name:String){
         let vc = FSChatVC()
         vc.targetId = circleId
         vc.conversationType = .ConversationType_GROUP
+        vc.userName = name
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    /// 申请社圈
+    func goApplyCircle(circleId: String){
+        let vc = FSJoinIMCircleVC()
+        vc.circleId = circleId
         navigationController?.pushViewController(vc, animated: true)
     }
     //MARK: Dealloc
@@ -409,7 +421,7 @@ extension FSIMScanQRCodeVC : AVCaptureMetadataOutputObjectsDelegate
                 mNodeCode = mNodeCode.fromBase64()
                 if mNodeCode.hasPrefix("202003"){
                     mNodeCode = mNodeCode.subString(start: 6)
-                    requestApply(code: mNodeCode)
+                    requestCircleData(code: mNodeCode)
                 }else{
                     MBProgressHUD.showAutoDismissHUD(message: "请扫描指定的二维码")
                     //继续扫描
