@@ -746,6 +746,10 @@ class FSHotDynamicVC: GYZWhiteNavBaseVC {
         if model.tagModels.count > 0 {
             let item: TagModel = model.tagModels[0] as! TagModel
             if item.valueType == "1" {
+                if item.value == "0" {
+                    MBProgressHUD.showAutoDismissHUD(message: "场馆未认证，不能进入详情")
+                    return
+                }
                 let vc = FSVenueHomeVC()
                 vc.userId = item.value
                 browser.navigationController?.pushViewController(vc, animated: true)
