@@ -3156,7 +3156,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Changzhou Tricolor Feather Sports Culture Media Co., Ltd. (NBLB797Y9B)";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = NBLB797Y9B;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3169,7 +3169,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = net.fitsky.mobile;
 				PRODUCT_NAME = Fitsky;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3188,7 +3188,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Changzhou Tricolor Feather Sports Culture Media Co., Ltd. (NBLB797Y9B)";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = NBLB797Y9B;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3201,7 +3201,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = net.fitsky.mobile;
 				PRODUCT_NAME = Fitsky;
 				PROVISIONING_PROFILE_SPECIFIER = "";

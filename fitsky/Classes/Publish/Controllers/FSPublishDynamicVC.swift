@@ -695,10 +695,10 @@ extension FSPublishDynamicVC : UITextViewDelegate,LHSAddPhotoViewDelegate
                 browserCell?.imageView.showTagViews()
             }
             //点击图片，编辑或新建标签
-            //            browserCell?.imageView.markedImageDidTapBlock = {[unowned self] (viewModel) in
-            //                GYZLog(viewModel)
-            //                self.goVenueDetail(model: viewModel!,browser: browser)
-            //            }
+            browserCell?.imageView.markedImageDidTapBlock = {[unowned self] (viewModel) in
+                GYZLog(viewModel)
+//                self.goVenueDetail(model: viewModel!,browser: browser)
+            }
             
         }
         // 数字样式的页码指示器
