@@ -695,7 +695,7 @@ extension FSPublishDynamicVC : UITextViewDelegate,LHSAddPhotoViewDelegate
                 browserCell?.imageView.showTagViews()
             }
             //点击图片，编辑或新建标签
-            browserCell?.imageView.markedImageDidTapBlock = {[unowned self] (viewModel) in
+            browserCell?.imageView.markedImageDidTapBlock = {(viewModel) in
                 GYZLog(viewModel)
 //                self.goVenueDetail(model: viewModel!,browser: browser)
             }
