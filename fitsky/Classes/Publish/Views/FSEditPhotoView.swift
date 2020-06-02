@@ -54,8 +54,8 @@ class FSEditPhotoView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     func setupUI(){
-//        let factor: CGFloat = outputSize.height / outputSize.width
-        movieView.frame = CGRect.init(x: 0, y: 0, width: kScreenWidth, height: kScreenHeight/*kScreenWidth * factor*/)
+        let factor: CGFloat = outputSize.height / outputSize.width
+        movieView.frame = CGRect.init(x: 0, y: 0, width: kScreenWidth, height: kScreenWidth * factor)
         
         self.addSubview(movieView)
     }
@@ -100,5 +100,6 @@ class FSEditPhotoView: UIView {
             quVideo.outputSize = CGSize.init(width: quVideo.outputSize.width, height: quVideo.outputSize.width / ratio)
         }
         quVideo.outputSize = quVideo.fixedSize()
+        GYZLog(quVideo.outputSize)
     }
 }

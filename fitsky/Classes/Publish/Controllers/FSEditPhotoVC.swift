@@ -69,11 +69,11 @@ class FSEditPhotoVC: GYZBaseVC {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        if editViews.count > 0 {
+//            self.editViews[self.currPage].startEdit()
+//        }
         for index in 0..<editViews.count {
             self.editViews[index].startEdit()
-            if !(self.editViews[index].player?.isPlaying())! {
-                self.editViews[index].player?.play()
-            }
         }
     }
     var filterView: FSFilterView = FSFilterView()
@@ -103,6 +103,7 @@ class FSEditPhotoVC: GYZBaseVC {
     }
     func stratDeal(){
         let videoSavePath: String = AliyunPathManager.compositionRootDir() + AliyunPathManager.randomString() + ".mp4"
+//        self.editViews[currIndex].startEdit()
         self.editViews[currIndex].exporter?.startExport(videoSavePath)
     }
     /// 获取视频封面
@@ -148,6 +149,7 @@ extension FSEditPhotoVC: UIScrollViewDelegate {
         let offset = scrollView.contentOffset
         // 随着滑动改变pageControl的状态
         currPage = Int(offset.x / view.bounds.width)
+        
         if self.selectFilterDic.keys.contains(self.currPage) {
             self.filterView.currFilterModel = self.selectFilterInfoDic[self.currPage]
             self.filterView.collectionView.reloadData()
@@ -182,6 +184,7 @@ extension FSEditPhotoVC: AliyunIExporterCallback,AliyunIPlayerCallback,AliyunIRe
     
     func exporterDidEnd(_ outputPath: String!) {
         self.featchFirstFrame(path: outputPath)
+        sleep(1)
         if self.currIndex < self.sourcePathArr.count - 1{
             self.currIndex += 1
             self.stratDeal()

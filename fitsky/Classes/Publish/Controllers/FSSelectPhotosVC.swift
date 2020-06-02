@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 import DKImagePickerController
 
 class FSSelectPhotosVC: GYZWhiteNavBaseVC {
@@ -84,13 +85,21 @@ class FSSelectPhotosVC: GYZWhiteNavBaseVC {
             savePhoto()
         }
     }
-    
+    override func createHUD(message: String) {
+        if hud != nil {
+            hud?.hide(animated: true)
+            hud = nil
+        }
+        
+        hud = MBProgressHUD.showHUD(message: message,toView: pickerController.view!)
+    }
     func savePhoto(){
         self.photoPathArr.removeAll()
         createHUD(message: "处理中...")
         for item in self.pickerController.selectedAssets {
             let tmpPhotoPath: String = AliyunPathManager.compositionRootDir() + AliyunPathManager.randomString() + ".jpg"
             AliyunPhotoLibraryManager.shared()?.savePhoto(with: item.originalAsset, maxSize: CGSize.init(width: item.originalAsset?.pixelWidth ?? 1080, height: item.originalAsset?.pixelHeight ?? 1920), outputPath: tmpPhotoPath, completion: { [unowned self](error, image) in
+            
                 self.photoPathArr.append(tmpPhotoPath)
                 if self.photoPathArr.count == self.pickerController.selectedAssets.count{
                     self.hud?.hide(animated: true)

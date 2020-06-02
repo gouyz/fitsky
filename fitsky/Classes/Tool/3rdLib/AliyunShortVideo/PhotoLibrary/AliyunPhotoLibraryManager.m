@@ -287,7 +287,7 @@ static CGFloat kQUScreenScale;
     requestOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     requestOptions.synchronous = YES;
     requestOptions.networkAccessAllowed = YES;//打开网络获取iCloud的图片的功能
-    CGFloat factor = MAX(maxSize.width,maxSize.height)/MAX(asset.pixelWidth, asset.pixelHeight);
+    CGFloat factor = MAX(maxSize.width,maxSize.height)/MAX(asset.pixelWidth, asset.pixelHeight) * 0.5;
     if (factor > 1) {
         factor = 1.0f;
     }
