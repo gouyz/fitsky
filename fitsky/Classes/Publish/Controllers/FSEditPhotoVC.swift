@@ -37,8 +37,7 @@ class FSEditPhotoVC: GYZBaseVC {
         automaticallyAdjustsScrollViewInsets = false
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named:"app_next_normal")?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(clickedNextBtn))
         self.view.backgroundColor = kBlackColor
-        //初始化动图资源
-        AliyunEffectPrestoreManager.init().insertInitialData()
+        
         self.navigationItem.title = "\((currPage + 1))/\(sourcePathArr.count)"
         
         addSubviews()

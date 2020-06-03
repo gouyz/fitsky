@@ -61,6 +61,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         initLocation()
+        //初始化动图资源
+        AliyunEffectPrestoreManager.init().insertInitialData()
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = kWhiteColor

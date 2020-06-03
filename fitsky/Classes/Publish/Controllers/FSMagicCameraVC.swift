@@ -34,7 +34,7 @@ class FSMagicCameraVC: GYZBaseVC {
     /// 保存视频
     var library: ALAssetsLibrary = ALAssetsLibrary.init()
     
-    var maxImgCount = 1
+    var maxImgCount = 9
     /// 是否返回上一页
     var isBack:Bool = false
     /// 是否发布作品
