@@ -103,7 +103,8 @@ class FSEditPhotoVC: GYZBaseVC {
     }
     func stratDeal(){
         let videoSavePath: String = AliyunPathManager.compositionRootDir() + AliyunPathManager.randomString() + ".mp4"
-//        self.editViews[currIndex].startEdit()
+//        self.editViews[currIndex].player?.stop()
+//        self.editViews[currIndex].editor?.stopEdit()
         self.editViews[currIndex].exporter?.startExport(videoSavePath)
     }
     /// 获取视频封面
@@ -120,7 +121,7 @@ class FSEditPhotoVC: GYZBaseVC {
         }else{
             info.type = .image
         }
-        
+//        let size:CGSize = CGSize.init(width: self.editViews[self.currPage].quVideo.outputSize.width * 0.5, height: self.editViews[self.currPage].quVideo.outputSize.height * 0.5)
         let image: UIImage = info.captureImage(atTime: 0, outputSize: self.editViews[self.currPage].quVideo.outputSize)
         self.selectCameraImgs.append(image)
         //保存到相册中
@@ -183,8 +184,9 @@ extension FSEditPhotoVC: AliyunIExporterCallback,AliyunIPlayerCallback,AliyunIRe
     }
     
     func exporterDidEnd(_ outputPath: String!) {
+        self.editViews[currIndex].player?.stop()
+        self.editViews[currIndex].editor?.stopEdit()
         self.featchFirstFrame(path: outputPath)
-        sleep(1)
         if self.currIndex < self.sourcePathArr.count - 1{
             self.currIndex += 1
             self.stratDeal()
@@ -216,7 +218,7 @@ extension FSEditPhotoVC: AliyunIExporterCallback,AliyunIPlayerCallback,AliyunIRe
     }
     
     func exporterDidStart() {
-        
+        GYZLog("111")
     }
     
     

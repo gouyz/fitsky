@@ -761,6 +761,8 @@ extension FSPublishWorkVC : UITextViewDelegate,LHSAddPhotoViewDelegate
                 }
                 browserCell?.imageView.createTagView(arr)
                 browserCell?.imageView.showTagViews()
+            }else{
+                browserCell?.imageView.hideTagViews()
             }
             //点击图片，编辑或新建标签
             //            browserCell?.imageView.markedImageDidTapBlock = {[unowned self] (viewModel) in

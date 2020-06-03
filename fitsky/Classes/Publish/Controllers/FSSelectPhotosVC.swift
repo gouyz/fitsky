@@ -91,7 +91,7 @@ class FSSelectPhotosVC: GYZWhiteNavBaseVC {
             hud = nil
         }
         
-        hud = MBProgressHUD.showHUD(message: message,toView: pickerController.view!)
+        hud = MBProgressHUD.showHUD(message: message)
     }
     func savePhoto(){
         self.photoPathArr.removeAll()
